@@ -27,6 +27,8 @@ public class SchedulerController {
 		//로그인된 아이디 가져오기
 		String memberId = (String)session.getAttribute("memberId");
 		
+		//잘됐는지 체크해보려고 하는 push~
+		
 		//임시
 		memberId = "honggd";
 		
