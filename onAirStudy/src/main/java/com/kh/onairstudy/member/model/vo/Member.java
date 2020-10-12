@@ -14,4 +14,18 @@ import lombok.ToString;
 
 public class Member implements Serializable{
 
-}
+
+		   private String memberId;
+		   private String memberName;
+		   private String password;
+		   private String memberRole;
+		   private String phone;
+		   private int diligentPoint;
+		   private String blacklist;
+		   private String withdraw;
+		   private String comment;
+		   private int category;
+		
+	}
+
+
