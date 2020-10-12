@@ -9,11 +9,17 @@ import com.kh.onairstudy.attendance.model.service.AttendanceService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/attend")
 @Slf4j
 public class AttendanceController {
 
 	@Autowired
 	private AttendanceService attendanceService; 
+	
+	
+	@RequestMapping("/mypage1.do")
+	public String mypage1() {
+		return "mypage1/side-bar1";
+	}
 	
 }
