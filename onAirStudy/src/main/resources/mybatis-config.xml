@@ -6,17 +6,18 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
-		
 	</settings>
-<!-- 	<typeAliases>
-		<typeAlias type="com.kh.spring.demo.model.vo.Dev" alias="dev"/>
-		<package name="com.kh.spring"/>	
+	
+	<typeAliases>
+		<typeAlias type="com.kh.onairstudy.member.model.vo.Member" alias="member"/>
+		<package name="com.kh.onairstudy"/>	
 	</typeAliases>
-
-	<typeHandlers>
+	
+	
+	<!-- <typeHandlers>
 		<typeHandler handler="com.kh.spring.common.typehandler.StringArrayTypeHandler"/>
 		<package name="com.kh.spring.common.typehandler"/>
-	</typeHandlers> -->
+	</typeHandlers>  -->
 	
 	
 </configuration>
