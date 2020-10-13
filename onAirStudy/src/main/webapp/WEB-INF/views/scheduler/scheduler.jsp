@@ -11,6 +11,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
     
 <!--컬러픽커-->
 <script src="${pageContext.request.contextPath }/resources/js/jquery.minicolors.js"></script>
@@ -21,120 +22,6 @@
 <!-- Air datepicker css -->
 <script src="${pageContext.request.contextPath }/resources/js/datepicker.js"></script> <!-- Air datepicker js -->
 <script src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
-    
-    <style>
-    
-                #thisday{
-                    background-color: skyblue;
-                    padding-right: 10%;
-                }
-                .Bday span{
-                    margin: 0;
-                    padding-left: 10px;
-                    border-radius: 10px;
-                }
-                .Bday{
-                    border-radius: 10px;
-                    cursor: pointer;
-                }
-                .Bday:hover{
-                    background-color: rgb(216, 214, 214);
-                }
-                #prevB{
-                    margin-right: 30px;
-                    background: white;
-                    border: none;
-                    
-                }
-                #prevB img{
-                    width: 50px;
-                    background: none;
-                }
-                #nextB{
-                    margin-left: 30px;
-                    background: white;
-                    border: none;
-                }
-                #nextB img{
-                    width: 50px;
-                }
-                .monthBB{
-                    font-size: 30px;
-                    font-weight: bold;
-                    text-align: center;
-
-                }
-                #monthB{
-                    width: 100px;
-                    display:inline-block;
-                }
-                .dropB{
-                    position: absolute;
-                    border: 1px solid black;
-                    width: 200px;
-                    background-color: grey;
-                }
-                .dropB p{
-                    text-align: right;
-                    margin: 0;
-                    margin-right: 20px;
-                    cursor: pointer;
-                }
-                .dropB button{
-                    transition-duration: 0.4s;
-                    border: 0;
-                    outline: 0;
-                }
-                .dropB button:hover{
-                    background-color: #fff;
-                }
-                .yearBB{
-                    font-size: 40px;
-                    font-weight: bold;
-                    text-align: center;
-                }
-                .cal-divB{
-                    width:800px;
-                    margin-top: 100px;
-                    margin-left: 100px;
-                }
-                .sun{
-                    color:red;
-                }
-                .sat{
-                    color:blue;
-                }
-                .tableB tr td{
-                    padding: 0;
-                    width:100px;
-                    height:100px;
-                    margin: 5px;
-                }
-                .modal-body img{
-                    width: 25px;
-                }
-                .modal-body .Datepicker{
-                    text-align: center;
-                    width: 100px;
-                    height: 30px;
-                }
-                #insertSchedulFrm{
-                    text-align: center;
-                }
-                #insertSchedulFrm span{
-                    width: 200px;
-                }
-                .marginB{
-                    margin-top: 30px;
-                    margin-bottom: 30px;
-                }
-                .datepickers-container{
-                    z-index: 9999;
-                }
-
-    
-    </style>
-    
     
     
     <script>
@@ -180,20 +67,29 @@ $('.demo').each( function() {
 
                 });
            });
-            //기본 달력출력
-            $(document).ready(function(){
-                drawCalendar();
+           //기본 달력출력
+           $(document).ready(function(){
+               drawCalendar();
 
-                //메뉴닫아주기
-                $(".dropB").find("p").click(function(){
-                    $(".dropB").css("display", "none");
-                });
-                
-                $(".btn-secondary").click(function(){
-                    $(".dropB").css("display", "none");
-                })
-           
-            });
+           });
+           $(document).ready(function(){
+
+               //메뉴닫아주기
+               $(".dropB").find("p").click(function(){
+                   $(".dropB").css("display", "none");
+               });
+          
+           });
+           $(document).ready(function(){
+               $(".close").click(function(){
+                  var inputs = document.getElementsByClassName("delB");
+                   for(var i = 0 ; i<inputs.length ; i++){
+                       inputs[i].value = "";
+                   }
+                   $(".dropB").css("display", "none");
+               })
+          
+           });
 
             var today = new Date();
 
@@ -278,7 +174,7 @@ $('.demo').each( function() {
                             htmlB += "sat";
                         }
                         
-                        htmlB+="' id='"+yB+(MB < 10 ? "0"+MB : MB )+ (dB < 10 ? "0"+dB : dB ) +"'><span> "+(dB++)+"</span></td>";
+                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><span> "+(dB++)+"</span></td>";
                     }
                     htmlB+="</tr>";
 
@@ -289,7 +185,7 @@ $('.demo').each( function() {
                 //오늘날짜에 id 추가하기
                 var today = new Date();
                 if(firstDate.getFullYear() == today.getFullYear() && firstDate.getMonth()==today.getMonth()){
-                    today = moment(new Date()).format("YYYYMMDD");
+                    today = moment(new Date()).format("YYYY-MM-DD");
                     var toid = document.getElementById(today).firstChild;
                     toid.setAttribute("id", "thisday");
                 }
@@ -303,22 +199,6 @@ $('.demo').each( function() {
                     }, false);
                 }
 
-
-                //스케줄넣어주기
-                if(schedules.length>0){
-                    scheduling();
-                }
-
-            }
-            function scheduling(){
-               
-                //투두, 디데이가 아닐때
-                schedules.forEach(function(e){
-                    console.log(e.startDate);
-                    console.log(e.endDate);
-                    document.getElementById(e.startDate).innerHTML+="<br/><span>"+e.content+"</span>";
-                    //구려!!!
-                })
             }
 
             
@@ -357,11 +237,9 @@ $('.demo').each( function() {
                     var y = event.clientY;
 
                     $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
-                    var starD = e.id.substr(0, 4)+"-"+e.id.substr(4, 2)+"-"+e.id.substr(6);
-                    $("[name=startDate]").val(starD);
+                    $("[name=startDate]").val(e.id);
 
                 }
-                
 
         </script>
         
@@ -398,21 +276,29 @@ $('.demo').each( function() {
 
                 <!-- 등록하는 부분 -->
                 <div class="modal-body">
-                    <form id="insertSchedulFrm">
+                    <form id="insertSchedulFrm" action="${pageContext.request.contextPath }/scheduler/insert.do" method="post">
                         
-                        <input type="text" class="datepick" name="startDate">  ~  
-                        <input type="text" class="datepick" name="endDate">
+                        <input type="text" class="datepick delB" name="startDate">  ~  
+                        <input type="text" class="datepick delB" name="endDate">
                         <br/>
 
-                        <input type="text" class="marginB" name="content" style="width: 300px;" placeholder="내용 입력">
+                        <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
                         <br/>
                         
                         <label for="hidden-input">형광펜 색상 선택 : </label>
                         <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
                         <br/>
 
-                        <input type="checkbox" name="timeOpt" id="timeOpt">
-                        <label for="timeOpt">시간추가 : </label>
+                        <label for="timeOption">시간추가 : 
+                        
+                        <select class="makeSelB" name="timeOption" id="time1">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        	
+                        <select class="makeSelB" name="timeOption" id="time2">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        </label>
 
                         <br/>
 
@@ -425,8 +311,7 @@ $('.demo').each( function() {
 
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">등록하기</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" onclick="$('#insertSchedulFrm').submit();" class="btn btn-primary">등록하기</button>
                 </div>
               </div>
             </div>

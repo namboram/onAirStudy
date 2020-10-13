@@ -4,15 +4,16 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onairstudy.scheduler.model.service.SchedulerService;
+import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,11 +48,10 @@ public class SchedulerController {
 	}
 	
 	@RequestMapping("/insert.do")
-	public void insertSchedule(HttpServletRequest request) {
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
+	public String insertSchedule(Scheduler sch) {
+
+		log.debug("sch = {}", sch);
 		
-		log.debug("startDate={}", startDate);
-		log.debug("endDate={}", endDate);
+		return "redirect:/scheduler/main.do";
 	}
 }
