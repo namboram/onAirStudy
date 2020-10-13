@@ -13,11 +13,18 @@ rollbackFor = Exception.class)*/
 @Service
 public class MemberServiceImpl implements MemberService {
 
+
 	@Autowired
 	private MemberDAO memberDAO;
 
+	//01. 회원 로그인
 	@Override
 	public Member selectOneMember(String memberId) {
 		return memberDAO.selectOneMember(memberId);
+	}
+	// 02. 회원등록
+	@Override
+	public int insertMember(Member member) {
+		return memberDAO.insertMember(member);
 	}
 }
