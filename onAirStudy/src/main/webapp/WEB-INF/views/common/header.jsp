@@ -64,7 +64,8 @@
                   <c:if test="${ empty loginMember }">
 	                <ul class="nav navbar-nav navbar-right">
 						<li><a href="<%= request.getContextPath() %>/member/memberLogin.do">login</a></li>
-	                  <li><a href="<%= request.getContextPath() %>/member/enroll">Join</a></li> 
+	                  <%-- <li><a href="<%= request.getContextPath() %>/member/memberenroll.do">Join</a></li>  --%>
+	                  <li><a href="#" onclick="location.href='${ pageContext.request.contextPath }/member/memberEnroll.do';">Join</a></li> 
                   
                  </c:if>
                  
