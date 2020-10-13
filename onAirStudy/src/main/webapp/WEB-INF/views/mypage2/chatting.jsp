@@ -35,14 +35,14 @@
 				<div class="fix_btn">
 					<input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" />
 					<button type="button" class="send">보내기</button>
-					<button type="button" class="roomOut" value="${user.username}">방
-						나가기</button>
+					<%-- <button type="button" class="roomOut" value="${user.username}">방
+						나가기</button> --%>
 					<input type="hidden" value="${cri.page}" id="page" name="page" /> <input
 						type="hidden" value="${cri.perPageNum }" id="perPageNum"
 						name="perPageNum" />
-					<button type="button" class="btnPass"
+					<%-- <button type="button" class="btnPass"
 						onclick="return isOwner(${room}, '${user.username}')">방
-						수정하기</button>
+						수정하기</button> --%>
 				</div>
 			</div>
 		</div>
@@ -80,7 +80,7 @@
 	        
 	        client.connect({}, function (){
 	        	// 여기는 입장시
-	        	alert("입장은 하겠지");
+	        	alert("로그인 정보"+"${loginMember}");
 	        	//client.send('/app/join/'+ roomNo , {}, JSON.stringify({ writer: member})); 
 //	           일반메세지 들어오는곳         
 	            client.subscribe('/subscribe/chat'+roomNo, function (chat) {
