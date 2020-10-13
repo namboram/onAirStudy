@@ -21,5 +21,10 @@ public class AttendanceController {
 	public String mypage1() {
 		return "mypage1/side-bar1";
 	}
+
 	
+	@RequestMapping("/mypage2.do")
+	public String mypage2() {
+		return "mypage2/side-bar2";
+	}
 }
