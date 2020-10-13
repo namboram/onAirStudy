@@ -11,30 +11,188 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<%--     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" /> --%>
+    
+<!--컬러픽커-->
+<script src="${pageContext.request.contextPath }/resources/js/jquery.minicolors.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.minicolors.css">
+
+<!--데이트픽커-->
+<link href="${pageContext.request.contextPath }/resources/css/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
+<!-- Air datepicker css -->
+<script src="${pageContext.request.contextPath }/resources/js/datepicker.js"></script> <!-- Air datepicker js -->
+<script src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+    
+    <style>
+    
+                #thisday{
+                    background-color: skyblue;
+                    padding-right: 10%;
+                }
+                .Bday span{
+                    margin: 0;
+                    padding-left: 10px;
+                    border-radius: 10px;
+                }
+                .Bday{
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+                .Bday:hover{
+                    background-color: rgb(216, 214, 214);
+                }
+                #prevB{
+                    margin-right: 30px;
+                    background: white;
+                    border: none;
+                    
+                }
+                #prevB img{
+                    width: 50px;
+                    background: none;
+                }
+                #nextB{
+                    margin-left: 30px;
+                    background: white;
+                    border: none;
+                }
+                #nextB img{
+                    width: 50px;
+                }
+                .monthBB{
+                    font-size: 30px;
+                    font-weight: bold;
+                    text-align: center;
+
+                }
+                #monthB{
+                    width: 100px;
+                    display:inline-block;
+                }
+                .dropB{
+                    position: absolute;
+                    border: 1px solid black;
+                    width: 200px;
+                    background-color: grey;
+                }
+                .dropB p{
+                    text-align: right;
+                    margin: 0;
+                    margin-right: 20px;
+                    cursor: pointer;
+                }
+                .dropB button{
+                    transition-duration: 0.4s;
+                    border: 0;
+                    outline: 0;
+                }
+                .dropB button:hover{
+                    background-color: #fff;
+                }
+                .yearBB{
+                    font-size: 40px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                .cal-divB{
+                    width:800px;
+                    margin-top: 100px;
+                    margin-left: 100px;
+                }
+                .sun{
+                    color:red;
+                }
+                .sat{
+                    color:blue;
+                }
+                .tableB tr td{
+                    padding: 0;
+                    width:100px;
+                    height:100px;
+                    margin: 5px;
+                }
+                .modal-body img{
+                    width: 25px;
+                }
+                .modal-body .Datepicker{
+                    text-align: center;
+                    width: 100px;
+                    height: 30px;
+                }
+                #insertSchedulFrm{
+                    text-align: center;
+                }
+                #insertSchedulFrm span{
+                    width: 200px;
+                }
+                .marginB{
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                }
+                .datepickers-container{
+                    z-index: 9999;
+                }
+
+    
+    </style>
     
     
-      <script>
+    
+    <script>
 
+$(document).ready( function() {
 
-            
-            function schedule(no, startDate, endDate, content, colorCode, timeOpt){
-                this.no = no;
-                this.startDate = startDate;
-                this.endDate = endDate;
-                this.content = content;
-                this.colorCode = colorCode;
-                this.timeOpt = timeOpt;
-            }
-            
-            //예시데이터
-            var schedules = Array (
-                new schedule(1, 20201001, 20201002, "예시데이터", "", "")
-                
-            );
+$('.demo').each( function() {
+  $(this).minicolors({
+    control: $(this).attr('data-control') || 'hue',
+    defaultValue: $(this).attr('data-defaultValue') || '',
+    format: $(this).attr('data-format') || 'hex',
+    keywords: $(this).attr('data-keywords') || '',
+    inline: $(this).attr('data-inline') === 'true',
+    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+    opacity: $(this).attr('data-opacity'),
+    position: $(this).attr('data-position') || 'bottom left',
+    swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+    change: function(value, opacity) {
+      if( !value ) return;
+        console.log(value);
+        $("#hidden-input").val(value);
+      
+    },
+    theme: 'default'
+  });
+
+});
+
+});
+
+            //모달창 데이트피커
+           
+                $(".datepick").datepicker({
+                    language: 'ko',
+                    dateFormat:"yyyy-mm-dd",
+                    onSelect: function onSelect(e, date) {
+
+                    console.log(date);
+                    console.log(e);
+                    console.log($(this));
+                    
+                }
+
+                });
             
             //기본 달력출력
             $(document).ready(function(){
                 drawCalendar();
+
+                //메뉴닫아주기
+                $(".dropB").find("p").click(function(){
+                    $(".dropB").css("display", "none");
+                });
+                
+                $(".btn-secondary").click(function(){
+                    $(".dropB").css("display", "none");
+                })
            
             });
 
@@ -89,9 +247,9 @@
                 var info = document.getElementsByClassName("infoB")[0];
                 info.innerHTML ="<button onclick='drawCalendar();'>오늘날짜보기</button>"
                                 + "<h1 class='yearBB'>"+firstDate.getFullYear()+"</h1><br/>"
-                                + "<h2 class='monthBB'><button id='prevB' onclick='prevCalendar("+firstDate.getMonth()+");'>전달</button>"
-                                + "<p style='display:inline;' id='monthB'>"+(firstDate.getMonth()+1)+"월</p>"
-                                + "<button id='nextB' onclick='nextCalendar("+firstDate.getMonth()+");'>담달</button></h2><br/>";
+                                + "<h2 class='monthBB'><button id='prevB' onclick='prevCalendar("+firstDate.getMonth()+");'><img src='${pageContext.request.contextPath }/resources/images/L.png'></button>"
+                                + "<p id='monthB'>"+(firstDate.getMonth()+1)+"월</p>"
+                                + "<button id='nextB' onclick='nextCalendar("+firstDate.getMonth()+");'><img src='${pageContext.request.contextPath }/resources/images/R.png'></button></h2><br/>";
                 
                 //요일정보
                 htmlB+= "<tr><th scope='col' class='sun'>sun</th><th scope='col'>mon</th><th scope='col'>tue</th><th scope='col'>wed</th><th scope='col'>thu</th><th scope='col'>fri</th><th scope='col' class='sat'>sat</th></tr>";
@@ -121,7 +279,7 @@
                             htmlB += "sat";
                         }
                         
-                        htmlB+="' id='"+yB+MB+ (dB < 10 ? "0"+dB : dB ) +"'><span> "+(dB++)+"</span></td>";
+                        htmlB+="' id='"+yB+(MB < 10 ? "0"+MB : MB )+ (dB < 10 ? "0"+dB : dB ) +"'><span> "+(dB++)+"</span></td>";
                     }
                     htmlB+="</tr>";
 
@@ -141,7 +299,7 @@
                 var eventB = document.getElementsByClassName("Bday");
                     for(var i = 0 ; i < eventB.length ; i++){
                     eventB[i].addEventListener("click", function(){
-                       mouseEvents(this);
+                       mouseEvents(this, event);
 
                     }, false);
                 }
@@ -153,7 +311,6 @@
                 }
 
             }
-
             function scheduling(){
                
                 //투두, 디데이가 아닐때
@@ -194,73 +351,24 @@
                 });    
                 
                 //메뉴 나타나게하기
-                function mouseEvents(e){
-                    // console.log(e);
-                    $("#dropB").attr("display", "none");
-                }
-                
-        </script>
-        
-         <style>
-                #thisday{
-                    background-color: skyblue;
-                    padding-right: 90%;
-                    border-radius: 10px;
-                }
-                .Bday span{
-                    margin: 0;
-                    padding-left: 10px;
-                    border-radius: 10px;
-                }
-                .Bday{
-                    border-radius: 10px;
-                    cursor: pointer;
-                }
-                .Bday:hover{
-                    background-color: rgb(216, 214, 214);
-                }
-                #prevB{
-                    margin-right: 30px;
-                    border-style: none;
-                    background-color: burlywood;
-                }
-                #nextB{
-                    margin-left: 30px;
-                    border-style: none;
-                }
-                .monthBB{
-                    font-size: 30px;;
-                    font-weight: bold;
-                    text-align: center;
+                function mouseEvents(e, event){
+                     console.log(e.id);
+                     //마우스좌표
+                    var x = event.clientX;
+                    var y = event.clientY;
+
+                    $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
+                    var starD = e.id.substr(0, 4)+"-"+e.id.substr(4, 2)+"-"+e.id.substr(6);
+                    $("[name=startDate]").val(starD);
 
                 }
-                .yearBB{
-                    font-size: 40px;
-                    font-weight: bold;
-                    text-align: center;
-                }
-                .cal-divB{
-                    width:800px;
-                    margin-top: 100px;
-                    margin-left: 100px;
-                }
-                .sun{
-                    color:red;
-                }
-                .sat{
-                    color:blue;
-                }
-                .tableB tr td{
-                    padding: 0;
-                    width:100px;
-                    height:100px;
-                    margin: 5px;
-                }
-            </style>
+                
+
+        </script>
+        
     
 </head>
 <body>
-
 
   <div class='cal-divB'>
         <div class="infoB">
@@ -271,12 +379,59 @@
         </table>
         </div>
 
-        <div class="dropdown-menu" id="dropB">
-            <a class="dropdown-item" href="#">일정 등록</a>
-            <a class="dropdown-item" href="#">To do List</a>
-            <a class="dropdown-item" href="#">더보기</a>
+        <div class="dropdown-menu dropB "><p>X</p>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#insertSchedule">일정 등록</button>
+            <button class="dropdown-item">To do List</button>
+            <button class="dropdown-item">더보기</button>
           </div>
-    
+
+
+          <!-- 일정등록 모달 -->
+          <div class="modal" id="insertSchedule" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">일정 등록</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <!-- 등록하는 부분 -->
+                <div class="modal-body">
+                    <form id="insertSchedulFrm">
+                        
+                        <input type="text" class="datepick" name="startDate">  ~  
+                        <input type="text" class="datepick" name="endDate">
+                        <br/>
+
+                        <input type="text" class="marginB" name="content" style="width: 300px;" placeholder="내용 입력">
+                        <br/>
+                        
+                        <label for="hidden-input">형광펜 색상 선택 : </label>
+                        <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
+                        <br/>
+
+                        <input type="checkbox" name="timeOpt" id="timeOpt">
+                        <label for="timeOpt">시간추가 : </label>
+
+                        <br/>
+
+                        <input type="checkbox" name="dYN" id="dYN">
+                        <label for="dYN">디데이 일정으로 등록하기</label>
+
+
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">등록하기</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
 
