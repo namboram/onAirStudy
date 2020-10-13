@@ -60,21 +60,12 @@
 	   	</div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-          <ul id="side-main-menu" class="side-menu list-unstyled">                  
+           <ul id="side-main-menu" class="side-menu list-unstyled">                  
             <li class=""><a href="#"> <i class="icon-home"></i>초대내역                             </a></li>
             <li> <a href="#"> <i class="icon-mail"></i>프리미엄
                 <div class="badge badge-warning">D - 37</div></a></li>
             <li><a href="#"> <i class="fa fa-bar-chart"></i>내 스터디방                            </a></li>
             <li><a href="#"> <i class="icon-grid"></i>스케줄러                             </a></li>
-            <!-- 드롭다운 메뉴 : 마이페이지2에 쓸 시험메뉴 -->
-           <!--  <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="#">Page</a></li>
-                <li><a href="#"
-                >Page</a></li>
-                <li><a href="#">Page</a></li>
-              </ul>
-            </li> -->
             <li><a href="#"> <i class="icon-interface-windows"></i>내 정보                             </a></li>
           </ul>
         </div>
@@ -84,15 +75,14 @@
    
      
     </div>
-    <!-- JavaScript files-->
-    <!-- <script src="${pageContext.request.contextPath }/resources/vendor/jquery/jquery.min.js"></script>
+    JavaScript files
+    <script src="${pageContext.request.contextPath }/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="${pageContext.request.contextPath }/resources/vendor/chart.js/Chart.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
-    <!-- Main File-->
-    <!-- <script src="${pageContext.request.contextPath }/resources/js/front.js"></script> -->
+    <script src="${pageContext.request.contextPath }/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    Main File
+    <script src="${pageContext.request.contextPath }/resources/js/front.js"></script>
   </body>
 </html>

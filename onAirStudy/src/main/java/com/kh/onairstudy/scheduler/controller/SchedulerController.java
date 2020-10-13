@@ -1,8 +1,10 @@
 package com.kh.onairstudy.scheduler.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,14 @@ public class SchedulerController {
 		return mav;
 		
 		
+	}
+	
+	@RequestMapping("/insert.do")
+	public void insertSchedule(HttpServletRequest request) {
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		
+		log.debug("startDate={}", startDate);
+		log.debug("endDate={}", endDate);
 	}
 }

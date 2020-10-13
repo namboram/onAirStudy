@@ -1,5 +1,4 @@
-
-                #thisday{
+  #thisday{
                     background-color: skyblue;
                     padding-right: 10%;
                 }
@@ -88,9 +87,9 @@
                 .modal-body img{
                     width: 25px;
                 }
-                .modal-body .Datepicker{
+                .modal-body .datepick{
                     text-align: center;
-                    width: 100px;
+                    width: 140px;
                     height: 30px;
                 }
                 #insertSchedulFrm{
@@ -106,4 +105,3 @@
                 .datepickers-container{
                     z-index: 9999;
                 }
-
