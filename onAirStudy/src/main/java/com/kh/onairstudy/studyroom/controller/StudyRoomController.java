@@ -19,8 +19,8 @@ public class StudyRoomController {
 	private StudyRoomService studyRoomService;
 	
 	@RequestMapping("/room/{room_id}")
-	public String room(@PathVariable String id, Model model) {
+	public String room( Model model) {
 		
-		return "";
+		return "mypage2/side-bar2";
 	}
 }
