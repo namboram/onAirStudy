@@ -16,6 +16,31 @@
 		<org.springframework.security-version>5.1.5.RELEASE</org.springframework.security-version>
 	</properties>
 	<dependencies>
+	<!-- 채팅 -->
+	<!-- socket -->
+	<dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>${org.springframework-version}</version>
+      </dependency>
+      
+     <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-messaging</artifactId>
+    	<version>${org.springframework-version}</version>
+	</dependency>
+	<!-- stomp -->
+	<dependency>
+    <groupId>org.springframework.integration</groupId>
+    <artifactId>spring-integration-stomp</artifactId>
+    <version>5.3.2.RELEASE</version>
+</dependency>
+<!-- jackson -->
+<dependency>
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-core</artifactId>
+         <version>2.9.9</version>
+    </dependency>
 		<!--  Spring  -->
 		<dependency>
 			<groupId>org.springframework</groupId>
