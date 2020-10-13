@@ -3,12 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="room" value="<%=1%>"/>
 <fmt:requestEncoding value="utf-8"/>
 
-<script src="/dist/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/dist/sockjs.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script type="text/javascript" src="/js/jquery-1.12.4.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <style>
 .chatcontent {
 	overflow: scroll;
@@ -19,10 +20,10 @@
 <div id="chat-containerK">
 		<div class="chatWrap">
 			<div class="main_tit">
-				<h1>방 이름 [ ${room.roomName} ]</h1>
+				<h1>방 이름 [ ${room}번 ]</h1>
 			</div>
-			<div class="content chatcontent" data-room-no="${room.roomNo}"
-				data-member="${member}">
+			<div class="content chatcontent" data-room-no="${room}"
+				data-member="${loginMember}">
 				<div class="user">
 					<ul>
 
@@ -34,14 +35,14 @@
 				<div class="fix_btn">
 					<input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" />
 					<button type="button" class="send">보내기</button>
-					<button type="button" class="roomOut" value="${user.username}">방
-						나가기</button>
+					<%-- <button type="button" class="roomOut" value="${user.username}">방
+						나가기</button> --%>
 					<input type="hidden" value="${cri.page}" id="page" name="page" /> <input
 						type="hidden" value="${cri.perPageNum }" id="perPageNum"
 						name="perPageNum" />
-					<button type="button" class="btnPass"
-						onclick="return isOwner(${room.roomNo}, '${user.username}')">방
-						수정하기</button>
+					<%-- <button type="button" class="btnPass"
+						onclick="return isOwner(${room}, '${user.username}')">방
+						수정하기</button> --%>
 				</div>
 			</div>
 		</div>
@@ -56,18 +57,21 @@
 		$(function () {
 	        var chatBox = $('.box');
 	        var messageInput = $('input[name="msg"]');
-	        var roomNo = $('.content').data('room-no');
+	        var roomNo = "${room}";
 	        var member = $('.content').data('member');
-	        var sock = new SockJS("/endpoint");
+	        var sock = new SockJS("${pageContext.request.contextPath}/endpoint");
 	        var client = Stomp.over(sock);
 	        
 	        function sendmsg(){
 	        	var message = messageInput.val();
+	        	alert("메시지"+message);
 	            if(message == ""){
 	            	return false;
 	            }
-	            client.send('/app/'+ roomNo, {}, JSON.stringify({
-	            	message: message, writer: member
+	            client.send('/app/hello'+roomNo, {}, JSON.stringify({
+	            	chatContent: message,
+	            	memberId: "honggd"
+	            	
 	            	}
 	            ));
 	            
@@ -76,19 +80,20 @@
 	        
 	        client.connect({}, function (){
 	        	// 여기는 입장시
+	        	alert("로그인 정보"+"${loginMember}");
 	        	//client.send('/app/join/'+ roomNo , {}, JSON.stringify({ writer: member})); 
 //	           일반메세지 들어오는곳         
-	            client.subscribe('/subscribe/chat/' + roomNo, function (chat) {
+	            client.subscribe('/subscribe/chat'+roomNo, function (chat) {
+	            	 alert("왜 안들어와..");
 	                var content = JSON.parse(chat.body);
-	                
 	                if(content.memberId == member.memberId){
 	                	//내 채팅 메시지일때
-	                	chatBox.append("<li>" + content.writer + " :  <br/>" + content.message + "</li>").append('<span>' + "[보낸 시간]" + content.chatdate + "</span>" + "<br>");
+	                	chatBox.append("<li>" + content.memberId + " :  <br/>" + content.chatContent + "</li>").append('<span>' + "[보낸 시간]" + content.sendDate + "</span>" + "<br>");
 	                	  
 	                }else{
 		                //다른사람의 메시지일때
-	                	chatBox.append("<li>" + content.messageType + " :  <br/>" + content.message + "</li>").append('<span>' + "[보낸 시간]" + content.chatdate + "</span>" + "<br>");
-		            	
+	                	chatBox.append("<li>" + content.memberId + " :  <br/>" + content.chatContent + "</li>").append('<span>' + "[보낸 시간]" + content.sendDate + "</span>" + "<br>");
+	                	
 	                }
 	                
 	                $(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
@@ -98,6 +103,7 @@
 	        });
 //	         대화시
 	        $('.send').click(function () {
+		        //alert("눌리나?");
 	            sendmsg();
 	        });
 	        
