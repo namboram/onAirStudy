@@ -109,6 +109,6 @@
                 .datepickers-container{
                     z-index: 9999;
                 }
-                .infoB+button{
-                	
+                #viewTable td{
+                	text-align:center;
                 }

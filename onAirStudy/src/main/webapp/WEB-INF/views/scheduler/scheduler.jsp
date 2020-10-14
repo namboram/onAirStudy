@@ -52,9 +52,9 @@
         </div>
 
 		<!-- 메뉴바  -->
-        <div class="dropdown-menu dropB "><p>X</p>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#insertSchedule">일정 등록</button>
-            <button class="dropdown-item">일정 보기</button>
+        <div class="dropdown-menu dropB"><p>X</p>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this);" data-target="#insertSchedule">일정 등록</button>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this);" data-target="#viewSchedule">일정 보기</button>
             <button class="dropdown-item">To do List</button>
           </div>
 
@@ -126,10 +126,159 @@
               </div>
             </div>
           </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- 일정보기모달 -->
+          <div class="modal" id="viewSchedule" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">일정 보기</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body" id="viewBody">
+					<table class="table" id="viewTable">
+
+
+
+					</table>	
+                </div>
+
+
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- 일정수정 모달 -->
+          <div class="modal" id="updateSchedule" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">일정 등록</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <!-- 수정하는 부분 -->
+                <div class="modal-body">
+                    <form id="updateSchedulFrm" action="${pageContext.request.contextPath }/scheduler/updqte.do" method="post">
+                        
+                        <input type="hidden" name="memberId" value="honggd" />
+                        
+						<h3 style="margin-right:180px;">날짜 입력</h3>
+						<br />
+                        <input type="text" class="datepick delB" name="startDate">  ~  
+                        <input type="text" class="datepick delB" name="endDate">
+                        <br/>
+                        <br/>
+						
+						<h3 style="margin-right:180px;">내용 입력</h3>
+						<br />
+                        <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
+                        <br/>
+                        <br/>
+                        
+                        <label for="hidden-input">형광펜 색상 선택 : </label>
+                        <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
+                        <br/>
+                        <br/>
+
+                        <label for="timeOption">시간추가 : 
+                        
+                        <select class="makeSelB" name="timeOption" id="time1">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        	
+                        <select class="makeSelB" name="timeOption" id="time2">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        </label>
+                        <input type="hidden" name="timeOpt" val="" />
+
+                        <br/>
+                        <br/>
+
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" id="insertsubB" class="btn btn-primary">수정하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
 
 
     
     <script>
+
+
+    //일정등록할때 인풋값 미리 넣어주기
+	function insertForm(e){
+	    $("#insertSchedulFrm [name=startDate]").val(e.value);
+	    $("#insertSchedulFrm [name=endDate]").val(e.value);
+	}
+
+	//일정보기할때 일정 미리 넣어주기
+	function viewSchedule(e){
+
+		var theDate = e.value;
+		var htmlB = "";
+		var count = 0;
+		
+		if(schedules != null){
+			for(var i in schedules){
+				if(schedules[i].startDate == theDate){
+					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? timeOpt : "-")+" ) </td>";
+					htmlB += "<td><button type='button' class='btn btn-light' value='"+theDate+"' id='updateB'>수정</button></td>"
+							+"<td><button type='button' class='btn btn-light' value='"+theDate+"' id='deleteB'>삭제</button></td>";
+					htmlB += "</tr>";
+					count++;
+					}		
+				}
+			}
+
+		if(count==0)
+			htmlB += "<tr colspan='3'><td>일정이 없습니다.</td></tr>";
+		
+        $("#viewTable").empty().append(htmlB);
+
+		}
+	
+    
 
     $(document).ready(function(){
     	$('#insertsubB').click(function(){
@@ -410,7 +559,7 @@
                     //투두, 디데이가 아닐때
                     schedules.forEach(function(e){
                         if(e.dYN == "Y"){
-							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.");
+							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
                           }
                         console.log(e.startDate);
                         console.log(e.endDate);
@@ -454,10 +603,13 @@
                     var x = event.clientX;
                     var y = event.clientY;
 
+					//메뉴보여주기
                     $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
-                    $("[name=startDate]").val(e.id);
-                    $("[name=endDate]").val(e.id);
 
+					//서브메뉴에 날짜값 넣어주기
+					$(".dropB").children().attr("value", e.id);
+                    
+				
                 }
 
 		
