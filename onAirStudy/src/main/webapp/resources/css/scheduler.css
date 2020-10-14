@@ -1,5 +1,4 @@
-
-                #thisday{
+  #thisday{
                     background-color: skyblue;
                     padding-right: 10%;
                 }
@@ -73,7 +72,7 @@
                     margin-top: 100px;
                     margin-left: 100px;
                 }
-                .sun{
+                .sun:first-child{
                     color:red;
                 }
                 .sat{
@@ -88,22 +87,28 @@
                 .modal-body img{
                     width: 25px;
                 }
-                .modal-body .Datepicker{
+                .modal-body .datepick{
                     text-align: center;
-                    width: 100px;
+                    width: 140px;
                     height: 30px;
                 }
                 #insertSchedulFrm{
                     text-align: center;
+                    margin-top:50px;
                 }
                 #insertSchedulFrm span{
                     width: 200px;
                 }
+                #insertSchedulFrm input{
+                	border:0;
+                	border-bottom:1px solid black;
+                }
                 .marginB{
-                    margin-top: 30px;
                     margin-bottom: 30px;
                 }
                 .datepickers-container{
                     z-index: 9999;
                 }
-
+                .infoB+button{
+                	
+                }
