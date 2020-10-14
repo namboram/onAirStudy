@@ -4,6 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
+	<insert id="insertMember">
+		insert into
+			member
+		values(
+			#{ memberId },
+			#{ memberName },
+			#{ password },
+			default,
+			#{ phone },
+			default,
+			default,
+			default,
+			#{ comment },
+			#{ category }
+		
+		)
+	</insert>
+
+
  <select id="selectOneMember" resultMap="memberMap">
   	select
   		*

@@ -11,21 +11,13 @@
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
-    <!-- Fontastic Custom icon font-->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fontastic.css">
-    <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
-    <!-- Custom Scollbar-->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/custom.css">
-    <!-- Favicon-->
     <link rel="shortcut icon" href="${pageContext.request.contextPath }/resources/images/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -33,15 +25,15 @@
   </head>
   <body>
     <!-- Side Navbar -->
-    <nav class="side-navbar">
+    <nav class="side-navbar" style="background: #E0B1D0">
       <div class="side-navbar-wrapper">
         <!-- Sidebar Header    -->
         <div class="sidenav-header d-flex align-items-center justify-content-center">
           <!-- User Info-->
           <!--  <i class="icon-mail" style="float: right; display:block"></i>-->
-          <div class="sidenav-header-inner text-center">
+          <div class="sidenav-header-inner text-center" style="background: #E0B1D0">
           <div class="message-icon-line">
-          	<div class="icon-mail message-icon" style="display:inline-block" onclick=""></div>
+          	<div class="icon-mail message-icon" style="display:inline-block" onclick="alert('쪽지함으로 이동!');"></div>
           	<div class="badge message-warning">1</div>
           </div>
            
@@ -51,7 +43,7 @@
           <!-- Small Brand information, appears on minimized sidebar-->
           <div class="sidenav-header-logo"><a href="${pageContext.request.contextPath }/index.jsp" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
         </div>
-        <div class="d-day-display">
+        <div class="d-day-display" onclick="alert('스케줄러로 이동!');">
 	        <hr>
 	        <span>D - 37</span></br>
 	        <span>2020.11.02</span></br>
@@ -60,22 +52,36 @@
 	   	</div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-          <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li class=""><a href="#"> <i class="icon-home"></i>초대내역                             </a></li>
-            <li> <a href="#"> <i class="icon-mail"></i>프리미엄
-                <div class="badge badge-warning">D - 37</div></a></li>
-            <li><a href="#"> <i class="fa fa-bar-chart"></i>내 스터디방                            </a></li>
-            <li><a href="#"> <i class="icon-grid"></i>스케줄러                             </a></li>
-            <!-- 드롭다운 메뉴 : 마이페이지2에 쓸 시험메뉴 -->
-           <!--  <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="#">Page</a></li>
-                <li><a href="#"
-                >Page</a></li>
-                <li><a href="#">Page</a></li>
+         <ul id="side-main-menu" class="side-menu list-unstyled studyRoom-sidenav">                  
+            <li class=""><a href="#"> <i class="icon-home"></i>우리 스터디방</a></li>
+            <li class="side-submenu-applicants"><a href="#exampledropdownDropdown3" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>참여인원 </a>
+              <ul id="exampledropdownDropdown3" class="collapse list-unstyled ">
+                <li>
+                	<img class="side-icon-crown" src="https://www.pikpng.com/pngl/m/22-224864_crown-silhouette-png-white-crown-silhouette-transparent-clipart.png" alt="Crown Silhouette Png - White Crown Silhouette Transparent Clipart@pikpng.com">
+                	이지혜
+                	<div class="side-realTime-statusJH"></div>
+                	<div class="icon-mail team-messageJH"  onclick="alert('쪽지보내기 창 띄우기!')"></div>
+                </li>
               </ul>
-            </li> -->
-            <li><a href="#"> <i class="icon-interface-windows"></i>내 정보                             </a></li>
+            </li>
+            <li class="side-submenu"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>시험 </a>
+              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                <li><a href="#">시험문제 등록</a></li>
+                <li><a href="#">시험보기</a></li>
+              </ul>
+            </li>
+            <li><a href="#"> <i class="fa fa-bar-chart"></i>초대하기                            </a></li>
+            <li><a href="#"> <i class="icon-interface-windows"></i>스케줄러                             </a></li>
+            <li class="side-submenu-applicants"><a href="#exampledropdownDropdown2" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>신청인원 </a>
+              <ul id="exampledropdownDropdown2" class="collapse list-unstyled ">
+                <li>이지혜    
+                	<input type="button" value="수락" class="btnApplicantsJH btnAcceptJH"/>
+                	<input type="button" value="거절" class="btnApplicantsJH btnRejectJH"/>
+                	
+                </li>
+              </ul>
+            </li>
+            <li><a href="#"> <i class="icon-interface-windows"></i>방 나가기                             </a></li>
           </ul>
         </div>
       </div>
@@ -84,15 +90,14 @@
    
      
     </div>
-    <!-- JavaScript files-->
-    <!-- <script src="${pageContext.request.contextPath }/resources/vendor/jquery/jquery.min.js"></script>
+    <!-- JavaScript files -->
+    <script src="${pageContext.request.contextPath }/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="${pageContext.request.contextPath }/resources/vendor/chart.js/Chart.min.js"></script>
     <script src="${pageContext.request.contextPath }/resources/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="${pageContext.request.contextPath }/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
-    <!-- Main File-->
-    <!-- <script src="${pageContext.request.contextPath }/resources/js/front.js"></script> -->
+    <script src="${pageContext.request.contextPath }/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- Main File -->
+    <script src="${pageContext.request.contextPath }/resources/js/front.js"></script>
   </body>
 </html>
