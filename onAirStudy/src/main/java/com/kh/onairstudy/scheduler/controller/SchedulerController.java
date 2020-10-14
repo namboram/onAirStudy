@@ -3,6 +3,7 @@ package com.kh.onairstudy.scheduler.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onairstudy.scheduler.model.service.SchedulerService;
+import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,5 +44,15 @@ public class SchedulerController {
 		return mav;
 		
 		
+	}
+	
+	@RequestMapping("/insert.do")
+	public String insertSchedule(HttpServletRequest request, HttpSession session, Scheduler sch) throws Exception {
+		
+		request.setCharacterEncoding("utf-8");
+		System.out.println(sch);
+		System.out.println(request.getParameter("content"));
+		
+		return "redirect:/scheduler/main.do";
 	}
 }
