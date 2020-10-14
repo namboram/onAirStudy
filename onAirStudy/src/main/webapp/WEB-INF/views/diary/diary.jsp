@@ -14,14 +14,15 @@ div#memo-container{width:60%; margin:0 auto;text-align:center;}
 <div id="diary-container">
 	<p>STUDY DIARY</p>
     <form id="diarySearchFrm" 
-    	  action="${pageContext.request.contextPath}/diary/diary.do" 
+    	  action= "diary.do" 
     	  class="form-inline" 
     	  method="post">
         <select name ="title">
          	<option value="제목">제목</option> 
          	<option value="작성자">작성자</option>
         </select>
-        <input type="text" class="form-control col-sm-6" name="search" placeholder="검색할 키워드를 입력하세요"/>&nbsp;
+ 
+        <input type="search" class="form-control col-sm-6" name="search" placeholder="검색할 키워드를 입력하세요"/>&nbsp;
         <button class="btn btn-outline-success" type="submit" >검색</button>
     </form>
     <br />
@@ -38,11 +39,11 @@ div#memo-container{width:60%; margin:0 auto;text-align:center;}
 	    <c:forEach items="${ list }" var="diary">
 	    <tr>
 	      <td>${ diary.no }</td>
-	      <td>${ diary.diaryTitle }</td>
+	      <td><a></a>${ diary.diaryTitle }</td>
 	      <td>${ diary.memberId }</td>
 	      <td><fmt:formatDate value="${ diary.diaryDate }" pattern="yy/MM/dd"/></td>
 	      <td></td>
-	      <td>${ diary.redCnt }</td>
+	      <td>${ diary.readCnt }</td>
 		</tr>
 	    </c:forEach>
 	</table>
