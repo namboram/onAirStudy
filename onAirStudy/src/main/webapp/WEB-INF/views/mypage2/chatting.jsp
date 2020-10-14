@@ -152,8 +152,8 @@
 	        	//client.send('/app/join/'+ roomNo , {}, JSON.stringify({ writer: member})); 
 //	           일반메세지 들어오는곳         
 	            client.subscribe('/subscribe/chat/'+roomNo, function (chat) {
-	            	 //alert("왜 안들어와..");
-	          
+	         
+	          		//받은 데이터
 	                var content = JSON.parse(chat.body);
 	                if(content.memberId == member.memberId){
 	                	//내 채팅 메시지일때
