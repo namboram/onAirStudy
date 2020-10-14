@@ -25,5 +25,23 @@ where
   		<result column="enable_yn" property="enableYN"/>
 </resultMap>
 
+<insert id="insertSchedule">
+	insert into
+		scheduler
+	values(
+		seq_schedule_no.nextval,
+		#{memberId},
+		null,
+		#{startDate},
+		#{endDate},
+		#{content},
+		#{colorCode},
+		#{scheduleYN},
+		#{dYN},
+		#{timeOpt},
+		#{enabledYN}
+	)
+</insert>
+
 
 </mapper>

@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.onairstudy.scheduler.model.vo.Scheduler;
+
 @Repository
 public class SchedulerDAOImpl implements SchedulerDAO {
 
@@ -16,6 +18,11 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 	@Override
 	public List<Map<String, Object>> mainScheduler(String memberId) {
 		return sqlSession.selectList("scheduler.schedulerList", memberId);
+	}
+
+	@Override
+	public int insertSchedule(Scheduler sch) {
+		return sqlSession.insert("scheduler.insertSchedule", sch);
 	}
 	
 	
