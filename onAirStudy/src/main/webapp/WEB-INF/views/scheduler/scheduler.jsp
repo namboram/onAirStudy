@@ -33,11 +33,13 @@
 	alert("${ msg }");
 </script>
 </c:if>
+
+
+
     
     
 </head>
 <body>
-
 
 
   <div class='cal-divB'>
@@ -52,8 +54,8 @@
 		<!-- 메뉴바  -->
         <div class="dropdown-menu dropB "><p>X</p>
             <button class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#insertSchedule">일정 등록</button>
+            <button class="dropdown-item">일정 보기</button>
             <button class="dropdown-item">To do List</button>
-            <button class="dropdown-item">더보기</button>
           </div>
 
 
@@ -72,15 +74,24 @@
                 <div class="modal-body">
                     <form id="insertSchedulFrm" action="${pageContext.request.contextPath }/scheduler/insert.do" method="post">
                         
+                        <input type="hidden" name="memberId" value="honggd" />
+                        
+						<h3 style="margin-right:180px;">날짜 입력</h3>
+						<br />
                         <input type="text" class="datepick delB" name="startDate">  ~  
                         <input type="text" class="datepick delB" name="endDate">
                         <br/>
-
+                        <br/>
+						
+						<h3 style="margin-right:180px;">내용 입력</h3>
+						<br />
                         <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
+                        <br/>
                         <br/>
                         
                         <label for="hidden-input">형광펜 색상 선택 : </label>
                         <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
+                        <br/>
                         <br/>
 
                         <label for="timeOption">시간추가 : 
@@ -93,12 +104,17 @@
                         	<option value="후다닥">다닥</option>
                         </select>
                         </label>
+                        <input type="hidden" name="timeOpt" val="" />
 
                         <br/>
+                        <br/>
 
-                        <input type="checkbox" name="dYN" id="dYN">
-                        <label for="dYN">디데이 일정으로 등록하기</label>
+                        <input type="checkbox" name="DYN" value="">
+                        <label for="DYN">디데이 일정으로 등록하기</label>
+                        <input type="hidden" name="scheduleYN" value="Y" />
 
+                        <br/>
+                        <br/>
 
                     </form>
                 </div>
@@ -117,8 +133,34 @@
 
     $(document).ready(function(){
     	$('#insertsubB').click(function(){
-			
+        	/* timeOpt 값 설정 */
+			var timeOpt = $("#time1").val()+","+$("#time2").val();
+			$("[name=timeOpt]").val(timeOpt);
 
+			/* dYn 값 설정 */
+			if($("[name=DYN]:checked").length>0)
+				$("[name=DYN]").val("Y");
+			else
+				$("[name=DYN]").val("N");
+				
+
+
+			console.log("디데이"+$("[name=DYN]").val());
+
+			/* 디데이일 설정시 날짜맞춰주기 */
+			if($("[name=DYN]").val()=="Y"){
+				$("[name=scheduleYN]").val("N");
+				if($("[name=startDate]").val() != $("[name=endDate]").val()){
+					alert("디데이 날짜를 맞춰주세요.");
+					return;
+				}
+			}
+
+			/*내용확인*/
+			if($("[name=content]").val()==""){
+				alert("내용을 입력해주세요.");
+				return;
+			}
         	
     		$('#insertSchedulFrm').submit();
 
@@ -128,7 +170,7 @@
 
       });
 
-
+	/* 모달창 시간생성 */
     $(document).ready(function(){
     	$('.makeSelB').empty();
     	 
@@ -151,30 +193,30 @@
         });
 
     
-
-$(document).ready( function() {
-
-$('.demo').each( function() {
-  $(this).minicolors({
-    control: $(this).attr('data-control') || 'hue',
-    defaultValue: $(this).attr('data-defaultValue') || '',
-    format: $(this).attr('data-format') || 'hex',
-    keywords: $(this).attr('data-keywords') || '',
-    inline: $(this).attr('data-inline') === 'true',
-    letterCase: $(this).attr('data-letterCase') || 'lowercase',
-    opacity: $(this).attr('data-opacity'),
-    position: $(this).attr('data-position') || 'bottom left',
-    swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
-    change: function(value, opacity) {
-      if( !value ) return;
-        console.log(value);
-        $("#hidden-input").val(value);
-      
-    },
-    theme: 'default'
-  });
-
-});
+	//컬러픽커
+	$(document).ready( function() {
+	
+	$('.demo').each( function() {
+	  $(this).minicolors({
+	    control: $(this).attr('data-control') || 'hue',
+	    defaultValue: $(this).attr('data-defaultValue') || '',
+	    format: $(this).attr('data-format') || 'hex',
+	    keywords: $(this).attr('data-keywords') || '',
+	    inline: $(this).attr('data-inline') === 'true',
+	    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+	    opacity: $(this).attr('data-opacity'),
+	    position: $(this).attr('data-position') || 'bottom left',
+	    swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+	    change: function(value, opacity) {
+	      if( !value ) return;
+	        console.log(value);
+	        $("#hidden-input").val(value);
+	      
+	    },
+	    theme: 'default'
+	  });
+	
+	});
 
 });
 
@@ -193,11 +235,38 @@ $('.demo').each( function() {
 
                 });
            });
+
+       	//스케줄 가져올준비
+           function schedule(no, startDate, endDate, content, colorCode, timeOpt, dYN){
+               this.no = no;
+               this.startDate = startDate.substr(0,10);
+               this.endDate = endDate.substr(0,10);
+               this.content = content;
+               this.colorCode = colorCode;
+               this.timeOpt = timeOpt=="00:00,00:00" ? "" : timeOpt;
+               this.dYN = dYN;
+           }
+           
+           //디비에서 스케줄 가져오기  
+           var schedules = Array (
+           <c:forEach items='${ list }' var='sch' varStatus="i">
+           new schedule("${ sch.no }", "${ sch.startDate }", "${ sch.endDate }", "${ sch.content }", "${ sch.colorCode }", "${ sch.timeOpt }", "${ sch.dYN }"),
+           </c:forEach>
+           );
+
+           //출력해보기
+   		$(document).ready(function(){
+				console.log(schedules);
+       		})
+
+           
            //기본 달력출력
            $(document).ready(function(){
                drawCalendar();
 
            });
+
+        
            $(document).ready(function(){
 
                //메뉴닫아주기
@@ -206,6 +275,8 @@ $('.demo').each( function() {
                });
           
            });
+
+           
            $(document).ready(function(){
                $(".close").click(function(){
                   var inputs = document.getElementsByClassName("delB");
@@ -218,13 +289,14 @@ $('.demo').each( function() {
            });
 
             var today = new Date();
+            
 
             //캘린더만들기
             function drawCalendar(Y, M){
                 
                 //테이블찾기
-                var tblB = document.getElementsByClassName("tableB")[0];
-                tblB.innerHTML= "";
+                var $tblB = $(".tableB");
+                
                 //그려줄 테이블
                 var htmlB = "";
                 
@@ -305,8 +377,9 @@ $('.demo').each( function() {
                     htmlB+="</tr>";
 
                 }
-                
-                tblB.innerHTML += htmlB;    
+
+            	//달력완성
+                $tblB.append(htmlB);
 
                 //오늘날짜에 id 추가하기
                 var today = new Date();
@@ -325,7 +398,26 @@ $('.demo').each( function() {
                     }, false);
                 }
 
-            }
+                    //스케줄넣어주기
+                    if(schedules.length>0){
+                        scheduling();
+                    }
+
+                }
+
+                function scheduling(){
+                   
+                    //투두, 디데이가 아닐때
+                    schedules.forEach(function(e){
+                        if(e.dYN == "Y"){
+							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.");
+                          }
+                        console.log(e.startDate);
+                        console.log(e.endDate);
+                        document.getElementById(e.startDate).innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
+                       
+                    })
+                }
 
             
             //다음달력
@@ -364,9 +456,11 @@ $('.demo').each( function() {
 
                     $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
                     $("[name=startDate]").val(e.id);
+                    $("[name=endDate]").val(e.id);
 
                 }
 
+		
         </script>
         
 

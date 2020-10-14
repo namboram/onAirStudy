@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.scheduler.model.service.SchedulerService;
 import com.kh.onairstudy.scheduler.model.vo.Scheduler;
@@ -47,11 +48,20 @@ public class SchedulerController {
 	}
 	
 	@RequestMapping("/insert.do")
-	public String insertSchedule(HttpServletRequest request, HttpSession session, Scheduler sch) throws Exception {
+	public String insertSchedule(Scheduler sch, 
+								RedirectAttributes redirectAttr) throws Exception {
+		if(sch.getDYN()==null)
+			sch.setDYN("N");
 		
-		request.setCharacterEncoding("utf-8");
+		sch.setEnabledYN("N");
 		System.out.println(sch);
-		System.out.println(request.getParameter("content"));
+		int result = schedulerService.insertSchedule(sch);
+		
+		if(result>0) {
+			redirectAttr.addFlashAttribute("msg", "일정 등록 성공");
+		}else {
+			redirectAttr.addFlashAttribute("msg", "일정 등록 실패");
+		}
 		
 		return "redirect:/scheduler/main.do";
 	}

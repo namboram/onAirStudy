@@ -72,7 +72,7 @@
                     margin-top: 100px;
                     margin-left: 100px;
                 }
-                .sun{
+                .sun:first-child{
                     color:red;
                 }
                 .sat{
@@ -99,8 +99,11 @@
                 #insertSchedulFrm span{
                     width: 200px;
                 }
+                #insertSchedulFrm input{
+                	border:0;
+                	border-bottom:1px solid black;
+                }
                 .marginB{
-                    margin-top: 30px;
                     margin-bottom: 30px;
                 }
                 .datepickers-container{
