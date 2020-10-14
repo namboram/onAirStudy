@@ -1,0 +1,114 @@
+  #thisday{
+                    background-color: skyblue;
+                    padding-right: 10%;
+                }
+                .Bday span{
+                    margin: 0;
+                    padding-left: 10px;
+                    border-radius: 10px;
+                }
+                .Bday{
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+                .Bday:hover{
+                    background-color: rgb(216, 214, 214);
+                }
+                #prevB{
+                    margin-right: 30px;
+                    background: white;
+                    border: none;
+                    
+                }
+                #prevB img{
+                    width: 50px;
+                    background: none;
+                }
+                #nextB{
+                    margin-left: 30px;
+                    background: white;
+                    border: none;
+                }
+                #nextB img{
+                    width: 50px;
+                }
+                .monthBB{
+                    font-size: 30px;
+                    font-weight: bold;
+                    text-align: center;
+
+                }
+                #monthB{
+                    width: 100px;
+                    display:inline-block;
+                }
+                .dropB{
+                    position: absolute;
+                    border: 1px solid black;
+                    width: 200px;
+                    background-color: grey;
+                }
+                .dropB p{
+                    text-align: right;
+                    margin: 0;
+                    margin-right: 20px;
+                    cursor: pointer;
+                }
+                .dropB button{
+                    transition-duration: 0.4s;
+                    border: 0;
+                    outline: 0;
+                }
+                .dropB button:hover{
+                    background-color: #fff;
+                }
+                .yearBB{
+                    font-size: 40px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                .cal-divB{
+                    width:800px;
+                    margin-top: 100px;
+                    margin-left: 100px;
+                }
+                .sun:first-child{
+                    color:red;
+                }
+                .sat{
+                    color:blue;
+                }
+                .tableB tr td{
+                    padding: 0;
+                    width:100px;
+                    height:100px;
+                    margin: 5px;
+                }
+                .modal-body img{
+                    width: 25px;
+                }
+                .modal-body .datepick{
+                    text-align: center;
+                    width: 140px;
+                    height: 30px;
+                }
+                #insertSchedulFrm{
+                    text-align: center;
+                    margin-top:50px;
+                }
+                #insertSchedulFrm span{
+                    width: 200px;
+                }
+                #insertSchedulFrm input{
+                	border:0;
+                	border-bottom:1px solid black;
+                }
+                .marginB{
+                    margin-bottom: 30px;
+                }
+                .datepickers-container{
+                    z-index: 9999;
+                }
+                .infoB+button{
+                	
+                }
