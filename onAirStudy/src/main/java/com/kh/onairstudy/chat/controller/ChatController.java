@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -30,26 +30,27 @@ public class ChatController {
 	
 	//채팅창으로 입장 // 임의 테스트
 	@RequestMapping("/enter/chat.do")
-    public ModelAndView enterChat(@RequestParam int roomNo,ModelAndView mav) {
+    public ModelAndView enterChat(@RequestParam int roomNo,ModelAndView mav,HttpSession session) {
+		String memberId = (String)session.getAttribute("memberId");
+		List<Chat> firstList = chatService.selectFirstChatList();
 		mav.addObject("roomNo",roomNo);
+		mav.addObject("memberId",memberId);
+		mav.addObject("firstList",firstList);
 		mav.setViewName("mypage2/chatting");
     	return mav;
     }
-	
+
+	@RequestMapping("/test/enter.do")
+	public String enter() {
+		return "mypage2/change";
+	}
 	//채팅 내역 가져오기
 	@RequestMapping("/chat/chatList.do")
 	@ResponseBody
 	public List<Chat> selectChatList(@RequestParam int roomNo,@RequestParam int endNo) {
-		int startNo;
+		int startNo = endNo-10;
 //		int roomNo = Integer.parseInt(room);
-		if(endNo!=0) {
-			endNo-=9;
-			startNo=endNo-9;
-		}
-		else {
-			startNo=0;
-			endNo=10;
-		}
+
 			
 		Map<String,Object> map = new HashMap<>();
 		map.put("roomNo", roomNo);

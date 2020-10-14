@@ -11,4 +11,6 @@ public interface ChatService {
 
 	List<Chat> selectChatList(Map<String, Object> map);
 
+	List<Chat> selectFirstChatList();
+
 }

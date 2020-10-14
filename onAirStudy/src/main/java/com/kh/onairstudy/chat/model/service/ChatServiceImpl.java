@@ -36,6 +36,12 @@ public class ChatServiceImpl implements ChatService {
 //		log.info("daoList={}",list);
 		return list;
 	}
+
+	@Override
+	public List<Chat> selectFirstChatList() {
+		
+		return chatDAO.selectFirstChatList();
+	}
 	
 	
 	

@@ -8,6 +8,17 @@ SELECT  R.no,R.member_id,R.sr_no,R.chat_content,r.send_date
 
 FROM (SELECT rownum r , c.* FROM chatting c ORDER BY c.no DESC) R 
 
-WHERE sr_no = 5 and R.r BETWEEN #{startNo} AND #{endNo} order by no
+WHERE sr_no = 5 and no BETWEEN #{startNo} AND #{endNo}
+ </select>
+ <select id="selectFirstChatList" resultType="chat">
+<![CDATA[  
+ 		SELECT 
+     x.*
+  FROM ( SELECT c.*
+           FROM chatting c
+          ORDER BY c.no desc
+       ) x
+       where rownum <=10 order by no
+      ]]> 
  </select>
 </mapper>
