@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<fmt:requestEncoding value="utf-8"/><%-- 한글 깨짐 방지 --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +28,129 @@
 <script src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     
     
+<c:if test="${ not empty msg }">
+<script>
+	alert("${ msg }");
+</script>
+</c:if>
+    
+    
+</head>
+<body>
+
+
+
+  <div class='cal-divB'>
+        <div class="infoB">
+        </div>
+        <br/>
+        <table class="tableB table">
+        
+        </table>
+        </div>
+
+		<!-- 메뉴바  -->
+        <div class="dropdown-menu dropB "><p>X</p>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#insertSchedule">일정 등록</button>
+            <button class="dropdown-item">To do List</button>
+            <button class="dropdown-item">더보기</button>
+          </div>
+
+
+          <!-- 일정등록 모달 -->
+          <div class="modal" id="insertSchedule" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">일정 등록</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <!-- 등록하는 부분 -->
+                <div class="modal-body">
+                    <form id="insertSchedulFrm" action="${pageContext.request.contextPath }/scheduler/insert.do" method="post">
+                        
+                        <input type="text" class="datepick delB" name="startDate">  ~  
+                        <input type="text" class="datepick delB" name="endDate">
+                        <br/>
+
+                        <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
+                        <br/>
+                        
+                        <label for="hidden-input">형광펜 색상 선택 : </label>
+                        <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
+                        <br/>
+
+                        <label for="timeOption">시간추가 : 
+                        
+                        <select class="makeSelB" name="timeOption" id="time1">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        	
+                        <select class="makeSelB" name="timeOption" id="time2">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        </label>
+
+                        <br/>
+
+                        <input type="checkbox" name="dYN" id="dYN">
+                        <label for="dYN">디데이 일정으로 등록하기</label>
+
+
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" id="insertsubB" class="btn btn-primary">등록하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+    
     <script>
+
+    $(document).ready(function(){
+    	$('#insertsubB').click(function(){
+			
+
+        	
+    		$('#insertSchedulFrm').submit();
+
+
+        	});
+
+
+      });
+
+
+    $(document).ready(function(){
+    	$('.makeSelB').empty();
+    	 
+    	var option = "";
+
+    	for(var i = 0; i< 25 ; i++){      
+        	          
+			if(i<10){
+	      	  option = $("<option>"+"0"+i+":00</option>");
+			}else{
+	      	  option = $("<option>"+i+":00</option>");
+			}
+
+
+		$('.makeSelB').append(option);
+    	 }
+
+
+
+        });
+
+    
 
 $(document).ready( function() {
 
@@ -140,7 +266,7 @@ $('.demo').each( function() {
                 }
                 //연/월 정보
                 var info = document.getElementsByClassName("infoB")[0];
-                info.innerHTML ="<button onclick='drawCalendar();'>오늘날짜보기</button>"
+                info.innerHTML ="<button class='btn btn-info' onclick='drawCalendar();'>오늘날짜보기</button>"
                                 + "<h1 class='yearBB'>"+firstDate.getFullYear()+"</h1><br/>"
                                 + "<h2 class='monthBB'><button id='prevB' onclick='prevCalendar("+firstDate.getMonth()+");'><img src='${pageContext.request.contextPath }/resources/images/L.png'></button>"
                                 + "<p id='monthB'>"+(firstDate.getMonth()+1)+"월</p>"
@@ -243,81 +369,6 @@ $('.demo').each( function() {
 
         </script>
         
-    
-</head>
-<body>
-
-  <div class='cal-divB'>
-        <div class="infoB">
-        </div>
-        <br/>
-        <table class="tableB table">
-        
-        </table>
-        </div>
-
-        <div class="dropdown-menu dropB "><p>X</p>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#insertSchedule">일정 등록</button>
-            <button class="dropdown-item">To do List</button>
-            <button class="dropdown-item">더보기</button>
-          </div>
-
-
-          <!-- 일정등록 모달 -->
-          <div class="modal" id="insertSchedule" tabindex="-1">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">일정 등록</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-
-                <!-- 등록하는 부분 -->
-                <div class="modal-body">
-                    <form id="insertSchedulFrm" action="${pageContext.request.contextPath }/scheduler/insert.do" method="post">
-                        
-                        <input type="text" class="datepick delB" name="startDate">  ~  
-                        <input type="text" class="datepick delB" name="endDate">
-                        <br/>
-
-                        <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
-                        <br/>
-                        
-                        <label for="hidden-input">형광펜 색상 선택 : </label>
-                        <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
-                        <br/>
-
-                        <label for="timeOption">시간추가 : 
-                        
-                        <select class="makeSelB" name="timeOption" id="time1">
-                        	<option value="후다닥">다닥</option>
-                        </select>
-                        	
-                        <select class="makeSelB" name="timeOption" id="time2">
-                        	<option value="후다닥">다닥</option>
-                        </select>
-                        </label>
-
-                        <br/>
-
-                        <input type="checkbox" name="dYN" id="dYN">
-                        <label for="dYN">디데이 일정으로 등록하기</label>
-
-
-                    </form>
-                </div>
-
-
-                <div class="modal-footer">
-                    <button type="button" onclick="$('#insertSchedulFrm').submit();" class="btn btn-primary">등록하기</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
 
 
 </body>

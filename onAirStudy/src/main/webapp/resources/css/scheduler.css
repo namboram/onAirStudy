@@ -94,6 +94,7 @@
                 }
                 #insertSchedulFrm{
                     text-align: center;
+                    margin-top:50px;
                 }
                 #insertSchedulFrm span{
                     width: 200px;
@@ -104,4 +105,7 @@
                 }
                 .datepickers-container{
                     z-index: 9999;
+                }
+                .infoB+button{
+                	
                 }
