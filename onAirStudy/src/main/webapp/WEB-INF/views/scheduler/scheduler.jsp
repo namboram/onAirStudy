@@ -30,11 +30,9 @@
     
 <c:if test="${ not empty msg }">
 <script>
-	alert("${ msg }");
+	window.onload = alert("${ msg }");
 </script>
 </c:if>
-
-
 
     
     
@@ -53,8 +51,8 @@
 
 		<!-- 메뉴바  -->
         <div class="dropdown-menu dropB"><p>X</p>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this);" data-target="#insertSchedule">일정 등록</button>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this);" data-target="#viewSchedule">일정 보기</button>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this.value);" data-target="#insertSchedule">일정 등록</button>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this.value);" data-target="#viewSchedule">일정 보기</button>
             <button class="dropdown-item">To do List</button>
           </div>
 
@@ -248,23 +246,26 @@
 
     //일정등록할때 인풋값 미리 넣어주기
 	function insertForm(e){
-	    $("#insertSchedulFrm [name=startDate]").val(e.value);
-	    $("#insertSchedulFrm [name=endDate]").val(e.value);
+	    $("#insertSchedulFrm [name=startDate]").val(e);
+	    $("#insertSchedulFrm [name=endDate]").val(e);
 	}
 
 	//일정보기할때 일정 미리 넣어주기
 	function viewSchedule(e){
 
-		var theDate = e.value;
+		console.log("e는 뭘까나"+e);
+
+		var theDate = e;
 		var htmlB = "";
 		var count = 0;
 		
 		if(schedules != null){
 			for(var i in schedules){
 				if(schedules[i].startDate == theDate){
+					var day = 
 					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? timeOpt : "-")+" ) </td>";
-					htmlB += "<td><button type='button' class='btn btn-light' value='"+theDate+"' id='updateB'>수정</button></td>"
-							+"<td><button type='button' class='btn btn-light' value='"+theDate+"' id='deleteB'>삭제</button></td>";
+					htmlB += "<td><button type='button' class='btn btn-light' onclick='updateB("+schedules[i].no+");'>수정</button></td>"
+							+"<td><button type='button' class='btn btn-light' onclick='deleteB("+schedules[i].no+");'>삭제</button></td>";
 					htmlB += "</tr>";
 					count++;
 					}		
@@ -277,6 +278,33 @@
         $("#viewTable").empty().append(htmlB);
 
 		}
+	
+		//일정삭제
+		 	function deleteB(no, day){
+		 	$.ajax({
+				type:"GET",
+				url: "${ pageContext.request.contextPath }/scheduler/delete.do?no="+no,
+				error:function(){
+					alert("일정 삭제 실패");
+					},
+				success : function(data){
+					alert("일정 삭제 성공");
+					console.log(data);
+
+					viewSchedule();
+	
+				}
+
+			});
+				
+
+		}
+
+		
+		//삭제후 리다이렉트 올때
+		$(document).ready(function(){
+
+		});
 	
     
 
@@ -399,7 +427,7 @@
            //디비에서 스케줄 가져오기  
            var schedules = Array (
            <c:forEach items='${ list }' var='sch' varStatus="i">
-           new schedule("${ sch.no }", "${ sch.startDate }", "${ sch.endDate }", "${ sch.content }", "${ sch.colorCode }", "${ sch.timeOpt }", "${ sch.dYN }"),
+           new schedule("${ sch.no }", "${ sch.startDate }", "${ sch.endDate }", "${ sch.content }", "${ sch.colorCode }", "${ sch.timeOpt }", "${ sch.DYN }"),
            </c:forEach>
            );
 
@@ -432,7 +460,8 @@
                    for(var i = 0 ; i<inputs.length ; i++){
                        inputs[i].value = "";
                    }
-                   $(".dropB").css("display", "none");
+                   location.replace("${ pageContext.request.contextPath }/scheduler/main.do");
+                   /* $(".dropB").css("display", "none"); */
                })
           
            });
@@ -528,7 +557,7 @@
                 }
 
             	//달력완성
-                $tblB.append(htmlB);
+                $tblB.empty().append(htmlB);
 
                 //오늘날짜에 id 추가하기
                 var today = new Date();
@@ -555,14 +584,13 @@
                 }
 
                 function scheduling(){
-                   
+
                     //투두, 디데이가 아닐때
                     schedules.forEach(function(e){
                         if(e.dYN == "Y"){
 							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
                           }
-                        console.log(e.startDate);
-                        console.log(e.endDate);
+                        
                         document.getElementById(e.startDate).innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
                        
                     })
