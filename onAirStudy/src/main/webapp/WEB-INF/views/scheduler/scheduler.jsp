@@ -263,7 +263,7 @@
 			for(var i in schedules){
 				if(schedules[i].startDate == theDate){
 					var day = 
-					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? timeOpt : "-")+" ) </td>";
+					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? schedules[i].timeOpt : "-")+" ) </td>";
 					htmlB += "<td><button type='button' class='btn btn-light' onclick='updateB("+schedules[i].no+");'>수정</button></td>"
 							+"<td><button type='button' class='btn btn-light' onclick='deleteB("+schedules[i].no+");'>삭제</button></td>";
 					htmlB += "</tr>";
@@ -311,7 +311,7 @@
     $(document).ready(function(){
     	$('#insertsubB').click(function(){
         	/* timeOpt 값 설정 */
-			var timeOpt = $("#time1").val()+","+$("#time2").val();
+			var timeOpt = $("#time1").val()+" ~ "+$("#time2").val();
 			$("[name=timeOpt]").val(timeOpt);
 
 			/* dYn 값 설정 */
@@ -420,7 +420,7 @@
                this.endDate = endDate.substr(0,10);
                this.content = content;
                this.colorCode = colorCode;
-               this.timeOpt = timeOpt=="00:00,00:00" ? "" : timeOpt;
+               this.timeOpt = timeOpt=="00:00 ~ 00:00" ? "" : timeOpt;
                this.dYN = dYN;
            }
            
@@ -550,7 +550,7 @@
                             htmlB += "sat";
                         }
                         
-                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><span> "+(dB++)+"</span></td>";
+                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><span class='highSpan'> "+(dB++)+"</span></td>";
                     }
                     htmlB+="</tr>";
 
