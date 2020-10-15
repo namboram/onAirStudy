@@ -32,7 +32,7 @@ public class ChatController {
 	@RequestMapping("/enter/chat.do")
     public ModelAndView enterChat(@RequestParam int roomNo,ModelAndView mav,HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
-		List<Chat> firstList = chatService.selectFirstChatList();
+		List<Chat> firstList = chatService.selectFirstChatList(roomNo);
 		mav.addObject("roomNo",roomNo);
 		mav.addObject("memberId",memberId);
 		mav.addObject("firstList",firstList);
