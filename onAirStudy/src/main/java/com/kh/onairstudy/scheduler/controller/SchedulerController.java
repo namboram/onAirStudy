@@ -130,19 +130,17 @@ public class SchedulerController {
 		
 		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
 		SimpleDateFormat fm2 = new SimpleDateFormat("MM");
+		SimpleDateFormat fm3 = new SimpleDateFormat("dd");
 		
 		String a = fm1.format(sch.getStartDate());
 		int b = Integer.parseInt(fm2.format(sch.getStartDate()))-1;
+		String c = fm3.format(sch.getStartDate());
 		
-		System.out.println("a="+a+", b="+b);
+		System.out.println("a="+a+", b="+b+", c="+c);
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("Y", a);
-		map.put("M", b);
-		System.out.println("map="+map);
-		
-		redirectAttr.addFlashAttribute("Y", map.get("Y"));
-		redirectAttr.addFlashAttribute("M", map.get("M"));
+		redirectAttr.addFlashAttribute("Y", a);
+		redirectAttr.addFlashAttribute("M", b);
+		redirectAttr.addFlashAttribute("D", c);
 		
 		return redirectAttr;
 	}
@@ -156,8 +154,10 @@ public class SchedulerController {
 		System.out.println("sch="+sch);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("del", "del");
 		
 		int result = schedulerService.deleteSchedule(no);
+		
 		if(result>0)
 			redirectAttr.addFlashAttribute("msg", "일정 삭제 성공");
 		else
