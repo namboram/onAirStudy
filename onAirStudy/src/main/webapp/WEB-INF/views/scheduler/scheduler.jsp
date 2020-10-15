@@ -9,12 +9,14 @@
 <head>
 <meta charset="UTF-8">
 <title>스케줄러</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- 필요한부분 -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- 커스텀 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
     
 <!--컬러픽커-->
@@ -33,12 +35,19 @@
 	window.onload = alert("${ msg }");
 </script>
 </c:if>
+<!-- 삭제했을때 -->
+<c:if test="${ not empty del }">
+<script>
+	$(document).ready(function(){
 
-    
+		$('#viewSchedule').modal("show");
+		viewSchedule("${ Y }-${ M+1 }-${ D }");
+		});
+</script>
+</c:if>   
     
 </head>
 <body>
-
 
   <div class='cal-divB'>
         <div class="infoB">
@@ -50,7 +59,7 @@
         </div>
 
 		<!-- 메뉴바  -->
-        <div class="dropdown-menu dropB"><p>X</p>
+        <div class="dropdown-menu dropB"><p id="pXB">X</p>
             <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this.value);" data-target="#insertSchedule">일정 등록</button>
             <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this.value);" data-target="#viewSchedule">일정 보기</button>
             <button class="dropdown-item">To do List</button>
@@ -139,7 +148,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">일정 보기</h5>
+                  <h5 class="modal-title" id="theDateB">일정 보기</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -251,18 +260,16 @@
 	}
 
 	//일정보기할때 일정 미리 넣어주기
-	function viewSchedule(e){
+	function viewSchedule(theDate){
 
-		console.log("e는 뭘까나"+e);
-
-		var theDate = e;
 		var htmlB = "";
 		var count = 0;
+		//헤더에 날짜 넣어주기
+		$("#theDateB").empty().append(theDate.substr(5, 2)+"월 "+theDate.substr(8)+"일");
 		
 		if(schedules != null){
 			for(var i in schedules){
 				if(schedules[i].startDate == theDate){
-					var day = 
 					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? schedules[i].timeOpt : "-")+" ) </td>";
 					htmlB += "<td><button type='button' class='btn btn-light' onclick='updateB("+schedules[i].no+");'>수정</button></td>"
 							+"<td><button type='button' class='btn btn-light' onclick='deleteB("+schedules[i].no+");'>삭제</button></td>";
@@ -278,15 +285,38 @@
         $("#viewTable").empty().append(htmlB);
 
 		}
+
+		//업데이트 모달창에 정보 전달하기
+		function updateB(no){
+			
+            schedules.forEach(function(e){
+				if(e.no == no){
+					
+
+					}
+
+				var sts = document.getElementById(e.startDate);
+
+                if(sts!=null)
+                	sts.innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
+               
+            })
+
+		}
+	
 	
 		//일정삭제
 		 	function deleteB(no, day){
-		 	$.ajax({
+				location.replace("${ pageContext.request.contextPath }/scheduler/delete.do?no="+no);
+
+			 	
+		 /* 	$.ajax({
 				type:"GET",
 				url: "${ pageContext.request.contextPath }/scheduler/delete.do?no="+no,
 				error:function(){
 					alert("일정 삭제 실패");
 					},
+				dataType:"text",
 				success : function(data){
 					alert("일정 삭제 성공");
 					console.log(data);
@@ -295,7 +325,7 @@
 	
 				}
 
-			});
+			}); */
 				
 
 		}
@@ -439,13 +469,17 @@
            
            //기본 달력출력
            $(document).ready(function(){
-               drawCalendar();
+				if("${ Y }"== "" && "${ M }"==""){
+	               drawCalendar();
+	               return;
+				}
+               
+               drawCalendar("${ Y }", "${ M }");
 
            });
 
         
            $(document).ready(function(){
-
                //메뉴닫아주기
                $(".dropB").find("p").click(function(){
                    $(".dropB").css("display", "none");
@@ -453,15 +487,16 @@
           
            });
 
-           
+           //메뉴닫기
            $(document).ready(function(){
                $(".close").click(function(){
                   var inputs = document.getElementsByClassName("delB");
                    for(var i = 0 ; i<inputs.length ; i++){
                        inputs[i].value = "";
                    }
-                   location.replace("${ pageContext.request.contextPath }/scheduler/main.do");
-                   /* $(".dropB").css("display", "none"); */
+                   //이거를,,,해,,말어 ,,?
+                  /*  location.replace("${ pageContext.request.contextPath }/scheduler/main.do"); */
+                    $(".dropB").css("display", "none");
                })
           
            });
@@ -550,7 +585,7 @@
                             htmlB += "sat";
                         }
                         
-                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><span class='highSpan'> "+(dB++)+"</span></td>";
+                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><div class='highSpan'> "+(dB++)+"</div></td>";
                     }
                     htmlB+="</tr>";
 
@@ -585,15 +620,54 @@
 
                 function scheduling(){
 
+					var num = -1;
                     //투두, 디데이가 아닐때
-                    schedules.forEach(function(e){
+               /*      schedules.forEach(function(e){
                         if(e.dYN == "Y"){
 							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
                           }
+						var sts = document.getElementById(e.startDate);
+                        if(sts!=null){
+                        	sts.innerHTML+="<br/><div style='background-color:"+e.colorCode+";'>"+e.content+"</div>";
+                        	num++;
+                        	console.log(num+"회차"+e.no);
+                        	console.log(num+"회차"+num);
+                        	console.log(num+"회차"+schedules[num].no);
+                         }
                         
-                        document.getElementById(e.startDate).innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
-                       
-                    })
+                    })*/
+
+					if(schedules != null){
+						
+						for(var i = 0 ; i < schedules.length ; i++){
+							//디데이부터 빼주기
+							if(schedules[i].dYN == "Y"){
+								$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
+	                          }
+
+	                          var sts = document.getElementById(schedules[i].startDate);
+	                          var firstDate = schedules[i].startDate.substr(8);
+	                          
+	                          var htmlBB = "";
+	                          if(sts!=null){
+		                          
+		                        	htmlBB += "<br/><div style='background-color:"+schedules[i].colorCode+";'>";
+	
+		                        	if(firstDate == "01" || i==0 || (i>=1 && schedules[i-1].no != schedules[i].no)){
+	
+		                        		htmlBB += schedules[i].content;
+
+		                        	}
+
+	                        	htmlBB += "</div>";
+	                        	
+								sts.innerHTML+= htmlBB;
+		                      }
+
+						}
+
+					}
+                   
                 }
 
             
