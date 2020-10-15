@@ -258,7 +258,7 @@
 		var htmlB = "";
 		var count = 0;
 		//헤더에 날짜 넣어주기
-		$("#theDateB").empty().append(theDate.substr(5, 2)+"월 "+theDate.substr(9)+"일");
+		$("#theDateB").empty().append(theDate.substr(5, 2)+"월 "+theDate.substr(8)+"일");
 		
 		if(schedules != null){
 			for(var i in schedules){
@@ -458,7 +458,12 @@
            
            //기본 달력출력
            $(document).ready(function(){
-               drawCalendar();
+				if("${ Y }"== "" && "${ M }"==""){
+	               drawCalendar();
+	               return;
+				}
+               
+               drawCalendar("${ Y }", "${ M }");
 
            });
 
@@ -630,13 +635,14 @@
 	                          }
 
 	                          var sts = document.getElementById(schedules[i].startDate);
+	                          var firstDate = schedules[i].startDate.substr(8);
 	                          
 	                          var htmlBB = "";
 	                          if(sts!=null){
 		                          
 		                        	htmlBB += "<br/><div style='background-color:"+schedules[i].colorCode+";'>";
 	
-		                        	if(i==0 || (i>=1 && schedules[i-1].no != schedules[i].no)){
+		                        	if(firstDate == "01" || i==0 || (i>=1 && schedules[i-1].no != schedules[i].no)){
 	
 		                        		htmlBB += schedules[i].content;
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,52 +31,9 @@ public class SchedulerController {
 	
 	@RequestMapping("/main.do")
 	public ModelAndView mainScheduler(ModelAndView mav, HttpSession session) {
-		//로그인된 아이디 가져오기
-		String memberId = (String)session.getAttribute("memberId");
-		
-		//잘됐는지 체크해보려고 하는 push~
-		
-		//임시
-		memberId = "honggd";
-		
-		List<Scheduler> list = schedulerService.mainScheduler(memberId);
-		List<Scheduler> addList = new ArrayList<>();
 
-		Calendar c1 = Calendar.getInstance();
-		Calendar c2 = Calendar.getInstance();
-		
-		for(Scheduler sch : list) {
-			Date start = sch.getStartDate();
-			Date end = sch.getEndDate();
-			
-			c1.setTime(start);
-			c2.setTime(end);
-			
-			//시작날짜가 끝날짜보다 작을때만!
-			if(start.compareTo(end) < 0) {
-				//원객체
-				addList.add(sch);
-				
-				//하루씩 더한 객체
-				while(c1.compareTo(c2)!=0) {
-					
-					c1.add(Calendar.DATE, 1);
-					//temp에 담기
-					Date temp = new Date(c1.getTimeInMillis());
-					
-					//하루씩 더한 날짜를 새 객체에 담아주기
-					Scheduler ssch = new Scheduler(sch.getNo(), sch.getMemberId(), sch.getSrNo(), 
-													temp, sch.getEndDate(), sch.getContent(), sch.getColorCode(), 
-													sch.getScheduleYN(), sch.getDYN(), sch.getTimeOpt(), sch.getEnabledYN());
-					
-					addList.add(ssch);
-				}
-			}else {
-				//같은날짜일때
-				addList.add(sch);
-			}
-			
-		}
+		//내역가져오기
+		List<Scheduler> addList = makeScheduleArrays(session);
 		
 		//확인
 //		for(Scheduler sch : addList) {
@@ -90,6 +48,59 @@ public class SchedulerController {
 		
 	}
 	
+	
+	public List<Scheduler> makeScheduleArrays(HttpSession session){
+				
+		//로그인된 아이디 가져오기
+				String memberId = (String)session.getAttribute("memberId");
+				
+				//잘됐는지 체크해보려고 하는 push~
+				
+				//임시
+				memberId = "honggd";
+				
+				List<Scheduler> list = schedulerService.mainScheduler(memberId);
+				List<Scheduler> addList = new ArrayList<>();
+
+				Calendar c1 = Calendar.getInstance();
+				Calendar c2 = Calendar.getInstance();
+				
+				for(Scheduler sch : list) {
+					Date start = sch.getStartDate();
+					Date end = sch.getEndDate();
+					
+					c1.setTime(start);
+					c2.setTime(end);
+					
+					//시작날짜가 끝날짜보다 작을때만!
+					if(start.compareTo(end) < 0) {
+						//원객체
+						addList.add(sch);
+						
+						//하루씩 더한 객체
+						while(c1.compareTo(c2)!=0) {
+							
+							c1.add(Calendar.DATE, 1);
+							//temp에 담기
+							Date temp = new Date(c1.getTimeInMillis());
+							
+							//하루씩 더한 날짜를 새 객체에 담아주기
+							Scheduler ssch = new Scheduler(sch.getNo(), sch.getMemberId(), sch.getSrNo(), 
+															temp, sch.getEndDate(), sch.getContent(), sch.getColorCode(), 
+															sch.getScheduleYN(), sch.getDYN(), sch.getTimeOpt(), sch.getEnabledYN());
+							
+							addList.add(ssch);
+						}
+					}else {
+						//같은날짜일때
+						addList.add(sch);
+					}
+					
+				}
+		
+		return addList;
+	}
+	
 	@RequestMapping("/insert.do")
 	public String insertSchedule(Scheduler sch, 
 								RedirectAttributes redirectAttr) throws Exception {
@@ -100,6 +111,17 @@ public class SchedulerController {
 		
 		System.out.println("sch="+sch);
 		
+		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
+		SimpleDateFormat fm2 = new SimpleDateFormat("MM");
+		
+		String a = fm1.format(sch.getStartDate());
+		int b = Integer.parseInt(fm2.format(sch.getStartDate()));
+		
+		System.out.println("a="+a+", b="+(b-1));
+		
+		redirectAttr.addFlashAttribute("Y", a);
+		redirectAttr.addFlashAttribute("M", b-1);
+		
 		int result = schedulerService.insertSchedule(sch);
 		
 		if(result>0) {
@@ -107,7 +129,7 @@ public class SchedulerController {
 		}else {
 			redirectAttr.addFlashAttribute("msg", "일정 등록 실패");
 		}
-		
+			
 		return "redirect:/scheduler/main.do";
 	}
 	
@@ -119,7 +141,7 @@ public class SchedulerController {
 		Scheduler sch = schedulerService.selectOne(no);
 		System.out.println("sch="+sch);
 		
-//		int result = schedulerService.deleteSchedule(no);
+		int result = schedulerService.deleteSchedule(no);
 		
 		redirectAttr.addFlashAttribute("msg", "일정 삭제 성공");
 		
