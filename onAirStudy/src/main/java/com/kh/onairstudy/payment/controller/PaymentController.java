@@ -15,4 +15,9 @@ public class PaymentController {
 
 	@Autowired
 	private PaymentService paymentService;
+	
+	@RequestMapping("/premium.do")
+	public String premium() {
+		return "payment/premium";
+	}
 }
