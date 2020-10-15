@@ -7,8 +7,12 @@ import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 
 public interface SchedulerService {
 
-	List<Map<String, Object>> mainScheduler(String memberId);
+	List<Scheduler> mainScheduler(String memberId);
 
 	int insertSchedule(Scheduler sch);
+
+	int deleteSchedule(int no);
+
+	Scheduler selectOne(int no);
 
 }
