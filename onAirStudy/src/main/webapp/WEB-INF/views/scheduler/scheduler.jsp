@@ -9,12 +9,14 @@
 <head>
 <meta charset="UTF-8">
 <title>스케줄러</title>
+    <!-- 필요한부분 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- 커스텀 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
     
 <!--컬러픽커-->
@@ -50,7 +52,7 @@
         </div>
 
 		<!-- 메뉴바  -->
-        <div class="dropdown-menu dropB"><p>X</p>
+        <div class="dropdown-menu dropB"><p id="pXB">X</p>
             <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this.value);" data-target="#insertSchedule">일정 등록</button>
             <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this.value);" data-target="#viewSchedule">일정 보기</button>
             <button class="dropdown-item">To do List</button>
@@ -278,6 +280,25 @@
         $("#viewTable").empty().append(htmlB);
 
 		}
+
+		//업데이트 모달창에 정보 전달하기
+		function updateB(no){
+			
+            schedules.forEach(function(e){
+				if(e.no == no){
+					
+
+					}
+
+				var sts = document.getElementById(e.startDate);
+
+                if(sts!=null)
+                	sts.innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
+               
+            })
+
+		}
+	
 	
 		//일정삭제
 		 	function deleteB(no, day){
@@ -445,7 +466,6 @@
 
         
            $(document).ready(function(){
-
                //메뉴닫아주기
                $(".dropB").find("p").click(function(){
                    $(".dropB").css("display", "none");
@@ -453,15 +473,16 @@
           
            });
 
-           
+           //메뉴닫기
            $(document).ready(function(){
                $(".close").click(function(){
                   var inputs = document.getElementsByClassName("delB");
                    for(var i = 0 ; i<inputs.length ; i++){
                        inputs[i].value = "";
                    }
-                   location.replace("${ pageContext.request.contextPath }/scheduler/main.do");
-                   /* $(".dropB").css("display", "none"); */
+                   //이거를,,,해,,말어 ,,?
+                  /*  location.replace("${ pageContext.request.contextPath }/scheduler/main.do"); */
+                    $(".dropB").css("display", "none");
                })
           
            });
@@ -550,7 +571,7 @@
                             htmlB += "sat";
                         }
                         
-                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><span class='highSpan'> "+(dB++)+"</span></td>";
+                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><div class='highSpan'> "+(dB++)+"</div></td>";
                     }
                     htmlB+="</tr>";
 
@@ -585,15 +606,25 @@
 
                 function scheduling(){
 
+					var num = -1;
                     //투두, 디데이가 아닐때
-                    schedules.forEach(function(e){
+                   <!--  schedules.forEach(function(e){
                         if(e.dYN == "Y"){
 							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
                           }
-                        
-                        document.getElementById(e.startDate).innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
+						var sts = document.getElementById(e.startDate);
+                        if(sts!=null){
+							/* if(schedules[num].) */
+                        	sts.innerHTML+="<br/><div style='background-color:"+e.colorCode+";'>"+e.content+"</div>";
+                        	num++;
+                        	console.log(num+"회차"+e.no);
+                        	console.log(num+"회차"+num);
+                        	console.log(num+"회차"+schedules[num].no);
+                         }
                        
-                    })
+                    })-->
+
+                   
                 }
 
             
