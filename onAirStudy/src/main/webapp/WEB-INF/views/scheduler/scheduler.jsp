@@ -40,7 +40,7 @@
     
 </head>
 <body>
-
+<button onclick="$('#insertSchedule').modal('show');">모달열려라얍</button>
 
   <div class='cal-divB'>
         <div class="infoB">
@@ -300,12 +300,16 @@
 	
 		//일정삭제
 		 	function deleteB(no, day){
-		 	$.ajax({
+				location.replace("${ pageContext.request.contextPath }/scheduler/delete.do?no="+no);
+
+			 	
+		 /* 	$.ajax({
 				type:"GET",
 				url: "${ pageContext.request.contextPath }/scheduler/delete.do?no="+no,
 				error:function(){
 					alert("일정 삭제 실패");
 					},
+				dataType:"text",
 				success : function(data){
 					alert("일정 삭제 성공");
 					console.log(data);
@@ -314,7 +318,7 @@
 	
 				}
 
-			});
+			}); */
 				
 
 		}

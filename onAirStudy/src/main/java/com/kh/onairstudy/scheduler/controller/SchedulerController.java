@@ -4,14 +4,16 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -111,16 +113,7 @@ public class SchedulerController {
 		
 		System.out.println("sch="+sch);
 		
-		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
-		SimpleDateFormat fm2 = new SimpleDateFormat("MM");
-		
-		String a = fm1.format(sch.getStartDate());
-		int b = Integer.parseInt(fm2.format(sch.getStartDate()));
-		
-		System.out.println("a="+a+", b="+(b-1));
-		
-		redirectAttr.addFlashAttribute("Y", a);
-		redirectAttr.addFlashAttribute("M", b-1);
+		redirectAttr = makeYearMonths(sch, redirectAttr);
 		
 		int result = schedulerService.insertSchedule(sch);
 		
@@ -133,6 +126,27 @@ public class SchedulerController {
 		return "redirect:/scheduler/main.do";
 	}
 	
+	public RedirectAttributes makeYearMonths(Scheduler sch, RedirectAttributes redirectAttr){
+		
+		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
+		SimpleDateFormat fm2 = new SimpleDateFormat("MM");
+		
+		String a = fm1.format(sch.getStartDate());
+		int b = Integer.parseInt(fm2.format(sch.getStartDate()))-1;
+		
+		System.out.println("a="+a+", b="+b);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("Y", a);
+		map.put("M", b);
+		System.out.println("map="+map);
+		
+		redirectAttr.addFlashAttribute("Y", map.get("Y"));
+		redirectAttr.addFlashAttribute("M", map.get("M"));
+		
+		return redirectAttr;
+	}
+	
 	@RequestMapping("/delete.do")
 	public String deleteSchedule(@RequestParam("no") int no,
 								RedirectAttributes redirectAttr) throws Exception {
@@ -141,10 +155,14 @@ public class SchedulerController {
 		Scheduler sch = schedulerService.selectOne(no);
 		System.out.println("sch="+sch);
 		
+		redirectAttr = makeYearMonths(sch, redirectAttr);
+		
 		int result = schedulerService.deleteSchedule(no);
-		
-		redirectAttr.addFlashAttribute("msg", "일정 삭제 성공");
-		
+		if(result>0)
+			redirectAttr.addFlashAttribute("msg", "일정 삭제 성공");
+		else
+			redirectAttr.addFlashAttribute("msg", "일정 삭제 실패");
+			
 		return "redirect:/scheduler/main.do";
 	}
 }
