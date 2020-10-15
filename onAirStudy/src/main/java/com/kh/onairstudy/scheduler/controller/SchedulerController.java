@@ -45,9 +45,6 @@ public class SchedulerController {
 		Calendar c2 = Calendar.getInstance();
 		
 		for(Scheduler sch : list) {
-			System.out.println("startDate="+sch.getStartDate());
-			System.out.println("endDate="+sch.getEndDate());
-			
 			Date start = sch.getStartDate();
 			Date end = sch.getEndDate();
 			
@@ -81,9 +78,9 @@ public class SchedulerController {
 		}
 		
 		//확인
-		for(Scheduler sch : addList) {
-			System.out.println(sch);
-		}
+//		for(Scheduler sch : addList) {
+//			System.out.println(sch);
+//		}
 		
 		mav.addObject("list", addList);
 		mav.setViewName("scheduler/scheduler");

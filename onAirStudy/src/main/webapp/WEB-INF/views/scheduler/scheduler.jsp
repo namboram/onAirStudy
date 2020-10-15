@@ -141,7 +141,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">일정 보기</h5>
+                  <h5 class="modal-title" id="theDateB">일정 보기</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -253,18 +253,16 @@
 	}
 
 	//일정보기할때 일정 미리 넣어주기
-	function viewSchedule(e){
+	function viewSchedule(theDate){
 
-		console.log("e는 뭘까나"+e);
-
-		var theDate = e;
 		var htmlB = "";
 		var count = 0;
+		//헤더에 날짜 넣어주기
+		$("#theDateB").empty().append(theDate.substr(5, 2)+"월 "+theDate.substr(9)+"일");
 		
 		if(schedules != null){
 			for(var i in schedules){
 				if(schedules[i].startDate == theDate){
-					var day = 
 					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? schedules[i].timeOpt : "-")+" ) </td>";
 					htmlB += "<td><button type='button' class='btn btn-light' onclick='updateB("+schedules[i].no+");'>수정</button></td>"
 							+"<td><button type='button' class='btn btn-light' onclick='deleteB("+schedules[i].no+");'>삭제</button></td>";
@@ -608,22 +606,50 @@
 
 					var num = -1;
                     //투두, 디데이가 아닐때
-                   <!--  schedules.forEach(function(e){
+               /*      schedules.forEach(function(e){
                         if(e.dYN == "Y"){
 							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
                           }
 						var sts = document.getElementById(e.startDate);
                         if(sts!=null){
-							/* if(schedules[num].) */
                         	sts.innerHTML+="<br/><div style='background-color:"+e.colorCode+";'>"+e.content+"</div>";
                         	num++;
                         	console.log(num+"회차"+e.no);
                         	console.log(num+"회차"+num);
                         	console.log(num+"회차"+schedules[num].no);
                          }
-                       
-                    })-->
+                        
+                    })*/
 
+					if(schedules != null){
+						
+						for(var i = 0 ; i < schedules.length ; i++){
+							//디데이부터 빼주기
+							if(schedules[i].dYN == "Y"){
+								$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
+	                          }
+
+	                          var sts = document.getElementById(schedules[i].startDate);
+	                          
+	                          var htmlBB = "";
+	                          if(sts!=null){
+		                          
+		                        	htmlBB += "<br/><div style='background-color:"+schedules[i].colorCode+";'>";
+	
+		                        	if(i==0 || (i>=1 && schedules[i-1].no != schedules[i].no)){
+	
+		                        		htmlBB += schedules[i].content;
+
+		                        	}
+
+	                        	htmlBB += "</div>";
+	                        	
+								sts.innerHTML+= htmlBB;
+		                      }
+
+						}
+
+					}
                    
                 }
 
