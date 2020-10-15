@@ -5,17 +5,33 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <fmt:requestEncoding value="utf-8"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+    
 <script src="${pageContext.request.contextPath }/resources/dist/sockjs.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <style>
 /* .chatcontent {
-	overflow: scroll;
-	height: 500px;
+	overflow: auto;
+	height: 100%;
 	position: relative;
-}  */
+}   */
+.chat-containerK{
+	overflow : hidden;
+}
+
+.chatcontent{
+	height: 500px;
+	overflow-y : scroll;
+} 
+.chat-fix{
+	position:fixed;
+	bottom : 0;
+	width:100%;
+}
 </style>
 <div id="chat-containerK">
 		<div class="chatWrap">
@@ -42,8 +58,11 @@
 				<div class="box">
 				 
 				</div>
-
-
+				</div>
+				<div class="chat-fixK">
+				<div class="alert alert-success" role="alert">
+	  <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
+	</div>
 				<div class="fix_btn">
 					<input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" />
 					<button type="button" class="send">보내기</button>
@@ -57,6 +76,7 @@
 						수정하기</button> --%>
 				</div>
 			</div>
+		
 		</div>
 	</div>
 	<script>
@@ -93,8 +113,11 @@
 		             
 		                })
 		                var position = $('[data-no='+endNo+']').offset();//위치값
+		                console.log(position);
 		                //$('#chat-containerK').stop().animate({scrollTop : position.top},600,'easeInQuint');
-		                window.scrollTo({top:position.top, behavior:'smooth'});
+		                //window.scrollTo({top:position.top, behavior:'auto'});
+		                //$(".chatcontent").animate({scrollTop:position},0);
+		                document.querySelector('.chatcontent').scrollTo({top:position.top, behavior:'auto'});
 		                isScrolled = false;
 		            },
 		            error : function(xhr, status, err){
@@ -124,24 +147,24 @@
 		        }
 		    }
 		//무한 스크롤
-		$(window).scroll(function(){
+		$(".chatcontent").scroll(function(){
 			//console.log("???");
             var $window = $(this);
             var scrollTop = $window.scrollTop();
             var windowHeight = $window.height();
             var documentHeight = $(document).height();
             
-            console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+            //console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
             
-            // scrollbar의 thumb가 위으 10px까지 도달 하면 리스트를 가져온다.
+            // scrollbar의 thumb가 위의1px까지 도달 하면 리스트를 가져옴//말 잘 안들었어
             if( scrollTop < 1 && isScrolled == false){
                 isScrolled = true;
                 fetchList();
 		                
             }
         })
-       // fetchList();
 
+////////////////////socket
 		var page = $('#page').val();
 		var perPageNum = $('#perPageNum').val();
 
@@ -168,10 +191,12 @@
 	            
 	            messageInput.val('');
 	        }
-	        
+	        function newAlerts(){
+				
+		    }
 	        client.connect({}, function (){
 	        	// 여기는 입장시
-	        	//alert("로그인 정보"+"${loginMember}");
+	        	//alert("로그인 정보"+"${loginMember.memberId}");
 	        	//client.send('/app/join/'+ roomNo , {}, JSON.stringify({ writer: member})); 
 //	           일반메세지 들어오는곳         
 	            client.subscribe('/subscribe/chat/'+roomNo, function (chat) {
@@ -201,7 +226,7 @@
 	                	//chatBox.append("<li>" + content.memberId + " :  <br/>" + content.chatContent + "</li>").append('<span>' + "[보낸 시간]" + content.sendDate + "</span>" + "<br>");
 	                	
 	                }
-	                
+	                newAlerts(content);
 	                $("#chat-containerK").scrollTop($("#chat-containerK")[0].scrollHeight);
 
 	            });
