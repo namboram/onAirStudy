@@ -55,7 +55,7 @@
           <div class="collapse navbar-collapse"  id="a-navbar-collapse">  
               <ul class="nav navbar-nav">
                   <li><a href="<%= request.getContextPath() %>/#">스터디방</a></li>
-                  <li><a href="#" onclick="location.href='${ pageContext.request.contextPath }/diary/diary.do'">공부다이어리</a></li>
+                  <li><a href="#" onclick="location.href='${ pageContext.request.contextPath }/diary/diaryList.do'">공부다이어리</a></li>
                   <li><a href="<%= request.getContextPath() %>/#">공지사항</a></li>
                   <li><a href="<%= request.getContextPath() %>/#">고객센터</a></li>
               </ul>

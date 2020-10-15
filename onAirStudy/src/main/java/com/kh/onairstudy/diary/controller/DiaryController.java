@@ -1,19 +1,19 @@
 package com.kh.onairstudy.diary.controller;
 
-import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.onairstudy.diary.model.service.DiaryService;
 import com.kh.onairstudy.diary.model.vo.Diary;
-
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ public class DiaryController {
 	@Autowired
 	private DiaryService diaryService;
 	
-	@RequestMapping("/diary.do")
+	@RequestMapping("/diaryList.do")
 	public String diary(Model model) {
 		log.debug("공부다이어리 인덱스 페이지 요청!");
 		List<Diary> list = null;
@@ -42,9 +42,11 @@ public class DiaryController {
 		log.debug("list = {}", list);
 		
 		
-		return "diary/diary";
+		return "diary/diaryList";
 	}
 	
+
+
 	/*
 	@RequestMapping("/insertDiary.do")
 	public String insertMemo(Diary diary, 
