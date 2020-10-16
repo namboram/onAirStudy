@@ -88,7 +88,7 @@
                     <form id="iuscheduleFrm" method="post">
                         
                         <input type="hidden" name="memberId" value="honggd" />
-                        <input type="hidden" name="no" />
+                        <input type="hidden" name="no" value="0" />
                         
 						<h3 style="margin-right:180px;">날짜 입력</h3>
 						<br />
@@ -589,9 +589,13 @@
 
                 function scheduling(){
 
+                	
 					if(schedules.length > 0){
-						
+						var cnt = 0;
+						var thisTd;
+						var cnt=0;
 						for(var i = 0 ; i < schedules.length ; i++){
+
 							//디데이부터 빼주기
 							if(schedules[i].dYN == "Y"){
 								$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
@@ -601,9 +605,9 @@
 	                          var firstDate = schedules[i].startDate.substr(8);
 	                          
 	                          var htmlBB = "";
+	                          
 	                          if(sts!=null){
-		                          
-		                        	htmlBB += "<br/><div style='background-color:"+schedules[i].colorCode+";'>";
+		                        	htmlBB += "<div style='background-color:"+schedules[i].colorCode+";'>";
 	
 		                        	if(firstDate == "01" || i==0 || (i>=1 && schedules[i-1].no != schedules[i].no)){
 	
@@ -614,9 +618,24 @@
 	                        	htmlBB += "</div>";
 	                        	
 								sts.innerHTML+= htmlBB;
-		                      }
 
-						}
+								//날짜포함 4개이상은 없애주기
+								thisTd = $("#"+schedules[i].startDate);
+								var thisDivs = $("#"+schedules[i].startDate).children("div");
+								var len = thisDivs.length;
+								console.log(thisDivs);
+								console.log(len);
+								var cnt = len-3;
+								
+								if(len > 4){
+									thisDivs.nextAll("div:nth-child(3)").remove();
+								}
+	
+							}
+		                  }
+
+							thisTd.append("<div style='background-color:white;'> +"+cnt+" </div>")
+
 
 					}
                    

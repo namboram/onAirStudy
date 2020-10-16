@@ -10,6 +10,8 @@ from
 	scheduler
 where
 	member_id = #{ memberId }
+order by 
+	(end_date - start_date) desc
 </select>
 <resultMap id="listMap" type="map">
 	<id column="no" property="no"/>
