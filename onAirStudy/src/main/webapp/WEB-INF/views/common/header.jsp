@@ -70,7 +70,7 @@
 	                
 	                <ul class="nav navbar-nav navbar-right">
 						<li class="nav-link"><a href="<%= request.getContextPath() %>/member/memberLogin.do">login</a></li>
-	                  	<li class="nav-link"><a href="<%= request.getContextPath() %>/member/memberenroll.do">Join</a></li> 
+	                  	<li class="nav-link"><a href="<%= request.getContextPath() %>/member/memberEnroll.do">Join</a></li> 
 	               </ul>   
                   
        </c:if>

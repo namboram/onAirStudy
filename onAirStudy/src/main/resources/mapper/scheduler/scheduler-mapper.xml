@@ -43,6 +43,26 @@ where
 	)
 </insert>
 
+<update id="updateOne">
+update 
+	scheduler
+set
+	member_id = #{memberId},
+	sr_no = null,
+	start_date = #{startDate},
+	end_date = #{endDate},
+	content = #{content},
+	color_code = #{colorCode},
+	schedule_yn = #{scheduleYN},
+	d_yn = #{dYN},
+	time_opt = #{timeOpt},
+	enabled_yn = #{enabledYN}
+where
+	no = #{ no }
+
+</update>
+
+
 <delete id="deleteSchedule">
 delete from
 	scheduler
@@ -58,6 +78,7 @@ from
 where
 	no = #{ no }
 </select>
+
 
 
 </mapper>

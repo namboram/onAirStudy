@@ -125,6 +125,30 @@ public class SchedulerController {
 			
 		return "redirect:/scheduler/main.do";
 	}
+
+	@RequestMapping("/update.do")
+	public String updateSchedule(Scheduler sch, 
+			RedirectAttributes redirectAttr) throws Exception {
+		if(sch.getDYN()==null)
+			sch.setDYN("N");
+		
+		sch.setEnabledYN("N");
+		
+		System.out.println("sch="+sch);
+		
+		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("modal", "good");
+		
+		int result = schedulerService.updateSchedule(sch);
+		
+		if(result>0) {
+			redirectAttr.addFlashAttribute("msg", "일정 수정 성공");
+		}else {
+			redirectAttr.addFlashAttribute("msg", "일정 수정 실패");
+		}
+//		
+		return "redirect:/scheduler/main.do";
+	}
 	
 	public RedirectAttributes makeYearMonths(Scheduler sch, RedirectAttributes redirectAttr){
 		
@@ -154,7 +178,7 @@ public class SchedulerController {
 		System.out.println("sch="+sch);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
-		redirectAttr.addFlashAttribute("del", "del");
+		redirectAttr.addFlashAttribute("modal", "good");
 		
 		int result = schedulerService.deleteSchedule(no);
 		

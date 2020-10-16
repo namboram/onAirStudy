@@ -15,4 +15,6 @@ public interface SchedulerDAO {
 
 	Scheduler selectOne(int no);
 
+	int updateSchedule(Scheduler sch);
+
 }

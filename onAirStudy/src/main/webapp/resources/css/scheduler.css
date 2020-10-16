@@ -62,7 +62,7 @@
                     position: absolute;
                     border: 1px solid black;
                     width: 200px;
-                    background-color: grey;
+                    background-color: #ff9191;
                 }
                 .dropB p{
                     text-align: right;
@@ -88,10 +88,10 @@
                     margin-top: 100px;
                     margin-left: 100px;
                 }
-                .sun:first-child{
+                th.sun, .sun .highSpan{
                     color:red;
                 }
-                .sat{
+                th.sat, .sat .highSpan{
                     color:blue;
                 }
                 .tableB tr td{
@@ -108,14 +108,14 @@
                     width: 140px;
                     height: 30px;
                 }
-                #insertSchedulFrm{
+                #iuschedule{
                     text-align: center;
                     margin-top:50px;
                 }
-                #insertSchedulFrm span{
+                #iuschedule span{
                     width: 200px;
                 }
-                #insertSchedulFrm input{
+                #iuschedule input{
                 	border:0;
                 	border-bottom:1px solid black;
                 }
@@ -127,4 +127,12 @@
                 }
                 #viewTable td{
                 	text-align:center;
+                	padding: 10px;
+                	padding-bottom:0;
+                }
+                #viewTable .tdB{
+                	width:80px;
+                }
+                #viewTable{
+               		min-height:200px;
                 }

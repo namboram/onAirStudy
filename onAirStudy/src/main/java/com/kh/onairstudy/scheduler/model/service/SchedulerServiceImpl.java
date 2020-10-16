@@ -37,6 +37,11 @@ public class SchedulerServiceImpl implements SchedulerService {
 	public Scheduler selectOne(int no) {
 		return schedulerDAO.selectOne(no);
 	}
+
+	@Override
+	public int updateSchedule(Scheduler sch) {
+		return schedulerDAO.updateSchedule(sch);
+	}
 	
 	
 	

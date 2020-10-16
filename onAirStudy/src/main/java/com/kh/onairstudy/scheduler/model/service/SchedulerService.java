@@ -15,4 +15,6 @@ public interface SchedulerService {
 
 	Scheduler selectOne(int no);
 
+	int updateSchedule(Scheduler sch);
+
 }
