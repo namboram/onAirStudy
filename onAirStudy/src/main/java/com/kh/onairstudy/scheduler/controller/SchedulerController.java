@@ -24,14 +24,13 @@ import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/scheduler")
 @Controller
 public class SchedulerController {
 
 	@Autowired
 	private SchedulerService schedulerService;
 	
-	@RequestMapping("/main.do")
+	@RequestMapping("/scheduler/main.do")
 	public ModelAndView mainScheduler(ModelAndView mav, HttpSession session) {
 
 		//내역가져오기
@@ -103,7 +102,7 @@ public class SchedulerController {
 		return addList;
 	}
 	
-	@RequestMapping("/insert.do")
+	@RequestMapping("/scheduler/insert.do")
 	public String insertSchedule(Scheduler sch, 
 								RedirectAttributes redirectAttr) throws Exception {
 		if(sch.getDYN()==null)
@@ -123,6 +122,30 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "일정 등록 실패");
 		}
 			
+		return "redirect:/scheduler/main.do";
+	}
+
+	@RequestMapping("/scheduler/update.do")
+	public String updateSchedule(Scheduler sch, 
+			RedirectAttributes redirectAttr) throws Exception {
+		if(sch.getDYN()==null)
+			sch.setDYN("N");
+		
+		sch.setEnabledYN("N");
+		
+		System.out.println("sch="+sch);
+		
+		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("modal", "good");
+		
+		int result = schedulerService.updateSchedule(sch);
+		
+		if(result>0) {
+			redirectAttr.addFlashAttribute("msg", "일정 수정 성공");
+		}else {
+			redirectAttr.addFlashAttribute("msg", "일정 수정 실패");
+		}
+//		
 		return "redirect:/scheduler/main.do";
 	}
 	
@@ -145,7 +168,7 @@ public class SchedulerController {
 		return redirectAttr;
 	}
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping("/scheduler/delete.do")
 	public String deleteSchedule(@RequestParam("no") int no,
 								RedirectAttributes redirectAttr) throws Exception {
 		System.out.println("no="+no);
@@ -154,7 +177,7 @@ public class SchedulerController {
 		System.out.println("sch="+sch);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
-		redirectAttr.addFlashAttribute("del", "del");
+		redirectAttr.addFlashAttribute("modal", "good");
 		
 		int result = schedulerService.deleteSchedule(no);
 		

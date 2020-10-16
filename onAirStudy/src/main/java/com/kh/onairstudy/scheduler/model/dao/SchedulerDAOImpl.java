@@ -35,6 +35,11 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 	public Scheduler selectOne(int no) {
 		return sqlSession.selectOne("scheduler.selectOne", no);
 	}
+
+	@Override
+	public int updateSchedule(Scheduler sch) {
+		return sqlSession.update("scheduler.updateOne", sch);
+	}
 	
 	
 	
