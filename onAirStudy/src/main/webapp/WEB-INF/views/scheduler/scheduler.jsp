@@ -420,14 +420,15 @@
            
            //디비에서 스케줄 가져오기  
            var schedules = Array (
-           <c:forEach items='${ list }' var='sch' varStatus="i">
+           <c:forEach items='${ list }' var='sch'>
            new schedule("${ sch.no }", "${ sch.startDate }", "${ sch.endDate }", "${ sch.content }", "${ sch.colorCode }", "${ sch.timeOpt }", "${ sch.DYN }"),
            </c:forEach>
            );
 
            //출력해보기
    		$(document).ready(function(){
-				console.log(schedules);
+			console.log(schedules);
+				
        		})
 
            
@@ -620,7 +621,7 @@
 								sts.innerHTML+= htmlBB;
 
 								//날짜포함 4개이상은 없애주기
-								thisTd = $("#"+schedules[i].startDate);
+							/* 	thisTd = $("#"+schedules[i].startDate);
 								var thisDivs = $("#"+schedules[i].startDate).children("div");
 								var len = thisDivs.length;
 								console.log(thisDivs);
@@ -629,12 +630,12 @@
 								
 								if(len > 4){
 									thisDivs.nextAll("div:nth-child(3)").remove();
-								}
+								} */
 	
 							}
 		                  }
 
-							thisTd.append("<div style='background-color:white;'> +"+cnt+" </div>")
+							//thisTd.append("<div style='background-color:white;'> +"+cnt+" </div>")
 
 
 					}

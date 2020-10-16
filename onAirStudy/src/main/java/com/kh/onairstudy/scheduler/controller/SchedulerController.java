@@ -24,14 +24,13 @@ import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/scheduler")
 @Controller
 public class SchedulerController {
 
 	@Autowired
 	private SchedulerService schedulerService;
 	
-	@RequestMapping("/main.do")
+	@RequestMapping("/scheduler/main.do")
 	public ModelAndView mainScheduler(ModelAndView mav, HttpSession session) {
 
 		//내역가져오기
@@ -103,7 +102,7 @@ public class SchedulerController {
 		return addList;
 	}
 	
-	@RequestMapping("/insert.do")
+	@RequestMapping("/scheduler/insert.do")
 	public String insertSchedule(Scheduler sch, 
 								RedirectAttributes redirectAttr) throws Exception {
 		if(sch.getDYN()==null)
@@ -126,7 +125,7 @@ public class SchedulerController {
 		return "redirect:/scheduler/main.do";
 	}
 
-	@RequestMapping("/update.do")
+	@RequestMapping("/scheduler/update.do")
 	public String updateSchedule(Scheduler sch, 
 			RedirectAttributes redirectAttr) throws Exception {
 		if(sch.getDYN()==null)
@@ -169,7 +168,7 @@ public class SchedulerController {
 		return redirectAttr;
 	}
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping("/scheduler/delete.do")
 	public String deleteSchedule(@RequestParam("no") int no,
 								RedirectAttributes redirectAttr) throws Exception {
 		System.out.println("no="+no);
