@@ -3,9 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="회원등록" name="title"/>
-</jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/member.css" />
 
 <div id="enroll-container" class="mx-auto text-center">
@@ -23,10 +25,10 @@
 							   name="memberId" 
 							   id="memberId_"
 							   required>
-						 <span class="guide ok">이 아이디는 사용가능합니다.</span>
+						<!--  <span class="guide ok">이 아이디는 사용가능합니다.</span>
 						<span class="guide error">이 아이디는 사용할 수 없습니다.</span> 
-						<!-- 0:사용불가, 1:사용가능 -->
-						<input type="hidden" id="idValid" value="0" />
+						0:사용불가, 1:사용가능
+						<input type="hidden" id="idValid" value="0" /> -->
 						
 					</div>
 				</td>
@@ -49,12 +51,14 @@
 					<input type="text" class="form-control" name="memberName" id="memberName" required>
 				</td>
 			</tr>
+			
 			<tr>
 				<th>휴대폰 본인 인증<span>*</span></th>
 				<td>	
 					<input type="tel" class="form-control" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" required>
 				</td>
 			</tr>
+			
 			<tr>
 				<th>자기소개</th>
 				<td>	
@@ -131,7 +135,7 @@ $("#memberId_").keyup(function(){
 	});
 	
 	
-});
+}); 
 
 	
 $("#password2").blur(function(){
@@ -164,6 +168,6 @@ $("#memberEnrollFrm").submit(function(){
 	
 	return true;
 });
-</script>
+</script> -->
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

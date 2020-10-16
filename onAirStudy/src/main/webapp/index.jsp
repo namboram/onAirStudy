@@ -10,15 +10,18 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
     crossorigin="anonymous"></script>
+
+
+
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
@@ -30,7 +33,7 @@
 }
 
 </style>
-<!--  -->
+
 			<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 			  <ol class="carousel-indicators">
 			    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -124,19 +127,21 @@
 			<div class="container-fluid" style="background-color:#F2EDEA">
 			<h3 class="text-center">이달의 성실멤버</h2>
 			  <ul class="list-inline">
-					  <li>
-					  	   Item 1
-					  </li>
-					  
-					  <li> Item 2 </li>
-					  <li> Item 3 </li>
-					  <li> Item 4 </li>
-					  <li> Item 5 </li>
-					  <li> Item 6 </li>
-					  <li> Item 7 </li>
-					  <li> Item 8 </li>
-					  <li> Item 9 </li>
-					  <li> Item 10 </li>
+					 <li> 
+					 
+					 <c:forEach items="${ list }" var="member">
+					 
+					  <div style="background-color:fff; border:4px solid rgb(247,175,141); border-radius:5%; padding:20px; width:230px; height:330px;">
+					  		<img class="center-block" src="${pageContext.request.contextPath }/resources/upload/?" width="150px"
+					  		onclick="">
+					  		
+					  		<h4 class="text-center">${ member.memberName }<a href="#" onclick=""></a></h4>
+					  		<h4 class="text-center">${ member.category }<a href="#" onclick=""></a></h4>
+					  		<h4 class="text-center">${ member.comment }<a href="#" onclick=""></a></h4>
+					  		<h4 class="text-center">${ member.diligentPoint }<a href="#" onclick=""></a></h4>
+					  		
+					  </c:forEach>    
+					 
 			 </ul>
 
 			</div>

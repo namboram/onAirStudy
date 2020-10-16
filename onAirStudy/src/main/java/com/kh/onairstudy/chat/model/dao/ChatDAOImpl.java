@@ -28,8 +28,8 @@ public class ChatDAOImpl implements ChatDAO {
 	}
 
 	@Override
-	public List<Chat> selectFirstChatList() {
-		return sqlSession.selectList("chat.selectFirstChatList");
+	public List<Chat> selectFirstChatList(int roomNo) {
+		return sqlSession.selectList("chat.selectFirstChatList",roomNo);
 	}
 	
 	

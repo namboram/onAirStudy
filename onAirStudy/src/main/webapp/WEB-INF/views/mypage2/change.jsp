@@ -16,6 +16,7 @@
     // 페이지 전환
 	function change(){
     $(".change").load("${pageContext.request.contextPath}/enter/chat.do?roomNo=5");
+    
 		}
 
 </script>

@@ -27,6 +27,4 @@ public class AttendanceController {
 	public String mypage2() {
 		return "mypage2/side-bar2";
 	}
-	
-	
 }
