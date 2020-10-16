@@ -38,9 +38,9 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<Chat> selectFirstChatList() {
+	public List<Chat> selectFirstChatList(int roomNo) {
 		
-		return chatDAO.selectFirstChatList();
+		return chatDAO.selectFirstChatList(roomNo);
 	}
 	
 	

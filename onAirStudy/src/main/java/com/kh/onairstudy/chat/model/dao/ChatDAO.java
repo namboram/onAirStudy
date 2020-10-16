@@ -11,6 +11,6 @@ public interface ChatDAO {
 
 	List<Chat> selectchatList(Map<String, Object> map);
 
-	List<Chat> selectFirstChatList();
+	List<Chat> selectFirstChatList(int roomNo);
 
 }
