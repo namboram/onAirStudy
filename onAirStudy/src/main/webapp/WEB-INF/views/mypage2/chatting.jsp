@@ -9,7 +9,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script
 	src="${pageContext.request.contextPath }/resources/dist/sockjs.min.js"></script>
@@ -36,29 +36,43 @@
 	bottom: 0;
 	width: 100%;
 }
+.fix_btn{
+	/*  display : inline-bolck;*/
+	float : left;
+}
 #alertK{
 	display : none;
+}
+#msgi{	
+	resize: none;
 }
 </style>
 
 <div id="chat-containerK">
 	<div class="chatWrap">
 		<div class="main_tit">
-			<h1>방 이름 [ ${roomNo}번 ] 아이디[${memberId}]</h1>
+			<h1>방 이름 [ ${roomNo}번 ] 아이디[${loginMember.memberId}]</h1>
 		</div>
 		<div class="content chatcontent" data-room-no="${roomNo}"
 			data-member="${loginMember}">
-			<div class="user">
-				<ul>
-
-				</ul>
-			</div>
 			<ul id="list-guestbook">
 				<c:forEach items="${firstList}" var="chat">
-					<li data-no="${chat.no}"><strong
-						style="background-color: tomato;">${chat.no}</strong> <strong>${chat.memberId}</strong>
-						<p>${chat.chatContent}</p> <strong><fmt:formatDate
-								value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" /></strong></li>
+					<!-- 내 채팅일 경우 -->
+					<c:if test="${loginMember.memberId eq chat.memberId}">
+					<li data-no="${chat.no}">
+					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
+					<div class="row">
+					<pre class="bg-light p-2 m-2">${chat.chatContent}</pre> 
+					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" /></strong></div></li>
+					</c:if>
+					<!-- 다른사람의 채팅일 경우 -->
+					<c:if test="${loginMember.memberId ne chat.memberId}">
+					<li data-no="${chat.no}">
+					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
+					<div class="row">
+					<pre class="bg-secondary p-2 m-2">${chat.chatContent}</pre> 
+					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" /></strong></div></li>
+					</c:if>
 				</c:forEach>
 			</ul>
 			<div class="box"></div>
@@ -67,9 +81,10 @@
 			<div id="alertK" onclick="moveDown();" class="alert alert-success" role="alert">
 				<strong>Well done!</strong> You successfully read
 			</div>
-			<div class="fix_btn">
-				<input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" />
-				<button type="button" class="send">보내기</button>
+			<div class="fix_btn row">
+				<textarea name="msg" id="msgi" rows="2" class="form-control col-sm-8"></textarea>
+				<!-- <input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" /> -->
+				<button type="button" class="send col-sm-4 btn btn-secondary">보내기</button>
 			</div>
 		</div>
 
@@ -115,7 +130,8 @@ $(document).ready(function() {
 							isEnd = true;
 						}
 						$.each(result, function(index, vo) {
-							renderList(false, vo);
+							var html = renderList(vo);
+							$("#list-guestbook").prepend(html);
 
 						})
 						var position = $('[data-no=' + (endNo - 1)+ ']').offset();//위치값
@@ -135,25 +151,43 @@ $(document).ready(function() {
 				});
 	}
 
-	var renderList = function(mode, vo) {
+	var renderList = function(vo) {
 		//alert("아뭐냐구");
 		// 리스트 html을 정의
-		var html = "<li data-no='"+ vo.no +"'>"
+		var date = moment(vo.sendDate).format('YY/MM/DD HH:mm:ss');
+		var html = "";
+		//내가 보낸 채팅일 경우
+		if(vo.memberId=="${loginMember.memberId}"){
+		
+		html = "<li class='pull-right' data-no='"+ vo.no +"'>"
 				+ "<strong>" + vo.no + "</strong>"
 				+ "<strong>" + vo.memberId + "</strong>"
-				+ "<p>" + vo.chatContent + "</p>"
-				+ "<strong>" + vo.sendDate + "</strong>"
-				+ "</li>"
+				+"<div class='row'>"
+				+ "<pre class='bg-light p-2 m-2'>" + vo.chatContent + "</pre>"
+				+ "<strong>" + date + "</strong>"
+				+"</div>"
+				+ "</li>";
 
-		if (mode) {
-			$("#list-guestbook").prepend(html);
-		} else {
-			$("#list-guestbook").prepend(html);
 		}
+		else{
+
+			html = "<li data-no='"+ vo.no +"'>"
+			+ "<strong>" + vo.no + "</strong>"
+			+ "<strong>" + vo.memberId + "</strong>"
+			+"<div class='row'>"
+			+ "<pre class='bg-secondary p-2 m-2'>" + vo.chatContent + "</pre>"
+			+ "<strong>" + date + "</strong>"
+			+"</div>"
+			+ "</li>";
+		
+			}
+		return html;
+			
+		
+
 	}
 	//무한 스크롤
 	$(".chatcontent").scroll(function() {
-		//console.log("???");
 		var $window = $(this);
 		var scrollTop = $window.scrollTop();
 		var windowHeight = $window.height();
@@ -172,14 +206,13 @@ $(document).ready(function() {
 	////////////////////socket
 	//새로운 메시지 알림
 	function newAlerts(content,endNo) {
-		//alert("새로운 메시지 도착!");
 		$('#alertK').css('display','block');
-		$('#alertK').html(content.chatContent);
+		$('#alertK').html("<strong>"+content.memberId+"</strong>님이 메시지를 보냈습니다.");
 	}
 	
 	$(function() {
 		var chatBox = $('.box');
-		var messageInput = $('input[name="msg"]');
+		var messageInput = $('textarea[name="msg"]');
 		var roomNo = "${roomNo}";
 		var member = $('.content').data('member');
 		var sock = new SockJS(
@@ -195,7 +228,7 @@ $(document).ready(function() {
 			client.send('/app/hello/' + roomNo, {}, JSON
 					.stringify({
 						chatContent : message,
-						memberId : "honggd"
+						memberId : "${loginMember.memberId}"
 
 					}));
 
@@ -204,64 +237,14 @@ $(document).ready(function() {
 
 		client.connect({},function() {
 			// 여기는 입장시
-			//alert("로그인 정보"+"${loginMember.memberId}");
-			//client.send('/app/join/'+ roomNo , {}, JSON.stringify({ writer: member})); 
 			//	           일반메세지 들어오는곳         
-			client
-					.subscribe(
-							'/subscribe/chat/'
-									+ roomNo,
-							function(chat) {
-								var endNo = $("#list-guestbook li").last().data("no") + 1;
-								//받은 데이터
-								var content = JSON
-										.parse(chat.body);
-								if (content.memberId == "kinghj") {
-									//내 채팅 메시지일때
-									var html = "<li data-no='"+ endNo +"'>"
-											+ "<strong>"
-											+ endNo
-											+ "</strong>"
-											+ "<strong>"
-											+ content.memberId
-											+ "</strong>"
-											+ "<p>"
-											+ content.chatContent
-											+ "</p>"
-											+ "<strong>"
-											+ content.sendDate
-											+ "</strong>"
-											+ "</li>"
-									$(
-											"#list-guestbook")
-											.append(
-													html);
-									//chatBox.append("<div style='color : grey;'><li>" + content.memberId + " :  <br/>" + content.chatContent + "</li>").append('<span>' + "[보낸 시간]" + content.sendDate + "</span>" + "</div><br>");
-
-								} else {
-									//다른사람의 메시지일때
-									var html = "<li data-no='"+ endNo +"'>"
-											+ "<strong>"
-											+ endNo
-											+ "</strong>"
-											+ "<strong>"
-											+ content.memberId
-											+ "</strong>"
-											+ "<p>"
-											+ content.chatContent
-											+ "</p>"
-											+ "<strong>"
-											+ content.sendDate
-											+ "</strong>"
-											+ "</li>"
-									$(
-											"#list-guestbook")
-											.append(
-													html);
-									//chatBox.append("<li>" + content.memberId + " :  <br/>" + content.chatContent + "</li>").append('<span>' + "[보낸 시간]" + content.sendDate + "</span>" + "<br>");
-
-								}
-								newAlerts(content,endNo);
+			client.subscribe('/subscribe/chat/'+ roomNo,function(chat) {
+				var endNo = $("#list-guestbook li").last().data("no") + 1;
+				//받은 데이터
+				var content = JSON.parse(chat.body);
+				var html = renderList(content);
+				$("#list-guestbook").append(html);
+				newAlerts(content,endNo);
 								
 							});
 
