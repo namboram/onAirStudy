@@ -26,6 +26,8 @@ public class Member implements Serializable{
 		   private String withdraw;
 		   private String comment;
 		   private int category;
+		   
+		   
 		
 	}
 
