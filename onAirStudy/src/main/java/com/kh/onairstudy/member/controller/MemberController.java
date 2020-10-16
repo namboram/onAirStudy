@@ -122,6 +122,10 @@ public class MemberController {
 	
 
 	
+	
+	
+	
+	
 		
 		//아래 @Bean 안쓰면 오류떠서 일단 해봄ㅠ
 		@Bean
@@ -130,8 +134,12 @@ public class MemberController {
 			return new BCryptPasswordEncoder();
 		}
 		
-		
 	
+//		mypageIndex.jsp 불러오기 (여기에 만들기로함)
+		@RequestMapping("/mypage1_index.do")
+		public String mypage1_index() {
+			return "mypage1/mypage1_index";
+		}
 	
 		
 		@RequestMapping(value = "/memberLogin.do", 

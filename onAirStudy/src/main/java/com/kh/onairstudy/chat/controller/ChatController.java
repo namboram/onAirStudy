@@ -32,7 +32,7 @@ public class ChatController {
 	@RequestMapping("/enter/chat.do")
     public ModelAndView enterChat(@RequestParam int roomNo,ModelAndView mav,HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
-		List<Chat> firstList = chatService.selectFirstChatList();
+		List<Chat> firstList = chatService.selectFirstChatList(roomNo);
 		mav.addObject("roomNo",roomNo);
 		mav.addObject("memberId",memberId);
 		mav.addObject("firstList",firstList);
@@ -48,14 +48,14 @@ public class ChatController {
 	@RequestMapping("/chat/chatList.do")
 	@ResponseBody
 	public List<Chat> selectChatList(@RequestParam int roomNo,@RequestParam int endNo) {
-		int startNo = endNo-10;
+		int startNo = endNo-11;
 //		int roomNo = Integer.parseInt(room);
 
 			
 		Map<String,Object> map = new HashMap<>();
 		map.put("roomNo", roomNo);
 		map.put("startNo",startNo);
-		map.put("endNo", endNo);
+		map.put("endNo", endNo-1);
 		List<Chat> list = chatService.selectChatList(map);
 		log.info("list= {}", list);
 //		mav.addObject("list", list);

@@ -18,7 +18,7 @@ WHERE sr_no = 5 and no BETWEEN #{startNo} AND #{endNo}
            FROM chatting c
           ORDER BY c.no desc
        ) x
-       where rownum <=10 order by no
+       where rownum <=10 and sr_no = #{roomNo} order by no
       ]]> 
  </select>
 </mapper>
