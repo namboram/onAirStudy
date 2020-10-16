@@ -1,11 +1,27 @@
-  #thisday{
+  				#thisday{
                     background-color: skyblue;
                     padding-right: 10%;
+                    border-radius:10px;
+                    display:inline;
+                    color:white;
                 }
-                .Bday span{
+                .Bday .highSpan{
+                	font-size:18px;
+                	width:38%;
+                	margin-top:5px;
+                    height: 25px;
+                }
+                .Bday div{
                     margin: 0;
-                    padding-left: 10px;
-                    border-radius: 10px;
+                    display:inline-block;
+                    padding-left:10px;
+                    padding-right:10px;
+                    width:100%;
+                    height: 20px;
+                    text-overflow:ellipsis; 
+                    overflow:hidden;
+                	font-size:12px;
+                	float:left;
                 }
                 .Bday{
                     border-radius: 10px;
@@ -109,6 +125,6 @@
                 .datepickers-container{
                     z-index: 9999;
                 }
-                .infoB+button{
-                	
+                #viewTable td{
+                	text-align:center;
                 }

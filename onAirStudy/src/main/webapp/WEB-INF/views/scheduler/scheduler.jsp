@@ -9,12 +9,14 @@
 <head>
 <meta charset="UTF-8">
 <title>스케줄러</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- 필요한부분 -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- 커스텀 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
     
 <!--컬러픽커-->
@@ -30,17 +32,22 @@
     
 <c:if test="${ not empty msg }">
 <script>
-	alert("${ msg }");
+	window.onload = alert("${ msg }");
 </script>
 </c:if>
+<!-- 삭제했을때 -->
+<c:if test="${ not empty del }">
+<script>
+	$(document).ready(function(){
 
-
-
-    
+		$('#viewSchedule').modal("show");
+		viewSchedule("${ Y }-${ M+1 }-${ D }");
+		});
+</script>
+</c:if>   
     
 </head>
 <body>
-
 
   <div class='cal-divB'>
         <div class="infoB">
@@ -52,9 +59,9 @@
         </div>
 
 		<!-- 메뉴바  -->
-        <div class="dropdown-menu dropB "><p>X</p>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" data-target="#insertSchedule">일정 등록</button>
-            <button class="dropdown-item">일정 보기</button>
+        <div class="dropdown-menu dropB"><p id="pXB">X</p>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this.value);" data-target="#insertSchedule">일정 등록</button>
+            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this.value);" data-target="#viewSchedule">일정 보기</button>
             <button class="dropdown-item">To do List</button>
           </div>
 
@@ -126,15 +133,215 @@
               </div>
             </div>
           </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- 일정보기모달 -->
+          <div class="modal" id="viewSchedule" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="theDateB">일정 보기</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body" id="viewBody">
+					<table class="table" id="viewTable">
+
+
+
+					</table>	
+                </div>
+
+
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!-- 일정수정 모달 -->
+          <div class="modal" id="updateSchedule" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">일정 등록</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <!-- 수정하는 부분 -->
+                <div class="modal-body">
+                    <form id="updateSchedulFrm" action="${pageContext.request.contextPath }/scheduler/updqte.do" method="post">
+                        
+                        <input type="hidden" name="memberId" value="honggd" />
+                        
+						<h3 style="margin-right:180px;">날짜 입력</h3>
+						<br />
+                        <input type="text" class="datepick delB" name="startDate">  ~  
+                        <input type="text" class="datepick delB" name="endDate">
+                        <br/>
+                        <br/>
+						
+						<h3 style="margin-right:180px;">내용 입력</h3>
+						<br />
+                        <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
+                        <br/>
+                        <br/>
+                        
+                        <label for="hidden-input">형광펜 색상 선택 : </label>
+                        <input type="hidden" id="hidden-input" class="demo" name="colorCode" value="#db913d">
+                        <br/>
+                        <br/>
+
+                        <label for="timeOption">시간추가 : 
+                        
+                        <select class="makeSelB" name="timeOption" id="time1">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        	
+                        <select class="makeSelB" name="timeOption" id="time2">
+                        	<option value="후다닥">다닥</option>
+                        </select>
+                        </label>
+                        <input type="hidden" name="timeOpt" val="" />
+
+                        <br/>
+                        <br/>
+
+                    </form>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" id="insertsubB" class="btn btn-primary">수정하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
 
 
     
     <script>
 
+
+    //일정등록할때 인풋값 미리 넣어주기
+	function insertForm(e){
+	    $("#insertSchedulFrm [name=startDate]").val(e);
+	    $("#insertSchedulFrm [name=endDate]").val(e);
+	}
+
+	//일정보기할때 일정 미리 넣어주기
+	function viewSchedule(theDate){
+
+		var htmlB = "";
+		var count = 0;
+		//헤더에 날짜 넣어주기
+		$("#theDateB").empty().append(theDate.substr(5, 2)+"월 "+theDate.substr(8)+"일");
+		
+		if(schedules != null){
+			for(var i in schedules){
+				if(schedules[i].startDate == theDate){
+					htmlB += "<tr><td>"+schedules[i].content+" ( "+(schedules[i].timeOpt!="" ? schedules[i].timeOpt : "-")+" ) </td>";
+					htmlB += "<td><button type='button' class='btn btn-light' onclick='updateB("+schedules[i].no+");'>수정</button></td>"
+							+"<td><button type='button' class='btn btn-light' onclick='deleteB("+schedules[i].no+");'>삭제</button></td>";
+					htmlB += "</tr>";
+					count++;
+					}		
+				}
+			}
+
+		if(count==0)
+			htmlB += "<tr colspan='3'><td>일정이 없습니다.</td></tr>";
+		
+        $("#viewTable").empty().append(htmlB);
+
+		}
+
+		//업데이트 모달창에 정보 전달하기
+		function updateB(no){
+			
+            schedules.forEach(function(e){
+				if(e.no == no){
+					
+
+					}
+
+				var sts = document.getElementById(e.startDate);
+
+                if(sts!=null)
+                	sts.innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
+               
+            })
+
+		}
+	
+	
+		//일정삭제
+		 	function deleteB(no, day){
+				location.replace("${ pageContext.request.contextPath }/scheduler/delete.do?no="+no);
+
+			 	
+		 /* 	$.ajax({
+				type:"GET",
+				url: "${ pageContext.request.contextPath }/scheduler/delete.do?no="+no,
+				error:function(){
+					alert("일정 삭제 실패");
+					},
+				dataType:"text",
+				success : function(data){
+					alert("일정 삭제 성공");
+					console.log(data);
+
+					viewSchedule();
+	
+				}
+
+			}); */
+				
+
+		}
+
+		
+		//삭제후 리다이렉트 올때
+		$(document).ready(function(){
+
+		});
+	
+    
+
     $(document).ready(function(){
     	$('#insertsubB').click(function(){
         	/* timeOpt 값 설정 */
-			var timeOpt = $("#time1").val()+","+$("#time2").val();
+			var timeOpt = $("#time1").val()+" ~ "+$("#time2").val();
 			$("[name=timeOpt]").val(timeOpt);
 
 			/* dYn 값 설정 */
@@ -243,14 +450,14 @@
                this.endDate = endDate.substr(0,10);
                this.content = content;
                this.colorCode = colorCode;
-               this.timeOpt = timeOpt=="00:00,00:00" ? "" : timeOpt;
+               this.timeOpt = timeOpt=="00:00 ~ 00:00" ? "" : timeOpt;
                this.dYN = dYN;
            }
            
            //디비에서 스케줄 가져오기  
            var schedules = Array (
            <c:forEach items='${ list }' var='sch' varStatus="i">
-           new schedule("${ sch.no }", "${ sch.startDate }", "${ sch.endDate }", "${ sch.content }", "${ sch.colorCode }", "${ sch.timeOpt }", "${ sch.dYN }"),
+           new schedule("${ sch.no }", "${ sch.startDate }", "${ sch.endDate }", "${ sch.content }", "${ sch.colorCode }", "${ sch.timeOpt }", "${ sch.DYN }"),
            </c:forEach>
            );
 
@@ -262,13 +469,17 @@
            
            //기본 달력출력
            $(document).ready(function(){
-               drawCalendar();
+				if("${ Y }"== "" && "${ M }"==""){
+	               drawCalendar();
+	               return;
+				}
+               
+               drawCalendar("${ Y }", "${ M }");
 
            });
 
         
            $(document).ready(function(){
-
                //메뉴닫아주기
                $(".dropB").find("p").click(function(){
                    $(".dropB").css("display", "none");
@@ -276,14 +487,16 @@
           
            });
 
-           
+           //메뉴닫기
            $(document).ready(function(){
                $(".close").click(function(){
                   var inputs = document.getElementsByClassName("delB");
                    for(var i = 0 ; i<inputs.length ; i++){
                        inputs[i].value = "";
                    }
-                   $(".dropB").css("display", "none");
+                   //이거를,,,해,,말어 ,,?
+                  /*  location.replace("${ pageContext.request.contextPath }/scheduler/main.do"); */
+                    $(".dropB").css("display", "none");
                })
           
            });
@@ -372,14 +585,14 @@
                             htmlB += "sat";
                         }
                         
-                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><span> "+(dB++)+"</span></td>";
+                        htmlB+="' id='"+yB+"-"+(MB < 10 ? "0"+MB : MB )+"-"+ (dB < 10 ? "0"+dB : dB ) +"'><div class='highSpan'> "+(dB++)+"</div></td>";
                     }
                     htmlB+="</tr>";
 
                 }
 
             	//달력완성
-                $tblB.append(htmlB);
+                $tblB.empty().append(htmlB);
 
                 //오늘날짜에 id 추가하기
                 var today = new Date();
@@ -406,17 +619,55 @@
                 }
 
                 function scheduling(){
-                   
+
+					var num = -1;
                     //투두, 디데이가 아닐때
-                    schedules.forEach(function(e){
+               /*      schedules.forEach(function(e){
                         if(e.dYN == "Y"){
-							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.");
+							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
                           }
-                        console.log(e.startDate);
-                        console.log(e.endDate);
-                        document.getElementById(e.startDate).innerHTML+="<br/><span style='background-color:"+e.colorCode+";'>"+e.content+"</span>";
-                       
-                    })
+						var sts = document.getElementById(e.startDate);
+                        if(sts!=null){
+                        	sts.innerHTML+="<br/><div style='background-color:"+e.colorCode+";'>"+e.content+"</div>";
+                        	num++;
+                        	console.log(num+"회차"+e.no);
+                        	console.log(num+"회차"+num);
+                        	console.log(num+"회차"+schedules[num].no);
+                         }
+                        
+                    })*/
+
+					if(schedules != null){
+						
+						for(var i = 0 ; i < schedules.length ; i++){
+							//디데이부터 빼주기
+							if(schedules[i].dYN == "Y"){
+								$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
+	                          }
+
+	                          var sts = document.getElementById(schedules[i].startDate);
+	                          var firstDate = schedules[i].startDate.substr(8);
+	                          
+	                          var htmlBB = "";
+	                          if(sts!=null){
+		                          
+		                        	htmlBB += "<br/><div style='background-color:"+schedules[i].colorCode+";'>";
+	
+		                        	if(firstDate == "01" || i==0 || (i>=1 && schedules[i-1].no != schedules[i].no)){
+	
+		                        		htmlBB += schedules[i].content;
+
+		                        	}
+
+	                        	htmlBB += "</div>";
+	                        	
+								sts.innerHTML+= htmlBB;
+		                      }
+
+						}
+
+					}
+                   
                 }
 
             
@@ -454,10 +705,13 @@
                     var x = event.clientX;
                     var y = event.clientY;
 
+					//메뉴보여주기
                     $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
-                    $("[name=startDate]").val(e.id);
-                    $("[name=endDate]").val(e.id);
 
+					//서브메뉴에 날짜값 넣어주기
+					$(".dropB").children().attr("value", e.id);
+                    
+				
                 }
 
 		

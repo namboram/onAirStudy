@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="scheduler">
-<select id="schedulerList" resultMap="listMap">
+<select id="schedulerList" resultType="Scheduler">
 select
 	*
 from
@@ -42,6 +42,22 @@ where
 		#{enabledYN}
 	)
 </insert>
+
+<delete id="deleteSchedule">
+delete from
+	scheduler
+where
+	no = #{ no }
+</delete>
+
+<select id="selectOne" resultType="Scheduler">
+select
+	*
+from
+	scheduler
+where
+	no = #{ no }
+</select>
 
 
 </mapper>

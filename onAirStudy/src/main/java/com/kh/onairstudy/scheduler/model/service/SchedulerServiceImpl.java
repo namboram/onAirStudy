@@ -19,13 +19,23 @@ public class SchedulerServiceImpl implements SchedulerService {
 	private SchedulerDAO schedulerDAO;
 
 	@Override
-	public List<Map<String, Object>> mainScheduler(String memberId) {
+	public List<Scheduler> mainScheduler(String memberId) {
 		return schedulerDAO.mainScheduler(memberId);
 	}
 
 	@Override
 	public int insertSchedule(Scheduler sch) {
 		return schedulerDAO.insertSchedule(sch);
+	}
+
+	@Override
+	public int deleteSchedule(int no) {
+		return schedulerDAO.deleteSchedule(no);
+	}
+
+	@Override
+	public Scheduler selectOne(int no) {
+		return schedulerDAO.selectOne(no);
 	}
 	
 	
