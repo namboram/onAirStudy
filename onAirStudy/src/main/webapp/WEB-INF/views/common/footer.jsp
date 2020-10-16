@@ -25,8 +25,8 @@
 ​
 <!-- 사용자작성 css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/footer.css" />
-
-
+​
+​
 ​
 <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -35,7 +35,7 @@
 ​
 </section>
 ​  <!-- Site footer -->
-
+​
     <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -50,7 +50,7 @@
               어쩌고 저쩌고 ~~~
               </p>
           </div>
-
+​
           <div class="col-xs-6 col-md-3">
             <h6>POLICIES</h6>
             <br>
@@ -61,7 +61,7 @@
 		 
             </ul>
           </div>
-
+​
           <div class="col-xs-6 col-md-3">
             <h6>COMPANY</h6>
             <br>
@@ -80,7 +80,7 @@
          <a href="#">Scanfcode</a>.
             </p>
           </div>
-
+​
           <div class="col-md-4 col-sm-6 col-xs-12">
             <ul class="social-icons">
               <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -101,3 +101,4 @@
 ​
 </body>
 </html>
+Co
