@@ -49,6 +49,30 @@
 </style>
 
 <div id="chat-containerK">
+	<!-- The Report Modal -->
+	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">Modal Heading</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        Modal body..
+	      </div>
+	
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+	
+	    </div>
+	  </div>
+	</div>
 	<div class="chatWrap">
 		<div class="main_tit">
 			<h1>방 이름 [ ${roomNo}번 ] 아이디[${loginMember.memberId}]</h1>
@@ -98,6 +122,12 @@ function moveDown(){
 	
 }
 $(document).ready(function() {
+/* 	$('.reportK').on('show.bs.modal', function (e) {
+/* 	       var question = $(e.relatedTarget).data('questiontitle'),
+	           answer = $(e.relatedTarget).data('questionanswer'); */
+	       /* $("#questionTitle").html( question );
+	       $("#questionAnswer").html( answer ); 
+	}) */
 	//시작할때 스크롤 내리기
 	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
 	//alert("안되는거 같지..?");
@@ -130,7 +160,7 @@ $(document).ready(function() {
 							isEnd = true;
 						}
 						$.each(result, function(index, vo) {
-							var html = renderList(vo);
+							var html = renderList(vo,0);
 							$("#list-guestbook").prepend(html);
 
 						})
@@ -151,16 +181,17 @@ $(document).ready(function() {
 				});
 	}
 
-	var renderList = function(vo) {
+	var renderList = function(vo,endNo) {
 		//alert("아뭐냐구");
 		// 리스트 html을 정의
 		var date = moment(vo.sendDate).format('YY/MM/DD HH:mm:ss');
 		var html = "";
+		if(endNo==0) endNo = vo.no;
 		//내가 보낸 채팅일 경우
 		if(vo.memberId=="${loginMember.memberId}"){
 		
-		html = "<li class='pull-right' data-no='"+ vo.no +"'>"
-				+ "<strong>" + vo.no + "</strong>"
+		html = "<li class='pull-right' data-no='"+ endNo +"'>"
+				+ "<strong>" + endNo + "</strong>"
 				+ "<strong>" + vo.memberId + "</strong>"
 				+"<div class='row'>"
 				+ "<pre class='bg-light p-2 m-2'>" + vo.chatContent + "</pre>"
@@ -176,7 +207,7 @@ $(document).ready(function() {
 			+ "<strong>" + vo.memberId + "</strong>"
 			+"<div class='row'>"
 			+ "<pre class='bg-secondary p-2 m-2'>" + vo.chatContent + "</pre>"
-			+ "<strong>" + date + "</strong>"
+			+ "<strong>" + date + "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>Open modal</button></strong>"
 			+"</div>"
 			+ "</li>";
 		
@@ -242,7 +273,7 @@ $(document).ready(function() {
 				var endNo = $("#list-guestbook li").last().data("no") + 1;
 				//받은 데이터
 				var content = JSON.parse(chat.body);
-				var html = renderList(content);
+				var html = renderList(content,endNo);
 				$("#list-guestbook").append(html);
 				newAlerts(content,endNo);
 								
