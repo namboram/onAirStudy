@@ -29,6 +29,10 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member member) {
 		return memberDAO.insertMember(member);
 	}
+	@Override
+	public List<Member> selectDiligentMember() {
+		return memberDAO.selectDiligentMember();
+	}
 	
 	
 }

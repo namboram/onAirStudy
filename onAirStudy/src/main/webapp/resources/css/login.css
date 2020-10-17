@@ -29,3 +29,16 @@
   		padding: 10px;
   		font-size: 16px;
 	}
+	
+	
+	 .btn {
+	font-size: 13px;
+	color : gray; 
+	border : 3px solid gray;
+}
+
+	.btn:hover {
+	background-color :  #555555;
+	color : #fff;
+}
+

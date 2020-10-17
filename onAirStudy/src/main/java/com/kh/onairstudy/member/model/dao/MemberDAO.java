@@ -10,5 +10,7 @@ public interface MemberDAO {
 
 	int insertMember(Member member);
 
+	List<Member> selectDiligentMember();
+
 
 }

@@ -19,7 +19,7 @@
 	<div>
 		<h3>그룹 내 나의 출석률</h3>
 		<div class="col-md-5">
-			<canvas id="myChart" style="max-width: 550px;"></canvas>
+			<canvas id="myChart" style="max-width: 550px; padding:0; margin:0;margin-top:-3em;"></canvas>
 		</div>
 		<script>
 			var ctx = document.getElementById("myChart").getContext('2d');
