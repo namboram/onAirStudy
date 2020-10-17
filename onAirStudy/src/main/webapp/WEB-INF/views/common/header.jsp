@@ -42,9 +42,9 @@
 <body>
 	<header>
 
-		<nav class="navbar navbar-expand-sm" style="height: 30px;">
-			<a class="navbar" href="${pageContext.request.contextPath}"> <img
-				src="${pageContext.request.contextPath }/resources/images/logo.png"
+		<nav class="navbar navbar-expand-sm" style="height:30px;">
+			<a class="navbar" href="${pageContext.request.contextPath}"> 
+			<img src="${pageContext.request.contextPath }/resources/images/logo.png"
 				width="190px" style="margin-top: 10px;" />
 			</a>
 
@@ -54,26 +54,34 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-link"><a
-						href="<%=request.getContextPath()%>/#">스터디방 </a></li>
-					<li class="nav-link"><a href="#"
-						onclick="location.href='${ pageContext.request.contextPath }/diary/diaryList.do'">공부다이어리</a>
-					</li>
-					<li class="nav-link"><a
-						href="<%=request.getContextPath()%>/#">공지사항</a></li>
-					<li class="nav-link"><a
-						href="<%=request.getContextPath()%>/#">고객센터</a></li>
-				</ul>
+				<ul class="navbar-nav w-100 justify-content-center" style="margin-right:10%;">
+                    <li class="nav-item active" style="margin-right:2%;">
+                        <a class="nav-link" href="#">스터디방</a>
+                    </li>
+                    <li class="nav-item"  style="margin-right:2%;">
+                        <a class="nav-link"
+                           onclick="location.href='${ pageContext.request.contextPath }/diary/diaryList.do'">공부다이어리</a></a>
+                    </li>
+                    <li class="nav-item"  style="margin-right:2%;">
+                        <a class="nav-link">공지사항</a>
+                    </li>
+                    <li class="nav-item"  style="margin-right:2%;">
+                        <a class="nav-link">고객센터</a>
+                    </li>
+                </ul>
 			</div>
 
 			<c:if test="${ empty loginMember }">
 
-				<ul class="nav navbar-nav navbar-right">
-					<li class="nav-link"><a
-						href="<%=request.getContextPath()%>/member/memberLogin.do">login</a></li>
-					<li class="nav-link"><a
-						href="<%=request.getContextPath()%>/member/memberEnroll.do">Join</a></li>
+				<ul class="navbar-nav navbar-right" style="margin-right:1%;">
+					<li class="nav-item">
+						<a href="<%=request.getContextPath()%>/member/memberLogin.do">login</a>
+					</li>
+					&nbsp;
+					&nbsp;
+					<li class="nav-item">
+						<a href="<%=request.getContextPath()%>/member/memberEnroll.do">Join</a>
+					</li>
 				</ul>
 
 			</c:if>
@@ -81,14 +89,14 @@
 			<c:if test="${ not empty loginMember }">
 				<a href="${ pageContext.request.contextPath }">${ loginMember.memberName }</a>님, 안녕하세요.
 			    &nbsp;
-			    <button class="btn btn-outline-success my-2 my-sm-0"
-					type="button"
+			    <button class="btn my-2 my-sm-0"
+					type="button" id="logoutBtn"
 					onclick="location.href='${ pageContext.request.contextPath }/member/memberLogout.do';">로그아웃</button>
 			</c:if>
 
 
 		</nav>
-		<hr>
+		
 		<!-- Navbar End -->
 		​
 
@@ -102,4 +110,4 @@
 
 
 
-	<section id="content">
+<!-- 	<section id="content"> -->

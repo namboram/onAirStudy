@@ -52,33 +52,34 @@ $(function(){
 			aria-labelledby="loginModalLabel" aria-hidden="true">
 	
 		<div class="card align-middle" style="width:20rem; border-radius:20px;">
-			<div class="card-title" style="margin-top:30px;">	
-			
-			<a class="modal-title" href="${pageContext.request.contextPath}">
-	        	<img src="${pageContext.request.contextPath }/resources/images/logo.png" width="200px" />
-			</a>
-			
-		</div>
-		<div class="card-body">
-      
-	<!-- 로그인 폼 -->
-      <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/member/memberLogin.do">
-        
-        <label for="inputEmail" class="sr-only">Your ID</label>
-        <input type="text" id="uid" name="memberId" class="form-control" placeholder="Your ID" required autofocus><BR>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="upw" name="password" class="form-control" placeholder="Password" required><br>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> 기억하기
-          </label>
-        </div>
-        
-        <button type="submit" class="btn btn-outline-success">로그인</button>
-		<button type="button" class="btn btn-outline-success" data-dismiss="modal"onclick="location.href='${ pageContext.request.contextPath }'">취소</button>
-      </form>
-      
-		</div>
+					<div class="card-title" style="margin-top:30px;">	
+					
+					<a class="modal-title" href="${pageContext.request.contextPath}">
+			        	<img src="${pageContext.request.contextPath }/resources/images/logo.png" width="200px" />
+					</a>
+					
+					</div>
+					
+					<div class="card-body">
+			      
+					<!-- 로그인 폼 -->
+				      <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/member/memberLogin.do">
+				        
+				        <label for="inputEmail" class="sr-only">Your ID</label>
+				        <input type="text" id="uid" name="memberId" class="form-control" placeholder="Your ID" required autofocus><BR>
+				        <label for="inputPassword" class="sr-only">Password</label>
+				        <input type="password" id="upw" name="password" class="form-control" placeholder="Password" required><br>
+				        <div class="checkbox">
+				          <label>
+				            <input type="checkbox" value="remember-me"> 기억하기
+				          </label>
+				        </div>
+				        
+				        <button type="submit" id="btn" class="btn my-2 my-sm-0">로그인</button>
+						<button type="button" id="btn" class="btn my-2 my-sm-0" data-dismiss="modal"onclick="location.href='${ pageContext.request.contextPath }'">취소</button>
+				      </form>
+			      
+					</div>
 	</div>
 
 	<div class="modal">

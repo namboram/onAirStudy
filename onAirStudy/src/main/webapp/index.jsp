@@ -7,13 +7,10 @@
 <%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<!-- 사용자작성 css -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/style.css" />
 
-<style>
-.carousel-inner {
-	height: 50vh;
-	background-color: rgb(255, 195, 163);
-}
-</style>
 
 <div id="carouselExampleCaptions" class="carousel slide"
 	data-ride="carousel">
@@ -27,35 +24,40 @@
 
 	<div class="carousel-inner">
 		<div class="carousel-item active">
-			<img src="..." class="d-block w-100" alt="...">
-			<div class="carousel-caption d-none d-md-block">
-				<h2>Welcome</h2>
-				<h3>onAirStudy 가 처음이신가요?</h3>
-				<button class="btn btn-outline-success my-2 my-sm-0" type="button"
-					onclick="location.href='${ pageContext.request.contextPath }/#';">이용방법
-					안내</button>
+			 <img src="${ pageContext.request.contextPath }/resources/images/onlinestudy.jpg" class="d-block w-50" style="margin-left:640px;" >
+			<div class="carousel-caption" id="caption1">
+				<p>Welcome</p>
+				<h2>onAirStudy 가</h2>
+				<h2>&nbsp;&nbsp;처음이신가요?</h2>
+				<button class="btn my-2 my-sm-5" type="button"
+					onclick="location.href='${ pageContext.request.contextPath }/#';">이용방법 안내</button>
 			</div>
 		</div>
+		
+		
 		<div class="carousel-item">
-			<img src="..." class="d-block w-100" alt="...">
-			<div class="carousel-caption d-none d-md-block">
-				<h2>프리미엄 가입하면</h2>
+			<img src="${ pageContext.request.contextPath }/resources/images/team.png" class="d-block w-50" style="margin-left:200px;" >
+			<div class="carousel-caption" id="caption2">
+				<h2><strong style="color:#505050;">프리미엄 가입</strong>하면</h2>
 				<h3>실시간 채팅이?</h3>
-				<button class="btn btn-outline-success my-2 my-sm-0" type="button"
-					onclick="location.href='${ pageContext.request.contextPath }/premium';">프리미엄
-					혜택보기</button>
+				<br>
+				<img src="${ pageContext.request.contextPath }/resources/images/chat-bubble.png" width="80px">
+				<br>
+				<button class="btn my-2 my-sm-5" type="button"
+					onclick="location.href='${ pageContext.request.contextPath }/premium.do';">프리미엄 혜택보기</button>
 			</div>
 		</div>
+		
+		
 		<div class="carousel-item">
-			<img src="..." class="d-block w-100" alt="...">
-			<div class="carousel-caption d-none d-md-block">
+		<img src="${ pageContext.request.contextPath }/resources/images/test2.png" class="d-block w-50" style="margin-left:200px;" >
+			<div class="carousel-caption" id="caption3">
+				<h2><strong style="color:#505050;">프리미엄 가입</strong>하면</h2>
 				<h2>온라인 TEST</h2>
-				<h3>멤버들이 작성한 문제풀기</h3>
-				<button class="btn btn-outline-success my-2 my-sm-0" type="button"
-					onclick="location.href='${ pageContext.request.contextPath }/premium';">프리미엄
-					혜택보기</button>
+				<h3>멤버들이 작성한 <strong style="color:#505050;">문제풀기</strong> + <strong style="color:#505050;">채점</strong>까지 ?</h3>
+				<button class="btn my-2 my-sm-5" type="button"
+					onclick="location.href='${ pageContext.request.contextPath }/premium.do';">프리미엄 혜택보기</button>
 			</div>
-		</div>
 	</div>
 
 
@@ -75,6 +77,8 @@
 
 
 
+
+
 <!-- 어떤점이 좋나요? -->
 <div class="container">
 	<h1 class="text-left" style="color: rgb(255, 195, 163)">
@@ -85,10 +89,10 @@
 
 	<div class="row">
 		<div class="col-md-4">
-			<img class="center-block"
+			<img class="mx-auto d-block"
 				src="${pageContext.request.contextPath }/resources/images/online.png"
 				width="100px">
-			<h3 class="text-center" s>온라인상의 STUDY</h3>
+			<h3 class="text-center">온라인상의 STUDY</h3>
 			<br>
 			<h5>
 				코로나로 인해 만나기 어려울 때, <strong>온라인에서 스터디원 모집 및 진행에 필요한 서비스 제공</strong>
@@ -96,7 +100,7 @@
 
 		</div>
 		<div class="col-md-4">
-			<img class="center-block"
+			<img class="mx-auto d-block"
 				src="${pageContext.request.contextPath }/resources/images/study.png"
 				width="100px">
 			<h3 class="text-center">다양한 카테고리의 스터디 그룹</h3>
@@ -106,7 +110,7 @@
 			</h5>
 		</div>
 		<div class="col-md-4">
-			<img class="center-block"
+			<img class="mx-auto d-block"
 				src="${pageContext.request.contextPath }/resources/images/rank.png"
 				width="100px">
 			<h3 class="text-center">개인/팀별로 경쟁심 자극</h3>
@@ -122,32 +126,34 @@
 
 
 <!-- 이달의 성실멤버 -->
-<div class="container-fluid" style="background-color: #F2EDEA">
+<div class="container-fluid" style="background-color: #F2EDEA; height:900px; " >
 	<h3 class="text-center">
 		이달의 성실멤버
 		</h2>
-		<ul class="list-inline">
-			<li><c:forEach items="${ list }" var="member">
+		<ul class="list-inline" style="margin:50px; ">
+			<li style=" float: left;">
+			<c:forEach items="${ list }" var="member">
 
 					<div
 						style="background-color: fff; border: 4px solid rgb(247, 175, 141); border-radius: 5%; padding: 20px; width: 230px; height: 330px;">
 						<img class="center-block"
-							src="${pageContext.request.contextPath }/resources/upload/?"
+							src="${pageContext.request.contextPath }"
 							width="150px" onclick="">
 
-						<h4 class="text-center">${ member.memberName }<a href="#"
+						<h4 class="text-center">${ member.memberId }<a href="#"
 								onclick=""></a>
 						</h4>
-						<h4 class="text-center">${ member.category }<a href="#"
+						<h5 class="text-center">${ member.memberName }<a href="#"
 								onclick=""></a>
-						</h4>
-						<h4 class="text-center">${ member.comment }<a href="#"
+						</h5>
+						<h5 class="text-center">${ member.comment }<a href="#"
 								onclick=""></a>
-						</h4>
-						<h4 class="text-center">${ member.diligentPoint }<a href="#"
+						</h5>
+						<h5 class="text-center">성실도 : ${ member.diligentPoint }점<a href="#"
 								onclick=""></a>
-						</h4>
-				</c:forEach>
+						</h5>
+			</c:forEach>
+			</li>
 		</ul>
 </div>
 
@@ -155,16 +161,12 @@
 
 
 <!-- 이달의 성실 스터디방 -->
-<div class="container-fluid" style="background-color: #E3DBD6">
+<div class="container-fluid" style="background-color: #E3DBD6;  height:450px;">
 	<h3 class="text-center">
 		이달의 성실 스터디방
 		</h2>
 		<ul class="list-inline">
-			<li>Item 1</li>
-			<li>Item 2</li>
-			<li>Item 3</li>
-			<li>Item 4</li>
-			<li>Item 5</li>
+		
 		</ul>
 </div>
 
@@ -172,7 +174,7 @@
 
 <!-- 스터디방 리스트 -->
 <div class="container-fluid"
-	style="background-color: rgb(209, 203, 200)">
+	style="background-color: rgb(209, 203, 200); height:900px;">
 	<h3 class="text-left">
 		현재 모집중인 스터디
 		<button type="button" class="btn btn-light">더 보기</button>
@@ -184,11 +186,11 @@
 				<div
 					style="background-color: fff; border: 4px solid rgb(247, 175, 141); border-radius: 5%; padding: 20px; width: 230px; height: 330px;">
 					<img class="center-block"
-						src="${pageContext.request.contextPath }/resources/upload/?"
-						width="150px" onclick=""> <a
-						href="${pageContext.request.contextPath }/"><img
-						src="${pageContext.request.contextPath }/resources/images/heart.png"
-						width="20px"></a> <br>
+						src=""
+						width="150px" onclick=""> 
+						<a href="${pageContext.request.contextPath }/">
+						<img src="${pageContext.request.contextPath }/resources/images/heart.png"
+							 width="20px"></a> <br>
 					<h5 class="text-center">
 						방 제목<a href="#" onclick=""></a>
 					</h5>
@@ -204,18 +206,8 @@
 						</ul>
 				</div>
 			</li>
-
-
-			<li>Item 2</li>
-			<li>Item 3</li>
-			<li>Item 4</li>
-			<li>Item 5</li>
-			<li>Item 6</li>
-			<li>Item 7</li>
-			<li>Item 8</li>
 		</ul>
 </div>
-
 
 
 
