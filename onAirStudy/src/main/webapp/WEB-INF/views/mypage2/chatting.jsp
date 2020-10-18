@@ -69,19 +69,26 @@
 
 					<!-- Modal body -->
 					<div class="modal-body">
+						<div class="form-group">
 						<label for="reportCategK">신고 카테고리</label>
-						<select id="reportCategK" name="reportCategK">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
+						<select class="form-control" id="reportCategK" name="reportCategK">
+							<option value="1">음담패설</option>
+							<option value="2">부적절한 홍보</option>
+							<option value="3">비방 또는 욕설</option>
 						</select>
-						<div>
+						</div>
+						<hr />
+						<h5>신고 대상 : <strong id="reportId"></strong></h5>
+						
+						<h5>신고 내용</h5>
+						<div id="reportContents">
 							
 						</div>
 					</div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal" onclick="doReport();">신고하기</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
 					</div>
@@ -109,7 +116,8 @@
 					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
 					<div class="row">
 					<pre class="bg-secondary p-2 m-2">${chat.chatContent}</pre> 
-					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" /></strong></div></li>
+					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" />
+					<a href='#' class='reportModalK'>신고</a></strong></div></li>
 					</c:if>
 				</c:forEach>
 			</ul>
@@ -135,17 +143,46 @@ function moveDown(){
 	$('#alertK').css('display','none');
 	
 }
-$(document).ready(function() {
-	$(document).on("click",".reportK",function(){
-		$("#myModal").modal('show');
+//신고하기 버튼
+function doReport(){
+	if(confirm("신고 하시겠습니까?")) {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/report/insertReport.do",
+			type : "POST",
+			data :
+				{
+/* 					contentCategory : ,
+					reporter : ,
+					reportedMember : ,
+					category :  */
+							
+				} ,
+			dataType : "json",
+			success : function(result) {
+				if(result > 0)
+					alert("신고가 완료되었습니다.");
+			},
+			error : function(xhr, status, err) {
+				console.log("처리실패!");
+				console.log(xhr);
+				console.log(status);
+				console.log(err);
+			}
+		});
 		
- 	//$('#myModal').on('show.bs.modal', function (e) {
- 	       /* var question = $(e.relatedTarget).data('questiontitle'),
-	           answer = $(e.relatedTarget).data('questionanswer'); 
-	       $("#questionTitle").html( question );
-	       $("#questionAnswer").html( answer );  */
-	//}); 
+	}
+}
+$(document).ready(function() {
+	//신고 클릭시 모달창 열기
+	$(document).on("click",".reportModalK",function(){
+		$("#myModal").modal('show');
+		var content = $(this).closest("strong").prev();
+		$("#reportContents").html(content.text());
+		var id = content.closest("div").prev();
+		$("#reportId").html(id.text());
+		
 	}); 
+	
 	//시작할때 스크롤 내리기
 	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
 	//alert("안되는거 같지..?");
@@ -161,42 +198,41 @@ $(document).ready(function() {
 		// ajax에서는 data- 속성의 값을 가져오기 위해 data() 함수를 제공.
 		var endNo = $("#list-guestbook li").first().data("no") || 0;
 		console.log("endNo" + endNo);
-		$
-				.ajax({
-					url : "${pageContext.request.contextPath}/chat/chatList.do?endNo="
-							+ endNo + "&roomNo=${roomNo}",
-					type : "GET",
-					dataType : "json",
-					success : function(result) {
-						console.log(result[0]);
+		$.ajax({
+			url : "${pageContext.request.contextPath}/chat/chatList.do?endNo="
+					+ endNo + "&roomNo=${roomNo}",
+			type : "GET",
+			dataType : "json",
+			success : function(result) {
+				console.log(result[0]);
 
-						// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
-						// 남은 데이터가 5개 이하일 경우 무한 스크롤 종료
-						var length = result.size;
-						if (result[0].no == 1) {
-							//console.log("resultno"+ result[0].no);
-							isEnd = true;
-						}
-						$.each(result, function(index, vo) {
-							var html = renderList(vo,0);
-							$("#list-guestbook").prepend(html);
+				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
+				// 남은 데이터가 5개 이하일 경우 무한 스크롤 종료
+				var length = result.size;
+				if (result[0].no == 1) {
+					//console.log("resultno"+ result[0].no);
+					isEnd = true;
+				}
+				$.each(result, function(index, vo) {
+					var html = renderList(vo,0);
+					$("#list-guestbook").prepend(html);
 
-						})
-						var position = $('[data-no=' + (endNo - 1)+ ']').offset();//위치값
-						console.log(position);
-						//$('#chat-containerK').stop().animate({scrollTop : position.top},600,'easeInQuint');
-						//window.scrollTo({top:position.top, behavior:'auto'});
-						//$(".chatcontent").animate({scrollTop:position},0);
-						document.querySelector('.chatcontent').scrollTo({top : position.top,behavior : 'auto'});
-						isScrolled = false;
-					},
-					error : function(xhr, status, err) {
-						console.log("처리실패!");
-						console.log(xhr);
-						console.log(status);
-						console.log(err);
-					}
-				});
+				})
+				var position = $('[data-no=' + (endNo - 1)+ ']').offset();//위치값
+				console.log(position);
+				//$('#chat-containerK').stop().animate({scrollTop : position.top},600,'easeInQuint');
+				//window.scrollTo({top:position.top, behavior:'auto'});
+				//$(".chatcontent").animate({scrollTop:position},0);
+				document.querySelector('.chatcontent').scrollTo({top : position.top,behavior : 'auto'});
+				isScrolled = false;
+			},
+			error : function(xhr, status, err) {
+				console.log("처리실패!");
+				console.log(xhr);
+				console.log(status);
+				console.log(err);
+			}
+		});
 	}
 
 	var renderList = function(vo,endNo) {
@@ -225,7 +261,7 @@ $(document).ready(function() {
 			+ "<strong>" + vo.memberId + "</strong>"
 			+"<div class='row'>"
 			+ "<pre class='bg-secondary p-2 m-2'>" + vo.chatContent + "</pre>"
-			+ "<strong>" + date + "<a href='#' class='reportK'>신고</a></strong>"
+			+ "<strong>" + date + "<a href='#' class='reportModalK'>신고</a></strong>"
 			+"</div>"
 			+ "</li>";
 		
