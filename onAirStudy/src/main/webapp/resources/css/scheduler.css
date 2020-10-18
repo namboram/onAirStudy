@@ -3,7 +3,7 @@
 				
 				}
   				#thisday{
-                    background-color: #f9f1ed;
+                    background-color: #ad8686;
                     padding-right: 10%;
                     border-radius:10px;
                     display:inline;
@@ -87,9 +87,8 @@
                     text-align: center;
                 }
                 .cal-divB{
+                	/* float:right; */
                    /*  width:800px; */
-                    margin-top: 100px;
-                    margin-left: 100px;
                     background-color:#f9f1ed;
                     padding:100px;
                 }
@@ -98,6 +97,9 @@
                 }
                 th.sat, .sat .highSpan{
                     color:blue;
+                }
+                .tableB{
+                	border-radius: 10px;
                 }
                 .tableB tr td{
                     padding: 0;
