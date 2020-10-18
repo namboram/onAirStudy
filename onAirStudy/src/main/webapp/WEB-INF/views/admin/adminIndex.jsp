@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 
-<div style="background-color:skyblue;">
+<div style="background-color:skyblue; float:right;">
 
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime beatae ex mollitia officia culpa blanditiis vel minima obcaecati dolor nihil illo vero laudantium voluptatem labore modi quibusdam exercitationem. Perspiciatis libero.</p>
 

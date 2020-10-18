@@ -89,7 +89,8 @@
                     text-align: center;
                 }
                 .cal-divB{
-                	float:right;
+                	/* float:right; */
+                	/* margin-left:250px; */
                    /*  width:800px; */
                     background-color:#f9f1ed;
                     padding:100px;
