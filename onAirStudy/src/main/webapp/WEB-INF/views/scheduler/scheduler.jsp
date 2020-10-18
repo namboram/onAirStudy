@@ -779,7 +779,8 @@
 					if(schedules.length > 0){
 						var cnt = 0;
 						var thisTd;
-						var cnt=0;
+						var cnt = 0;
+						var arrays = [];
 
 						//for
 						for(var i = 0 ; i < schedules.length ; i++){
@@ -811,19 +812,31 @@
 
 		                        	htmlBB += "</div>";
 		                      		}
-		                      	//To do List 출력
-			                     else if((schedules[i].endDate != schedules[i+1].endDate) && (schedules[i].dYN=="N" && schedules[i].scheduleYN =="N")
-					                     && (schedules[i-1].startDate != schedules[i].startDate)){
-				                     	
-			                        	htmlBB += "<div class= 'to-doB' style='background-color:skyblue; color: white;'>";
-			                        	htmlBB += " To do List </div>";
-		                        	} 
-
+		                      		
+		                      	//To do List 날짜 배열화
+								if(schedules[i].dYN=="N" && schedules[i].scheduleYN =="N")
+		                      		arrays.push(schedules[i].startDate);
 
 								sts.append(htmlBB);
 
 							}
 			             }
+
+			             if(arrays == null)
+				             return;
+			             
+			             	//todo 중복날짜 필터링
+							var startArrays = arrays.filter(function(item, i, a){
+								return i==a.indexOf(item);
+							});
+
+							//todo 일정출력
+							for(var i = 0 ; i<startArrays.length ; i++){
+								$("#"+startArrays[i]).append("<div class= 'to-doB' style='background-color:skyblue; color: white;'> To do List </div>");
+
+							}
+
+			             
 
 					}
                 }
