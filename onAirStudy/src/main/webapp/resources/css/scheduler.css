@@ -1,5 +1,9 @@
+				.tableB{
+					background-color:white;
+				
+				}
   				#thisday{
-                    background-color: skyblue;
+                    background-color: #f9f1ed;
                     padding-right: 10%;
                     border-radius:10px;
                     display:inline;
@@ -32,7 +36,7 @@
                 }
                 #prevB{
                     margin-right: 30px;
-                    background: white;
+                    background: #f9f1ed;
                     border: none;
                     
                 }
@@ -42,7 +46,7 @@
                 }
                 #nextB{
                     margin-left: 30px;
-                    background: white;
+                    background: #f9f1ed;
                     border: none;
                 }
                 #nextB img{
@@ -62,7 +66,7 @@
                     position: absolute;
                     border: 1px solid black;
                     width: 200px;
-                    background-color: #ff9191;
+                    background-color: #ad8686;
                 }
                 .dropB p{
                     text-align: right;
@@ -71,12 +75,11 @@
                     cursor: pointer;
                 }
                 .dropB button{
-                    transition-duration: 0.4s;
                     border: 0;
                     outline: 0;
                 }
                 .dropB button:hover{
-                    background-color: #fff;
+                    background-color:#f9f1ed;
                 }
                 .yearBB{
                     font-size: 40px;
@@ -84,9 +87,11 @@
                     text-align: center;
                 }
                 .cal-divB{
-                    width:800px;
+                   /*  width:800px; */
                     margin-top: 100px;
                     margin-left: 100px;
+                    background-color:#f9f1ed;
+                    padding:100px;
                 }
                 th.sun, .sun .highSpan{
                     color:red;
@@ -145,3 +150,4 @@
 				#todoTable label{
 					cursor:pointer;
 				}
+				
