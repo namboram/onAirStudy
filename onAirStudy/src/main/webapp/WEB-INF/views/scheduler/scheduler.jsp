@@ -71,7 +71,8 @@
             <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewTodoList(this.value);" data-target="#viewTodoList">To do List</button>
           </div>
 
-
+	<div id="containerBB">
+	
           <!-- 일정등록 모달 -->
           <div class="modal" id="iuschedule" tabindex="-1">
             <div class="modal-dialog">
@@ -158,7 +159,8 @@
 						
 					</table>	
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="height:60px;">
+                
                 </div>
               </div>
             </div>
@@ -198,7 +200,7 @@
             </div>
           </div>
           
-
+</div>
 
     
     <script>
@@ -308,7 +310,7 @@
 
 		htmlB += "<tr id='bb"+index+"'><td><input type='checkbox' class='chechBB' id='b"+index+"' value='"+valueB+"' style='display:none;'>";
 		htmlB += "<label for='b"+index+"' onclick='checkcheckB(b"+index+", this)'>"+valueB+"</label></td>";
-		htmlB += "<td class='tdB'><button type='button' class='btn btn-light' onclick='deleteTodo(bb"+index+")'>x</button></td></tr>";
+		htmlB += "<td class='tdB'><button type='button' class='btn btn-light delBtnB' onclick='deleteTodo(bb"+index+")'>x</button></td></tr>";
 
 		index++;
 
