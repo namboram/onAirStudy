@@ -686,9 +686,10 @@
                     }
 
                 }
+
                 //연/월 정보
                 var info = document.getElementsByClassName("infoB")[0];
-                info.innerHTML ="<button class='btn btn-info' onclick='drawCalendar();'>오늘날짜보기</button>"
+                info.innerHTML ="<button type='button'  class='btn btn-light' onclick='drawCalendar();'>오늘날짜보기</button>"
                                 + "<h1 class='yearBB'>"+firstDate.getFullYear()+"</h1><br/>"
                                 + "<h2 class='monthBB'><button id='prevB' onclick='prevCalendar("+firstDate.getMonth()+");'><img src='${pageContext.request.contextPath }/resources/images/L.png'></button>"
                                 + "<p id='monthB'>"+(firstDate.getMonth()+1)+"월</p>"
