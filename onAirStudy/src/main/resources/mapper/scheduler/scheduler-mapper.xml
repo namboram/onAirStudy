@@ -81,6 +81,38 @@ where
 	no = #{ no }
 </select>
 
+<insert id="insertTodo">
+insert into
+	scheduler
+values(
+		seq_schedule_no.nextval,
+		#{memberId},
+		null,
+		#{startDate},
+		#{endDate},
+		#{content},
+		default,
+		'N',
+		'N',
+		null,
+		#{enabledYN}
+)
+
+</insert>
+
+<delete id="deleteTodo">
+delete
+	scheduler
+where
+	member_id = #{memberId}
+and
+	start_date = #{startDate}
+and
+	schedule_yn = 'N'
+and
+	d_yn = 'N'
+
+</delete>
 
 
 </mapper>

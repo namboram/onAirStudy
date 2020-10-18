@@ -1,5 +1,6 @@
 package com.kh.onairstudy.scheduler.model.dao;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +17,9 @@ public interface SchedulerDAO {
 	Scheduler selectOne(int no);
 
 	int updateSchedule(Scheduler sch);
+
+	int insertTodo(Scheduler sch);
+
+	int deleteTodo(Map<String, Object> map);
 
 }

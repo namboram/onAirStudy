@@ -1,5 +1,6 @@
 package com.kh.onairstudy.scheduler.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +17,9 @@ public interface SchedulerService {
 	Scheduler selectOne(int no);
 
 	int updateSchedule(Scheduler sch);
+
+	int insertTodo(List<Scheduler> list);
+
+	int deleteTodo(Map<String, Object> map);
 
 }

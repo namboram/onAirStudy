@@ -115,7 +115,7 @@
                 #iuschedule span{
                     width: 200px;
                 }
-                #iuschedule input{
+                #iuschedule input, #addTableTodo input{
                 	border:0;
                 	border-bottom:1px solid black;
                 }
@@ -130,9 +130,18 @@
                 	padding: 10px;
                 	padding-bottom:0;
                 }
-                #viewTable .tdB{
+                .tdB{
                 	width:80px;
                 }
                 #viewTable{
                		min-height:200px;
                 }
+                #todoTable td, #addTableTodo td{
+                	text-align:center;
+                }
+                #addTableTodo input{
+                	width:300px;
+                }
+				#todoTable label{
+					cursor:pointer;
+				}
