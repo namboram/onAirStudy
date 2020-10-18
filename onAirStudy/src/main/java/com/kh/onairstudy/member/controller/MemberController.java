@@ -199,7 +199,16 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-		
+//		성실멤버 list
+		@RequestMapping("/selectDiligentMember")
+		public String selectDiligentMember(Model model) {
+			List<Member> list = memberService.selectDiligentMember();			
+			
+				model.addAttribute("list", list );
+				log.debug("list = {}", list);
+				return  "forward:/index.jsp";
+		}
+
 		
 		
 //		mypageIndex.jsp 불러오기 (여기에 만들기로함)

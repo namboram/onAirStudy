@@ -1,0 +1,96 @@
+.carousel-inner {
+	height: 50vh;
+	background-color: rgb(255, 195, 163);
+}
+
+#caption1{
+	position: absolute; 
+	width: 300px;
+    left:15%;
+    bottom:25%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+#caption1 p {
+	font-size:55px;
+}
+
+#caption1 h2{
+	text-shadow: 0.5px 0.5px 0.5px gray; 
+	margin-top:10px;
+}
+
+#caption1 button {
+	font-size: 16px;
+	color : gray; 
+	border : 3px solid gray;
+}
+
+#caption1 button:hover {
+	background-color :  #555555;
+	color : #fff;
+}
+
+
+#caption2 {
+	position: absolute; 
+	width: 300px;
+    left:68%;
+    bottom:20%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+#caption2 h2, h3{
+	text-shadow: 0.5px 0.5px 0.5px gray; 
+	margin-top:20px;
+}
+
+ #caption2 button {
+ 	font-size: 17px;
+	color : gray; 
+	border : 3px solid gray;
+ }
+ 
+ #caption2 button:hover {
+	background-color :#ff704d;
+	color : #fff;
+}
+
+
+#caption3 {
+	position: absolute; 
+	width: 300px;
+    left:68%;
+    bottom:20%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+#caption3 h2, h3{
+	text-shadow: 0.5px 0.5px 0.5px gray; 
+	margin-top:20px;
+}
+
+ #caption3 button {
+ 	font-size: 17px;
+	color : gray; 
+	border : 3px solid gray;
+ }
+ 
+ #caption3 button:hover {
+	background-color :#ff704d;
+	color : #fff;
+}
+
+
+[type=button] {
+	background-color: #fff;
+	border-radius:24px;
+	
+}

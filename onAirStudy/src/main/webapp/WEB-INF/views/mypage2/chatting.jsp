@@ -48,7 +48,7 @@
 }
 </style>
 
-<div id="chat-containerK">
+<div id="chat-containerK" class="chatting-box">
 	<div class="chatWrap">
 		<div class="main_tit">
 			<h1>방 이름 [ ${roomNo}번 ] 아이디[${loginMember.memberId}]</h1>

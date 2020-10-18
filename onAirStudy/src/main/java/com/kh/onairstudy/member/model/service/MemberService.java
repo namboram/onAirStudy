@@ -10,6 +10,8 @@ public interface MemberService {
 
 	int insertMember(Member member);
 
+	List<Member> selectDiligentMember();
+
 
 
 }

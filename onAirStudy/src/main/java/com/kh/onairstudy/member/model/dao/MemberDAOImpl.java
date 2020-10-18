@@ -27,4 +27,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.insert("member.insertMember", member);
 	}
 
+	@Override
+	public List<Member> selectDiligentMember() {
+		return sqlSession.selectList("member.selectDiligentMember");
+	}
+
 }
