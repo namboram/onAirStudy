@@ -32,4 +32,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("member.selectDiligentMember");
 	}
 
+	//신고 후 블랙리스트 등록
+	@Override
+	public int updateBlack(String reportedMember) {
+		return sqlSession.update("member.updateBlack", reportedMember);
+	}
+
+	
 }

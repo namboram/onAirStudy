@@ -12,5 +12,7 @@ public interface MemberDAO {
 
 	List<Member> selectDiligentMember();
 
+	int updateBlack(String reportedMember);
+
 
 }
