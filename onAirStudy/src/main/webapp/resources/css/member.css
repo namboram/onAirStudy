@@ -61,7 +61,7 @@ div#enroll-bottom-container{
     bottom: -2px;
     height: 100%;
     width: 100%;
-    border-bottom: 3px solid rgb(248, 147, 93);
+    border-bottom: 2px solid rgba(255, 195, 163, 0.849);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
 }

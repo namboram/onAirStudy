@@ -94,7 +94,7 @@
                             <br>
 
                             <div class="custom-checkbox">
-                                <span>관심카테고리</span>
+                                <span>관심카테고리(1개만 선택가능)</span>
                                 <hr class="memberHr">
                                 <fieldset class="fieldset-category">
                                     <input type="checkbox" class="form-check-input" name="category" id="category1" value="1" checked><label  class="form-check-label" for="category1"><em></em>자격증</label>&nbsp;
@@ -118,6 +118,7 @@
 </div>
 </div>
 <script>
+
 /* 휴대폰번호 인증 팝업 */
 function popupCertification(){
 
@@ -136,7 +137,16 @@ function popupCertification(){
 	$frm.submit();
 }
 
+/* 체크박스 체크 한개만 가능하도록  */
+$(document).ready(function(){
+	$('input[type="checkbox"][name="category"]').click(function(){
 
+		if($(this).prop('checked')){
+			$('input[type="checkbox"][name="category"]').prop('checked',false);
+			$(this).prop('checked',true);
+		}
+	});
+});
 
 $("#memberId_").keyup(function(){
 	var $this = $(this);

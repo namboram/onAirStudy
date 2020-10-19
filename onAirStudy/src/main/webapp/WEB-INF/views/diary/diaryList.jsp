@@ -5,22 +5,23 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include> 
-
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/diary.css" />
 
 <style>
-div#diary-container{width:60%; height:900px; margin:0 auto;text-align:center; }
-/* input#btn-diary-add{ margin: 0 0 15px;} */
 
 </style>
 
 	
-<div id="diary-container">
+<div class="diary-container">
 	<p>STUDY DIARY</p>
+	<div class="diary-top-container">
+		<img src="${pageContext.request.contextPath }/resources/images/studydiaryicon.png" width="120px" height="120px" />
+	</div>
     <form id="diarySearchFrm" 
     	  action= "diaryList.do" 
     	  class="form-inline" 
     	  method="post">
-        <select name ="title">
+        <select name ="diary-select-bar">
          	<option value="제목">제목</option> 
          	<option value="작성자">작성자</option>
         </select>
