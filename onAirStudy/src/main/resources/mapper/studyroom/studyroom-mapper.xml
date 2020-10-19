@@ -3,4 +3,130 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="studyroom">
+<select id="selectMystudyList" resultMap="studyRoomMap">
+select
+        F.sr_no,
+        F.sr_title,
+        F.sr_comment,
+        G.member_id,
+        G.status_log,
+        G.reader_yn,
+        C.category
+from
+    sr_info F left join sr_log G on  F.sr_no = G.sr_no
+    left join sr_list L on F.sr_no = l.sr_no
+    left join sr_category C on  l.sr_category = C.no
+where 
+    G.status_log='참여'
+</select>
+
+  <resultMap type="map" id="studyRoomMap">
+  		<id column="sr_no" property="srNo"/>
+  		<result column="sr_title" property="srTitle"/>
+  		<result column="category" property="sCategory"/>
+  		<result column="sr_comment" property="srComment"/>
+  		<result column="member_id" property="memberId"/>
+  		<result column="status_log" property="status"/>
+  		<result column="reader_yn" property="sReader"/>
+  	</resultMap>
+
+<select id="selectMywaitingList" resultMap="waitingMap">
+			select
+  		A.*,
+  		(select category
+         from sr_category
+         where no = L.sr_category) aCategory,
+  		 (select sr_title
+  		 from sr_info
+  		 where sr_no = A.sr_no) aTitle,
+  		 (select sr_comment
+  		 from sr_info
+  		 where sr_no = A.sr_no) aComment,
+  		 (select sr_opened_yn
+  		 from sr_list
+  		 where sr_no = A.sr_no) aStatus
+	from
+    	sr_waiting_list A left join sr_list L
+    on A.sr_no = L.sr_no
+</select>
+  <resultMap type="map" id="waitingMap">
+  		<id column="sr_no" property="srNo"/>
+  		<result column="no" property="no"/>
+  		<result column="member_id" property="memberId"/>
+  		<result column="atitle" property="aTitle"/>
+  		<result column="acategory" property="aCategory"/>
+  		<result column="acomment" property="aComment"/>
+  		<result column="astatus" property="aStatus"/>
+  	</resultMap>
+  	
+<select id="selectMywishList" resultMap="wishMap">
+	select
+  		W.*,  
+        (select category
+         from sr_category
+         where no = L.sr_category) wCategory,
+  		 (select sr_title
+  		 from sr_info
+  		 where sr_no = W.sr_no) wTitle,
+  		 (select sr_comment
+  		 from sr_info
+  		 where sr_no = W.sr_no) wComment,
+  		 (select sr_opened_yn
+  		 from sr_list
+  		 where sr_no = W.sr_no) wStatus
+	from
+    	sr_wish_list W left join sr_list L
+    on W.sr_no = L.sr_no
+</select>
+
+  <resultMap type="map" id="wishMap">
+  		<id column="sr_no" property="srNo"/>
+  		<result column="no" property="no"/>
+  		<result column="member_id" property="memberId"/>
+  		<result column="wtitle" property="wTitle"/>
+  		<result column="wcategory" property="wCategory"/>
+  		<result column="wcomment" property="wComment"/>
+  		<result column="wstatus" property="wStatus"/>
+  	</resultMap>
+
+<select id="selectStudyRoomList" resultMap="studyMap">
+select
+    L.*,
+    (select     sr_title
+    from    sr_info
+    where sr_no =l.sr_no) s_title,
+   (select    renamed_filename
+    from   profile_attachment
+    where sr_no =l.sr_no) sr_pic,
+   (select    renamed_filename
+    from   profile_attachment
+    where member_id = L.member_id) m_pic
+	from 
+		sr_list L
+	where
+		L.sr_no>8
+</select>
+
+  	<resultMap type="map" id="studyMap">
+  		<id column="sr_no" property="srNo"/>
+  		<result column="member_id" property="memberId"/>
+  		<result column="sr_enroll_date" property="srEnrollDate"/>
+  		<result column="sr_category" property="srCategory"/>
+  		<result column="sr_headCnt" property="srHeadCnt"/>
+  		<result column="sr_opened_yn" property="srOpenedYN"/>
+  		<result column="sr_ended_yn" property="srEndedYN"/>
+  		<result column="sr_sort" property="srSort"/>
+  		<result column="s_title" property="sTitle"/>
+  		<result column="sr_pic" property="srPic"/>
+  		<result column="m_pic" property="mPic"/>
+  	</resultMap>
+
+<select id="selectCategoryList" resultType="studycategory">
+	select
+		*
+	from
+		sr_category
+	where
+		no != 100
+</select>
 </mapper>
