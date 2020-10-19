@@ -53,7 +53,12 @@
   
   </resultMap>
 
+	<update id="updateBlack">
 	
+		update member
+		set blacklist_yn = 'Y'
+		where member_id = #{reportedMember}
+	</update>
 
   
   

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.report.model.service.ReportService;
 import com.kh.onairstudy.report.model.vo.Report;
 
@@ -19,6 +20,9 @@ public class ReportController {
 	@Autowired
 	private ReportService reportService;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	@RequestMapping(value="/report/insertReport.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int insertReport(Report report) {
@@ -28,7 +32,7 @@ public class ReportController {
 		int cnt = reportService.selectCntReport(report.getReportedMember());
 		log.info("cnt={}",cnt);
 		if(cnt >= 5) {
-			log.info("report 5 이상! 블랙 등록필요!");
+			int updateResult = memberService.updateBlack(report.getReportedMember());
 		}
 		return result;
 		
