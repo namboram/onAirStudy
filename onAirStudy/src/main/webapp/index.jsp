@@ -59,6 +59,7 @@
 					onclick="location.href='${ pageContext.request.contextPath }/premium.do';">프리미엄 혜택보기</button>
 			</div>
 	</div>
+	</div>
 
 
 	<a class="carousel-control-prev" href="#carouselExampleCaptions"
@@ -127,34 +128,42 @@
 
 <!-- 이달의 성실멤버 -->
 <div class="container-fluid" style="background-color: #F2EDEA; height:900px; " >
-	<h3 class="text-center">
-		이달의 성실멤버
-		</h2>
-		<ul class="list-inline" style="margin:50px; ">
-			<li style=" float: left;">
-			<c:forEach items="${ list }" var="member">
-
-					<div
-						style="background-color: fff; border: 4px solid rgb(247, 175, 141); border-radius: 5%; padding: 20px; width: 230px; height: 330px;">
-						<img class="center-block"
-							src="${pageContext.request.contextPath }"
-							width="150px" onclick="">
-
-						<h4 class="text-center">${ member.memberId }<a href="#"
-								onclick=""></a>
-						</h4>
-						<h5 class="text-center">${ member.memberName }<a href="#"
-								onclick=""></a>
+	
+	
+		<div class="container-sm-5 p-5">
+		<div class="row" id="srlistG">
+			<c:forEach items="${ dm_List }" var="dm">
+			
+			
+			
+				<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+					<div class="">
+					
+					<%-- <img class="mPic"
+						src="${pageContext.request.contextPath }/resources/upload/${ dm.mPic }"	width="150px"> 						
+						<a href="${pageContext.request.contextPath }/"></a>  --%>
+					
+					<h5 class="text-center">
+						${ dm.memberId }
+					</h5>	
+					<h5 class="text-center">
+						${ dm.memberName }
+					</h5>
+					<h5 class="text-center">
+						 ${ dm.comment }
 						</h5>
-						<h5 class="text-center">${ member.comment }<a href="#"
-								onclick=""></a>
+					<h5 class="text-center">
+						 성실도 : ${ dm.diligentPoint }점
 						</h5>
-						<h5 class="text-center">성실도 : ${ member.diligentPoint }점<a href="#"
-								onclick=""></a>
-						</h5>
+					
+						<br>
+					</div>
+				</div>
 			</c:forEach>
-			</li>
-		</ul>
+			
+			
+		</div>
+	</div>
 </div>
 
 

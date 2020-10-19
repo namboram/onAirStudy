@@ -43,6 +43,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
+//성실스터디방 List
+	@Override
+	public List<StudyRoomList> selectDiligentStudyroom() {
+		return sqlSession.selectList("studyroom.selectDilgentStudyroom");
+	}
 
 
 	
