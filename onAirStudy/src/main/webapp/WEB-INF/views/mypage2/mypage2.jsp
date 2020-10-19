@@ -10,3 +10,4 @@
 <jsp:include page="/WEB-INF/views/mypage2/studyRoomSideBar.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+

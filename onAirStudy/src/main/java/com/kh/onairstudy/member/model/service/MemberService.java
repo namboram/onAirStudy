@@ -12,6 +12,10 @@ public interface MemberService {
 
 	List<Member> selectDiligentMember();
 
+	int updateBlack(String reportedMember);
+
+	
+
 
 
 

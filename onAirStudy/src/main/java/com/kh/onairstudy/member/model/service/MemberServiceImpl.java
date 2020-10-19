@@ -33,6 +33,12 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> selectDiligentMember() {
 		return memberDAO.selectDiligentMember();
 	}
+	//신고 후 회원 블랙리스트 업데이트
+	@Override
+	public int updateBlack(String reportedMember) {
+		return memberDAO.updateBlack(reportedMember);
+	}
+	
 	
 	
 	

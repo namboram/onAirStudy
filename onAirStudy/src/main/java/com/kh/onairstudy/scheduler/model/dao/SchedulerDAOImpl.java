@@ -1,6 +1,5 @@
 package com.kh.onairstudy.scheduler.model.dao;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
