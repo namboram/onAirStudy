@@ -1,7 +1,13 @@
+				#containerBB .modal-body{
+					background-color:#f9f1ed;
+				}
+				.tableB{
+					background-color:white;
+				}
   				#thisday{
-                    background-color: skyblue;
+                    background-color: #ad8686;
                     padding-right: 10%;
-                    border-radius:10px;
+                    border-radius:5px;
                     display:inline;
                     color:white;
                 }
@@ -28,11 +34,11 @@
                     cursor: pointer;
                 }
                 .Bday:hover{
-                    background-color: rgb(216, 214, 214);
+                    background-color: #f9f1ed;
                 }
                 #prevB{
                     margin-right: 30px;
-                    background: white;
+                    background: #f9f1ed;
                     border: none;
                     
                 }
@@ -42,7 +48,7 @@
                 }
                 #nextB{
                     margin-left: 30px;
-                    background: white;
+                    background: #f9f1ed;
                     border: none;
                 }
                 #nextB img{
@@ -62,7 +68,7 @@
                     position: absolute;
                     border: 1px solid black;
                     width: 200px;
-                    background-color: #ff9191;
+                    background-color: #ad8686;
                 }
                 .dropB p{
                     text-align: right;
@@ -71,12 +77,11 @@
                     cursor: pointer;
                 }
                 .dropB button{
-                    transition-duration: 0.4s;
                     border: 0;
                     outline: 0;
                 }
                 .dropB button:hover{
-                    background-color: #fff;
+                    background-color:#f9f1ed;
                 }
                 .yearBB{
                     font-size: 40px;
@@ -84,15 +89,20 @@
                     text-align: center;
                 }
                 .cal-divB{
-                    width:800px;
-                    margin-top: 100px;
-                    margin-left: 100px;
+                	/* float:right; */
+                	/* margin-left:250px; */
+                   /*  width:800px; */
+                    background-color:#f9f1ed;
+                    padding:100px;
                 }
                 th.sun, .sun .highSpan{
                     color:red;
                 }
                 th.sat, .sat .highSpan{
                     color:blue;
+                }
+                .tableB{
+                	border-radius: 10px;
                 }
                 .tableB tr td{
                     padding: 0;
@@ -118,6 +128,7 @@
                 #iuschedule input, #addTableTodo input{
                 	border:0;
                 	border-bottom:1px solid black;
+                	border-radius:10px;
                 }
                 .marginB{
                     margin-bottom: 30px;
@@ -144,4 +155,33 @@
                 }
 				#todoTable label{
 					cursor:pointer;
+				}
+				#subB{
+					background-color: #ad8686;
+					border:1px solid white;
+				}
+				#subB:hover{
+					background-color: #f5cab5;
+					border:1px solid #ad8686;
+					color:#ad8686;
+				}
+				#viewTodoList .btn-danger, .delBtnB{
+					background-color: white;
+					color:#ff5e76;
+					border:1px solid white;
+				}
+				#viewTodoList .btn-primary{
+					background-color: white;
+					color:#6bbaff;
+					border:1px solid white;
+				}
+				#viewTodoList .btn-danger:hover, .delBtnB:hover{
+					background-color: #ff5e76;
+					color:white;
+					border:1px solid #ff5e76;
+				}
+				#viewTodoList .btn-primary:hover{
+					background-color: #6bbaff;
+					color:white;
+					border:1px solid #6bbaff;
 				}
