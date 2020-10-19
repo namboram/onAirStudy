@@ -6,17 +6,16 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 
-<div class="col-lg">
+<div class="col-lg ">
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <div class="row">
-
 <jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 
-<div class="col-lg-10 p-0">
-<jsp:include page="/WEB-INF/views/invitation/invitationListForm.jsp"></jsp:include>
+<div class="col-lg-10 p-0 m-0">
+<jsp:include page="/WEB-INF/views/studyroom/studyRoom_form.jsp"></jsp:include>
 </div>
 </div>
-<div class="col-lg p-0">
+<div class="col-lg p-0 m-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
 </div>

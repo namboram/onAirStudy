@@ -24,8 +24,8 @@ public class Invitation implements Serializable{
 	private Date invitationDate;
 	private char invitationYN;
 	
-	private String srTitle;
-	private String srGoal;
+	private String sTitle;
+	private String sGoal;
 	
 	private String catetory;
 	
