@@ -6,8 +6,20 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/mypage2/studyRoomSideBar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
+
+
+<div class="col-lg ">
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div class="row">
+<jsp:include page="/WEB-INF/views/mypage2/studyRoomSideBar.jsp"></jsp:include>
+
+<div class="col-lg-7 px-5 m-0">
+<jsp:include page="/WEB-INF/views/test/questionForm.jsp"></jsp:include>
+</div>
+<div class="col-lg"><jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include></div>
+</div>
+<div class="col-lg p-0 m-0">
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>
+</div>

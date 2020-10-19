@@ -13,7 +13,7 @@
 <jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 
 <div class="col-lg-10 p-0">
-<jsp:include page="/WEB-INF/views/invitation/invitationListForm.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/studyroom/mystudyList.jsp"></jsp:include>
 </div>
 </div>
 <div class="col-lg p-0">

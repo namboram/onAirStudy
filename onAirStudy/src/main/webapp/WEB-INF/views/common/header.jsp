@@ -56,7 +56,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav w-100 justify-content-center" style="margin-right:10%;">
                     <li class="nav-item active" style="margin-right:2%;">
-                        <a class="nav-link" href="#">스터디방</a>
+                        <a class="nav-link" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">스터디방</a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
                         <a class="nav-link"
