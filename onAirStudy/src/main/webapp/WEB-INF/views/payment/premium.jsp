@@ -62,7 +62,7 @@
                 	onclick="location.href='${ pageContext.request.contextPath }'">메인화면 가기</button>
 			
 			<button type="button"
-                	onclick="location.href='${ pageContext.request.contextPath }/payment/';">프리미엄 가입하기</button>
+                	onclick="location.href='${ pageContext.request.contextPath }/payment/premium-payment.do';">프리미엄 가입하기</button>
 		</div>
 		
 		

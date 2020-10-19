@@ -10,83 +10,117 @@
 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/member.css" />
 
+
+<div id="enroll-out-container">
+<div id="enroll-top-container">
+<h2>ONAIR STUDY</h2>
+<h5>Let's start studying at OnAirStudy</h5>
+</div>
 <div id="enroll-container" class="mx-auto text-center">
 	<form id="memberEnrollFrm" 
 		  action="memberEnroll.do" 
 		  method="post">
-		<table class="mx-auto">
+		<table class="mx-auto" id="member-enroll-table">
+			<h1>Sign up</h1>
+			<hr />
 			<tr>
-				<th>아이디<span>*</span></th>
-				<td>
-					<div id="memberId-container">
-						<input type="text" 
-							   class="form-control" 
-							   placeholder="4글자이상"
-							   name="memberId" 
-							   id="memberId_"
-							   required>
-						<!--  <span class="guide ok">이 아이디는 사용가능합니다.</span>
-						<span class="guide error">이 아이디는 사용할 수 없습니다.</span> 
-						0:사용불가, 1:사용가능
-						<input type="hidden" id="idValid" value="0" /> -->
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>패스워드<span>*</span></th>
-				<td>
-					<input type="password" class="form-control" name="password" id="password_" required>
-				</td>
-			</tr>
-			<tr>
-				<th>패스워드확인<span>*</span></th>
-				<td>	
-					<input type="password" class="form-control" id="password2" required>
-				</td>
-			</tr>  
-			<tr>
-				<th>이름<span>*</span></th>
-				<td>	
-					<input type="text" class="form-control" name="memberName" id="memberName" required>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>휴대폰 본인 인증<span>*</span></th>
-				<td>	
-					<input type="tel" class="form-control" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" required>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>자기소개</th>
-				<td>	
-					<input type="text" class="form-control" placeholder="15글자 이내로 적어주세요" name="comment" id="comment" maxlength="11" size="15" >
-				</td>
-			</tr>
-			<tr>
-				<th>관심카테고리<span>*</span></th>
-				<td>
-					<div class="form-check form-check-inline">
-						<input type="radio" class="form-check-input" name="category" id="category1" value="1" checked><label  class="form-check-label" for="category1">자격증</label>&nbsp;
-						<input type="radio" class="form-check-input" name="category" id="category2" value="2"><label  class="form-check-label" for="category2">면접</label>
-						<input type="radio" class="form-check-input" name="category" id="category3" value="3"><label  class="form-check-label" for="category3">입시</label>&nbsp;
-						<input type="radio" class="form-check-input" name="category" id="category4" value="4"><label  class="form-check-label" for="category4">취미/예술</label>
-						<input type="radio" class="form-check-input" name="category" id="category5" value="5"><label  class="form-check-label" for="category5">컴퓨터/IT</label>&nbsp;
-						<input type="radio" class="form-check-input" name="category" id="category6" value="6"><label  class="form-check-label" for="category6">창업</label>
-						<input type="radio" class="form-check-input" name="category" id="category7" value="7"><label  class="form-check-label" for="category7">어학</label>&nbsp;
-						<input type="radio" class="form-check-input" name="category" id="category8" value="8"><label  class="form-check-label" for="category8">기타</label>
-					</div>
-				</td>
-			</tr>
+					<th>아이디<span>*</span></th>
+					<td>
+						<div id="memberId-container">
+							<input type="text" 
+								   class="form-control" 
+								   placeholder="4글자이상"
+								   name="memberId" 
+								   id="memberId_"
+								   required>
+							<!--  <span class="guide ok">이 아이디는 사용가능합니다.</span>
+							<span class="guide error">이 아이디는 사용할 수 없습니다.</span> 
+							0:사용불가, 1:사용가능
+							<input type="hidden" id="idValid" value="0" /> -->
+							
+						</div>
+					</td>
+				</tr>
+					<tr>
+						<th>패스워드<span>*</span></th>
+						<td>
+							<input type="password" class="form-control" name="password" id="password_" required>
+						</td>
+					</tr>
+				<tr>
+					<th>패스워드확인<span>*</span></th>
+					<td>	
+						<input type="password" class="form-control" id="password2" required>
+					</td>
+				</tr>  
+				<tr>
+					<th>이름<span>*</span></th>
+					<td>	
+						<input type="text" class="form-control" name="memberName" id="memberName" required>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>휴대폰 본인 인증<span>*</span></th>
+					<td>
+						<input type="tel" class="form-control" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" required>
+						<input type="button" onclick="popupCertification();" value="휴대폰인증번호받기" />
+					</td>
+				</tr>
+				 
+				<tr>
+					<th>자기소개</th>
+					<td>	
+						<input type="text" class="form-control" placeholder="15글자 이내로 적어주세요" name="comment" id="comment" maxlength="11" size="15" >
+					</td>
+				</tr>
+				
+				<tr>
+					<th>관심카테고리<span>*</span></th>
+					
+					<td>
+						<div class="form-check form-check-inline">
+							<input type="radio" class="form-check-input" name="category" id="category1" value="1" checked><label  class="form-check-label" for="category1">자격증</label>&nbsp;
+							<input type="radio" class="form-check-input" name="category" id="category2" value="2"><label  class="form-check-label" for="category2">면접</label>
+							<input type="radio" class="form-check-input" name="category" id="category3" value="3"><label  class="form-check-label" for="category3">입시</label>&nbsp;
+							<input type="radio" class="form-check-input" name="category" id="category4" value="4"><label  class="form-check-label" for="category4">취미/예술</label>
+							<input type="radio" class="form-check-input" name="category" id="category5" value="5"><label  class="form-check-label" for="category5">컴퓨터/IT</label>&nbsp;
+							<input type="radio" class="form-check-input" name="category" id="category6" value="6"><label  class="form-check-label" for="category6">창업</label>
+							<input type="radio" class="form-check-input" name="category" id="category7" value="7"><label  class="form-check-label" for="category7">어학</label>&nbsp;
+							<input type="radio" class="form-check-input" name="category" id="category8" value="8"><label  class="form-check-label" for="category8">기타</label>
+						</div>
+					</td>
+				</tr>
 			
 		</table>
-		<input type="submit" value="가입완료" >
-		<input type="reset" value="취소">
+		<hr />
+		<input type="submit" value="가입완료" id="enroll-submit">
+		<br />
+		<input type="reset" value="취소" id="enroll-reset">
 	</form>
 </div>
+</div>
 <script>
+/* 휴대폰번호 인증 팝업 */
+function popupCertification(){
+
+	//1.팝업
+	var url = "<%= request.getContextPath() %>/member/sendSms.do";
+	var title = "123phone-certification";
+	var spec = "width=400,height=200,left=300,top=50,scrollbar=no";
+	open(url, title, spec);
+
+	//2.폼관련
+	var $frm = $("[name=phone-certification]")
+	$frm.attr("action",
+			  '<%= request.getContextPath() %>/member/sendSms.do');
+	$frm.attr("method", "POST");
+	$frm.attr("target", title);//폼과 팝업창 연결
+	$frm.submit();
+}
+
+
+
 $("#memberId_").keyup(function(){
 	var $this = $(this);
 
@@ -168,6 +202,6 @@ $("#memberEnrollFrm").submit(function(){
 	
 	return true;
 });
-</script> -->
+</script> 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

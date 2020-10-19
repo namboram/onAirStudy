@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/* 회원 가입 */
+div#enroll-out-container{ background-color:rgb(255, 195, 163); }
+div#enroll-top-container{ background-color:rgb(255, 195, 163); padding: 10px; text-align: center; }
+
+div#enroll-container { height:800px; width:800px; background-color: white; marign-top: 60px; padding:40px;  
+}
+div#member-enroll-table{ margin-top:100px; height:500px; }
+div#enroll-container table th { text-align:right; padding-right:10px; }
+div#enroll-container table td { text-align:left;} 
+#member-enroll-table th span{ color: red;}
+div#enroll-container input{ height: 50px; margin-bottom:10px; }
+div#enroll-container input#comment{ height: 80px;}
+
+input#enroll-submit, #enroll-reset { width:500px; color:white; background-color:rgb(255, 195, 163); } 
