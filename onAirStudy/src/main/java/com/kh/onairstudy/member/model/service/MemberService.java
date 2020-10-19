@@ -14,6 +14,9 @@ public interface MemberService {
 
 	int updateBlack(String reportedMember);
 
+
+
+
 	
 
 

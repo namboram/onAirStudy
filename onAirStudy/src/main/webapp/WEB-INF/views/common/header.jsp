@@ -56,7 +56,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav w-100 justify-content-center" style="margin-right:10%;">
                     <li class="nav-item active" style="margin-right:2%;">
-                        <a class="nav-link" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">스터디방</a>
+                        <a class="nav-link" href="#">스터디방</a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
                         <a class="nav-link"
@@ -66,7 +66,8 @@
                         <a class="nav-link">공지사항</a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
-                        <a class="nav-link">고객센터</a>
+                        <a class="nav-link"
+                        onclick="location.href='${ pageContext.request.contextPath }/servicecenter.do'">고객센터</a>
                     </li>
                 </ul>
 			</div>
@@ -87,7 +88,7 @@
 			</c:if>
 
 			<c:if test="${ not empty loginMember }">
-				<a href="${ pageContext.request.contextPath }">${ loginMember.memberName }</a>님, 안녕하세요.
+				<a href="${ pageContext.request.contextPath }/mypage1_index.do">${ loginMember.memberName }</a>님, 안녕하세요.
 			    &nbsp;
 			    <button class="btn my-2 my-sm-0"
 					type="button" id="logoutBtn"
@@ -109,5 +110,5 @@
 
 
 
-
- 	 <section id="content"> 
+<section id="content"> 
+ 

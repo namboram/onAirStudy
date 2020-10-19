@@ -20,4 +20,6 @@ public interface StudyRoomDAO {
 
 	List<StudyCategory> selectCategoryList();
 
+	List<StudyRoomList> selectDiligentStudyroom();
+
 }

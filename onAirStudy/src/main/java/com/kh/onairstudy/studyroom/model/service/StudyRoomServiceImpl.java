@@ -45,4 +45,9 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyCategory> selectCategoryList() {
 		return studyRoomDAO.selectCategoryList();
 	}
+//성실스터디방 List
+	@Override
+	public List<StudyRoomList> selectDiligentStudyroom() {
+		return studyRoomDAO.selectDiligentStudyroom();
+	}
 }

@@ -129,4 +129,19 @@ select
 	where
 		no != 100
 </select>
+
+
+<!-- 성실스터디방 List -->
+	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">
+	  	select *
+		from sr_info
+	<![CDATA[  
+		where sr_ranking >=1 and sr_ranking <= 5
+		]]>
+		
+	</select>
+
+
+
+
 </mapper>
