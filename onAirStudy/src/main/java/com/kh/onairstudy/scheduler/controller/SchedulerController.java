@@ -137,7 +137,7 @@ public class SchedulerController {
 		System.out.println("sch="+sch);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
-		redirectAttr.addFlashAttribute("modal", "good");
+		redirectAttr.addFlashAttribute("sche", "good");
 		
 		int result = schedulerService.updateSchedule(sch);
 		

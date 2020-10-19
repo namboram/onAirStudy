@@ -3,19 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<fmt:requestEncoding value="utf-8"/><%-- 한글 깨짐 방지 --%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>스케줄러</title>
-    <!-- 필요한부분 -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<fmt:requestEncoding value="utf-8" />
+<%-- 한글 깨짐 방지 --%>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
     <!-- 커스텀 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
     
@@ -28,12 +21,6 @@
 <!-- Air datepicker css -->
 <script src="${pageContext.request.contextPath }/resources/js/datepicker.js"></script> <!-- Air datepicker js -->
 <script src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
-   
- <c:if test="${ not empty msg }">
-<script>
-    	alert("${msg}");
-</script>
-</c:if>  
 
 <!-- 삭제나 업뎃했을때 -->
 <c:if test="${ not empty sche }">
@@ -67,9 +54,6 @@
 		});
 </script>
 </c:if>   
-    
-</head>
-<body>
 
   <div class='cal-divB'>
         <div class="infoB">
@@ -87,7 +71,8 @@
             <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewTodoList(this.value);" data-target="#viewTodoList">To do List</button>
           </div>
 
-
+	<div id="containerBB">
+	
           <!-- 일정등록 모달 -->
           <div class="modal" id="iuschedule" tabindex="-1">
             <div class="modal-dialog">
@@ -174,7 +159,8 @@
 						
 					</table>	
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="height:60px;">
+                
                 </div>
               </div>
             </div>
@@ -214,7 +200,7 @@
             </div>
           </div>
           
-
+</div>
 
     
     <script>
@@ -311,7 +297,6 @@
 
 	//Todo삭제하기
 	function deleteTodo(id){
-		if(confirm("정말 삭제하시겠습니까?"))
 			id.remove();
 	}
 
@@ -325,7 +310,7 @@
 
 		htmlB += "<tr id='bb"+index+"'><td><input type='checkbox' class='chechBB' id='b"+index+"' value='"+valueB+"' style='display:none;'>";
 		htmlB += "<label for='b"+index+"' onclick='checkcheckB(b"+index+", this)'>"+valueB+"</label></td>";
-		htmlB += "<td class='tdB'><button type='button' class='btn btn-light' onclick='deleteTodo(bb"+index+")'>x</button></td></tr>";
+		htmlB += "<td class='tdB'><button type='button' class='btn btn-light delBtnB' onclick='deleteTodo(bb"+index+")'>x</button></td></tr>";
 
 		index++;
 
@@ -703,9 +688,10 @@
                     }
 
                 }
+
                 //연/월 정보
                 var info = document.getElementsByClassName("infoB")[0];
-                info.innerHTML ="<button class='btn btn-info' onclick='drawCalendar();'>오늘날짜보기</button>"
+                info.innerHTML ="<button type='button'  class='btn btn-light' onclick='drawCalendar();'>오늘날짜보기</button>"
                                 + "<h1 class='yearBB'>"+firstDate.getFullYear()+"</h1><br/>"
                                 + "<h2 class='monthBB'><button id='prevB' onclick='prevCalendar("+firstDate.getMonth()+");'><img src='${pageContext.request.contextPath }/resources/images/L.png'></button>"
                                 + "<p id='monthB'>"+(firstDate.getMonth()+1)+"월</p>"
@@ -888,8 +874,8 @@
                 function mouseEvents(e, event){
                      console.log(e.id);
                      //마우스좌표
-                    var x = event.clientX;
-                    var y = event.clientY;
+                    var x = event.pageX;
+                    var y = event.pageY;
 
 					//메뉴보여주기
                     $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
@@ -903,7 +889,6 @@
 		
         </script>
         
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 
-</body>
-</html>
