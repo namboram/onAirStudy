@@ -10,7 +10,8 @@
 <!-- 사용자작성 css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/style.css" />
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/studyRoomList.css">
 
 <div id="carouselExampleCaptions" class="carousel slide"
 	data-ride="carousel">
@@ -128,7 +129,9 @@
 
 <!-- 이달의 성실멤버 -->
 <div class="container-fluid" style="background-color: #F2EDEA; height:900px; " >
-	
+	<h3 class="text-center">
+		이달의 성실 멤버
+		</h3>
 	
 		<div class="container-sm-5 p-5">
 		<div class="row" id="srlistG">
@@ -173,10 +176,41 @@
 <div class="container-fluid" style="background-color: #E3DBD6;  height:450px;">
 	<h3 class="text-center">
 		이달의 성실 스터디방
-		</h2>
-		<ul class="list-inline">
-		
-		</ul>
+		</h3>
+				<div class="container-sm-5 p-5">
+		<div class="row" id="srlistG">
+			<c:forEach items="${ ds_List }" var="ds">
+			
+			
+			
+				<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+					<div class="">
+					
+					<%-- <img class="mPic"
+						src="${pageContext.request.contextPath }/resources/upload/${ dm.mPic }"	width="150px"> 						
+						<a href="${pageContext.request.contextPath }/"></a>  --%>
+					
+					<h5 class="text-center">
+						${ ds.srTitle }
+					</h5>	
+					<h5 class="text-center">
+						 ${ ds.memberId }
+						</h5>
+					<h5 class="text-center">
+						${ ds.srGoal }
+					</h5>
+					<h5 class="text-center">
+						 ${ ds.srComment }
+						</h5>
+					
+						<br>
+					</div>
+				</div>
+			</c:forEach>
+			
+			
+		</div>
+	</div>
 </div>
 
 
@@ -186,36 +220,53 @@
 	style="background-color: rgb(209, 203, 200); height:900px;">
 	<h3 class="text-left">
 		현재 모집중인 스터디
-		<button type="button" class="btn btn-light">더 보기</button>
+		<button type="button" class="btn btn-light" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">더 보기</button>
 		</h2>
-		<br>
-
-		<ul class="list-inline">
-			<li>
-				<div
-					style="background-color: fff; border: 4px solid rgb(247, 175, 141); border-radius: 5%; padding: 20px; width: 230px; height: 330px;">
-					<img class="center-block"
-						src=""
-						width="150px" onclick=""> 
+		
+		<div class="container-sm">
+		<div class="row" id="srlistG">
+			<c:forEach items="${ srList }" var="roomList" end="5">
+			
+			
+			
+				<div class="col-sm-3" id="srProfile">
+					<div class="sr_pic">
+					<img class="roomPic"
+						src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }"	width="150px"> 
+					</div>
+					<img class="memPic"
+						src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"	width="150px"> 						
 						<a href="${pageContext.request.contextPath }/">
 						<img src="${pageContext.request.contextPath }/resources/images/heart.png"
 							 width="20px"></a> <br>
 					<h5 class="text-center">
-						방 제목<a href="#" onclick=""></a>
+						${ roomList.sTitle }
 					</h5>
 					<h5 class="text-center">
-						리더 아이디<a href="#" onclick=""></a>
-						</h4>
-
+						그룹 리더 : ${ roomList.memberId }
+						</h5>
+						
+						<h5 class="text-center">
+						${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
+						</h5>
+						
 						<br>
-						<ul class="list-inline">
-							<li><button type="button" class="btn btn-light">둘러보기</button></li>
-							<li><button type="button" class="btn btn-light">신청하기</button></li>
-							<li><button type="button" class="btn btn-danger">신고하기</button></li>
-						</ul>
+				
+			
+						
+							<button type="button" class="btn btn-light btn-sm">둘러보기</button>
+							<button type="submit" class="btn btn-light btn-sm">신청하기</button>
+							<button type="button" class="btn btn-danger btn-sm">신고하기</button>
+						
 				</div>
-			</li>
-		</ul>
+		
+				
+				
+				
+				<br />
+			</c:forEach>
+		</div>
+	</div>
 </div>
 
 

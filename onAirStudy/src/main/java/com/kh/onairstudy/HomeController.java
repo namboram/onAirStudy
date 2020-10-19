@@ -47,7 +47,11 @@ public class HomeController {
 			//성실스터디방 List	
 			List<StudyRoomList> ds_List = studyRoomService.selectDiligentStudyroom();	
 			model.addAttribute("ds_List", ds_List );
-		
+			
+			//스터디방 List
+			List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
+			model.addAttribute("srList", srList);
+			
 		return "forward:/index.jsp";
 	}
 	
