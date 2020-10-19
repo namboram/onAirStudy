@@ -1,5 +1,6 @@
 package com.kh.onairstudy.scheduler.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,26 @@ public class SchedulerServiceImpl implements SchedulerService {
 	@Override
 	public Scheduler selectOne(int no) {
 		return schedulerDAO.selectOne(no);
+	}
+
+	@Override
+	public int updateSchedule(Scheduler sch) {
+		return schedulerDAO.updateSchedule(sch);
+	}
+
+	@Override
+	public int insertTodo(List<Scheduler> list) {
+		
+		int result = 0;
+		for(Scheduler sch : list) 
+			result = schedulerDAO.insertTodo(sch);
+		
+		return result;
+	}
+
+	@Override
+	public int deleteTodo(Map<String, Object> map) {
+		return schedulerDAO.deleteTodo(map);
 	}
 	
 	

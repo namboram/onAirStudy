@@ -1,0 +1,35 @@
+
+.btn-outline-primary {
+    background-color: white;
+    border-color: #AD8686;
+    color: #E2A182; }
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    border-color: rgb(141, 109, 109);
+    background-color: rgb(141, 109, 109);
+    color: #FFF; }
+    .btn-primary:active,
+.btn-outline-primary:visited,
+.btn-outline-primary:focus,
+.btn-outline-primary:active:hover {
+    border-color:rgb(141, 109, 109);
+    background-color:rgb(141, 109, 109);
+    color: #FFF; }
+  
+
+.table thead{
+    border-style: groove;
+    border-color: rgba(173, 134, 134, 0.753);
+    background-color: white;
+    color:black;
+}
+
+.table tbody{
+   border-bottom: groove 1.5px rgba(173, 134, 134, 0.753);
+}
+tbody tr:nth-child(2n) {
+    background-color: white;
+  }
+tbody tr:nth-child(2n+1) {
+    background-color: #F9F1ED;
+  }

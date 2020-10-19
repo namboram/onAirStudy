@@ -1,5 +1,6 @@
 package com.kh.onairstudy.scheduler.model.dao;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,22 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 	public Scheduler selectOne(int no) {
 		return sqlSession.selectOne("scheduler.selectOne", no);
 	}
-	
+
+	@Override
+	public int updateSchedule(Scheduler sch) {
+		return sqlSession.update("scheduler.updateOne", sch);
+	}
+
+	@Override
+	public int insertTodo(Scheduler sch) {
+		return sqlSession.insert("scheduler.insertTodo", sch);
+	}
+
+	@Override
+	public int deleteTodo(Map<String, Object> map) {
+		return sqlSession.delete("scheduler.deleteTodo", map);
+	}
+
 	
 	
 }

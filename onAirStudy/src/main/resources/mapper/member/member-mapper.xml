@@ -32,9 +32,29 @@
   		member_id = #{ memberId }
   </select>
   
-  <resultMap type="member" id="memberMap">
+  
+  <!-- 성실멤버 List -->
+  <select id="selectDiligentMember" resultMap="memberMap" >
+    select member_id ,  
+       member_name,
+  	   diligent_point,
+   	   member_comment,
+       RANK() OVER (ORDER BY diligent_point DESC) AS rank
+	from member
+<![CDATA[  
+	where ROWNUM <= 10
+	]]>
+	
+	</select>
+  
+  
+
+ <resultMap type="member" id="memberMap">
   
   </resultMap>
+
+	
+
   
   
 </mapper>

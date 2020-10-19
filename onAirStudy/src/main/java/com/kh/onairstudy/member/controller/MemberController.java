@@ -1,21 +1,16 @@
 package com.kh.onairstudy.member.controller;
 
-import java.beans.PropertyEditor;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -135,12 +130,8 @@ public class MemberController {
 		}
 		
 	
-//		mypageIndex.jsp 불러오기 (여기에 만들기로함)
-		@RequestMapping("/mypage1_index.do")
-		public String mypage1_index() {
-			return "mypage1/mypage1_index";
-		}
-	
+
+		
 		
 		@RequestMapping(value = "/memberLogin.do", 
 					method = RequestMethod.GET)
@@ -163,9 +154,15 @@ public class MemberController {
 		
 		
 		//로그인 성공한 경우
-		if(
-			loginMember != null && bcryptPasswordEncoder.matches(password, loginMember.getPassword())
-		) {
+//		if(
+//			loginMember != null && 
+//			bcryptPasswordEncoder.matches(password, loginMember.getPassword())
+//		) {
+		
+		
+		
+		
+		log.debug("loginMember = " + loginMember);
 			//세션에 로그인한 사용자 정보 속성 저장
 			//model은 기본적으로 requestScope에서 작동하므로,
 			//@SessionAttributes를 클래스 레벨에 선언해서 sessionScope에 저장
@@ -175,15 +172,16 @@ public class MemberController {
 			String next = (String)session.getAttribute("next");
 			if(next != null)
 				location = next;
+
+			return "redirect:" + location;
 			
 		}
 		//로그인 실패한 경우
-		else {
-			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
-		}
+//		else {
+//			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
+//		}
 		
-		return "redirect:" + location;
-		}
+//		}
 		
 		/**
 		* @SessionAttributes 를 통해 사용자정보를 관리했다면,
@@ -201,5 +199,25 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+//		성실멤버 list
+		@RequestMapping("/selectDiligentMember")
+		public String selectDiligentMember(Model model) {
+			List<Member> list = memberService.selectDiligentMember();			
+			
+				model.addAttribute("list", list );
+				log.debug("list = {}", list);
+				return  "forward:/index.jsp";
+		}
+
+		
+		
+//		mypageIndex.jsp 불러오기 (여기에 만들기로함)
+		@RequestMapping("/mypage1_index.do")
+		public String mypage1_index() {
+			return "mypage1/mypage1_index";
+		}
+	
+		
+		
 }
 

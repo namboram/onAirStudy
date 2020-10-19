@@ -1,5 +1,7 @@
 package com.kh.onairstudy.member.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +29,10 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member member) {
 		return memberDAO.insertMember(member);
 	}
+	@Override
+	public List<Member> selectDiligentMember() {
+		return memberDAO.selectDiligentMember();
+	}
+	
+	
 }

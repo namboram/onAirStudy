@@ -16,17 +16,15 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceService attendanceService; 
 	
-	
 	@RequestMapping("/mypage1.do")
 	public String mypage1() {
-		return "mypage1/side-bar1";
+		return "mypage1/mypage1_index";
 	}
-
 	
 	@RequestMapping("/mypage2.do")
 	public String mypage2() {
-		return "mypage2/side-bar2";
+		return "mypage2/mypage2";
 	}
-	
+
 	
 }

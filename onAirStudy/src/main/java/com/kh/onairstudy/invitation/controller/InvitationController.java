@@ -13,14 +13,14 @@ import com.kh.onairstudy.invitation.model.vo.Invitation;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/invitation")
+@RequestMapping
 @Slf4j
 public class InvitationController {
 
 	@Autowired
 	private InvitationService invitationService;
 	
-	@RequestMapping("/invitationlist.do")
+	@RequestMapping("mypage1/invitationlist.do")
 	public ModelAndView invitationList(ModelAndView mav) {
 		
 		List<Invitation> inList = invitationService.selectInvitationList();

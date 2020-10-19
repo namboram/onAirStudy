@@ -24,14 +24,13 @@ import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/scheduler")
 @Controller
 public class SchedulerController {
 
 	@Autowired
 	private SchedulerService schedulerService;
 	
-	@RequestMapping("/main.do")
+	@RequestMapping("/scheduler/main.do")
 	public ModelAndView mainScheduler(ModelAndView mav, HttpSession session) {
 
 		//내역가져오기
@@ -53,7 +52,8 @@ public class SchedulerController {
 	
 	public List<Scheduler> makeScheduleArrays(HttpSession session){
 				
-		//로그인된 아이디 가져오기
+				//로그인된 아이디 가져오기
+				//추후에 방번호가 같이 오면 방번호 null 유무로  가져옴
 				String memberId = (String)session.getAttribute("memberId");
 				
 				//잘됐는지 체크해보려고 하는 push~
@@ -103,7 +103,7 @@ public class SchedulerController {
 		return addList;
 	}
 	
-	@RequestMapping("/insert.do")
+	@RequestMapping("/scheduler/insert.do")
 	public String insertSchedule(Scheduler sch, 
 								RedirectAttributes redirectAttr) throws Exception {
 		if(sch.getDYN()==null)
@@ -123,6 +123,30 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "일정 등록 실패");
 		}
 			
+		return "redirect:/scheduler/main.do";
+	}
+
+	@RequestMapping("/scheduler/update.do")
+	public String updateSchedule(Scheduler sch, 
+			RedirectAttributes redirectAttr) throws Exception {
+		if(sch.getDYN()==null)
+			sch.setDYN("N");
+		
+		sch.setEnabledYN("N");
+		
+		System.out.println("sch="+sch);
+		
+		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("modal", "good");
+		
+		int result = schedulerService.updateSchedule(sch);
+		
+		if(result>0) {
+			redirectAttr.addFlashAttribute("msg", "일정 수정 성공");
+		}else {
+			redirectAttr.addFlashAttribute("msg", "일정 수정 실패");
+		}
+//		
 		return "redirect:/scheduler/main.do";
 	}
 	
@@ -145,7 +169,7 @@ public class SchedulerController {
 		return redirectAttr;
 	}
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping("/scheduler/delete.do")
 	public String deleteSchedule(@RequestParam("no") int no,
 								RedirectAttributes redirectAttr) throws Exception {
 		System.out.println("no="+no);
@@ -154,7 +178,7 @@ public class SchedulerController {
 		System.out.println("sch="+sch);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
-		redirectAttr.addFlashAttribute("del", "del");
+		redirectAttr.addFlashAttribute("sche", "good");
 		
 		int result = schedulerService.deleteSchedule(no);
 		
@@ -165,4 +189,91 @@ public class SchedulerController {
 			
 		return "redirect:/scheduler/main.do";
 	}
+	
+	
+	@RequestMapping("/scheduler/todo.do")
+	public String insertTodo(@RequestParam("content") String[] contents,
+							@RequestParam("checked") boolean[] yn,
+							@RequestParam("startDate") Date startDate,
+							HttpSession session,
+							RedirectAttributes redirectAttr) {
+		
+		String memberId = (String)session.getAttribute("memberId");
+		
+		Scheduler sch = null;
+		List<Scheduler> list = new ArrayList<>();
+		//객체화
+		for(int i = 0 ; i<contents.length;i++) {
+
+			sch = new Scheduler();
+			
+			sch.setMemberId("honggd");
+			sch.setStartDate(startDate);
+			sch.setEndDate(startDate);
+			sch.setContent(contents[i]);
+			String tempYn = yn[i] == true ? "Y" : "N";
+			sch.setEnabledYN(tempYn);
+
+			System.out.println(sch);
+			list.add(sch);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberId", "honggd");
+		map.put("startDate", startDate);
+		
+		//이전내역삭제
+		int result = schedulerService.deleteTodo(map); 
+		
+		//새로등록
+		result = schedulerService.insertTodo(list);
+		
+		
+		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("todo", "good");
+		
+		if(result>0)
+			redirectAttr.addFlashAttribute("msg", "리스트 저장 성공");
+		else
+			redirectAttr.addFlashAttribute("msg", "리스트 저장 실패");
+		
+		
+		return "redirect:/scheduler/main.do";
+	}
+	
+	@RequestMapping("/scheduler/delTodo.do")
+	public String deleteTodo(@RequestParam("startDate") Date startDate,
+							HttpSession session,
+							RedirectAttributes redirectAttr) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("memberId", "honggd");
+		map.put("startDate", startDate);
+
+		int result = schedulerService.deleteTodo(map);
+		Scheduler sch = new Scheduler();
+		sch.setStartDate(startDate);
+		
+		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("todo", "good");
+		
+		if(result>0)
+			redirectAttr.addFlashAttribute("msg", "리스트 삭제 성공");
+		else
+			redirectAttr.addFlashAttribute("msg", "리스트 삭제 성공");
+		
+		
+		return "redirect:/scheduler/main.do";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

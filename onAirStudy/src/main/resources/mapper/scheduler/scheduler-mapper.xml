@@ -10,6 +10,8 @@ from
 	scheduler
 where
 	member_id = #{ memberId }
+order by 
+	(end_date - start_date) desc
 </select>
 <resultMap id="listMap" type="map">
 	<id column="no" property="no"/>
@@ -43,6 +45,26 @@ where
 	)
 </insert>
 
+<update id="updateOne">
+update 
+	scheduler
+set
+	member_id = #{memberId},
+	sr_no = null,
+	start_date = #{startDate},
+	end_date = #{endDate},
+	content = #{content},
+	color_code = #{colorCode},
+	schedule_yn = #{scheduleYN},
+	d_yn = #{dYN},
+	time_opt = #{timeOpt},
+	enabled_yn = #{enabledYN}
+where
+	no = #{ no }
+
+</update>
+
+
 <delete id="deleteSchedule">
 delete from
 	scheduler
@@ -58,6 +80,39 @@ from
 where
 	no = #{ no }
 </select>
+
+<insert id="insertTodo">
+insert into
+	scheduler
+values(
+		seq_schedule_no.nextval,
+		#{memberId},
+		null,
+		#{startDate},
+		#{endDate},
+		#{content},
+		default,
+		'N',
+		'N',
+		null,
+		#{enabledYN}
+)
+
+</insert>
+
+<delete id="deleteTodo">
+delete
+	scheduler
+where
+	member_id = #{memberId}
+and
+	start_date = #{startDate}
+and
+	schedule_yn = 'N'
+and
+	d_yn = 'N'
+
+</delete>
 
 
 </mapper>
