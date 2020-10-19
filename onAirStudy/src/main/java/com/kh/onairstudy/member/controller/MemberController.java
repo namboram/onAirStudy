@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/member")
+@RequestMapping("")
 @SessionAttributes({"loginMember"})
 public class MemberController {
 	
@@ -43,14 +43,14 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
-	@RequestMapping(value = "/memberEnroll.do", method = RequestMethod.GET)
+	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.GET)
 	public ModelAndView memberEnroll(ModelAndView mav) {
 		mav.addObject("name", "홍길동");
 		mav.setViewName("member/memberEnroll");
 		return mav;
 		}
 	
-	@RequestMapping(value = "/memberEnroll.do", method = RequestMethod.POST)
+	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.POST)
 	public String memberEnroll(RedirectAttributes redirectAttr,  Member member) {
 		
 		String rawPassword = member.getPassword();
@@ -86,7 +86,7 @@ public class MemberController {
 	 */
 		
 		
-	@RequestMapping("/checkIdDuplicate.do")
+	@RequestMapping("member/checkIdDuplicate.do")
 	@ResponseBody
 	public Map<String, Object> checkIdDuplicate(@RequestParam("memberId") String memberId){
 		Map<String, Object> map = new HashMap<>();
@@ -181,13 +181,15 @@ public class MemberController {
 
 		
 		
-		@RequestMapping(value = "/memberLogin.do", 
+		@RequestMapping(value = "member/memberLogin.do", 
 					method = RequestMethod.GET)
 		public String memberLogin() {
 		return "member/memberLogin";
 		}
 		
-		@RequestMapping(value = "/memberLogin.do", 
+		
+		
+		@RequestMapping(value = "member/memberLogin.do", 
 					method = RequestMethod.POST)
 		public String memberLogin(@RequestParam("memberId") String memberId,
 			 				  @RequestParam("password") String password,
@@ -238,7 +240,7 @@ public class MemberController {
 		* @param sessionStatus
 		* @return
 		*/
-		@RequestMapping("/memberLogout.do")
+		@RequestMapping("member/memberLogout.do")
 		public String memberLogout(SessionStatus sessionStatus) {
 		
 		if(!sessionStatus.isComplete())
@@ -246,20 +248,11 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
-
-//		성실멤버 list
-		@RequestMapping("/selectDiligentMember")
-		public String selectDiligentMember(Model model) {
-			List<Member> list = memberService.selectDiligentMember();			
-			
-				model.addAttribute("list", list );
-				log.debug("list = {}", list);
-				return  "forward:/index.jsp";
-		}
-
 		
 		
-//		mypageIndex.jsp 불러오기 (여기에 만들기로함)
+		
+		
+//		mypageIndex.jsp 불러오기
 		@RequestMapping("/mypage1_index.do")
 		public String mypage1_index() {
 			return "mypage1/mypage1_index";

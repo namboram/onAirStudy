@@ -33,6 +33,7 @@
   </select>
   
   
+  
   <!-- 성실멤버 List -->
   <select id="selectDiligentMember" resultMap="memberMap" >
     select member_id ,  
@@ -49,16 +50,23 @@
   
   
 
- <resultMap type="member" id="memberMap">
   
+
+<resultMap type="member" id="memberMap">
+    <result column="member_id" property="memberId"/>
+  	<result column="member_name" property="memberName"/>
+  	<result column="password" property="password"/>
+  	<result column="member_role" property="memberRole"/>
+  	<result column="phone" property="phone"/>
+  	<result column="diligent_point" property="diligentPoint"/>
+  	<result column="blacklist_yn" property="blacklist"/>
+  	<result column="withdraw_yn" property="withdraw"/>
+  	<result column="member_comment" property="comment"/>
+  	<result column="category" property="category"/> 
   </resultMap>
 
-	<update id="updateBlack">
+
 	
-		update member
-		set blacklist_yn = 'Y'
-		where member_id = #{reportedMember}
-	</update>
 
   
   

@@ -3,4 +3,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="service">
+
+<select id="selectServiceContentList" resultMap="serviceMap">
+	select *
+	from service_content
+
+</select>
+
+<resultMap type="map" id="serviceMap">
+	<id column="no" property="no"/>	
+	<result column="category" property="category"/>
+	<result column="title" property="title"/>
+	<result column="content" property="content"/>
+
+</resultMap>
+
+
+ <select id="selectServiceList" resultMap="serviceListMap">
+ 	select *
+ 	from service
+
+
+</select>
+
+<resultMap type="map" id="serviceListMap">
+	
+	<result column="no" property="no"/>
+	<result column="category" property="category"/>
+	<result column="service_status" property="serviceStatus"/>
+	<result column="service_title" property="serviceTitle"/>
+	<result column="service_content" property="serviceContent"/>
+	<result column="reply_no" property="reply_no"/>
+	<result column="member_id" property="memberId"/>
+	<result column="service_date" property="serviceDate"/>
+	<result column="read_yn" property="read_yn"/>
+	<result column="service_level" property="serviceLevel"/>
+
+</resultMap>
+
+
+
+
+
 </mapper>

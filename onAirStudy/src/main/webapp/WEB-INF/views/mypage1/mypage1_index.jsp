@@ -7,13 +7,14 @@
 <%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+
+<div class="row">	
 <jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 <!-- 차트 링크 -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
-<div class="container-fluid mypage1-index-div"
-	style="background-color: rgb(249, 241, 237); display: inline-block;">
+<div class="col-sm" style="background-color:#FBF7FD; padding: 20px;">
 	<h1>My page</h1>
 	<hr>
 	<div>
@@ -66,5 +67,6 @@
 		일일 공부시간
 		<button type="button" class="btn btn-light">시간 등록하기</button>
 	</h3>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
