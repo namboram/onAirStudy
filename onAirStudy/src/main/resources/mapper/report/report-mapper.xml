@@ -3,4 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="report">
+<insert id="insertReport">
+	insert
+	into report_log
+	values(
+		seq_report_log_no.nextval,
+		#{contentId},
+		#{contentCategory},
+		#{reporter},
+		#{reportedMember},
+		#{category},
+		default,
+		default
+		
+	)
+	
+	
+</insert>
+<select id="selectCntReport" resultType="_int">
+	select count(*) 
+	from report_log 
+	where reported_member = #{reportedMember} and vaild_yn = 'Y'
+</select>
 </mapper>

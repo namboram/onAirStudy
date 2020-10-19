@@ -22,8 +22,14 @@ public class ReportController {
 	@RequestMapping(value="/report/insertReport.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int insertReport(Report report) {
-		int result=0;
-		log.debug("report={}",report);
+		int result=reportService.insertReport(report);
+		//log.info("report={}",report);
+		//로그 검사 해서 유효 신고가 5번 이상일 경우 블랙리스트 등록
+		int cnt = reportService.selectCntReport(report.getReportedMember());
+		log.info("cnt={}",cnt);
+		if(cnt >= 5) {
+			log.info("report 5 이상! 블랙 등록필요!");
+		}
 		return result;
 		
 	}

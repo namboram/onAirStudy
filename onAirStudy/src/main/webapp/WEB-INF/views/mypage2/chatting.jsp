@@ -69,6 +69,7 @@
 
 					<!-- Modal body -->
 					<div class="modal-body">
+						<input type="hidden" id="contentIdK" value=""/>
 						<div class="form-group">
 						<label for="reportCategK">신고 카테고리</label>
 						<select class="form-control" id="reportCategK" name="reportCategK">
@@ -78,7 +79,7 @@
 						</select>
 						</div>
 						<hr />
-						<h5>신고 대상 : <strong id="reportId"></strong></h5>
+						<h5>신고 대상 : <strong id="reportIdK"></strong></h5>
 						
 						<h5>신고 내용</h5>
 						<div id="reportContents">
@@ -151,10 +152,11 @@ function doReport(){
 			type : "POST",
 			data :
 				{
-/* 					contentCategory : ,
-					reporter : ,
-					reportedMember : ,
-					category :  */
+					contentCategory : "C",
+					contentId : $("#contentIdK").val(),
+					reporter : "${loginMember.memberId}",
+					reportedMember : $("#reportIdK").text(),
+					category : $("#reportCategK").val() 
 							
 				} ,
 			dataType : "json",
@@ -173,19 +175,20 @@ function doReport(){
 	}
 }
 $(document).ready(function() {
+	//시작할때 스크롤 내리기
+	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
 	//신고 클릭시 모달창 열기
 	$(document).on("click",".reportModalK",function(){
 		$("#myModal").modal('show');
 		var content = $(this).closest("strong").prev();
 		$("#reportContents").html(content.text());
 		var id = content.closest("div").prev();
-		$("#reportId").html(id.text());
+		$("#reportIdK").html(id.text());
+		var contentId = $(this).closest("li");
+		$("#contentIdK").val(contentId.attr("data-no"));
+		
 		
 	}); 
-	
-	//시작할때 스크롤 내리기
-	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
-	//alert("안되는거 같지..?");
 	var isEnd = false;
 	var isScrolled = false;
 	var fetchList = function() {
@@ -207,7 +210,7 @@ $(document).ready(function() {
 				console.log(result[0]);
 
 				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
-				// 남은 데이터가 5개 이하일 경우 무한 스크롤 종료
+				// 가장 처음 데이터 번호가 1일경우 스크롤 종료
 				var length = result.size;
 				if (result[0].no == 1) {
 					//console.log("resultno"+ result[0].no);
