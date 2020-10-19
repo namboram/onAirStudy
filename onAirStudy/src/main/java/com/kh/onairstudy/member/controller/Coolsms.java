@@ -34,6 +34,8 @@ public class Coolsms extends Https {
 	 * @param set : HashMap<String, String>
 	 */
 	public JSONObject send(HashMap<String, String> params) {
+		
+		
 		JSONObject response = new JSONObject();
 		try {
 			// 湲곕낯�젙蹂� �엯�젰
