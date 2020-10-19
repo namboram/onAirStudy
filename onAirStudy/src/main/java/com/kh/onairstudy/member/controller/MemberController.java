@@ -134,7 +134,6 @@ public class MemberController {
 	    
 	    com.kh.onairstudy.member.controller.Coolsms coolsms = new com.kh.onairstudy.member.controller.Coolsms(api_key, api_secret);
 	    
-
 	    
 	    HashMap<String, String> set = new HashMap<String, String>();
 	    set.put("to", (String)request.getParameter("to")); // 보내는사람
