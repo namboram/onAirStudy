@@ -12,6 +12,7 @@ import com.kh.onairstudy.diary.model.vo.Diary;
 public class DiaryDAOImpl implements DiaryDAO {
 
 
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -19,5 +20,10 @@ public class DiaryDAOImpl implements DiaryDAO {
 	@Override
 	public List<Diary> selectDiaryList() {
 		return sqlSession.selectList("diary.selectDiaryList");
+	}
+	
+	@Override
+	public int insertDiary(Diary diary) {
+		return sqlSession.insert("diary.insertDiary", diary);
 	}
 }
