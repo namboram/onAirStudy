@@ -22,34 +22,31 @@
       </div>
       <div class="modal-body">
        	<form name="boardEnrollFrm" 
-		  	  action="${pageContext.request.contextPath}/board/boardEnroll.do" 
-		  	  method="post">
+		  	<%--   action="${pageContext.request.contextPath}/diary/diaryEnroll.do"  --%>
+		  	  method="post" onsubmit="return diaryValidate();">
 		  
 		  <div class="diary-form-group">
 		    <label for="formGroupExampleInput">제목</label>
-		    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+		    <input type="text" class="form-control" id="diary-title" placeholder="" required>
 		  </div>
 		  <div class="diary-form-group">
-		    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+		    <input type="file" class="form-control-file" id="diary-fileup">
 		  </div>
 		  <div class="diary-form-group">
 		    <label for="exampleFormControlTextarea1">내용</label>
-		    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		    <textarea class="form-control" id="diary-content" rows="3" required></textarea>
 		  </div>	
 					
 		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary">저장</button>
       </div>
     </div>
   </div>
 </div>
 
-<style>
-
-</style>
 
 	
 <div class="diary-container">
@@ -134,21 +131,30 @@
 
 <!-- call diaryForm.jsp ! -->
 <script>
-/* $(document).ready(function(){
-    function alignModal(){
-        var modalDialog = $(this).find(".modal-dialog");
-        
-        // Applying the top margin on modal dialog to align it vertically center
-        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
-    }
-    // Align modal when it is displayed
-    $(".modal").on("shown.bs.modal", alignModal);
-    
-    // Align modal when user resize the window
-    $(window).on("resize", function(){
-        $(".modal:visible").each(alignModal);
-    });   
-}); */
+/* textarea에도 required속성을 적용가능하지만, 공백이 입력된 경우 대비 유효성검사를 실시함. */
+function diaryValidate(){
+	var $content = $("[name=content]");
+	if(/^(.|\n)+$/.test($content.val()) == false){
+		alert("내용을 입력하세요");
+		return false;
+	}
+	return true;
+}
+/* 
+$(function(){
+	//파일 선택/취소 파일라벨명을 변경한다.
+	$("#diary-content").on("change", function(){
+		var file = $(this).prop('files')[0];
+		var $label = $(this).next(".custom-file-label");
+
+		if(file == undefined)
+			$label.html("파일을 선택하세요");
+		else
+			$label.html(file.name);
+	}); */
+	
+	
+});
 	
 </script>
 
