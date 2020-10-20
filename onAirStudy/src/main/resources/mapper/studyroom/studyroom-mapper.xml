@@ -10,7 +10,7 @@ select
         F.sr_comment,
         G.member_id,
         G.status_log,
-        G.reader_yn,
+        G.leader_yn,
         C.category
 from
     sr_info F left join sr_log G on  F.sr_no = G.sr_no
@@ -27,7 +27,7 @@ where
   		<result column="sr_comment" property="srComment"/>
   		<result column="member_id" property="memberId"/>
   		<result column="status_log" property="status"/>
-  		<result column="reader_yn" property="sReader"/>
+  		<result column="leader_yn" property="sleader"/>
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
@@ -142,6 +142,17 @@ select
 	</select>
 
 
+	<select id="selectParticipantList" resultType="studyroomlog">
+	
+		select 
+			* 
+		from 
+			sr_log 
+		where 
+			sr_no = #{roomNum} 
+		and 
+			status_log  = '참여'
+	</select>
 
 
 </mapper>

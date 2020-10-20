@@ -2,11 +2,13 @@
     pageEncoding="UTF-8"%>
 <link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	
-	
-	<nav class="side-navbar">
+	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -35,17 +37,14 @@
 			<li><a href="#">우리 스터디방</a></li>
 			<li>
 				<a href="#participantsDropdown" aria-expanded="false" data-toggle="collapse">참여인원</a>
-				<ul id="participantsDropdown" class="collapse list-unstyled ">
-					<li><div class="participantsJH">
+				<ul id="participantsDropdown" class="collapse list-unstyled">
+					<c:forEach var="participants" items="${list }">
+						<li class=""><div class="participantsJH">
 							<div class="status"></div>
-							<span>sinsa</span>
+							<span>${participants.memberId }</span>
 							<div class="icon icon-mail message"  onclick="" style=""></div>
 						</div></li>
-					<li><div class="participantsJH">
-							<div class="status"></div>
-							<span>darong</span>
-							<div class="icon icon-mail message"  onclick="" style=""></div>
-						</div></li>
+					</c:forEach>
 				</ul>
 			</li>
 			<li>
@@ -82,7 +81,3 @@
 			</li>
 		</ul>
 	</nav>
-	
-	
-	
-	

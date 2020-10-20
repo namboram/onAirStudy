@@ -21,6 +21,6 @@ public class StudyRoomLog implements Serializable{
 	private String memberId;
 	private String statusLog;
 	private int warningCnt;
-	private char ReaderYN;
+	private char leaderYN;
 
 }
