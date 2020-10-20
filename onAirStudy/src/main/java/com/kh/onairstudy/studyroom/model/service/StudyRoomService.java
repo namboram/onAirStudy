@@ -25,4 +25,6 @@ public interface StudyRoomService {
 
 	List<StudyRoomLog> selectParticipantList(int roomNum);
 
+	List<String> selectApplicantList(int roomNum);
+
 }

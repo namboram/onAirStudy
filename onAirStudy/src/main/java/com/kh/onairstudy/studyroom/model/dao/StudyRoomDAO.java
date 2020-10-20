@@ -25,4 +25,6 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomLog> selectParticipantList(int roomNum);
 
+	List<String> selectApplicantList(int roomNum);
+
 }

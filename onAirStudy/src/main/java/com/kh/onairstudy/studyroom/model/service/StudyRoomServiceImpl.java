@@ -56,6 +56,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomLog> selectParticipantList(int roomNum) {
 		return studyRoomDAO.selectParticipantList(roomNum);
 	}
+
+	@Override
+	public List<String> selectApplicantList(int roomNum) {
+		return studyRoomDAO.selectApplicantList(roomNum);
+	}
+	
 	
 	
 }

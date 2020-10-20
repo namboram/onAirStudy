@@ -72,12 +72,14 @@ public class StudyRoomController {
 	public ModelAndView main(ModelAndView mav) {
 		
 		Map<String, Object> map = new HashMap<>();
-		int roomNum = 16;
+		int roomNum = 15;
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
+		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 		
 		log.debug("list = {}", participants);
 		//map.put("list", participants);
-		mav.addObject("list", participants);
+		mav.addObject("participants", participants);
+		mav.addObject("applicants", applicants);
 		mav.setViewName("mypage2/mypage2");
 		
 		return mav;

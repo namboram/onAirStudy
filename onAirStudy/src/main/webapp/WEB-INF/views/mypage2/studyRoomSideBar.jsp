@@ -38,11 +38,11 @@
 			<li>
 				<a href="#participantsDropdown" aria-expanded="false" data-toggle="collapse">참여인원</a>
 				<ul id="participantsDropdown" class="collapse list-unstyled">
-					<c:forEach var="participants" items="${list }">
-						<li class=""><div class="participantsJH">
+					<c:forEach var="part" items="${participants }">
+						<li><div class="participantsJH">
 							<div class="status"></div>
-							<span>${participants.memberId }</span>
-							<div class="icon icon-mail message"  onclick="" style=""></div>
+							<span>${part.memberId }</span>
+							<div class="icon icon-mail message"  onclick="alert('쪽지를 보내봅시다~')"></div>
 						</div></li>
 					</c:forEach>
 				</ul>
@@ -59,24 +59,15 @@
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
 				<ul id="applicantsDropdown" class="collapse list-unstyled ">
-					<li>
-						<div class="applicantsJH">
-							<span>이지혜</span>
+					<c:forEach var="app" items="${ applicants }">
+						<li><div class="applicantsJH">
+							<span>${app}</span>
 							<button value="accept" class="btnAcceptJH btnApplicantsJH"
 								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">수락</button>
 							<button value="reject" class="btnRejectJH btnApplicantsJH"
 								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">거절</button>
-						</div>
-					</li>
-					<li>
-						<div class="applicantsJH">
-							<span>이다롱</span>
-							<button value="accept" class="btnAcceptJH btnApplicantsJH"
-								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">수락</button>
-							<button value="reject" class="btnRejectJH btnApplicantsJH"
-								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">거절</button>
-						</div>
-					</li>
+						</div></li>
+					</c:forEach>
 				</ul>
 			</li>
 		</ul>

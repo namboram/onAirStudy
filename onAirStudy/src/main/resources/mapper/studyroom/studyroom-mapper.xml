@@ -153,6 +153,16 @@ select
 		and 
 			status_log  = '참여'
 	</select>
+	
+	<select id="selectApplicantList" resultType="string">
+	
+		select 
+			member_id
+		from 
+			sr_waiting_list
+		where 
+			sr_no = #{ roomNum}
+	</select>
 
 
 </mapper>
