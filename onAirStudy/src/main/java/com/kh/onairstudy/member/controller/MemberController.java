@@ -1,11 +1,13 @@
 package com.kh.onairstudy.member.controller;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +26,8 @@ import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
+
+
 
 @Slf4j
 @Controller
@@ -115,7 +119,51 @@ public class MemberController {
 		return "jsonView";
 	}
 	
+	
+	
+	/*휴대폰본인인증
+	*
+	*/
+	@RequestMapping(value = "/sendSms.do")
+	  public String sendSms(HttpServletRequest request) throws Exception {
 
+		
+		System.out.println(" 들어왔음");
+	    String api_key = "NCS6H2LEJQIDSH1J";
+	    String api_secret = "K3PATZ49S16BLIAHJJUYOXHQ6G3RPZ3S";
+	    
+	    com.kh.onairstudy.member.controller.Coolsms coolsms = new com.kh.onairstudy.member.controller.Coolsms(api_key, api_secret);
+	    
+	    
+	    HashMap<String, String> set = new HashMap<String, String>();
+	    set.put("to", "01091496965"); // 수신번호
+	    
+	    System.out.println("text="+ request.getParameter("text"));
+	    
+	    set.put("from", "01091496965"); //발신번호
+	    set.put("text", "인증번호는[ " + (String)request.getParameter("text") + "]입니다"); // 문자내용
+	    set.put("type", "sms"); // 문자 타입
+
+	    System.out.println("set="+set);
+
+	    	
+		
+		  JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+		  
+		  if ((boolean)result.get("status") == true) { // 메시지 보내기 성공 및 전송결과 출력
+			  System.out.println("성공"); 
+			  
+			  System.out.println(result.get("result_code")); // 결과코드
+			  System.out.println(result.get("result_message")); // 결과 메시지
+			  System.out.println(result.get("success_count")); // 메시지아이디
+			  System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수 } else {
+			  // 메시지 보내기 실패 System.out.println("실패");
+			  System.out.println(result.get("code")); // REST API 에러코드
+			  System.out.println(result.get("message")); // 에러메시지 }
+		 
+		 }
+		  return "member/sendSms";
+	  }
 	
 	
 	
