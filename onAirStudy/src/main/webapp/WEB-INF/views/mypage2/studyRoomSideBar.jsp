@@ -72,3 +72,31 @@
 			</li>
 		</ul>
 	</nav>
+	
+<script>
+$(function(){
+	var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
+	var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
+	popupOpen();
+	
+});
+
+function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
+	var url = "popup.html";
+	var name = "popup test";
+	var option = "width = 500, height = 500, top = 100, left = 200, location = no";
+	popupObj = window.open(url, name, option);
+
+	/*  if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
+		   clearTimeout(stopTimeCheck);           */            
+	   
+	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
+}
+
+function closePopup() {
+	if (popupObj != undefined) {
+		popupObj.close(); //팝업 종료
+		popupObj = undefined;
+	}
+}
+</script>
