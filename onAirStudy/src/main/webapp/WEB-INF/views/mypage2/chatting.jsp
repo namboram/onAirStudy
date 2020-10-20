@@ -108,7 +108,12 @@
 					<li data-no="${chat.no}">
 					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
 					<div class="row">
-					<pre class="bg-light p-2 m-2">${chat.chatContent}</pre> 
+					<c:if test="${chat.vaildYN eq 'Y'}">
+					<pre class="bg-light text-muted p-2 m-2">신고된 채팅입니다.</pre> 
+					</c:if>
+					<c:if test="${chat.vaildYN ne 'Y'}">
+					<pre class="bg-light p-2 m-2">${chat.chatContent }</pre> 
+					</c:if>
 					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" /></strong></div></li>
 					</c:if>
 					<!-- 다른사람의 채팅일 경우 -->
@@ -116,7 +121,12 @@
 					<li data-no="${chat.no}">
 					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
 					<div class="row">
-					<pre class="bg-secondary p-2 m-2">${chat.chatContent}</pre> 
+					<c:if test="${chat.vaildYN eq 'Y'}">
+					<pre class="bg-secondary text-muted p-2 m-2">신고된 채팅입니다.</pre> 
+					</c:if>
+					<c:if test="${chat.vaildYN ne 'Y'}">
+					<pre class="bg-secondary p-2 m-2">${chat.chatContent }</pre> 
+					</c:if>
 					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" />
 					<a href='#' class='reportModalK'>신고</a></strong></div></li>
 					</c:if>
@@ -244,31 +254,50 @@ $(document).ready(function() {
 		var date = moment(vo.sendDate).format('YY/MM/DD HH:mm:ss');
 		var html = "";
 		if(endNo==0) endNo = vo.no;
+		
 		//내가 보낸 채팅일 경우
 		if(vo.memberId=="${loginMember.memberId}"){
+			//신고된 채팅일 경우
+			var content ="";
+			if(vo.vaildYN == 'Y'){
+				content = "<pre class='bg-light text-muted p-2 m-2'>신고된 채팅입니다.</pre>";
+			}
+			if(vo.vaildYN != 'Y'){
+				content = "<pre class='bg-light p-2 m-2'>"+vo.chatContent+"</pre>";
+			}
 		
 		html = "<li class='pull-right' data-no='"+ endNo +"'>"
 				+ "<strong>" + endNo + "</strong>"
 				+ "<strong>" + vo.memberId + "</strong>"
 				+"<div class='row'>"
-				+ "<pre class='bg-light p-2 m-2'>" + vo.chatContent + "</pre>"
+				+ content
 				+ "<strong>" + date + "</strong>"
 				+"</div>"
 				+ "</li>";
 
 		}
+		//남이 보낸 채팅일 경우
 		else{
-
+			//신고된 채팅일 경우
+			var content ="";
+			var report ="";
+			if(vo.vaildYN == 'Y'){
+				content = "<pre class='bg-secondary text-muted p-2 m-2'>신고된 채팅입니다.</pre>";
+			}
+			if(vo.vaildYN != 'Y'){
+				content = "<pre class='bg-secondary p-2 m-2'>"+vo.chatContent+"</pre>";
+				report = "신고";
+			}
 			html = "<li data-no='"+ vo.no +"'>"
 			+ "<strong>" + vo.no + "</strong>"
 			+ "<strong>" + vo.memberId + "</strong>"
 			+"<div class='row'>"
-			+ "<pre class='bg-secondary p-2 m-2'>" + vo.chatContent + "</pre>"
-			+ "<strong>" + date + "<a href='#' class='reportModalK'>신고</a></strong>"
+			+ content
+			+ "<strong>" + date + "<a href='#' class='reportModalK'>"+report+"</a></strong>"
 			+"</div>"
 			+ "</li>";
 		
-			}
+		}
 		return html;
 			
 		
