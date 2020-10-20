@@ -12,8 +12,6 @@ nav.navbar-default{
 
 nav.side-navbar {
   background: #E0B1D0;
-  min-width: 250px;
-  max-width: 250px;
   height: 100%;
   color: #686a76;
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -85,7 +83,7 @@ nav.side-navbar .sidebar-header {
 
 nav.side-navbar .avatar {
   margin : 0 auto;
-  width: 50%;
+  width: 80%;
   height : 10%;
   text-align: center;
 }

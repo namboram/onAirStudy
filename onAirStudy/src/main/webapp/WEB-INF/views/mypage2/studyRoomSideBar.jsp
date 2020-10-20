@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 	
 	
-	<nav class="side-navbar">
+	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -17,11 +17,8 @@
 				<img
 					src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg"
 					alt="...">
-				<h3>
-					Honggd
-					</h3>
-					<h5>premium
-				</h5>
+				<h3>Honggd</h3>
+				<h5>premium</h5>
 			</div>
 			<div class="d-day-display">
 				<hr>
