@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+/* 회원 가입 */
+/* 폼 */
+div#enroll-out-container{ 
+	background-color:rgb(255, 195, 163); 
+}
+div#enroll-top-container{ 
+	background-color:rgb(255, 195, 163); 
+	padding-top: 40px; 
+	text-align: center;
+	vertical-align: middle; 
+}
+
+div#enroll-bottom-container{
+    height: 70vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: gray;
+    font-size: 15px;
+}
+#memberEnrollFrm{
+	background-color: white;
+	padding: 65px;
+    border-radius: 20px;
+    font-family: 'Nanum Gothic', 'Secular One';
+}
+.formMember{
+    width:100%;
+    position: relative;
+    height: 30px;
+    overflow: hidden;
+}
+
+.formMember input{
+    width: 100%;
+    height: 100%;
+    color: black;
+    padding-top: 0px;
+    border: none;
+    outline: none;
+}
+.formMember label{
+    position: absolute;
+    bottom: 0px;
+    left: 0%;
+    width: 100%;
+    height: 150%;
+    pointer-events: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
+
+.formMember label::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -2px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 2px solid rgba(255, 195, 163, 0.849);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+.content-member{
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+
+.formMember input:focus + .label-member .content-member, 
+.formMember input:valid + .label-member .content-member{
+    transform: translateY(-100%);
+    font-size: 5px;
+    color: tomato;
+}
+
+.formMember input:focus + .label-member::after, 
+.formMember input:valid + .label-member::after{
+    transform: translateX(0%);
+}
+
+/* 관심카테고리 */
+.fieldset-category{
+    border-top: 1px solid gray;
+    border: 1px ;
+}
+input[type=checkbox]{
+    display:none;
+}
+.form-check-label em{
+    /*border: 1px solid black;*/ 
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url('../images/checkbox-pink.png') no-repeat;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+input[type=checkbox]:checked + .form-check-label em{
+    background-position: right center;
+}
+.memberHr {
+	border-color: 1px soild gray;
+}
+input#enroll-submit{ 
+	width:500px; 
+	color: black; 
+	background-color:rgb(255, 195, 163);
+} 
+input#enroll-reset{
+	width:500px;
+	border: none; 
+}
