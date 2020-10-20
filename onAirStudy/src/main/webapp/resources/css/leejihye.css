@@ -83,7 +83,7 @@ nav.side-navbar .sidebar-header {
 
 nav.side-navbar .avatar {
   margin : 0 auto;
-  width: 80%;
+  width: 50%;
   height : 10%;
   text-align: center;
 }
@@ -223,7 +223,7 @@ nav.mypage-sideBar ul li a {
 .d-day-display {
 	padding : 0px 30px 0px 30px;
 	text-align: center;
-	margin-top: 30px;
+	margin: 50px 0px 50px 0px;
 }
 
 .d-day-display hr{
@@ -435,11 +435,6 @@ nav.side-navbar.shrinked .sidebar-header .title {
 	
 }
 
-.mypage1-index-div{
-	
-	width : calc(100% - 270px);
-	height: 100%;
-}
 
 .chatting-box{
 	display: inline-block;

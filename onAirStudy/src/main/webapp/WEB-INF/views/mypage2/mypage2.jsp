@@ -9,9 +9,6 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <div class="row">	
 <jsp:include page="/WEB-INF/views/mypage2/studyRoomSideBar.jsp"></jsp:include>
-<div class="col-lg-10">
-<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
-</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
