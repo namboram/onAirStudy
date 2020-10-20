@@ -55,6 +55,12 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.selectParticipantList", roomNum);
 	}
 
+	@Override
+	public List<String> selectApplicantList(int roomNum) {
+		return sqlSession.selectList("studyroom.selectApplicantList", roomNum);
+	}
+
+	
 
 	
 }

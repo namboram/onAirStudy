@@ -38,11 +38,11 @@
 			<li>
 				<a href="#participantsDropdown" aria-expanded="false" data-toggle="collapse">참여인원</a>
 				<ul id="participantsDropdown" class="collapse list-unstyled">
-					<c:forEach var="participants" items="${list }">
-						<li class=""><div class="participantsJH">
+					<c:forEach var="part" items="${participants }">
+						<li><div class="participantsJH">
 							<div class="status"></div>
-							<span>${participants.memberId }</span>
-							<div class="icon icon-mail message"  onclick="" style=""></div>
+							<span>${part.memberId }</span>
+							<div class="icon icon-mail message"  onclick="alert('쪽지를 보내봅시다~')"></div>
 						</div></li>
 					</c:forEach>
 				</ul>
@@ -59,25 +59,44 @@
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
 				<ul id="applicantsDropdown" class="collapse list-unstyled ">
-					<li>
-						<div class="applicantsJH">
-							<span>이지혜</span>
+					<c:forEach var="app" items="${ applicants }">
+						<li><div class="applicantsJH">
+							<span>${app}</span>
 							<button value="accept" class="btnAcceptJH btnApplicantsJH"
 								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">수락</button>
 							<button value="reject" class="btnRejectJH btnApplicantsJH"
 								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">거절</button>
-						</div>
-					</li>
-					<li>
-						<div class="applicantsJH">
-							<span>이다롱</span>
-							<button value="accept" class="btnAcceptJH btnApplicantsJH"
-								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">수락</button>
-							<button value="reject" class="btnRejectJH btnApplicantsJH"
-								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">거절</button>
-						</div>
-					</li>
+						</div></li>
+					</c:forEach>
 				</ul>
 			</li>
 		</ul>
 	</nav>
+	
+<script>
+$(function(){
+	var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
+	var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
+	popupOpen();
+	
+});
+
+function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
+	var url = "popup.html";
+	var name = "popup test";
+	var option = "width = 500, height = 500, top = 100, left = 200, location = no";
+	popupObj = window.open(url, name, option);
+
+	/*  if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
+		   clearTimeout(stopTimeCheck);           */            
+	   
+	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
+}
+
+function closePopup() {
+	if (popupObj != undefined) {
+		popupObj.close(); //팝업 종료
+		popupObj = undefined;
+	}
+}
+</script>
