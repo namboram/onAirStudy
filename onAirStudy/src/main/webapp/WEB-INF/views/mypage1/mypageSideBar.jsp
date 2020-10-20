@@ -5,11 +5,11 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-	<nav class="side-navbar mypage-sideBar">
+	<nav class="side-navbar mypage-sideBar col-lg-2">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header py-5">
 			<div class="message-icon-line">
-				<div class="icon icon-mail message"  onclick="" style=""></div>
+				<div class="icon icon-mail message"  onclick="location.href='${pageContext.request.contextPath}/message/messageList.do';" style=""></div>
 				<div class="messageAlarm" >1</div>
 			</div>
 			<div class="avatar">
