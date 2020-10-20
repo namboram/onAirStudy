@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include> 
 
 <style>
@@ -47,7 +48,7 @@ $(function(){
 		  action="${pageContext.request.contextPath}/board/boardEnroll.do" 
 		  method="post"
 		  enctype="multipart/form-data" 
-		  onsubmit="return boardValidate();">
+		  onsubmit="diary();">
 		<input type="text" class="form-control" placeholder="제목" name="title" id="title" required>
 		<input type="text" class="form-control" name="memberId" value="${ loginMember.memberId }" readonly required>
 		<!-- input:file소스 : https://getbootstrap.com/docs/4.1/components/input-group/#custom-file-input -->
