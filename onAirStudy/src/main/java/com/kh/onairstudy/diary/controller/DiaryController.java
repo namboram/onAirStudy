@@ -1,16 +1,12 @@
 package com.kh.onairstudy.diary.controller;
 
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.diary.model.service.DiaryService;
 import com.kh.onairstudy.diary.model.vo.Diary;
@@ -41,13 +37,13 @@ public class DiaryController {
 		
 		log.debug("list = {}", list);
 		
-		
+		 
 		return "diary/diaryList";
 	}
 	
 
 
-	/*
+	
 	@RequestMapping("/insertDiary.do")
 	public String insertMemo(Diary diary, 
 							 RedirectAttributes redirectAttr) {
@@ -55,14 +51,14 @@ public class DiaryController {
 			int result = diaryService.insertDiary(diary);
 			redirectAttr.addFlashAttribute("msg", "다이어리 등록 성공!");
 		} catch(Exception e) {
-			log.error("메모 등록 오류!", e);
+			log.error("다이어리 등록 오류!", e);
 			redirectAttr.addFlashAttribute("msg", "다이어리 등록 오류!");
 		}
 		
-		return "redirect:/diary/diaryOne.do";
+		return "redirect:/diary/diaryList.do";
 	}
 	
-	
+	/*
 	@RequestMapping(value = "/deleteMemo.do",
 					method = RequestMethod.POST)
 	public String deleteMemo(Memo memo,

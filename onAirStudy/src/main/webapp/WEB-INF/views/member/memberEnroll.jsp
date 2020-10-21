@@ -148,6 +148,8 @@ $(document).ready(function(){
 	});
 });
 
+/* 회원가입-유효성검사 */
+/* 아이디중복검사 ajax  */
 $("#memberId_").keyup(function(){
 	var $this = $(this);
 
@@ -198,19 +200,17 @@ $("#memberId_").keyup(function(){
 	
 }); 
 
-	
+/* 비밀번호체크  */	
 $("#password2").blur(function(){
-	var $p1 = $("#password_"), $p2 = $("#password2");
+	var $p1 = $("#password_"), $p2 = $("#passwordCheck_");
 	if(p1.val() != p2.val()){
 		alert("패스워드가 일치하지 않습니다.");
 		$p1.focus();
 	}
 });
-	
+/* 아이디중복검사  */	
 $("#memberEnrollFrm").submit(function(){
 
-	//html5 추가된 속성 pattern을 활용해 정규식 검사도 가능하지만,
-	//구체적인 피드백제공하지는 못한다.
 	var $memberId = $("#memberId_");
 	if(/^\w{4,}$/.test($memberId.val()) == false) {
 		alert("아이디는 최소 4자리이상이어야 합니다.");

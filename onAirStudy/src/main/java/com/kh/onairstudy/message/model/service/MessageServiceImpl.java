@@ -1,6 +1,7 @@
 package com.kh.onairstudy.message.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class MessageServiceImpl implements MessageService {
 	private MessageDAO messageDAO;
 
 	@Override
-	public List<Message> selectMsgList(String memberId) {
-		return messageDAO.selectMsgList(memberId);
+	public List<Message> selectMsgList(Map<String,Object> map) {
+		return messageDAO.selectMsgList(map);
 	}
 
 	

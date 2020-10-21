@@ -28,6 +28,6 @@ public class StudyRoom implements Serializable{
 	private String sCategory;
 	private String memberId;
 	private String status;
-	private char sReader;
+	private char sleader;
 
 }

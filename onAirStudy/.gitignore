@@ -170,3 +170,5 @@ $RECYCLE.BIN/
 
 jspwork/**
 
+# ignore properties file
+config.properties

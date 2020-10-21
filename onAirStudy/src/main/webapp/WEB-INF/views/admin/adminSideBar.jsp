@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-	<nav class="side-navbar admin-sideBar" >
+	<nav class="side-navbar admin-sideBar col-lg-2" >
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">

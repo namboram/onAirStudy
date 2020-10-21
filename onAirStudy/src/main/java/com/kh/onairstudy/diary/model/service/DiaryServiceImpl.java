@@ -22,4 +22,9 @@ public class DiaryServiceImpl implements DiaryService {
 	public List<Diary> selectDiaryList() {
 		return diaryDAO.selectDiaryList();
 	}
+
+	@Override
+	public int insertDiary(Diary diary) {
+		return diaryDAO.insertDiary(diary);
+	}
 }

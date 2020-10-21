@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
-<div class="col-sm" style="background-color:#FBF7FD; padding: 20px;">
+<div class="col-lg-10" style="background-color:#FBF7FD; padding: 20px;">
 	<h1>My page</h1>
 	<hr>
 	<div>
