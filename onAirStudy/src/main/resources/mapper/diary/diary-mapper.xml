@@ -4,13 +4,59 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="diary">
  
- 	<select id="selectDiaryList" resultType="diary">
- 	select
- 		*
- 	from
- 		diary
-	order by
-		no desc
+ 	<select id="selectDiaryList" resultMap="diaryMap">
+	 	select
+		   D.*,
+		   (select
+		        count(*)
+		    from 
+		        diary_attachment
+		    where
+		        diary_no = D.no) file_count
+		from
+		    diary D
+		order by 
+		    no desc
  	</select>
  	
+ 	<resultMap type="map" id="diaryMap">
+ 		<id column="no" property="no"/>
+ 		<result column="member_id" property="memberId"/>
+ 		<result column="diary_title" property="diaryTitle"/>
+ 		<result column="diary_content" property="diaryContent"/>
+ 		<result column="read_cnt" property="readCnt"/>
+ 		<result column="diary_date" property="diaryDate"/>
+ 		<result column="file_count" property="fileCount"/>
+ 	</resultMap>
+ 	
+<!--  	<select id="selectDiaryList" resultType="diary">
+	 	select
+		   D.*,
+		   (select
+		        count(*)
+		    from 
+		        diary_attachment
+		    where
+		        diary_no = D.no) file_count
+		from
+		    diary D
+		order by 
+		    no desc
+ 	</select> -->
+ 	
+ 	<insert id="insertDiary">
+ 		insert into
+ 			diary
+ 		values(
+ 			seq_diary_no.nextval,
+ 			#{ diaryTitle },
+ 			#{ memberId },
+ 			default,
+ 			#{ diaryCotent },
+ 			
+ 			
+ 		
+ 		
+ 		)
+ 	</insert>
 </mapper>

@@ -24,5 +24,6 @@ public class Diary implements Serializable{
 	private String diaryContent;
 	private int readCnt;
 	
+	private int fileCount;
 	
 }

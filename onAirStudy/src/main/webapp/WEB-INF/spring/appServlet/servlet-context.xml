@@ -27,9 +27,21 @@
 	
 	<context:component-scan base-package="com.kh.onairstudy" />
 	
+	<!-- #9. interceptor 등록 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="com.kh.onairstudy.common.interceptor.LoggerInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/diary/diaryEnroll.do"/>
+			<beans:bean class="com.kh.onairstudy.common.interceptor.LoginCheckInterceptor"/>
+		</interceptor>
+	</interceptors> 
+	
 	<!-- #11.1 @Aspect 이하 @Pointcut @Before 등 aop 관련 어노테이션 등록처리 -->
-	<!-- #13.2 application-context의 tx관련설정을 가져와서 servlet-context에 적용 -->
 	<aop:aspectj-autoproxy/>
+	<!-- #13.2 application-context의 tx관련설정을 가져와서 servlet-context에 적용 -->
 	
 	<!-- #12.1 파일업로드를 처리한 Resolver빈 등록 -->
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"

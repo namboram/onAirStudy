@@ -1,6 +1,9 @@
 package com.kh.onairstudy.studyroom.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
@@ -62,5 +66,22 @@ public class StudyRoomController {
 		 
 		return "mypage1/mypage1_newstudy";
 		
+	}
+	
+	@RequestMapping("/studyroom/main.do")
+	public ModelAndView main(ModelAndView mav) {
+		
+		Map<String, Object> map = new HashMap<>();
+		int roomNum = 15;
+		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
+		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
+		
+		log.debug("list = {}", participants);
+		//map.put("list", participants);
+		mav.addObject("participants", participants);
+		mav.addObject("applicants", applicants);
+		mav.setViewName("mypage2/mypage2");
+		
+		return mav;
 	}
 }

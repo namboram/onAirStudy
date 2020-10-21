@@ -9,6 +9,7 @@ import com.kh.onairstudy.studyroom.model.dao.StudyRoomDAO;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
@@ -50,4 +51,17 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomList> selectDiligentStudyroom() {
 		return studyRoomDAO.selectDiligentStudyroom();
 	}
+
+	@Override
+	public List<StudyRoomLog> selectParticipantList(int roomNum) {
+		return studyRoomDAO.selectParticipantList(roomNum);
+	}
+
+	@Override
+	public List<String> selectApplicantList(int roomNum) {
+		return studyRoomDAO.selectApplicantList(roomNum);
+	}
+	
+	
+	
 }
