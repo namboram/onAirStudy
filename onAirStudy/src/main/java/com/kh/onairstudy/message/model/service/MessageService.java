@@ -9,4 +9,6 @@ public interface MessageService {
 
 	List<Message> selectMsgList(Map<String,Object> memberId);
 
+	Message selectMessageOne(Map<String, Object> map);
+
 }
