@@ -1,6 +1,7 @@
 package com.kh.onairstudy.message.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class MessageDAOImpl implements MessageDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Message> selectMsgList(String memberId) {
-		return sqlSession.selectList("message.selectMsgList",memberId);
+	public List<Message> selectMsgList(Map<String,Object> map) {
+		return sqlSession.selectList("message.selectMsgList",map);
 	}
 	
 	

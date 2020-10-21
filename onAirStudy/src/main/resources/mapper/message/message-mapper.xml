@@ -3,12 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="message">
- <select id="selectMsgList" resultType="message">
- 	select
- 		*
- 	from
- 		message
- 	where
- 		sender_id = #{memberId} or receiver_id = #{memberId}
- </select>
+	<select id="selectMsgList" resultType="message">
+		select
+			*
+		from
+			message
+		where
+		<choose>
+
+			<when test="type == 'receive'">
+				receiver_id =#{memberId} and receiver_del_yn='N'
+			</when>
+
+			<when test="type == 'send'">
+
+				sender_id = #{memberId} and sender_del_yn = 'N'
+
+			</when>
+
+			<otherwise>
+
+				(sender_id = #{memberId} and sender_del_yn = 'N') or (receiver_id =#{memberId}
+		and receiver_del_yn='N')
+
+			</otherwise>
+
+		</choose>
+		
+	</select>
+	
 </mapper>
