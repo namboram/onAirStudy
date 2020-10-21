@@ -8,4 +8,6 @@ public interface DiaryDAO {
 
 	List<Diary> selectDiaryList();
 
+	int insertDiary(Diary diary);
+
 }

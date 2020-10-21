@@ -21,9 +21,9 @@
         </button>
       </div>
       <div class="modal-body">
-       	<form name="boardEnrollFrm" 
-		  	<%--   action="${pageContext.request.contextPath}/diary/diaryEnroll.do"  --%>
-		  	  method="post" onsubmit="return diaryValidate();">
+       	<form id="diaryEnrollFrm" method="post" 
+		  	 action="${pageContext.request.contextPath}/diary/diaryEnroll.do"
+		  	  onsubmit="return diaryValidate();">
 		  
 		  <div class="diary-form-group">
 		    <label for="formGroupExampleInput">제목</label>
@@ -41,42 +41,47 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">저장</button>
+        <button type="button" class="btn btn-primary" id="add-btn">저장</button>
       </div>
     </div>
   </div>
 </div>
 
 
-	
+<!-- diarylist  -->	
 <div class="diary-container">
-	<p>STUDY DIARY</p>
+	<h2>STUDY DIARY</h2>
+	
 	<div class="diary-top-container">
 		<img src="${pageContext.request.contextPath }/resources/images/studydiaryicon.png" width="120px" height="120px" />
 	</div>
     
-    <form id="diarySearchFrm" 
-    	  action= "diaryList.do" 
-    	  class="form-inline" 
-    	  method="post">
-        <select name ="diary-select-bar">
+
+  	<div>
+ 		 <select name ="diary-select-bar">
          	<option value="제목">제목</option> 
          	<option value="작성자">작성자</option>
         </select>
-    </form>
- 
-        <input type="search" class="form-control col-sm-6" name="search" placeholder="검색할 키워드를 입력하세요"/>&nbsp;
-        <button class="btn btn-outline-diary-search" type="submit" >검색</button>
+        <input type="search" class="form-control col-sm-6" 
+        	   id="diary-search" name="diary-search" placeholder=""/>&nbsp;
+        <button class="btn btn-outline-diary-search" type="submit">검색</button>
         
         <!-- call model button -->
-        <button class="btn btn-light" 
-        		id="diary-addbtn" data-toggle="modal" data-target="#diaryModal">글쓰기</button>
-
-    
+	<%-- 	<c:choose>
+			<c:when test="${ session.memberId != null }" >
+			</c:when>
+			<c:otherwise>
+			
+			</c:otherwise>
+		</c:choose> --%>
+	        	<button class="btn btn-light" id="diary-addbtn" 
+	        		data-toggle="modal" data-target="#diaryModal" onclick="checkMember()">글쓰기</button>			
+  	</div>
+		
     <br />
     <!-- 공부다이어리 목록 -->
 	<table class="table">
-	    <tr>
+	    <tr class="header">
 	      <th>번호</th>
 	      <th>제목</th>
 	      <th>작성자</th>
@@ -91,12 +96,10 @@
 	      <td>${ diary.memberId }</td>
 	      <td><fmt:formatDate value="${ diary.diaryDate }" pattern="yy/MM/dd"/></td>
 	      <td>
-	      	<%-- 
 	      	<c:if test="${ diary.fileCount gt 0 }">
 					<img src="${ pageContext.request.contextPath }/resources/images/file.png"
 						 style="width:16px;"/>
-			</c:if> 
-			--%>
+			</c:if>  
 	      </td>
 	      <td>${ diary.readCnt }</td>
 		</tr>
@@ -131,15 +134,46 @@
 
 <!-- call diaryForm.jsp ! -->
 <script>
-/* textarea에도 required속성을 적용가능하지만, 공백이 입력된 경우 대비 유효성검사를 실시함. */
-function diaryValidate(){
-	var $content = $("[name=content]");
-	if(/^(.|\n)+$/.test($content.val()) == false){
-		alert("내용을 입력하세요");
-		return false;
+/* 글쓰기모달로 글쓰기 완료하기*/
+$(document).ready(function(){
+	$('#add-btn').click(function(){
+		var dTitle = $("#diary-title").val();
+		var dFileup = $("#diary-fileup").val(); 
+		var dContent = $("#diary-content").val(); 
+
+		if(dTitle == ""){
+			alert("제목을 입력하세요!");
+			$("#diary-title").focus(); //입력포커스이동
+			return;
+		}
+		if(dContent == ""){
+			alert("내용을 입력하세요!");
+			$("#diary-content").focus(); //입력포커스이동
+			return;
+		}
+		//폼 내부의 데이터를 전송할 주소
+		document.diaryEnrollFrm.action = "${pageContext.request.contextPath}/diary/diaryDetail.do"
+		//폼제출
+		document.diaryEnrollFrm.submit();
+	});
+});
+
+
+
+/* 비회원 글쓰기 불가  */
+/* function checkMember(){
+	var memberId
+	if(memberId ==''){
+		//비활성화
+		$("#diary-addbtn").css('background-color','#fff');
+	} else{
+	//활성화
+		$("#diary-addbtn").css('background-color','rgb(255, 195, 163)')	;
 	}
-	return true;
-}
+} */
+
+
+
 /* 
 $(function(){
 	//파일 선택/취소 파일라벨명을 변경한다.
@@ -151,10 +185,11 @@ $(function(){
 			$label.html("파일을 선택하세요");
 		else
 			$label.html(file.name);
-	}); */
+	}); 
 	
 	
 });
+	*/
 	
 </script>
 

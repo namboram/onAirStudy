@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
-/* div.diary-container{
+div.diary-container{
 	width:60%; 
 	height:900px; 
 	margin:0 auto;
 	text-align:center; 
-} */
+} *
 
 .diary-top-container{
 	background-color: rgb(255, 195, 163);
