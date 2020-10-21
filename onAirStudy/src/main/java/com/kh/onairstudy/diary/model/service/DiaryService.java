@@ -10,4 +10,6 @@ public interface DiaryService {
 
 	int insertDiary(Diary diary);
 
+	Diary selectOneDiaryCollection(int no);
+
 }
