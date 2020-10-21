@@ -54,4 +54,15 @@ public class MessageController {
 		}
 		return "message/messageList";
 	}
+	
+	@RequestMapping("/message/messageDetail.do")
+	public String messageDetail(@RequestParam int no,HttpSession session,Model model) {
+		Member member = (Member)session.getAttribute("loginMember");
+		Map<String,Object> map = new HashMap<>();
+		map.put("memberId", member.getMemberId());
+		map.put("no", no);
+		Message message = messageService.selectMessageOne(map);
+		model.addAttribute("message",message);
+		return "message/messageDetail";
+	}
 }
