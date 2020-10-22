@@ -54,7 +54,7 @@
 		});
 </script>
 </c:if>   
-
+<div class="col-lg-10">
   <div class='cal-divB'>
         <div class="infoB">
         </div>
@@ -200,6 +200,7 @@
             </div>
           </div>
           
+	</div>
 </div>
 
     
