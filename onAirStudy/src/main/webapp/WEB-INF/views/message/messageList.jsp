@@ -21,7 +21,7 @@
 	<!-- 차트 링크 -->
 	<!-- 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
 	<div class="col-sm" id="containerMsgK">
-		<h1>쪽지함</h1>
+		<h1>${title}</h1>
 		<div class="row mb-3">
 		<div class="input-group col-sm-5 offset-sm-3">
 			<div class="input-group-prepend mr-2">
