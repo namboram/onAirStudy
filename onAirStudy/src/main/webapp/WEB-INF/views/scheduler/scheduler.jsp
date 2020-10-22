@@ -54,15 +54,14 @@
 		});
 </script>
 </c:if>   
-
-  <div class='cal-divB'>
+  <div class='cal-divB col-lg-10 p-0'>
         <div class="infoB">
         </div>
         <br/>
         <table class="tableB table">
         
         </table>
-        </div>
+  </div>
 
 		<!-- 메뉴바  -->
         <div class="dropdown-menu dropB"><p id="pXB">X</p>
@@ -87,9 +86,6 @@
                 <!-- 등록하는 부분 -->
                 <div class="modal-body">
                     <form id="iuscheduleFrm" method="post">
-                        
-                        <input type="hidden" name="memberId" value="honggd" />
-                        <input type="hidden" name="no" value="0" />
                         
 						<h3 style="margin-right:180px;">날짜 입력</h3>
 						<br />
@@ -200,7 +196,7 @@
             </div>
           </div>
           
-</div>
+	</div>
 
     
     <script>

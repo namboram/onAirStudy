@@ -21,6 +21,8 @@ public interface StudyRoomService {
 
 	List<StudyCategory> selectCategoryList();
 
+	int insertStudyRoom(StudyRoom studyroom);
+
 	List<StudyRoomList> selectDiligentStudyroom();
 
 	List<StudyRoomLog> selectParticipantList(int roomNum);

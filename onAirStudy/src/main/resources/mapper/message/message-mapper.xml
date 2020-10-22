@@ -39,5 +39,17 @@
 		where
 			no = #{no}
 	</select>
-	
+	<update id="deleteMessageList">
+		
+			update message 
+			<set>
+    			<if test="type == 'receive'">receiver_del_yn = 'Y'</if>
+    			<if test="type == 'send'">sender_del_yn = 'Y'</if>
+			</set>
+    		where no in 
+    		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")">
+	              #{item}
+	           </foreach>
+
+	</update>
 </mapper>

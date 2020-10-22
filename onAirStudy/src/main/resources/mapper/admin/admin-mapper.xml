@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+ 
+ <select id="memberList" resultMap="memberMap">
+select *
+from(select rownum rnum, 
+            M.*
+        from member M 
+    )
+where 
+rnum between 1 and 10
+
+ </select>
+ 
+ <resultMap type="member" id="memberMap">
+    <result column="member_id" property="memberId"/>
+  	<result column="member_name" property="memberName"/>
+  	<result column="password" property="password"/>
+  	<result column="member_role" property="memberRole"/>
+  	<result column="phone" property="phone"/>
+  	<result column="diligent_point" property="diligentPoint"/>
+  	<result column="blacklist_yn" property="blacklist"/>
+  	<result column="withdraw_yn" property="withdraw"/>
+  	<result column="member_comment" property="comment"/>
+  	<result column="category" property="category"/> 
+  </resultMap>
+  
+  <select id="memberDetail" resultType="map">
+select 
+	M.*, 
+	S.category as "cate", 
+	(select count(*) from report_log where reported_member = #{ memberId } ) as "report" 
+from 
+	member M 
+join 
+	sr_category S 
+on M.category = S.no
+where 
+	member_id = #{ memberId }
+and withdraw_yn = 'N'
+  </select>
+  
+  <select id="serviceList" resultType="map">
+  select 
+  	S.*,
+  	C.category as "cate" 
+  from 
+  	service S 
+  join 
+  	service_category C on S.category = C.no
+  order by
+  	S.no desc
+  </select>
+ 
+</mapper>

@@ -25,6 +25,12 @@ public class MessageDAOImpl implements MessageDAO {
 	public Message selectMessageOne(Map<String, Object> map) {
 		return sqlSession.selectOne("message.selectMessageOne",map);
 	}
+
+	@Override
+	public int deleteMessageList(Map<String, Object> map) {
+		return sqlSession.update("message.deleteMessageList",map);
+	}
+	
 	
 	
 	

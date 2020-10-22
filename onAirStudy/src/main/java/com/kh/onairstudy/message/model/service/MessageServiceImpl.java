@@ -28,6 +28,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.selectMessageOne(map);
 	}
 
+	@Override
+	public int deleteMessageList(Map<String, Object> map) {
+		return messageDAO.deleteMessageList(map);
+	}
+
+	
 	
 	
 }

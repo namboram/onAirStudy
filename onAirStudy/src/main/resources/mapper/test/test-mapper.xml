@@ -3,4 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
+
+
+<insert id="insertQuestion">
+insert into 
+	pre_test 
+values(
+	seq_test_no.nextval, 
+	#{memberId}, 
+	#{srNo}, 
+	#{testQuestion}, 
+	#{testAnswer}, 
+	#{testChoice_1}, 
+	#{testChoice_2}, 
+	#{testChoice_3}, 
+	#{testChoice_4}, 
+	#{filePath}, 
+	#{renamedFilename})
+</insert>
+
+<select id="selectStudyNo" resultType="studyroom">
+select
+	sr_no
+from
+  	sr_info
+
+
+</select>
 </mapper>

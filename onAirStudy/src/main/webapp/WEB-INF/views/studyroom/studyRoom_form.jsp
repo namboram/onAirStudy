@@ -36,13 +36,42 @@
 </head>
 
 <body>
-	<div class="newstudygroup" style="margin-bottom: 0;">
+<script>
+function studyroomValidate(){
+	var $content = $("[name=content]");
+	if(/^(.|\n)+$/.test($content.val()) == false){
+		alert("내용을 입력하세요");
+		return false;
+	}
+	return true;
+}
 
+$(function(){
+	$("[name=upFile]").on("change",function(){
+		var file = $(this).prop('files')[0];
+		var $label = $(this).next(".custom-file-label");
+
+		if(file == undefined)
+			$label.html("파일을 선택하세요");
+		else
+			$label.html(file.name);
+		});
+});
+
+</script>
+	<div class="newstudygroup" style="margin-bottom: 0;">
+	<form name="studyFrm" 
+		  action="${pageContext.request.contextPath}/mypage1/newstudyEnroll.do" 
+		  method="post"
+		  enctype="multipart/form-data" 
+		  onsubmit="return studyroomValidate();">
+		  
 		<div class="row">
 			<div class="col-sm p-4" style="background-color: #FBF7FD;">
 				<h2 class="text-gray" style="float: left; padding-right: auto;">
-					My Study Group</h2>
+					New Study Group</h2>
 				<br />
+				
 				<hr>
 				<div class="container">
 					<div class="col-sm-9 pt-5 pb-4 bg-white">
@@ -51,38 +80,45 @@
 						<br>
 						<div class="col-sm p-4" style="background-color: #F9F1ED;">
 							<label for="gruopName"><h4>그룹이름</h4></label> <input type="text"
-								class="col-lg-10" id="gruopName" style="border-radius: 15px;">
-							<br /> <br /> <label for="groupCategory">카테고리를 선택하세요.</label> <select
-								class="form-control" id="groupCategory" name="sellist1">
+								class="col-lg-10" name="srTitle" id="srTitle" style="border-radius: 15px;">
+								
+ 								<%-- <c:set value="${studyList }" var="study"> </c:set>								 --%>
+							<%-- 	<input type="text" class="form-control" name="memberId" value="${ study.srNo }" hidden> --%>
+								<input type="text" class="form-control" id = "memberId" name="memberId" value="${ loginMember.memberId }" hidden>
+							<br /> <br /> 
+							<label for="groupCategory">카테고리를 선택하세요.</label> 
+							<select
+								class="custom-select" id="groupCategory" name="sellist1">
 								<c:forEach items="${sCategory }" var="cate">
-									<option>${cate.category}</option>
+									<option id="srCategory" value="${cate.no}">${cate.category}</option>
 								</c:forEach>
 							</select>
 						</div>
 						<br />
-						<div class="col-sm p-3">
-							<h4>모집 인원</h4>
+						<div class="col-sm p-3 list-inline">
+							<h4 class="list-inline-item">모집 인원</h4> <h4 class=" list-inline-item">총 10명</h4>
 							<hr />
 						</div>
 						<div class="col-sm p-4" style="background-color: #F9F1ED;">
 							<div class="custom-file mb-3">
-								<input type="file" class="custom-file-input" id="customFile"
-									name="filename"> <label class="custom-file-label"
+								<input type="file" class="custom-file-input" id="upFile"
+									name="upFile"> <label class="custom-file-label"
 									for="customFile">그룹 이미지를 올려주세요</label>
 							</div>
-							<br /> <br /> <label for="question_box_G"><h4>한줄
+							<br /> <br /> <label for="srComment"><h4>한줄
 									소개</h4></label> <br />
-							<textarea id="question_box_G" rows="3" class="col-lg-12"
+							<textarea id="srComment" rows="3" class="col-lg-12" name="srComment"
 								style="border-radius: 15px;">그룹을 소개해주세요</textarea>
 						</div>
 						<div class="col-sm pt-3 text-center">
-                        <button type="submit" class="btn btn-outline-primary" style="margin-right: 30px;" data-toggle="modal" data-target="#myModal_ok_G">등록 </button>
+                        <button type="submit" class="btn btn-outline-primary">등록 </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                     </div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</form>
 	</div>
 
 </body>
