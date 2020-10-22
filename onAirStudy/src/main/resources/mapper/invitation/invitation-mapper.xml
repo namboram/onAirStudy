@@ -35,4 +35,28 @@
   		<result column="s_goal" property="sGoal"/>
   		
   	</resultMap>
+  	
+ <delete id="deleteInvitation">
+  delete from 
+  	invitation
+  where
+   sr_no = #{srNo}
+ </delete>
+ 
+ <update id="updateInvitation">
+ update
+ 	invitation
+ set 
+ 	invitation_yn = 'Y'
+ where
+  	no = #{no}
+ </update>
+ 
+ <insert id="insertStudyRoomLog">
+ insert into
+ 	sr_log
+values(
+	seq_sr_log_no.nextval, #{srNo}, #{memberId}, '참여', 0, 'N')
+
+ </insert>
 </mapper>

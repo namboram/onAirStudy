@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
@@ -44,6 +45,22 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
+
+	@Override
+	public int insertStudyRoom(StudyRoomList roomlist) {
+		return sqlSession.insert("studyroom.insertStudyRoom", roomlist);
+	}
+
+	@Override
+	public int insertProfileAttachment(ProfileAttachment profile) {
+		return sqlSession.insert("studyroom.insertProfileAttachment", profile);
+	}
+
+	@Override
+	public int insertStudyRoomList(StudyRoom studyroom) {
+		return sqlSession.insert("studyroom.insertStudyRoomList", studyroom);
+	}
+
 //성실스터디방 List
 	@Override
 	public List<StudyRoomList> selectDiligentStudyroom() {

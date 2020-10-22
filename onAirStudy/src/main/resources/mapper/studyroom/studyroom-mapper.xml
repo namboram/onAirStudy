@@ -11,7 +11,8 @@ select
         G.member_id,
         G.status_log,
         G.leader_yn,
-        C.category
+        C.category,
+        l.sr_category
 from
     sr_info F left join sr_log G on  F.sr_no = G.sr_no
     left join sr_list L on F.sr_no = l.sr_no
@@ -27,7 +28,7 @@ where
   		<result column="sr_comment" property="srComment"/>
   		<result column="member_id" property="memberId"/>
   		<result column="status_log" property="status"/>
-  		<result column="leader_yn" property="sleader"/>
+  		<result column="reader_yn" property="sReader"/>
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
@@ -130,6 +131,33 @@ select
 		no != 100
 </select>
 
+<insert id="insertStudyRoom">
+
+insert into 
+	sr_list 
+values (
+	seq_sr_list_no.nextval, #{memberId}, default, #{srCategory}, default, default, 'P')
+
+</insert>
+
+<insert id="insertProfileAttachment">
+insert into 
+	profile_attachment 
+values(
+	seq_profile_no.nextval, #{memberId}, #{srNo}, #{originalFilename}, #{renamedFilename}, #{filePath})
+</insert>
+
+<insert id="insertStudyRoomList">
+
+insert into 
+	sr_info 
+values(
+	#{srNo}, 
+	#{srTitle}, 
+	default, 
+	#{srComment}, 0, 0, '-', '-', 0, 'N')
+	
+</insert>
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">

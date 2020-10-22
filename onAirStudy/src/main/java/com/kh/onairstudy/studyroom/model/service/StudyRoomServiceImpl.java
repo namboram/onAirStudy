@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.studyroom.model.dao.StudyRoomDAO;
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
@@ -45,6 +46,26 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	@Override
 	public List<StudyCategory> selectCategoryList() {
 		return studyRoomDAO.selectCategoryList();
+	}
+	
+	@Override
+	public int insertStudyRoom(StudyRoom studyroom) {
+		
+		int result = 0;
+		StudyRoomList roomlist = new StudyRoomList();
+				
+		result = studyRoomDAO.insertStudyRoom(roomlist);
+		result = studyRoomDAO.insertStudyRoomList(studyroom);
+		
+		if(studyroom.getProList() != null) {
+			for(ProfileAttachment profile : studyroom.getProList()) {
+				
+				profile.setNo(studyroom.getSrNo());
+				result = studyRoomDAO.insertProfileAttachment(profile);
+			}
+		}
+		
+		return result;
 	}
 //성실스터디방 List
 	@Override
