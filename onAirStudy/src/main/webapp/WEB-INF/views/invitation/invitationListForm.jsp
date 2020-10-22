@@ -31,8 +31,7 @@
 
 <body>
 
-
-  <div class="invitation" style="margin-bottom: 0;">
+<div class="invitation" style="margin-bottom: 0;">
 
    
       
@@ -46,7 +45,7 @@
             <table class="table">
               <thead class="thead-rounded">
                 <tr>
-                  <th>No.</th>                  
+                                    
                   <th>그룹 이름</th>
                   <th>그룹 소개</th>
                   <th>초대자</th>
@@ -54,22 +53,23 @@
                 </tr>
               </thead>
               <tbody>
-                 <c:forEach items="${ inList }" var="invitation"> 
-                <c:if test="${invitation.invitedId eq sessionID }">
-         	        <tr>
-                   	<td>${invitation.no}</td>                    
+              <%-- 	<input type="text" value="${member.memberId}" name="memberId" hidden/> --%>
+                <c:forEach items="${ inList }"  var="invitation">                  
+                <c:if test="${invitation.invitedId eq loginMember.memberId }">
+         	        <tr>                 	                   
+                  
                     <td>${invitation.sTitle}</td>
                     <td>${invitation.sGoal}</td> 
                     <td>${invitation.hostingId}</td> 
-
+					
                     <td>
-                      <button type="button" class="btn btn-outline-primary" onclick="invitation_ok('${ invitation.no }')">수락 </button>
-                      <button type="button" class="btn btn-primary" onclick="invitation_no('${ invitation.no }')"> 거절 </button>
+                      <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal_ok">수락 </button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_no"> 거절 </button>
                     </td>
                   </tr> 
                   </c:if>                
                 </c:forEach> 
-           
+           	
               </tbody>
             </table>
 
@@ -99,7 +99,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-outline">확인</button>
+          <button type="submit" class="btn btn-outline" onclick="updateInvi('${invitation.srNo}')" >확인</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
         </div>
 
@@ -125,20 +125,42 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-outline">확인</button>
+          <button type="submit" class="btn btn-outline" onclick="deleteInvi('${invitation.srNo}')">확인</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
         </div>
 
       </div>
     </div>
   </div>
+  
+  <form action="${ pageContext.request.contextPath }/mypage1/deleteInvitation.do" 
+	  id="deleteInviFrm" 
+	  method="POST">
+	<input type="hidden" name="invi" value="${invitation.srNo}" />
+</form>
+
+  <form action="${ pageContext.request.contextPath }/mypage1/updateInvitation.do" 
+	  id="updateInviFrm" 
+	  method="POST">
+	<input type="hidden" name="invi" value="${invitation.srNo}"/>
+</form>
+
 <script>
-function invitation_no(no){
-	$("#myModal_no").moda().find("[name=no]").val(no);
+
+function deleteInvi(srNo){
+	var $frm = $("#deleteInviFrm");
+	$frm.find("[name=invi]").val();
+	$frm.submit();
 }
+
+function updateInvi(srNo){
+	var $frm = $("#updateInviFrm");
+	$frm.find("[name=invi]").val();
+	$frm.submit();
+}
+
 </script>
 
 
 </body>
-
 </html>

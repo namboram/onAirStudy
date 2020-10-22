@@ -8,8 +8,14 @@ select
 	*
 from
 	scheduler
-where
+<where>
+	<if test="memberId != null">
 	member_id = #{ memberId }
+	</if>
+	<if test="srNo != null">
+		sr_no = #{ srNo }
+	</if>
+</where>
 order by 
 	(end_date - start_date) desc
 </select>
@@ -32,8 +38,18 @@ order by
 		scheduler
 	values(
 		seq_schedule_no.nextval,
+		<if test="memberId != null">
 		#{memberId},
+		</if>
+		<if test="memberId == null">
 		null,
+		</if>
+		<if test="srNo != null">
+		#{ srNo },
+		</if>
+		<if test="srNo == null">
+		null,
+		</if>
 		#{startDate},
 		#{endDate},
 		#{content},
@@ -49,8 +65,18 @@ order by
 update 
 	scheduler
 set
+	<if test="memberId != null">
 	member_id = #{memberId},
+	</if>
+	<if test="memberId == null">
+	null,
+	</if>
+	<if test="srNo != null">
+	sr_no = #{srNo},
+	</if>
+	<if test="srNo == null">
 	sr_no = null,
+	</if>
 	start_date = #{startDate},
 	end_date = #{endDate},
 	content = #{content},
@@ -86,8 +112,18 @@ insert into
 	scheduler
 values(
 		seq_schedule_no.nextval,
+		<if test="memberId != null">
 		#{memberId},
+		</if>
+		<if test="memberId == null">
 		null,
+		</if>
+		<if test="srNo != null">
+		#{srNo},
+		</if>
+		<if test="srNo == null">
+		null,
+		</if>
 		#{startDate},
 		#{endDate},
 		#{content},
@@ -104,7 +140,14 @@ values(
 delete
 	scheduler
 where
+<choose>
+<when test="memberId !=null">
 	member_id = #{memberId}
+</when>
+<when test="srNo != null">
+	sr_no = #{ srNo}
+</when>
+</choose>
 and
 	start_date = #{startDate}
 and
