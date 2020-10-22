@@ -8,7 +8,7 @@ import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 
 public interface SchedulerDAO {
 
-	List<Scheduler> mainScheduler(String memberId);
+	List<Scheduler> mainScheduler(Map<String, Object> map);
 
 	int insertSchedule(Scheduler sch);
 
@@ -21,5 +21,6 @@ public interface SchedulerDAO {
 	int insertTodo(Scheduler sch);
 
 	int deleteTodo(Map<String, Object> map);
+
 
 }

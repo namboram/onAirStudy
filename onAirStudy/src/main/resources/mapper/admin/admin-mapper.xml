@@ -42,5 +42,17 @@ where
 	member_id = #{ memberId }
 and withdraw_yn = 'N'
   </select>
+  
+  <select id="serviceList" resultType="map">
+  select 
+  	S.*,
+  	C.category as "cate" 
+  from 
+  	service S 
+  join 
+  	service_category C on S.category = C.no
+  order by
+  	S.no desc
+  </select>
  
 </mapper>
