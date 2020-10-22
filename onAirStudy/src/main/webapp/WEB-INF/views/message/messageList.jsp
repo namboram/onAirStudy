@@ -38,7 +38,7 @@
 		<div class="text-right offset-sm-2">
 			<button type="button" class="btn btn-secondary" onclick="receivedMsg();">수신함</button>
 			<button type="button" class="btn btn-secondary" onclick="sentMsg();" >발신함</button>
-			<button type="button" class="btn btn-secondary" >삭제</button>
+			<button type="button" class="btn btn-secondary" onclick="delMsg();" >삭제</button>
 		</div>
 		</div>
 		<div id="contentMsgK" class="mr-3">
@@ -57,7 +57,8 @@
 					<c:forEach items="${messageList}" var="message" varStatus="status">
 
 						<tr>
-							<th scope="row">${status.count}</th>
+							<th scope="row"><input class="form-check-input delCheck" type="checkbox" 
+								name="${message.receiverId == loginMember.memberId ? 'receive' : 'send' }" value="${message.no}" >${status.count}</th>
 							<td>${message.senderId}</td>
 							<td>${message.receiverId}</td>
 							
@@ -98,4 +99,66 @@ function sentMsg(){
 
 	window.location = "${pageContext.request.contextPath}/message/sendReceiveFilter.do?type=send";
 }
+function delMsg(){
+	var cnt = $(".delCheck:checked").length;
+    var rarr = new Array();
+    var sarr = new Array();
+    var result = 1;
+    $(".delCheck:checked").each(function() {
+        if($(this).attr("name") == 'receive')
+        	rarr.push($(this).val());
+        else
+            sarr.push($(this).val());
+    });
+    if(cnt == 0){
+        alert("선택된 쪽지가 없습니다.");
+    }
+    else{
+        //console.log(arr);
+        var rstr = rarr.join(',');
+        var sstr = sarr.join(',');
+        console.log(rstr);
+        console.log(sstr);
+        console.log(sarr.length);
+        if(rarr.length > 0){
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/message/delMessageList.do",
+            data: {
+					arr : rarr,
+					type : "receive"
+                },
+            dataType:"json",
+            success: function(data){
+               //console.log(data);
+                result*data;
+            },
+            error: function(){alert("서버통신 오류");}
+        });
+        }
+        if(sarr.length > 0){
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/message/delMessageList.do",
+            data: {
+					arr : sarr,
+					type : "send"
+                },
+            dataType:"json",
+            success: function(data){
+              result*data;
+            },
+            error: function(){alert("서버통신 오류");}
+        });
+       }
+    }
+    if(result > 0){
+		alert("삭제가 완료되었습니다.");
+		location.reload();
+    }else{
+		alert("삭제 실패하였습니다.");
+    }
+}
+
+
 </script>
