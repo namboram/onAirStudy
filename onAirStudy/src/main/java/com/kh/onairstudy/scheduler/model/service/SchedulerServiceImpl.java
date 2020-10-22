@@ -19,17 +19,9 @@ public class SchedulerServiceImpl implements SchedulerService {
 	private SchedulerDAO schedulerDAO;
 
 	@Override
-	public List<Scheduler> mainScheduler(String memberId) {
-		return schedulerDAO.mainScheduler(memberId);
+	public List<Scheduler> mainScheduler(Map<String, Object> map) {
+		return schedulerDAO.mainScheduler(map);
 	}
-	
-	
-
-	@Override
-	public List<Scheduler> mainSchedulerRoom(String srNo) {
-		return schedulerDAO.mainSchedulerRoom(srNo);
-	}
-
 
 
 	@Override

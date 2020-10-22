@@ -87,9 +87,6 @@
                 <div class="modal-body">
                     <form id="iuscheduleFrm" method="post">
                         
-                        <input type="hidden" name="memberId" value="honggd" />
-                        <input type="hidden" name="no" value="0" />
-                        
 						<h3 style="margin-right:180px;">날짜 입력</h3>
 						<br />
                         <input type="text" class="datepick delB" name="startDate">  ~  

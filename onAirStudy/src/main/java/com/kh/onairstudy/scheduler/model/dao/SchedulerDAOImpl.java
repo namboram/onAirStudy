@@ -16,16 +16,10 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Scheduler> mainScheduler(String memberId) {
-		return sqlSession.selectList("scheduler.schedulerList", memberId);
+	public List<Scheduler> mainScheduler(Map<String, Object> map) {
+		return sqlSession.selectList("scheduler.schedulerList", map);
 	}
 	
-	
-
-	@Override
-	public List<Scheduler> mainSchedulerRoom(String srNo) {
-		return sqlSession.selectList("scheduler.schedulerListRoom", srNo);
-	}
 
 
 
