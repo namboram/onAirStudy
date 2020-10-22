@@ -13,6 +13,16 @@ where
 order by 
 	(end_date - start_date) desc
 </select>
+<select id="schedulerListRoom" resultType="Scheduler">
+select
+	*
+from
+	scheduler
+where
+	sr_no = #{ srNo }
+order by 
+	(end_date - start_date) desc
+</select>
 <resultMap id="listMap" type="map">
 	<id column="no" property="no"/>
   		<result column="member_id" property="memberId"/>

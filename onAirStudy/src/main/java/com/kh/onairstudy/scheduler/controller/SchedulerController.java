@@ -55,13 +55,18 @@ public class SchedulerController {
 				//로그인된 아이디 가져오기
 				//추후에 방번호가 같이 오면 방번호 null 유무로  가져옴
 				String memberId = (String)session.getAttribute("memberId");
-				
-				//잘됐는지 체크해보려고 하는 push~
-				
 				//임시
 				memberId = "honggd";
-				
 				List<Scheduler> list = schedulerService.mainScheduler(memberId);
+
+				
+				String srNo = (String)session.getAttribute("srNo");
+				srNo="15";
+				if(srNo != null)
+					list = schedulerService.mainSchedulerRoom(srNo);
+				
+				
+				
 				List<Scheduler> addList = new ArrayList<>();
 
 				Calendar c1 = Calendar.getInstance();
@@ -168,6 +173,7 @@ public class SchedulerController {
 		
 		return redirectAttr;
 	}
+	
 	
 	@RequestMapping("/scheduler/delete.do")
 	public String deleteSchedule(@RequestParam("no") int no,

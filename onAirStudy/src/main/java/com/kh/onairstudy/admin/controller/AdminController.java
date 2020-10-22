@@ -69,11 +69,17 @@ public class AdminController {
 		List<Map<String, Object>> map = adminService.serviceList();
 		System.out.println("map="+map);
 		
-		mav.addObject("s", map);
+		mav.addObject("list", map);
 		
 		return mav;
 	}
 	
+	@RequestMapping("/admin/serviceDetail.do")
+	public ModelAndView serviceDetail(ModelAndView mav,
+									@RequestParam("no")String no) {
+		
+		return mav;
+	}
 	
 	
 }

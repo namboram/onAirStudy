@@ -24,7 +24,27 @@
 	</form>
 	<table class="table">
 		
-
+	<tr>
+	<th>문의번호</th>
+	<th>답변상태</th>
+	<th>카테고리</th>
+	<th>문의제목</th>
+	<th>문의한 아이디</th>
+	<th>문의 날짜</th>
+	</tr>
+	
+	<c:if test="${ not empty list }">
+	<c:forEach items="${ list }" var="s">
+		<tr>
+			<td>${ s.NO }</td>
+			<td>${ s.SERVICE_STATUS}</td>
+			<td>${ s.cate }</td>
+			<td><a href="${ pageContext.request.contextPath }/admin/serviceDetail.do?no=${s.NO}">${ s.SERVICE_TITLE }</a></td>
+			<td>${ s.MEMBER_ID }</td>
+			<td><fmt:formatDate type="date" value="${ s.SERVICE_DATE }"/></td>
+		</tr>
+	</c:forEach> 
+	</c:if>
 
 	
 	</table>

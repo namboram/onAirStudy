@@ -19,6 +19,15 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 	public List<Scheduler> mainScheduler(String memberId) {
 		return sqlSession.selectList("scheduler.schedulerList", memberId);
 	}
+	
+	
+
+	@Override
+	public List<Scheduler> mainSchedulerRoom(String srNo) {
+		return sqlSession.selectList("scheduler.schedulerListRoom", srNo);
+	}
+
+
 
 	@Override
 	public int insertSchedule(Scheduler sch) {

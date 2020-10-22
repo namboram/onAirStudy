@@ -43,7 +43,7 @@ where
 and withdraw_yn = 'N'
   </select>
   
-  <select id="serviceList">
+  <select id="serviceList" resultType="map">
   select 
   	S.*,
   	C.category as "cate" 
@@ -51,7 +51,8 @@ and withdraw_yn = 'N'
   	service S 
   join 
   	service_category C on S.category = C.no
- 
+  order by
+  	S.no desc
   </select>
  
 </mapper>

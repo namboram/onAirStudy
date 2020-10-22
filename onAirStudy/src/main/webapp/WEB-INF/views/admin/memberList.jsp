@@ -26,20 +26,20 @@
 <div id="adDivB col-lg-10">
 	
 	<div style="margin:50px;">
-	<form method="post">
-		<select name="selectedWhere" id="selectedWhere">
+	<form id="memberListFrm" method="post">
+		<select name="serchType" id="serchType">
 			<option value="memberId">아이디</option>
 			<option value="blacklist">블랙리스트 여부</option>
 		</select>
 		
 		<div id="hideB1">
 		<input type="text"/>
-		<button type="submit">검색</button>
+		<button type="submit" onclick="gogo();">검색</button>
 		</div>
 		<div id="hideB2" style="display:none;">
-		<input type="radio" name="selectedContent"/>
+		<input type="radio" name="seatchContent"/>
 		<label for="Y">Y</label>
-		<input type="radio" name="selectedContent"/>
+		<input type="radio" name="seatchContent"/>
 		<label for="N">N</label>
 		</div>
 	</form>
@@ -74,9 +74,11 @@
 
 
 <script>
+
+		var value = "";
 	$(document).ready(function(){
 		$("#selectedWhere").change(function(){
-			var value = $(this).children("option:selected").val();
+			value = $(this).children("option:selected").val();
 			if(value=="blacklist"){
 				$("#hideB1").css("display", "none");
 				$("#hideB2").css("display", "block");
@@ -86,8 +88,13 @@
 				$("#hideB1").css("display", "block");
 
 		});
-
 	});
+
+	function gogo(){
+		
+
+	}
+	
 
 </script>
 

@@ -22,4 +22,6 @@ public interface SchedulerDAO {
 
 	int deleteTodo(Map<String, Object> map);
 
+	List<Scheduler> mainSchedulerRoom(String srNo);
+
 }

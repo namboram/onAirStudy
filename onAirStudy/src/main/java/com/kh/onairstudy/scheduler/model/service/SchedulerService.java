@@ -21,4 +21,6 @@ public interface SchedulerService {
 
 	int deleteTodo(Map<String, Object> map);
 
+	List<Scheduler> mainSchedulerRoom(String srNo);
+
 }
