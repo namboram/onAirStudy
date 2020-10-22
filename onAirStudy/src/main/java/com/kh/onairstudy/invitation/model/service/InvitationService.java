@@ -7,5 +7,9 @@ import com.kh.onairstudy.invitation.model.vo.Invitation;
 public interface InvitationService {
 
 	List<Invitation> selectInvitationList();
+	
+	int updateInvitation(Invitation invi);
+
+	int deleteInvitation(int no);;
 
 }
