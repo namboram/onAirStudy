@@ -11,4 +11,9 @@ public interface ServiceCenterDAO {
 
 	List<ServiceContent> selectServiceContentList();
 
+	int insert(ServiceCenter servicecenter);
+
+
+
+
 }

@@ -249,16 +249,8 @@ public class MemberController {
 		return "redirect:/";
 	}
 		
-		
-		
-		
-//		mypageIndex.jsp 불러오기
-		@RequestMapping("/mypage1_index.do")
-		public String mypage1_index() {
-			return "mypage1/mypage1_index";
-		}
-	
-		
-		
 }
+		
+		
+
 
