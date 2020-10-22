@@ -14,6 +14,7 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
 
 	@Override
 	public List<ServiceCenter> selectServiceList() {
@@ -24,5 +25,13 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	public List<ServiceContent> selectServiceContentList() {
 		return sqlSession.selectList("service.selectServiceContentList");
 	}
+
+	@Override
+	public int insert(ServiceCenter servicecenter) {
+		return sqlSession.insert("service.insertService" , servicecenter);
+	}
+
 	
+
+
 }

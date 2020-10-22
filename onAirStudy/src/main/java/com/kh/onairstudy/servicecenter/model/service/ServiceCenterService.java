@@ -11,4 +11,8 @@ public interface ServiceCenterService {
 
 	List<ServiceContent> selectServiceContentList();
 
+	int insertService(ServiceCenter servicecenter);
+
+	
+	
 }

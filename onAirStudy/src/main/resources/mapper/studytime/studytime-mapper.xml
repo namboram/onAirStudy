@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="studytime">
+
+<select id="selectList" resultMap="studytimeMap">
+
+select 
+	*
+from 
+	study_time
+
+</select>
+
+
+<resultMap type="map" id="studytimeMap">
+	<id column="no" property="no"/>
+	<result column="member_id" property="memberId"/>
+	<result column="study_time" property="studyTime"/>
+	<result column="study_date" property="studyDate"/>
+
+</resultMap>
+
+</mapper>
