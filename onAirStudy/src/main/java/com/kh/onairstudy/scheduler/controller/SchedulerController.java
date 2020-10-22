@@ -60,7 +60,7 @@ public class SchedulerController {
 		List<Scheduler> addList = makeScheduleArrays(session);
 		
 		mav.addObject("list", addList);
-		mav.setViewName("scheduler/studyroom-heduler");
+		mav.setViewName("scheduler/studyroom-scheduler");
 		
 		return mav;
 	}

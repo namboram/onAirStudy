@@ -7,8 +7,17 @@
 <%-- 한글 깨짐 방지 --%>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
+<div class="col-lg">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+</div>
+<div class="row">
+<div class="col-lg-2">
+	<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
+</div>
+<div class="col-lg-10">
+
+</div>
+</div>
     <!-- 커스텀 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
     
@@ -54,7 +63,8 @@
 		});
 </script>
 </c:if>   
-  <div class='cal-divB col-lg-10 p-0'>
+
+  	<div class='cal-divB p-0 col-lg-10'>
         <div class="infoB">
         </div>
         <br/>
@@ -62,6 +72,7 @@
         
         </table>
   </div>
+
 
 		<!-- 메뉴바  -->
         <div class="dropdown-menu dropB"><p id="pXB">X</p>

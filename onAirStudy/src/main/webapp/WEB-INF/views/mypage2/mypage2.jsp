@@ -12,7 +12,10 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
-<div class="row" style="margin-left: 0px; margin-right:0px;">	
+
+
+
+<div class="row">	
 	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
@@ -77,10 +80,10 @@
 	</nav>
 	<div class="col-lg-7 changeDiv"></div>
 	<div class="col-lg-3 chattingDiv" >
-		
+	<!-- 채팅 include 들어갈 자리 -->
 	</div>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script> -->
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script>  -->
+</div>
+
 <script>
 $(function(){
 	let today = new Date();   
@@ -90,6 +93,7 @@ $(function(){
 	//popupOpen();
 	
 });
+
 function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
 	var url = "popup.html";
 	var name = "popup test";
@@ -100,33 +104,33 @@ function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
 	   
 	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
 }
+
 function closePopup() {
 	if (popupObj != undefined) {
 		popupObj.close(); //팝업 종료
 		popupObj = undefined;
 	}
 }
+
 function leaveTheRoom() {
 	if(confirm("방을 나가시겠습니까?") == true){
 		location.href = "${pageContext.request.contextPath}/mypage1_index.do";
 	}
 }
 </script>
+
 <script>
-function goToSchduler(){
-	 $(".changeDiv").load("${pageContext.request.contextPath}/studyroom/scheduler.do");
-}
-
-function goToQuestion(){
-	$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/mypage2_question.do");
-}
-
-function goToTest(){
-	$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
-}
+	function goToSchduler(){
+		 $(".changeDiv").load("${pageContext.request.contextPath}/studyroom/scheduler.do");
+	}
+	
+	function goToQuestion(){
+		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/mypage2_question.do");
+	}
+	
+	function goToTest(){
+		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+	}
 </script>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
