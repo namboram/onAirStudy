@@ -9,4 +9,6 @@ public interface MessageDAO {
 
 	List<Message> selectMsgList(Map<String,Object> map);
 
+	Message selectMessageOne(Map<String, Object> map);
+
 }

@@ -63,10 +63,10 @@
 							
 							<c:choose>
 								<c:when test="${fn:length(message.msgContent) gt 15}">
-									<td><a href="#"><c:out value="${fn:substring(message.msgContent, 0, 15)}"></c:out>...</a></td>
+									<td><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}"><c:out value="${fn:substring(message.msgContent, 0, 15)}"></c:out>...</a></td>
 								</c:when>
 								<c:otherwise>
-									<td><a href="#">${message.msgContent}</a></td>
+									<td><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}">${message.msgContent}</a></td>
 								</c:otherwise>
 							</c:choose>
 							<td><fmt:formatDate value="${message.sendDate }"
@@ -90,39 +90,12 @@
 
 <script>
 function receivedMsg(){
-	/* $(".send").hide();
-	$(".receive").show();
-	var count = $(".receive:visible").length;
-	if(count==0){
-		$("#contentMsgK").html("수신함이 비었습니다.");
-	} */
+
 	window.location = "${pageContext.request.contextPath}/message/sendReceiveFilter.do?type=receive";
-	/* $.ajax({
-		url : "${pageContext.request.contextPath}/message/sendReceiveFilter.do",
-		data :
-			{
-				type : "receive" 
-						
-			} ,
-		dataType : "json",
-		success : function(result) {
-			console.log(result);
-		},
-		error : function(xhr, status, err) {
-			console.log("처리실패!");
-			console.log(xhr);
-			console.log(status);
-			console.log(err);
-		}
-	}); */
+
 }
 function sentMsg(){
-	/* $(".receive").hide();
-	$(".send").show();
-	var count = $(".send:visible").length;
-	if(count==0){
-		$("#contentMsgK").html("<h4>발신함이 비었습니다.</h4>");
-	} */
+
 	window.location = "${pageContext.request.contextPath}/message/sendReceiveFilter.do?type=send";
 }
 </script>
