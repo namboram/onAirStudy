@@ -18,11 +18,17 @@
 </style>
 <div id="adDivB col-lg-10">
 	
+	<form id="serviceSerch" method="post">
+	<input type="text"/>
+	<button type="submit">검색</button>
+	</form>
+	<table class="table">
+		
+
+
 	
-
-
-
-
+	</table>
+	
 </div>
 
 

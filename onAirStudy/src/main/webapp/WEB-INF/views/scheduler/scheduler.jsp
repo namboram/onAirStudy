@@ -54,15 +54,14 @@
 		});
 </script>
 </c:if>   
-<div class="col-lg-10">
-  <div class='cal-divB'>
+  <div class='cal-divB col-lg-10'>
         <div class="infoB">
         </div>
         <br/>
         <table class="tableB table">
         
         </table>
-        </div>
+  </div>
 
 		<!-- 메뉴바  -->
         <div class="dropdown-menu dropB"><p id="pXB">X</p>
@@ -201,7 +200,6 @@
           </div>
           
 	</div>
-</div>
 
     
     <script>

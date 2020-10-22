@@ -7,7 +7,7 @@
 <%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
+<%-- <jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/> --%>
 <style>
 	#adDivB{
 		 width:calc(100%-270px);

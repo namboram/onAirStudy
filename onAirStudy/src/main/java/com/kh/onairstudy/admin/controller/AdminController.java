@@ -3,6 +3,8 @@ package com.kh.onairstudy.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +51,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/memberDetail.do")
-	public ModelAndView adminDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
+	public ModelAndView memberDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
 		
 		System.out.println(memberId);
 		
@@ -57,11 +59,20 @@ public class AdminController {
 		System.out.println(map);
 		
 		mav.addObject("m", map);
-		mav.setViewName("admin/memberDetail");
 		
 		return mav;
 	}
 	
+	@RequestMapping("/admin/serviceList.do")
+	public ModelAndView serviceList(ModelAndView mav, HttpServletResponse response) {
+		
+		List<Map<String, Object>> map = adminService.serviceList();
+		System.out.println("map="+map);
+		
+		mav.addObject("s", map);
+		
+		return mav;
+	}
 	
 	
 	

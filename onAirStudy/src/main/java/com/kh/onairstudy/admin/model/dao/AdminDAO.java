@@ -11,4 +11,6 @@ public interface AdminDAO {
 
 	Map<String, Object> memberDetail(String memberId);
 
+	List<Map<String, Object>> serviceList();
+
 }

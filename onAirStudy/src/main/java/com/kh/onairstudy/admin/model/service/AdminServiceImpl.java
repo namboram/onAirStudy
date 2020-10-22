@@ -24,6 +24,11 @@ public class AdminServiceImpl implements AdminService {
 	public Map<String, Object> memberDetail(String memberId) {
 		return adminDAO.memberDetail(memberId);
 	}
+
+	@Override
+	public List<Map<String, Object>> serviceList() {
+		return adminDAO.serviceList();
+	}
 	
 	
 	

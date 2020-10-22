@@ -11,4 +11,6 @@ public interface AdminService {
 
 	Map<String, Object> memberDetail(String memberId);
 
+	List<Map<String, Object>> serviceList();
+
 }
