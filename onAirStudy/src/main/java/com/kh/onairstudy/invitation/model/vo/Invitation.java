@@ -2,6 +2,9 @@ package com.kh.onairstudy.invitation.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +22,7 @@ public class Invitation implements Serializable{
 
 	private int no;
 	private String hostingId;
-	private String invitiedId;
+	private String invitedId;
 	private int srNo;
 	private Date invitationDate;
 	private char invitationYN;
@@ -28,5 +31,7 @@ public class Invitation implements Serializable{
 	private String sGoal;
 	
 	private String catetory;
+	private List<StudyRoomLog> sLog;
+
 	
 }

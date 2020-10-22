@@ -28,6 +28,11 @@ public class AttendanceController {
 		return "mypage1/mypage1_index";
 	}
 	
+	@RequestMapping("/mypage2.do")
+	public String mypage2() {
+		return "mypage2/mypage2";
+	}
+	
 //	@RequestMapping("/mypage2.do")
 //	public ModelAndView mypage2(ModelAndView mav) {
 //		

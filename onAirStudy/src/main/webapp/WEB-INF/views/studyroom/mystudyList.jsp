@@ -24,6 +24,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
     crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
  <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/mystudygruop.css">
 
@@ -48,6 +49,7 @@
                         <table class="table">
                             <thead class="thead-rounded" >
                                 <tr style="padding-left: 30px;">
+                                	<th></th>
                                     <th>카테고리</th>
                                     <th>그룹 이름</th>
                                     <th>그룹 소개</th>
@@ -55,17 +57,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                           
                                 <c:forEach items="${ studyList }" var="studyroom">
-                                	<c:if test="${studyroom.memberId eq seesionId }">
+                                	<c:if test="${studyroom.memberId eq loginMember.memberId }">
                                     <tr>
+                                    	<td>${studyroom.sLeader}</td>
                                         <td>${studyroom.sCategory}</td>
                                         <td>${studyroom.srTitle}</td>
                                         <td>${studyroom.srComment}</td>
 
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                                                data-target="#myModal_ok">
-                                                입장하기</button>
+                                            <button type="button" class="btn btn-outline-primary" onclick="studyEntry('${studyroom.srNo}')">입장하기</button>
                                         </td>
                                     </tr>
                                     </c:if>
@@ -90,6 +92,7 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${ waitingList }" var="studyroomwaiting">
+                                <c:if test="${studyroomwaiting.memberId eq loginMember.memberId }">
                                     <tr>
                                         <td>${studyroomwaiting.aCategory}</td>
                                         <td>${studyroomwaiting.aTitle}</td>
@@ -98,6 +101,7 @@
                                                 ${studyroomwaiting.aStatus == 'Y' ? '대기중' : '만료'} </button></td>
                                         
                                     </tr>
+                                    </c:if>
                                 </c:forEach>
                               
                             </tbody>
@@ -119,6 +123,7 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${ wishList }" var="studyroomwish">
+                                <c:if test="${studyroomwish.memberId eq loginMember.memberId }">
                                     <tr>
                                         <td>${studyroomwish.wCategory}</td>
                                         <td>${studyroomwish.wTitle}</td>
@@ -130,6 +135,7 @@
                                                 ${studyroomwish.wStatus == 'Y' ? '가입가능' : '만료'} </button>
                                         </td>
                                     </tr>
+                                     </c:if>
                                 </c:forEach>
                    
                             </tbody>
@@ -139,6 +145,12 @@
 
         </div>
     </div>
+ 
+ <script>
+function studyEntry(srNo){
+	location.href = "${ pageContext.request.contextPath }/attend/mypage2.do?no=" + srNo;
+}
+</script>
  
 </body>
 
