@@ -23,5 +23,11 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.selectMsgList(map);
 	}
 
+	@Override
+	public Message selectMessageOne(Map<String, Object> map) {
+		return messageDAO.selectMessageOne(map);
+	}
+
+	
 	
 }

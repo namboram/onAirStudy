@@ -31,5 +31,13 @@
 		</choose>
 		
 	</select>
+	<select id="selectMessageOne" resultType="message">
+		select
+			*
+		from
+			message
+		where
+			no = #{no}
+	</select>
 	
 </mapper>
