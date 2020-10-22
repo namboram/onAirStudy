@@ -53,6 +53,22 @@ public class SchedulerController {
 	}
 	
 	
+	@RequestMapping("/studyroom/scheduler.do")
+	public ModelAndView studyRoomScheduler(ModelAndView mav, HttpSession session) {
+
+		//내역가져오기
+		List<Scheduler> addList = makeScheduleArrays(session);
+		
+		mav.addObject("list", addList);
+		mav.setViewName("scheduler/studyroom-heduler");
+		
+		return mav;
+	}
+	
+	
+	
+	
+	
 	public List<Scheduler> makeScheduleArrays(HttpSession session){
 				
 				//로그인된 아이디 가져오기
