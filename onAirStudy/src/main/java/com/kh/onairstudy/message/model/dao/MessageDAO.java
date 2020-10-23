@@ -13,4 +13,10 @@ public interface MessageDAO {
 
 	int deleteMessageList(Map<String, Object> map);
 
+	int updateRead(Map<String, Object> map);
+
+	int insertMessage(Message message);
+
+	List<Message> searchMessageList(Map<String, Object> map);
+
 }

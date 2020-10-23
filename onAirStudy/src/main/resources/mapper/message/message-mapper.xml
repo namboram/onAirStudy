@@ -52,4 +52,58 @@
 	           </foreach>
 
 	</update>
+	<update id="updateRead">
+		update message
+		set read_yn = 'Y'
+		where no = #{no}
+	</update>
+	<insert id="insertMessage">
+		insert into
+		message
+		values(
+			seq_message_no.nextval,
+			#{senderId},
+			#{receiverId},
+			#{msgContent},
+			default,
+			default,
+			default,
+			default
+			
+		)
+		
+	</insert>
+	<select id="searchMessageList" resultType="message">
+		select
+			*
+		from 
+			message
+		where
+		<choose>
+			<when test="keyword == 'content'">
+				msg_content like '%'||#{searchContent}||'%'
+			</when>
+			<otherwise>
+				(sender_id like '%'||#{searchContent}||'%' or receiver_id like '%'||#{searchContent}||'%')
+			</otherwise>
+		</choose>
+		<choose>
+
+			<when test="type == 'receive'">
+				and receiver_id =#{memberId} and receiver_del_yn='N'
+			</when>
+
+			<when test="type == 'send'">
+
+				and sender_id = #{memberId} and sender_del_yn = 'N'
+
+			</when>
+
+			<otherwise>
+
+				and ((sender_id = #{memberId} and sender_del_yn = 'N') or (receiver_id =#{memberId}and receiver_del_yn='N'))
+
+			</otherwise>
+			</choose>
+	</select>
 </mapper>
