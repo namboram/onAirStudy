@@ -6,11 +6,16 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 <style>
-	#adDivB{
-		/* width:calc(100%-270px); */
+	.adDivB{
 		display:inline-block;
-		height:100%;
-		background-color:skyblue;
+		background-color:#e8f4ff;
+		padding:100px;
+		text-align:center;
+	}
+	.tableB{
+		background-color:white;
+		border:2px solid #b0d9ff;
+		padding:50px;
 	}
 </style>
 
@@ -20,6 +25,10 @@
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 	<div id="adDivB col-lg-10">
+		
+	
+	
+	
 	</div>
 </div>
 

@@ -7,11 +7,16 @@
 <%-- 한글 깨짐 방지 --%>
 
 <style>
-	#adDivB{
-		/* width:calc(100%-270px); */
+	.adDivB{
 		display:inline-block;
-		height:100%;
-		background-color:skyblue;
+		background-color:#e8f4ff;
+		padding:100px;
+		text-align:center;
+	}
+	.tableB{
+		background-color:white;
+		border:2px solid #b0d9ff;
+		padding:50px;
 	}
 </style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -19,13 +24,32 @@
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
-	<div class="col-lg-10">
+	<div class="col-lg-10 adDivB">
 		
-		<form id="serviceSerch" method="post">
-		<input type="text"/>
-		<button type="submit">검색</button>
+		<form id="serviceSerchB" method="post">
+		<select name="searchType" id="searchTypeB">
+			<option value="memberId">작성자</option>
+			<option value="category">카테고리</option>
+			<option value="status">답변상태</option>
+		</select>
+		<div id="hide1B">
+			<input type="text" name="searchContent" value=""/>
+			<button type="button" class="btn">검색</button>
+		</div>
+		<div id="hide2B">
+			<select name="searchContent" id="searchContentB">
+				<option value="1">신고</option>
+				<option value="2">이용</option>
+				<option value="3">결제</option>
+				<option value="4">기타</option>
+			</select>
+		</div>
+		<div id="hide3B">
+			<input type="radio" name="searchContent" value="답변대기" />답변대기
+			<input type="radio" name="searchContent" value="답변완료"/>답변완료
+		</div>
 		</form>
-		<table class="table">
+		<table class="table tableB">
 			
 		<tr>
 		<th>문의번호</th>
@@ -57,6 +81,7 @@
 <script>
 	$(document).ready(function(){
 
+		
 		
 	});
 </script>

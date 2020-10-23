@@ -6,12 +6,15 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 <style>
-	#adDivB{
-		width:calc(100%-270px);
+	.adDivB{
 		display:inline-block;
-		height:100%;
 		background-color:#e8f4ff;
-		padding:50px;
+		padding:100px;
+		text-align:center;
+	}
+	.adDivB h3{
+		text-align:left;
+		margin-bottom:50px;
 	}
 	#memberTableB{
 		width:100%;
@@ -19,6 +22,11 @@
 	}
 	#memberTableB td{
 		width:150px;
+	}
+	.tableB{
+		background-color:white;
+		border:2px solid #b0d9ff;
+		padding:50px;
 	}
 </style>
 
@@ -28,7 +36,7 @@
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-	<div class="col-lg-10">
+	<div class="col-lg-10 adDivB">
 		
 		<div style="margin:50px;">
 		<form id="memberListFrm" method="post">
@@ -39,7 +47,7 @@
 			
 			<div id="hideB1">
 			<input type="text"/>
-			<button type="submit" onclick="gogo();">검색</button>
+			<button type="button" onclick="gogo();">검색</button>
 			</div>
 			<div id="hideB2" style="display:none;">
 			<input type="radio" name="seatchContent"/>
@@ -50,7 +58,7 @@
 		</form>
 		</div>
 	
-	<table class="table" id="memberTableB">
+	<table class="table tableB">
 		
 		<tr>
 		<th>회원 아이디</th>
