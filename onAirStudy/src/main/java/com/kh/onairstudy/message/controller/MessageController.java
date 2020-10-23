@@ -89,4 +89,12 @@ public class MessageController {
 		int result = messageService.deleteMessageList(map);
 		return result;
 	}
+	
+	@RequestMapping(value="/message/insertMessage.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int insertMessage(Message message) {
+		log.info("message={}",message);
+		int result=messageService.insertMessage(message);
+		return result;
+	}
 }

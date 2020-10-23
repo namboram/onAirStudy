@@ -15,4 +15,6 @@ public interface MessageDAO {
 
 	int updateRead(Map<String, Object> map);
 
+	int insertMessage(Message message);
+
 }

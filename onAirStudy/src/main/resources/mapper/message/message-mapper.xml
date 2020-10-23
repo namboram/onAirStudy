@@ -57,4 +57,20 @@
 		set read_yn = 'Y'
 		where no = #{no}
 	</update>
+	<insert id="insertMessage">
+		insert into
+		message
+		values(
+			seq_message_no.nextval,
+			#{senderId},
+			#{receiverId},
+			#{msgContent},
+			default,
+			default,
+			default,
+			default
+			
+		)
+		
+	</insert>
 </mapper>

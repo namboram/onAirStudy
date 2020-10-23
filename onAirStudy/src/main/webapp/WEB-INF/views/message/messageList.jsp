@@ -5,8 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%-- 한글 깨짐 방지 --%>
 <%-- <fmt:requestEncoding value="utf-8" /> --%>
-
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <style>
 #containerMsgK {
 	background-color: #F9F1ED;
@@ -16,11 +14,17 @@
 	background-color: white;
 }
 </style>
+<div class="col-lg p-0">
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+</div>
+
 <div class="row">
+	<div class="col-lg-2">
 	<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
+	</div>
 	<!-- 차트 링크 -->
 	<!-- 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
-	<div class="col-sm" id="containerMsgK">
+	<div class="col-lg-10 p-0" id="containerMsgK">
 		<h1>${title}</h1>
 		<div class="row mb-3">
 		<div class="input-group col-sm-5 offset-sm-3">
@@ -35,13 +39,13 @@
 				aria-label="Text input with dropdown button">
 			<button type="button" class="btn btn-secondary" >검색</button>
 		</div>
-		<div class="text-right offset-sm-2">
+		<div class="text-right offset-sm-1">
 			<button type="button" class="btn btn-secondary" onclick="receivedMsg();">수신함</button>
 			<button type="button" class="btn btn-secondary" onclick="sentMsg();" >발신함</button>
 			<button type="button" class="btn btn-secondary" onclick="delMsg();" >삭제</button>
 		</div>
 		</div>
-		<div id="contentMsgK" class="mr-3">
+		<div id="contentMsgK" class="m-5">
 			<table class="table text-center">
 				<thead>
 					<tr >
@@ -87,7 +91,9 @@
 		</div>
 	</div>
 </div>
+<div class="col-lg p-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>
 
 <script>
 function receivedMsg(){
