@@ -24,6 +24,7 @@ import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
@@ -122,6 +123,8 @@ public class StudyRoomController {
 
 		Map<String, Object> map = new HashMap<>();
 		int roomNum = 15;
+		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
+		mav.addObject("roomInfo", roomInfo);
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
