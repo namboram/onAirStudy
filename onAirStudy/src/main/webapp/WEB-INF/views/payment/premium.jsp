@@ -5,26 +5,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/><%-- 한글 깨짐 방지 --%>
 
-<<<<<<< HEAD
-
-</head>
-<script>
-function kakaopaypopup(){
-
-	var url = "${ pageContext.request.contextPath }/pay/kakao";
-	var title = "kakaoPay";
-	var spec = "left=400px, top=60px, width=800px, height=700px";
-	
-	open(url, title, spec);
-}
-</script>
-<body>
-	<div class="container-fluid" style="height:750px;">
-		<h2 class="text-center">프리미엄 서비스 회원이 누릴 수 있는 혜택</h2>
-		
-=======
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-
+<script>
+	function kakaopaypopup(){
+	
+		var url = "${ pageContext.request.contextPath }/pay/kakao";
+		var title = "kakaoPay";
+		var spec = "left=400px, top=60px, width=600px, height=700px";
+		
+		open(url, title, spec);
+		self.close();
+	}
+</script>
 
  <!-- 맨위 배너 -->
 	<div class="container-fluid" style="height: 100%; background-color: rgb(247, 235, 229);">
@@ -37,7 +29,6 @@ function kakaopaypopup(){
 	
 	
 	<div class="container"> 
->>>>>>> branch 'master' of https://github.com/ekfhdwld/onAirStudy.git
 		<div class="text-center">
 				<div class="col-m-5 p-3" style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; margin-top:1%;"> 
 					<h3>카테고리 상관없이 <strong style="color:#ff6666;">최대 3개 방 생성</strong> 기능</h3>
@@ -69,22 +60,12 @@ function kakaopaypopup(){
 			<button type="button"
                 	onclick="location.href='${ pageContext.request.contextPath }'">메인화면 가기</button>
 			
-			<form action="${ pageContext.request.contextPath }/pay/kakao">
-			<select name="" class="userH"style="width: 520px;">
-			    <option value="" class="userH" style="font-family: 'Quicksand', sans-serif;">카카오페이결제</option>
-			</select> <br>
-			<button type="button" id="payment_btn" onclick="kakaopaypopup();">프리미엄 가입하기</button>
-			</form>
+					<button type="button" id="payment_btn" onclick="kakaopaypopup();">프리미엄 가입하기</button>
+		</div>
+		
+		
 			
-			<%-- <form action="${ pageContext.request.contextPath }/pay/kakao" name="orderpage" method="post"></form> --%>
-		</div>	
 	</div>
 </div>
 
-<<<<<<< HEAD
-
-</body>
-</html>
-=======
->>>>>>> branch 'master' of https://github.com/ekfhdwld/onAirStudy.git
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
