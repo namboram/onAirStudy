@@ -123,7 +123,6 @@ public class StudyRoomController {
 	@RequestMapping("/studyroom/main.do")
 	public String main(Model model) {
 
-		Map<String, Object> map = new HashMap<>();
 		int roomNum = 15;
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
 		model.addAttribute("roomInfo", roomInfo);
@@ -136,4 +135,22 @@ public class StudyRoomController {
 
 		return "mypage2/mypage2";
 	}
+	
+	@RequestMapping(value = "/studyroom/accept.do", 
+					method = RequestMethod.POST)
+	public String acceptMember(RedirectAttributes redirectAttr, 
+							  @RequestParam("id") String memberId,
+							  @RequestParam("roomNum") String roomNum) {
+			
+		log.debug("memberId = {}", memberId);
+		log.debug("roomNum = {}", roomNum);
+//		int result = 0;
+//		String msg = (result > 0) ? memberId + "님이 식구가 되었습니다!" : memberId + "님 식구등록에 실패했습니다!";
+		redirectAttr.addFlashAttribute("msg", memberId+"님이 " + roomNum + "번 방의 식구가 됐습니다!");
+		
+		return "redirect:/studyroom/main.do";
+	}
+
+	
+	
 }

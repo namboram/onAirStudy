@@ -59,7 +59,7 @@
 					<li><a onclick="goToTest()">시험보기</a></li>
 				</ul>
 			</li>
-			<li><a onclick="">초대하기</a></li>
+			<li><a onclick="goToInvitation()">초대하기</a></li>
 			<li><a onclick="goToSchduler()">스케줄러</a></li>
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
@@ -67,15 +67,13 @@
 					<c:forEach var="app" items="${ applicants }">
 						<li><div class="applicantsJH">
 							<span>${app}</span>
-							<button value="accept" class="btnAcceptJH btnApplicantsJH"
-								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">수락</button>
-							<button value="reject" class="btnRejectJH btnApplicantsJH"
-								onclick="alert('멤버아이디 들고 컨트롤러로 갑니다~')">거절</button>
+							<button value="${app}" class="btnAcceptJH btnApplicantsJH"
+								onclick="acceptMember(this.value, ${ roomInfo.srNo} )">수락</button>
 						</div></li>
 					</c:forEach>
 				</ul>
 			</li>
-			<li><a onclick="leaveTheRoom()">방 나가기</a></li>
+			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
 	<div class="col-lg-7 changeDiv"></div>
@@ -115,11 +113,34 @@ function closePopup() {
 	}
 }
 
-function leaveTheRoom() {
+function exitRoom() {
 	if(confirm("방을 나가시겠습니까?") == true){
 		location.href = "${pageContext.request.contextPath}/mypage1_index.do";
 	}
 }
+
+function acceptMember(id, roomNum){
+
+	console.log(id, roomNum);
+	post_to_url("${pageContext.request.contextPath}/studyroom/accept.do", {"id" : id, "roomNum" : roomNum});
+}
+
+function post_to_url(path, params, method) {
+    method = method || "post"; 
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+        form.appendChild(hiddenField);
+    }
+    document.body.appendChild(form);
+    form.submit();
+}
+
 </script>
 
 <script>
@@ -133,6 +154,10 @@ function leaveTheRoom() {
 	
 	function goToTest(){
 		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+	}
+
+	function goToInvitation(){
+		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
 	}
 </script>
 
