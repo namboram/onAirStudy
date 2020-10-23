@@ -152,5 +152,11 @@ public class StudyRoomController {
 	}
 
 	
-	
+	@RequestMapping("/studyroom/exit")
+	public String exitRoom() {
+		
+//		방 정보 세션 날리기
+		return "redirect:/";
+		//return "redirect:/mypage1/mypage1_index.do";
+	}
 }
