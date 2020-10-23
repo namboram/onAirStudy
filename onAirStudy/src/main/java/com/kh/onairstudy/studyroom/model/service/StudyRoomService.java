@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
@@ -28,5 +29,7 @@ public interface StudyRoomService {
 	List<StudyRoomLog> selectParticipantList(int roomNum);
 
 	List<String> selectApplicantList(int roomNum);
+
+	StudyRoomInfo selectRoomInfo(int roomNum);
 
 }
