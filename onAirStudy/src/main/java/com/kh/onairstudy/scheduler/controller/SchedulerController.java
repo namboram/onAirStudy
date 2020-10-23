@@ -45,7 +45,15 @@ public class SchedulerController {
 //		}
 		
 		mav.addObject("list", addList);
-		mav.setViewName("/mypage1/mypage1_scheduler");
+		
+		//방번호유무
+		String srNo = (String)session.getAttribute("srNo");
+		
+		if(srNo==null)
+			mav.setViewName("/mypage1/mypage1_scheduler");
+		else
+			mav.setViewName("/mypage2/mapage2_scheduler");
+			
 		
 		return mav;
 		
