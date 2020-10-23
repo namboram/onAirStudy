@@ -12,7 +12,11 @@
 	background-color: #F9F1ED;
 }
 
-#contentMsgK {
+#contentMsgK{
+	background-color: white;
+	min-height : 500px;
+}
+#afterK{
 	background-color: white;
 }
 </style>
@@ -59,11 +63,12 @@
 				</div>
 			</div>
 		</div>
+
 		<h1>쪽지함</h1>
 		<div class="row mb-3">
 		<div class="offset-sm-10">
 			<button type="button" class="btn btn-secondary" onclick="">답장하기</button>
-			<button type="button" class="btn btn-secondary" onclick="" >삭제</button>
+			<button type="button" class="btn btn-secondary" onclick="delMsg();" >삭제</button>
 			<button type="button" class="btn btn-secondary reportModalK" >신고</button>
 		</div>
 		</div>
@@ -72,15 +77,71 @@
 			<h5>보낸 사람 : ${message.senderId}</h5>
 			<h5>받는 사람 : ${message.receiverId }</h5>
 			<hr />
-			<div class="text-center">
+			<div class="text-center align-items-center">
 			${message.msgContent}
 			</div>
 		</div>
+		<c:if test="${not empty message2  }">
+		<div id="afterK" class="mt-10">
+		<table class="table text-center">
+				<tbody>
+					<tr>
+						<td>${message2.senderId}</td>
+						<td>${message2.receiverId}</td>
+
+						<c:choose>
+							<c:when test="${fn:length(message2.msgContent) gt 15}">
+								<td><a
+									href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message2.no}"><c:out
+											value="${fn:substring(message2.msgContent, 0, 15)}"></c:out>...</a></td>
+							</c:when>
+							<c:otherwise>
+								<td><a
+									href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message2.no}">${message2.msgContent}</a></td>
+							</c:otherwise>
+						</c:choose>
+						<td><fmt:formatDate value="${message2.sendDate }"
+								pattern="yy/MM/dd HH:mm:ss" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</c:if>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 <script>
+//삭제하기
+function delMsg(){
+	var arr = new Array();
+	arr.push("${message.no}");
+	var type="";
+	if("${loginMember.memberId}" == "${message.senderId}"){
+		type="send";
+	}else{
+		type="receive"
+	}
+	if(confirm("삭제 하시겠습니까?")) {
+		$.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/message/delMessageList.do",
+            data: {
+					arr : arr,
+					type : type
+                },
+            dataType:"json",
+            success: function(data){
+              if(data>0){
+				alert("삭제가 완료되었습니다.");
+				window.location = "${pageContext.request.contextPath}/message/messageList.do";
+              }
+            },
+            error: function(){alert("서버통신 오류");}
+        });
+	}
+	
+}
 //신고 클릭시 모달창 열기
 $(document).on("click",".reportModalK",function(){
 	$("#myModal").modal('show');
@@ -123,4 +184,5 @@ function doReport(){
 		
 	}
 }
+
 </script>

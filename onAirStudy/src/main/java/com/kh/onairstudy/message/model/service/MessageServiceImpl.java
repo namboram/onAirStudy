@@ -33,6 +33,12 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.deleteMessageList(map);
 	}
 
+	@Override
+	public int updateRead(Map<String, Object> map) {
+		return messageDAO.updateRead(map);
+	}
+
+	
 	
 	
 	

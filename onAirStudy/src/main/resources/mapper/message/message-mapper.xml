@@ -52,4 +52,9 @@
 	           </foreach>
 
 	</update>
+	<update id="updateRead">
+		update message
+		set read_yn = 'Y'
+		where no = #{no}
+	</update>
 </mapper>
