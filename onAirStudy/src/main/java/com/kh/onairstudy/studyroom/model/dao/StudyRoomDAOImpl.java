@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
@@ -77,7 +78,12 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.selectApplicantList", roomNum);
 	}
 
-	
+	@Override
+	public StudyRoomInfo selectRoomInfo(int roomNum) {
+		return sqlSession.selectOne("studyroom.selectRoomInfo", roomNum);
+	}
 
+	
+	
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +25,7 @@ import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomList;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
+@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
 public class StudyRoomController {
 
 	@Autowired
@@ -117,20 +120,5 @@ public class StudyRoomController {
 
 	}
 
-	@RequestMapping("/studyroom/main.do")
-	public ModelAndView main(ModelAndView mav) {
 
-		Map<String, Object> map = new HashMap<>();
-		int roomNum = 15;
-		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
-		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
-
-		log.debug("list = {}", participants);
-		// map.put("list", participants);
-		mav.addObject("participants", participants);
-		mav.addObject("applicants", applicants);
-		mav.setViewName("mypage2/mypage2");
-
-		return mav;
-	}
 }
