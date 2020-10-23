@@ -80,6 +80,9 @@
 	</nav>
 	<div class="col-lg-7 changeDiv"></div>
 	<div class="col-lg-3 chattingDiv" >
+		<c:if test="${ not empty roomInfo }">
+			<h1>${ roomInfo.srTitle }</h1>
+		</c:if>
 	<!-- 채팅 include 들어갈 자리 -->
 	</div>
 </div>

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
+@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
 public class StudyRoomController {
 
 	@Autowired
@@ -119,21 +121,19 @@ public class StudyRoomController {
 	}
 
 	@RequestMapping("/studyroom/main.do")
-	public ModelAndView main(ModelAndView mav) {
+	public String main(Model model) {
 
 		Map<String, Object> map = new HashMap<>();
 		int roomNum = 15;
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
-		mav.addObject("roomInfo", roomInfo);
+		model.addAttribute("roomInfo", roomInfo);
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
-		log.debug("list = {}", participants);
-		// map.put("list", participants);
-		mav.addObject("participants", participants);
-		mav.addObject("applicants", applicants);
-		mav.setViewName("mypage2/mypage2");
+		log.debug("roomInfo = {}", roomInfo);
+		model.addAttribute("participants", participants);
+		model.addAttribute("applicants", applicants);
 
-		return mav;
+		return "mypage2/mypage2";
 	}
 }
