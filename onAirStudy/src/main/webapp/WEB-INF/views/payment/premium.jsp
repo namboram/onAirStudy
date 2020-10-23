@@ -6,7 +6,17 @@
 <fmt:requestEncoding value="utf-8"/><%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-
+<script>
+	function kakaopaypopup(){
+	
+		var url = "${ pageContext.request.contextPath }/pay/kakao";
+		var title = "kakaoPay";
+		var spec = "left=400px, top=60px, width=600px, height=700px";
+		
+		open(url, title, spec);
+		self.close();
+	}
+</script>
 
  <!-- 맨위 배너 -->
 	<div class="container-fluid" style="height: 100%; background-color: rgb(247, 235, 229);">
@@ -50,8 +60,7 @@
 			<button type="button"
                 	onclick="location.href='${ pageContext.request.contextPath }'">메인화면 가기</button>
 			
-			<button type="button"
-                	onclick="location.href='${ pageContext.request.contextPath }/payment/premium-payment.do';">프리미엄 가입하기</button>
+					<button type="button" id="payment_btn" onclick="kakaopaypopup();">프리미엄 가입하기</button>
 		</div>
 		
 		
