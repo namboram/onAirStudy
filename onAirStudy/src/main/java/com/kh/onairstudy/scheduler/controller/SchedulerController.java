@@ -45,7 +45,7 @@ public class SchedulerController {
 //		}
 		
 		mav.addObject("list", addList);
-		mav.setViewName("scheduler/scheduler");
+		mav.setViewName("/mypage1/mypage1_scheduler");
 		
 		return mav;
 		

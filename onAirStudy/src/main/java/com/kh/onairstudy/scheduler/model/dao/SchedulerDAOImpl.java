@@ -20,9 +20,6 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 		return sqlSession.selectList("scheduler.schedulerList", map);
 	}
 	
-
-
-
 	@Override
 	public int insertSchedule(Scheduler sch) {
 		return sqlSession.insert("scheduler.insertSchedule", sch);

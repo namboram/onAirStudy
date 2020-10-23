@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
@@ -28,6 +29,26 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public List<Map<String, Object>> serviceList() {
 		return sqlSession.selectList("admin.serviceList");
+	}
+
+	@Override
+	public Map<String, Object> serviceDetail(int no) {
+		return sqlSession.selectOne("admin.serviceDetail", no);
+	}
+
+	@Override
+	public Map<String, Object> serviceDetailAv(int no) {
+		return sqlSession.selectOne("admin.serviceDetailAv", no);
+	}
+
+	@Override
+	public int insertService(ServiceCenter sc) {
+		return sqlSession.insert("admin.insertService", sc);
+	}
+
+	@Override
+	public int updateService(int replyNo) {
+		return sqlSession.update("admin.updateService", replyNo);
 	}
 
 	

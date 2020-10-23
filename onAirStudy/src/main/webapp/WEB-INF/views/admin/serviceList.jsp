@@ -51,5 +51,12 @@
 	
 </div>
 
+<script>
+	$(document).ready(function(){
+
+		
+	});
+</script>
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
