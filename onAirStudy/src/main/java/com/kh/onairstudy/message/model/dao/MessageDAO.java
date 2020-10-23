@@ -13,4 +13,6 @@ public interface MessageDAO {
 
 	int deleteMessageList(Map<String, Object> map);
 
+	int updateRead(Map<String, Object> map);
+
 }

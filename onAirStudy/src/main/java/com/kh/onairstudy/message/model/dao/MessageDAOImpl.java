@@ -30,6 +30,12 @@ public class MessageDAOImpl implements MessageDAO {
 	public int deleteMessageList(Map<String, Object> map) {
 		return sqlSession.update("message.deleteMessageList",map);
 	}
+
+	@Override
+	public int updateRead(Map<String, Object> map) {
+		return sqlSession.update("message.updateRead",map);
+	}
+	
 	
 	
 	
