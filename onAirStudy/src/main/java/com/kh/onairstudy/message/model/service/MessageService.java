@@ -15,4 +15,8 @@ public interface MessageService {
 
 	int updateRead(Map<String, Object> map);
 
+	int insertMessage(Message message);
+
+	List<Message> SearchMessageList(Map<String, Object> map);
+
 }
