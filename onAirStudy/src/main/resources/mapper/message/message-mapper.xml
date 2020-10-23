@@ -73,4 +73,37 @@
 		)
 		
 	</insert>
+	<select id="searchMessageList" resultType="message">
+		select
+			*
+		from 
+			message
+		where
+		<choose>
+			<when test="keyword == 'content'">
+				msg_content like '%'||#{searchContent}||'%'
+			</when>
+			<otherwise>
+				(sender_id like '%'||#{searchContent}||'%' or receiver_id like '%'||#{searchContent}||'%')
+			</otherwise>
+		</choose>
+		<choose>
+
+			<when test="type == 'receive'">
+				and receiver_id =#{memberId} and receiver_del_yn='N'
+			</when>
+
+			<when test="type == 'send'">
+
+				and sender_id = #{memberId} and sender_del_yn = 'N'
+
+			</when>
+
+			<otherwise>
+
+				and ((sender_id = #{memberId} and sender_del_yn = 'N') or (receiver_id =#{memberId}and receiver_del_yn='N'))
+
+			</otherwise>
+			</choose>
+	</select>
 </mapper>

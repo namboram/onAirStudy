@@ -27,18 +27,22 @@
 	<div class="col-lg-10 p-0" id="containerMsgK">
 		<h1>${title}</h1>
 		<div class="row mb-3">
-		<div class="input-group col-sm-5 offset-sm-3">
+		
+		
+		<form action="${pageContext.request.contextPath}/message/searchMessage.do" class="input-group col-sm-5 offset-sm-3" method="post">
+		<input type="hidden" name="type" value="${title}"/>
 			<div class="input-group-prepend mr-2">
-				<select class="custom-select">
+				<select class="custom-select" name="keyword">
 					<option selected>검색 유형 선택</option>
 					<option value="id">아이디</option>
 					<option value="content">내용</option>
 				</select>
 			</div>
-			<input type="text" class="form-control mr-2"
-				aria-label="Text input with dropdown button">
-			<button type="button" class="btn btn-secondary" >검색</button>
-		</div>
+			<input type="text" name="searchContent" class="form-control mr-2"
+				aria-label="Text input with dropdown button"/>
+			<button type="submit" class="btn btn-secondary" >검색</button>
+		</form>
+		
 		<div class="text-right offset-sm-1">
 			<button type="button" class="btn btn-secondary" onclick="receivedMsg();">수신함</button>
 			<button type="button" class="btn btn-secondary" onclick="sentMsg();" >발신함</button>

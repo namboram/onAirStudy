@@ -17,4 +17,6 @@ public interface MessageDAO {
 
 	int insertMessage(Message message);
 
+	List<Message> searchMessageList(Map<String, Object> map);
+
 }

@@ -107,13 +107,18 @@
 		</div>
 		<h1>쪽지함</h1>
 		<div class="row mb-3">
-			<div class="offset-sm-9">
 				<c:if test="${loginMember.memberId eq message.receiverId}">
+			<div class="offset-sm-9">
 				<button type="button" class="btn btn-secondary replyModalK">답장하기</button>
-				</c:if>
 				<button type="button" class="btn btn-secondary" onclick="delMsg();">삭제</button>
-				<button type="button" class="btn btn-secondary reportModalK">신고</button>
+				<button type="button" class="btn btn-secondary reportModalK">신고</button>				
 			</div>
+				</c:if>
+				<c:if test="${loginMember.memberId ne message.receiverId}">
+				<div class="offset-sm-10">
+					<button type="button" class="btn btn-secondary" onclick="delMsg();">삭제</button>
+				</div>
+				</c:if>
 		</div>
 		<div id="contentMsgK" class="m-5">
 			<p class="text-right">

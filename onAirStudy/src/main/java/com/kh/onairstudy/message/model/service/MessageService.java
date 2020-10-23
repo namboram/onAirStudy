@@ -17,4 +17,6 @@ public interface MessageService {
 
 	int insertMessage(Message message);
 
+	List<Message> SearchMessageList(Map<String, Object> map);
+
 }

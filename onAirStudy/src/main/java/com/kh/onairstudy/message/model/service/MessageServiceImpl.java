@@ -43,6 +43,11 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.insertMessage(message);
 	}
 
+	@Override
+	public List<Message> SearchMessageList(Map<String, Object> map) {
+		return messageDAO.searchMessageList(map);
+	}
+
 	
 	
 	

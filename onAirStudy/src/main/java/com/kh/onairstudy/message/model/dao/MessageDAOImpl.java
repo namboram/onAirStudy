@@ -40,6 +40,11 @@ public class MessageDAOImpl implements MessageDAO {
 	public int insertMessage(Message message) {
 		return sqlSession.insert("message.insertMessage",message);
 	}
+
+	@Override
+	public List<Message> searchMessageList(Map<String, Object> map) {
+		return sqlSession.selectList("message.searchMessageList",map);
+	}
 	
 	
 	
