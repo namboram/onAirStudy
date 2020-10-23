@@ -8,6 +8,8 @@ public interface DiaryService {
 
 	List<Diary> selectDiaryList();
 
-	int insertDiary(Diary diary);
+//	int insertDiary(Diary diary);
+
+	Diary selectOneDiaryCollection(int no);
 
 }
