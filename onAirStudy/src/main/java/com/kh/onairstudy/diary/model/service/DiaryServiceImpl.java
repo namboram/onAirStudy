@@ -24,7 +24,7 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryDAO.selectDiaryList();
 	}
 
-	
+	/*
 	@Override
 	public int insertDiary(Diary diary) {
 		int result =0;
@@ -41,7 +41,7 @@ public class DiaryServiceImpl implements DiaryService {
 			}			
 		return result;
 	}
-
+	*/
 	@Override
 	public Diary selectOneDiaryCollection(int no) {
 		return diaryDAO.selectOneDiaryCollection(no);

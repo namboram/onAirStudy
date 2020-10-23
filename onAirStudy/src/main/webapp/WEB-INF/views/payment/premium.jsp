@@ -7,24 +7,18 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <fmt:requestEncoding value="utf-8"/><%-- 한글 깨짐 방지 --%>
 
-<!-- bootstrap css -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-​
-
-
 
 </head>
+<script>
+function kakaopaypopup(){
+
+	var url = "${ pageContext.request.contextPath }/pay/kakao";
+	var title = "kakaoPay";
+	var spec = "left=400px, top=60px, width=800px, height=700px";
+	
+	open(url, title, spec);
+}
+</script>
 <body>
 	<div class="container-fluid" style="height:750px;">
 		<h2 class="text-center">프리미엄 서비스 회원이 누릴 수 있는 혜택</h2>
@@ -61,16 +55,16 @@
 			<button type="button"
                 	onclick="location.href='${ pageContext.request.contextPath }'">메인화면 가기</button>
 			
-			<button type="button"
-                	onclick="location.href='${ pageContext.request.contextPath }/payment/premium-payment.do';">프리미엄 가입하기</button>
-		</div>
-		
-		
+			<form action="${ pageContext.request.contextPath }/pay/kakao">
+			<select name="" class="userH"style="width: 520px;">
+			    <option value="" class="userH" style="font-family: 'Quicksand', sans-serif;">카카오페이결제</option>
+			</select> <br>
+			<button type="button" id="payment_btn" onclick="kakaopaypopup();">프리미엄 가입하기</button>
+			</form>
 			
+			<%-- <form action="${ pageContext.request.contextPath }/pay/kakao" name="orderpage" method="post"></form> --%>
+		</div>	
 	</div>
-
-		
-
 
 
 </body>

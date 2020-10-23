@@ -54,6 +54,7 @@ public class DiaryController {
 	
 
 
+	/*
 	@RequestMapping(value = "/diaryEnroll.do",
 			method = RequestMethod.POST)
 public String diaryEnroll(Diary diary, 
@@ -96,7 +97,6 @@ public String diaryEnroll(Diary diary,
 		//		log.debug("upFile.size = {}", upFile.getSize());
 			
 		}
-		
 		log.debug("attachList = {}", attachList);
 		diary.setAttachList(attachList);
 		
@@ -127,6 +127,6 @@ public String diaryEnroll(Diary diary,
 		mav.setViewName("diary/diaryDetail");
 		return mav;
 		}
-		
+	 */
 		
 }

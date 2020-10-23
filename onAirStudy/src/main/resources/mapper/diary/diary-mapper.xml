@@ -43,7 +43,7 @@
 		order by 
 		    no desc
  	</select> -->
- 	
+<!--  	
  	<insert id="insertDiary">
  		insert into
  			diary
@@ -53,10 +53,7 @@
  			#{ memberId },
  			default,
  			#{ diaryCotent },
- 			
- 			
- 		
- 		
+
  		)
  	</insert>
  	
@@ -77,7 +74,7 @@
 		    D.no = #{ no }
   	</select>
   	
-  	<!-- collection을 사용하는 resultMap은 id/result태그를 생략할 수 없다. -->
+  	collection을 사용하는 resultMap은 id/result태그를 생략할 수 없다.
   	<resultMap type="diary" id="diaryCollectionMap">
   		<id column="no" property="no"/>
   		<result column="title" property="title"/>
@@ -95,6 +92,6 @@
   			<result column="download_count" property="downloadCount"/>
   			
   		</collection>
-  	</resultMap>
+  	</resultMap> -->
  	
 </mapper>
