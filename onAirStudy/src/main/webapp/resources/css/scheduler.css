@@ -12,7 +12,7 @@
                     color:white;
                 }
                 .Bday .highSpan{
-                	font-size:18px;
+                	font-size:15px;
                 	width:38%;
                 	margin-top:5px;
                     height: 25px;
@@ -26,7 +26,7 @@
                     height: 20px;
                     text-overflow:ellipsis; 
                     overflow:hidden;
-                	font-size:12px;
+                	font-size:10px;
                 	float:left;
                 }
                 .Bday{
@@ -43,7 +43,7 @@
                     
                 }
                 #prevB img{
-                    width: 50px;
+                    width: 30px;
                     background: none;
                 }
                 #nextB{
@@ -52,10 +52,13 @@
                     border: none;
                 }
                 #nextB img{
-                    width: 50px;
+                    width: 30px;
+                }
+                .infoB{
+                	height:150px;
                 }
                 .monthBB{
-                    font-size: 30px;
+                    font-size: 28px;
                     font-weight: bold;
                     text-align: center;
 
@@ -84,16 +87,17 @@
                     background-color:#f9f1ed;
                 }
                 .yearBB{
-                    font-size: 40px;
+                    font-size: 30px;
                     font-weight: bold;
                     text-align: center;
                 }
                 .cal-divB{
+                	display:inline-block;
                 	/* float:right; */
                 	/* margin-left:250px; */
                    /*  width:800px; */
                     background-color:#f9f1ed;
-                    padding:100px;
+                    padding:50px;
                 }
                 th.sun, .sun .highSpan{
                     color:red;

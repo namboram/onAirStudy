@@ -193,4 +193,31 @@ values(
 	</select>
 
 
+	<select id="selectRoomInfo" resultMap="roomInfoMap">
+		select 
+		    I.* ,  L.sr_opened_yn,  c.category
+		from 
+		    sr_list L 
+		        left join sr_category C on l.sr_category= C.no
+		        left join sr_info I on l.sr_no = i.sr_no
+		where i.sr_no = #{roomNum}
+		order by L.sr_no
+	
+	</select>
+	
+	<resultMap type="studyroominfo" id="roomInfoMap">
+  		<id column="sr_no" property="srNo"/>
+  		<result column="sr_title" property="srTitle"/>
+  		<result column="sr_goal" property="srGoal"/>
+  		<result column="sr_comment" property="srComment"/>
+  		<result column="sr_attendance_cnt" property="attintendanceCnt"/>
+  		<result column="attend_day" property="attendDay"/>
+  		<result column="attend_time" property="attendTime"/>
+  		<result column="sr_ranking" property="ranking"/>
+  		<result column="forced_exit_opt" property="forceExitOpt"/>
+  		<result column="forced_exit_yn" property="forceExitYN"/>
+  		<result column="sr_opened_yn" property="srOpenedYN"/>
+  		<result column="category" property="category"/>
+  	</resultMap>
+
 </mapper>

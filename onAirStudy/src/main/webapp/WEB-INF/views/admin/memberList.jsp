@@ -5,9 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<%-- <jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/> --%>
 <style>
 	#adDivB{
 		width:calc(100%-270px);
@@ -23,58 +20,69 @@
 		width:150px;
 	}
 </style>
-<div id="adDivB col-lg-10">
-	
-	<div style="margin:50px;">
-		<select name="selectedWhere" id="selectedWhere">
-			<option value="memberId">아이디</option>
-			<option value="blacklist">블랙리스트 여부</option>
-		</select>
-		
-		<div id="hideB1">
-		<input type="text"/>
-		<button type="button">검색</button>
-		</div>
-		<div id="hideB2" style="display:none;">
-		<input type="radio" name="selectedContent"/>
-		<label for="Y">Y</label>
-		<input type="radio" name="selectedContent"/>
-		<label for="N">N</label>
-		</div>
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div class="row">
+	<div class="col-lg-2">
+		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-<table class="table" id="memberTableB">
+	<div class="col-lg-10">
+		
+		<div style="margin:50px;">
+		<form id="memberListFrm" method="post">
+			<select name="serchType" id="serchType">
+				<option value="memberId">아이디</option>
+				<option value="blacklist">블랙리스트 여부</option>
+			</select>
+			
+			<div id="hideB1">
+			<input type="text"/>
+			<button type="submit" onclick="gogo();">검색</button>
+			</div>
+			<div id="hideB2" style="display:none;">
+			<input type="radio" name="seatchContent"/>
+			<label for="Y">Y</label>
+			<input type="radio" name="seatchContent"/>
+			<label for="N">N</label>
+			</div>
+		</form>
+		</div>
 	
-	<tr>
-	<th>회원 아이디</th>
-	<th>회원 이름</th>
-	<th>결제 여부</th>
-	<th>블랙리스트 여부</th>
-	</tr>
-	
-	<c:if test="${ not empty list }">
-	<c:forEach items="${ list }" var="m">
+	<table class="table" id="memberTableB">
+		
 		<tr>
-			<td><a href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${m.memberId}">${ m.memberId }</a></td>
-			<td>${ m.memberName }</td>
-			<td>${ m.memberRole == 'P'? '프리미엄' : m.memberRole == 'A'? '관리자': '일반' }</td>
-			<td>${ m.blacklist }</td>
+		<th>회원 아이디</th>
+		<th>회원 이름</th>
+		<th>결제 여부</th>
+		<th>블랙리스트 여부</th>
 		</tr>
-	</c:forEach> 
-	</c:if>
+		
+		<c:if test="${ not empty list }">
+		<c:forEach items="${ list }" var="m">
+			<tr>
+				<td><a href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${m.memberId}">${ m.memberId }</a></td>
+				<td>${ m.memberName }</td>
+				<td>${ m.memberRole == 'P'? '프리미엄' : m.memberRole == 'A'? '관리자': '일반' }</td>
+				<td>${ m.blacklist }</td>
+			</tr>
+		</c:forEach> 
+		</c:if>
+		
+	</table>
 	
-</table>
-
-
+	
+	</div>
 </div>
 
 
 
-
 <script>
+
+		var value = "";
 	$(document).ready(function(){
 		$("#selectedWhere").change(function(){
-			var value = $(this).children("option:selected").val();
+			value = $(this).children("option:selected").val();
 			if(value=="blacklist"){
 				$("#hideB1").css("display", "none");
 				$("#hideB2").css("display", "block");
@@ -84,8 +92,13 @@
 				$("#hideB1").css("display", "block");
 
 		});
-
 	});
+
+	function gogo(){
+		
+
+	}
+	
 
 </script>
 

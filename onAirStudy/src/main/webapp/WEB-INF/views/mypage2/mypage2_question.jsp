@@ -7,8 +7,6 @@
 <%-- 한글 깨짐 방지 --%>
 
 
-
-
 <div class="col-lg ">
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <div class="row">

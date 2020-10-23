@@ -32,8 +32,8 @@ public class TestController {
 	private TestService testService;
 	
 	@RequestMapping("mypage2/mypage2_question.do")
-	public void mypage2_question() {
-		
+	public String mypage2_question() {
+		return "test/questionForm";
 	}
 	
 	@RequestMapping(value = "mypage2/testquestion.do", method = RequestMethod.POST)
@@ -68,6 +68,6 @@ public class TestController {
 	
 	@RequestMapping("mypage2/pretest.do")
 	public String pretest() {
-		return "mypage2/mypage2_test";
+		return "test/pre-test";
 	}
 }

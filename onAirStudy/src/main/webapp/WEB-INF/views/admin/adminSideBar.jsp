@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-	<nav class="side-navbar admin-sideBar col-lg-2" >
+	<nav class="side-navbar admin-sideBar" >
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -21,9 +21,9 @@
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
 		<ul class="list-unstyled">
-			<li><a href="#">문의사항 <div class="countingAlarm">6</div></a></li>
-			<li><a href="#">신고내역 <div class="countingAlarm">4</div></a></li>
-			<li><a href="#">회원관리</a></li>
+			<li><a href="${ pageContext.request.contextPath }/admin/serviceList.do">문의사항 <div class="countingAlarm">6</div></a></li>
+			<li><a href="${ pageContext.request.contextPath }/admin/reportList.do">신고내역 <div class="countingAlarm">4</div></a></li>
+			<li><a href="${ pageContext.request.contextPath }/admin/memberList.do">회원관리</a></li>
 			<li><a href="#">그룹관리</a></li>
 		</ul>
 	</nav>

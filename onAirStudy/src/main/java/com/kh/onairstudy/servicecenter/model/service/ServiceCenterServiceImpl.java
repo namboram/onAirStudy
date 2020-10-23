@@ -27,4 +27,13 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	public List<ServiceContent> selectServiceContentList() {
 		return serviceCenterDAO.selectServiceContentList();
 	}
+
+	@Override
+	public int insertService(ServiceCenter servicecenter) {
+		return serviceCenterDAO.insert(servicecenter);
+	}
+
+
+	
+
 }

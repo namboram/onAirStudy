@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,7 +45,15 @@ public class SchedulerController {
 //		}
 		
 		mav.addObject("list", addList);
-		mav.setViewName("scheduler/scheduler");
+		
+		//방번호유무
+		String srNo = (String)session.getAttribute("srNo");
+		
+		if(srNo==null)
+			mav.setViewName("/mypage1/mypage1_scheduler");
+		else
+			mav.setViewName("/mypage2/mapage2_scheduler");
+			
 		
 		return mav;
 		
@@ -50,18 +61,42 @@ public class SchedulerController {
 	}
 	
 	
+	@RequestMapping("/studyroom/scheduler.do")
+	public ModelAndView studyRoomScheduler(ModelAndView mav, HttpSession session) {
+
+		//내역가져오기
+		List<Scheduler> addList = makeScheduleArrays(session);
+		
+		mav.addObject("list", addList);
+		mav.setViewName("scheduler/studyroom-scheduler");
+		
+		return mav;
+	}
+	
+	
+	
+	
+	
 	public List<Scheduler> makeScheduleArrays(HttpSession session){
 				
 				//로그인된 아이디 가져오기
 				//추후에 방번호가 같이 오면 방번호 null 유무로  가져옴
 				String memberId = (String)session.getAttribute("memberId");
-				
-				//잘됐는지 체크해보려고 하는 push~
-				
+				String srNo = (String)session.getAttribute("srNo");
 				//임시
 				memberId = "honggd";
+				srNo="15";
 				
-				List<Scheduler> list = schedulerService.mainScheduler(memberId);
+				if(srNo != null)
+					 memberId = null;
+					
+				Map<String, Object> map = new HashMap<>();
+				map.put("memberId", memberId);
+				map.put("srNo", srNo);
+				
+					
+				List<Scheduler> list = schedulerService.mainScheduler(map);
+				
 				List<Scheduler> addList = new ArrayList<>();
 
 				Calendar c1 = Calendar.getInstance();
@@ -113,6 +148,10 @@ public class SchedulerController {
 		
 		System.out.println("sch="+sch);
 		
+		//방예시
+		sch.setMemberId(null);
+		sch.setSrNo(15);
+		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		
 		int result = schedulerService.insertSchedule(sch);
@@ -135,6 +174,10 @@ public class SchedulerController {
 		sch.setEnabledYN("N");
 		
 		System.out.println("sch="+sch);
+		
+		//방예시
+		sch.setMemberId(null);
+		sch.setSrNo(15);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		redirectAttr.addFlashAttribute("sche", "good");
@@ -169,6 +212,7 @@ public class SchedulerController {
 		return redirectAttr;
 	}
 	
+	
 	@RequestMapping("/scheduler/delete.do")
 	public String deleteSchedule(@RequestParam("no") int no,
 								RedirectAttributes redirectAttr) throws Exception {
@@ -176,6 +220,10 @@ public class SchedulerController {
 		
 		Scheduler sch = schedulerService.selectOne(no);
 		System.out.println("sch="+sch);
+		
+		//방예시
+		sch.setMemberId(null);
+		sch.setSrNo(15);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		redirectAttr.addFlashAttribute("sche", "good");
@@ -199,6 +247,8 @@ public class SchedulerController {
 							RedirectAttributes redirectAttr) {
 		
 		String memberId = (String)session.getAttribute("memberId");
+		memberId=null;
+		int srNo = 15;
 		
 		Scheduler sch = null;
 		List<Scheduler> list = new ArrayList<>();
@@ -207,7 +257,8 @@ public class SchedulerController {
 
 			sch = new Scheduler();
 			
-			sch.setMemberId("honggd");
+			sch.setMemberId(memberId);
+			sch.setSrNo(srNo);
 			sch.setStartDate(startDate);
 			sch.setEndDate(startDate);
 			sch.setContent(contents[i]);
@@ -219,7 +270,8 @@ public class SchedulerController {
 		}
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("memberId", "honggd");
+		map.put("memberId", memberId);
+		map.put("srNo", srNo);
 		map.put("startDate", startDate);
 		
 		//이전내역삭제
@@ -248,7 +300,8 @@ public class SchedulerController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("memberId", "honggd");
+		map.put("memberId", null);
+		map.put("srNo", 15);
 		map.put("startDate", startDate);
 
 		int result = schedulerService.deleteTodo(map);
@@ -269,11 +322,7 @@ public class SchedulerController {
 	
 	
 	
-	
-	
-	
-	
-	
+
 	
 	
 }

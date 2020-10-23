@@ -19,11 +19,8 @@
 				<img
 					src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg"
 					alt="...">
-				<h3>
-					Honggd
-					</h3>
-					<h5>premium
-				</h5>
+				<h3>Honggd</h3>
+				<h5>premium</h5>
 			</div>
 			<div class="d-day-display">
 				<hr>
@@ -50,11 +47,11 @@
 			<li>
 				<a href="#testDropdown" aria-expanded="false" data-toggle="collapse">시험</a>
 				<ul id="testDropdown" class="collapse list-unstyled ">
-				<li><a href="${ pageContext.request.contextPath}/mypage2/mypage2_question.do">시험문제등록</a></li>
-				<li><a href="${ pageContext.request.contextPath}/mypage2/pretest.do">시험보기</a></li>
+				<li><a>시험문제등록</a></li>
+				<li><a>시험보기</a></li>
 				</ul>
 			</li>
-			
+			<li><a href="#">스케줄러</a></li>
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
 				<ul id="applicantsDropdown" class="collapse list-unstyled ">
@@ -69,6 +66,7 @@
 					</c:forEach>
 				</ul>
 			</li>
+			<li><a onclick="">방 나가기</a></li>
 		</ul>
 	</nav>
 	
@@ -76,7 +74,7 @@
 $(function(){
 	var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
 	var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
-	popupOpen();
+	//popupOpen();
 	
 });
 

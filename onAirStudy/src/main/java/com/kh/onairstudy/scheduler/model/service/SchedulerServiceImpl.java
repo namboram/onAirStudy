@@ -19,9 +19,10 @@ public class SchedulerServiceImpl implements SchedulerService {
 	private SchedulerDAO schedulerDAO;
 
 	@Override
-	public List<Scheduler> mainScheduler(String memberId) {
-		return schedulerDAO.mainScheduler(memberId);
+	public List<Scheduler> mainScheduler(Map<String, Object> map) {
+		return schedulerDAO.mainScheduler(map);
 	}
+
 
 	@Override
 	public int insertSchedule(Scheduler sch) {
@@ -57,8 +58,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 	public int deleteTodo(Map<String, Object> map) {
 		return schedulerDAO.deleteTodo(map);
 	}
-	
-	
+
 	
 	
 }

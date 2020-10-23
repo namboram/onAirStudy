@@ -11,4 +11,6 @@ public interface MessageDAO {
 
 	Message selectMessageOne(Map<String, Object> map);
 
+	int deleteMessageList(Map<String, Object> map);
+
 }

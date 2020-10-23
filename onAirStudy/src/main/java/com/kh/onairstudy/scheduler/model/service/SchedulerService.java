@@ -7,7 +7,7 @@ import com.kh.onairstudy.scheduler.model.vo.Scheduler;
 
 public interface SchedulerService {
 
-	List<Scheduler> mainScheduler(String memberId);
+	List<Scheduler> mainScheduler(Map<String, Object> map);
 
 	int insertSchedule(Scheduler sch);
 
@@ -20,5 +20,6 @@ public interface SchedulerService {
 	int insertTodo(List<Scheduler> list);
 
 	int deleteTodo(Map<String, Object> map);
+
 
 }

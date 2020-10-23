@@ -3,14 +3,19 @@ package com.kh.onairstudy.admin.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.admin.model.service.AdminService;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,7 +54,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/memberDetail.do")
-	public ModelAndView adminDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
+	public ModelAndView memberDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
 		
 		System.out.println(memberId);
 		
@@ -57,11 +62,58 @@ public class AdminController {
 		System.out.println(map);
 		
 		mav.addObject("m", map);
-		mav.setViewName("admin/memberDetail");
 		
 		return mav;
 	}
 	
+	@RequestMapping("/admin/serviceList.do")
+	public ModelAndView serviceList(ModelAndView mav, HttpServletResponse response) {
+		
+		List<Map<String, Object>> map = adminService.serviceList();
+		System.out.println("map="+map);
+		
+		mav.addObject("list", map);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/admin/serviceDetail.do")
+	public ModelAndView serviceDetail(ModelAndView mav,
+									@RequestParam("no")int no) {
+		
+		System.out.println("no="+no);
+		
+		Map<String, Object> sv = adminService.serviceDetail(no);
+		Map<String, Object> av = adminService.serviceDetailAv(no);
+		
+		
+		mav.addObject("sv", sv);
+		mav.addObject("av", av);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/admin/insertService.do")
+	public String insertService(ServiceCenter sc, 
+								RedirectAttributes redirectAttr, 
+								@RequestParam("replyNo") int replyNo) {
+		System.out.println("sc="+sc);
+		sc.setReply_no(replyNo);
+		
+		int result = adminService.insertService(sc);
+		if(result>0)
+			System.out.println("등록성공");
+		else
+			System.out.println("등록실패");
+		
+		result = adminService.updateService(replyNo);
+		if(result>0)
+			redirectAttr.addFlashAttribute("msg", "답변 등록 성공!");
+		else
+			redirectAttr.addFlashAttribute("msg", "답변 등록 실패!");
+		
+		return "redirect:/service/serviceList.do";
+	}
 	
 	
 	

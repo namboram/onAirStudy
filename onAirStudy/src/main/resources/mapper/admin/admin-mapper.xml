@@ -42,5 +42,72 @@ where
 	member_id = #{ memberId }
 and withdraw_yn = 'N'
   </select>
+  
+  <select id="serviceList" resultType="map">
+  select 
+  	S.*,
+  	C.category as "cate" 
+  from 
+  	service S 
+  join 
+  	service_category C 
+  on 
+  	 S.category = C.no
+  	   where
+  	S.reply_no = 0
+  order by
+  	S.no desc
+  </select>
+  
+  <select id="serviceDetail" resultType="map">
+ select
+  	S.*, 
+  	C.category as "cate"
+ from
+  	service S
+ join 
+ 	service_category C 
+ on S.category = C.no
+ where
+  	S.no = #{ no }
+  </select>
+
+  <select id="serviceDetailAv" resultType="map">
+ select
+  	S.*, 
+  	C.category as "cate"
+ from
+  	service S
+ join 
+ 	service_category C 
+ on S.category = C.no
+where
+ 	reply_no= #{ no }
+  </select>
+ <insert id="insertService">
+ insert into
+ 	service
+ values(
+ 	seq_service_no.nextval,
+	#{ category },
+	#{ serviceStatus },
+	#{ serviceTitle },
+	#{ serviceContent },
+	#{ reply_no },
+	#{ memberId },
+	sysdate,
+	'N',
+	#{ serviceLevel }
  
+ )
+ </insert>
+ 
+ <update id="updateService">
+ update
+ 	service
+ set
+ 	service_status = '답변완료'
+where
+	no = #{ replyNo } 
+ </update>
 </mapper>
