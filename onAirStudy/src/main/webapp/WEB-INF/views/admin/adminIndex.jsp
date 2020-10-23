@@ -7,23 +7,12 @@
 <%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<%-- <jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/> --%>
-<style>
-	#adDivB{
-		/* width:calc(100%-270px); */
-		display:inline-block;
-		height:100%;
-		background-color:skyblue;
-	}
-</style>
-<div id="adDivB col-lg-10">
-	
-	
-
-
-
-
+<div class="row">
+	<div class="col-lg-2">
+		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
+	</div>
+	<div class="col-lg-10">
+		<!-- 다진언니 여기다가 관리자 인덱스 페이지 넣어주시면 됩니당^ㅅ^ -->
+	</div>
 </div>
-
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
