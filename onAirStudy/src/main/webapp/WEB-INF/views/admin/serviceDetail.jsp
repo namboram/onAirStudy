@@ -9,24 +9,40 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <%-- <jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/> --%>
 <style>
+	.tableB{
+		background-color:white;
+		border:2px solid #b0d9ff;
+	}
 	#adDivB{
-		/* width:calc(100%-270px); */
+		width:100%;
 		display:inline-block;
 		height:100%;
-		background-color:skyblue;
+		background-color:#e8f4ff;
 		padding:100px;
+		text-align:center;
+	}
+	#adDivB h3{
+		text-align:left;
+		margin-bottom:50px;
+	}
+	#adDivB button{
+		text-align:right;
+		margin-top:50px;
 	}
 	#contdB{
 		height: 300px;
 	}
-	#answerB{
-		width:80%;
+	[name=serviceContent]{
+		width:100%;
 		height:300px;
+		text-align:center;
+		padding:50px;
+		border:2px solid #b0d9ff;
 	}
 </style>
-<div id="adDivB col-lg-10">
+<div id="adDivB">
 	<h3>문의 상세보기</h3>
-	<table class="table">
+	<table class="table tableB">
 		<tr>
 			<th>번호</th>
 			<td>${ sv.NO }</td>
@@ -59,7 +75,7 @@
 	<input type="hidden" name="serviceLevel" value="2" />
 	<input type="hidden" name="memberId" value="admin" />
 	<br />
-	<button type="button" class="btn">등록하기</button>
+	<button type="button" class="btn btn-info">등록하기</button>
 	</c:if>
 	</form>
 </div>

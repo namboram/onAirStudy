@@ -13,7 +13,8 @@
 		width:calc(100%-270px);
 		display:inline-block;
 		height:100%;
-		background-color:skyblue;
+		background-color:#e8f4ff;
+		padding:50px;
 	}
 	#memberTableB{
 		width:100%;
@@ -77,7 +78,7 @@
 
 		var value = "";
 	$(document).ready(function(){
-		$("#selectedWhere").change(function(){
+		$("#serchType").change(function(){
 			value = $(this).children("option:selected").val();
 			if(value=="blacklist"){
 				$("#hideB1").css("display", "none");
