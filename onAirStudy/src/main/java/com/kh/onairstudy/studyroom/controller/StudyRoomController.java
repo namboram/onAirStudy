@@ -121,15 +121,15 @@ public class StudyRoomController {
 	}
 
 	@RequestMapping("/studyroom/main.do")
-	public String main(Model model) {
+	public String main( @RequestParam("roomNum") int roomNum, Model model) {
 
-		int roomNum = 15;
+		log.debug("roomNum = {}", roomNum);
+		
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
-		model.addAttribute("roomInfo", roomInfo);
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
-		log.debug("roomInfo = {}", roomInfo);
+		model.addAttribute("roomInfo", roomInfo);
 		model.addAttribute("participants", participants);
 		model.addAttribute("applicants", applicants);
 
@@ -140,16 +140,32 @@ public class StudyRoomController {
 					method = RequestMethod.POST)
 	public String acceptMember(RedirectAttributes redirectAttr, 
 							  @RequestParam("id") String memberId,
-							  @RequestParam("roomNum") String roomNum) {
+							  @RequestParam("roomNum") int roomNum) {
 			
-		log.debug("memberId = {}", memberId);
-		log.debug("roomNum = {}", roomNum);
-//		int result = 0;
-//		String msg = (result > 0) ? memberId + "님이 식구가 되었습니다!" : memberId + "님 식구등록에 실패했습니다!";
-		redirectAttr.addFlashAttribute("msg", memberId+"님이 " + roomNum + "번 방의 식구가 됐습니다!");
+		String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
+		
+//		int count = studyRoomService.selectParticipatingRoomCnt(memberId);
+//		//select count(*) from sr_log where member_id = 'honggd' and status_log = '참여';
+//		int resultDelete = 0;
+//		int resultInsert = 0;
+//		
+//		if(count == 3) {
+//		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
+//		}else {
+//			resultDelete = studyRoomService.deleteWaiting(memberId, roomNum);
+//			//delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
+//			resultInsert = studyRoomService.insertStudyLog(memberId, roomNum);
+//			//insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
+//		}
+		
+		redirectAttr.addAttribute("roomNum"	, roomNum);
+		redirectAttr.addFlashAttribute("msg", msg);
 		
 		return "redirect:/studyroom/main.do";
 	}
+
+	
+
 
 	
 	@RequestMapping("/studyroom/exit")
