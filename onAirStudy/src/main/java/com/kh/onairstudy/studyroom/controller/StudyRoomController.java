@@ -120,5 +120,20 @@ public class StudyRoomController {
 
 	}
 
+	@RequestMapping("/studyroom/main.do")
+	public String main(Model model) {
 
+		Map<String, Object> map = new HashMap<>();
+		int roomNum = 15;
+		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
+		model.addAttribute("roomInfo", roomInfo);
+		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
+		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
+
+		log.debug("roomInfo = {}", roomInfo);
+		model.addAttribute("participants", participants);
+		model.addAttribute("applicants", applicants);
+
+		return "mypage2/mypage2";
+	}
 }
