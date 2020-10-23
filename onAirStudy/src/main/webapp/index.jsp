@@ -135,10 +135,8 @@
 	
 		<div class="container-sm-5 p-5">
 		<div class="row" id="srlistG">
+			
 			<c:forEach items="${ dm_List }" var="dm">
-			
-			
-			
 				<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
 					<div class="">
 					

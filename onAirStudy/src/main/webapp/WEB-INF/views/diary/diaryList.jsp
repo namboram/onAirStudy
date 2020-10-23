@@ -11,29 +11,31 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="diaryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="diaryModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">다이어리 기록</h5>
+        <h5 class="modal-title" id="diaryModalLabel">다이어리 기록</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-       	<form id="diaryEnrollFrm" method="post" 
-		  	 action="${pageContext.request.contextPath}/diary/diaryEnroll.do"
+       	<form id="diaryEnrollFrm" 
+       		  method="post" 
+       		  encytpe="multipart/form-data" 
+		  	  action="${pageContext.request.contextPath}/diary/diaryEnroll.do"
 		  	  onsubmit="return diaryValidate();">
 		  
 		  <div class="diary-form-group">
-		    <label for="formGroupExampleInput">제목</label>
+		    <label for="diaryModalTitle">제목</label>
 		    <input type="text" class="form-control" id="diary-title" placeholder="" required>
 		  </div>
 		  <div class="diary-form-group">
-		    <input type="file" class="form-control-file" id="diary-fileup">
+		    <input type="file" class="form-control-file" id="diary-fileup" name="upFile">
 		  </div>
 		  <div class="diary-form-group">
-		    <label for="exampleFormControlTextarea1">내용</label>
+		    <label for="diaryModalContent">내용</label>
 		    <textarea class="form-control" id="diary-content" rows="3" required></textarea>
 		  </div>	
 					
@@ -67,15 +69,8 @@
         <button class="btn btn-outline-diary-search" type="submit">검색</button>
         
         <!-- call model button -->
-	<%-- 	<c:choose>
-			<c:when test="${ session.memberId != null }" >
-			</c:when>
-			<c:otherwise>
-			
-			</c:otherwise>
-		</c:choose> --%>
-	        	<button class="btn btn-light" id="diary-addbtn" 
-	        		data-toggle="modal" data-target="#diaryModal" onclick="checkMember()">글쓰기</button>			
+	    <button class="btn btn-light" id="diary-addbtn" 
+	       		data-toggle="modal" data-target="#diaryModal" onclick="checkMember()">글쓰기</button>			
   	</div>
 		
     <br />
@@ -90,8 +85,8 @@
 	      <th>조회수</th>
 	    </tr>
 	    <c:forEach items="${ list }" var="diary">
-	    <tr>
-	      <td>${ diary.no }</td>
+	    <tr data-no="${ diary.no }">
+	      <td >${ diary.no }</td>
 	      <td><a></a>${ diary.diaryTitle }</td>
 	      <td>${ diary.memberId }</td>
 	      <td><fmt:formatDate value="${ diary.diaryDate }" pattern="yy/MM/dd"/></td>
@@ -134,13 +129,21 @@
 
 <!-- call diaryForm.jsp ! -->
 <script>
-/* 글쓰기모달로 글쓰기 완료하기*/
+/*  */
+$(function(){
+	$("tr[data-no]").click(function(){
+		var no = $(this).attr("data-no");
+		console.log(no);
+		location.href = "${ pageContext.request.contextPath }/diary/diaryDetail.do?no=" + no;
+		});	
+});
+/* 글쓰기모달_ 폼제출 및 유효성검사*/
 $(document).ready(function(){
 	$('#add-btn').click(function(){
 		var dTitle = $("#diary-title").val();
 		var dFileup = $("#diary-fileup").val(); 
 		var dContent = $("#diary-content").val(); 
-
+		
 		if(dTitle == ""){
 			alert("제목을 입력하세요!");
 			$("#diary-title").focus(); //입력포커스이동
@@ -152,7 +155,8 @@ $(document).ready(function(){
 			return;
 		}
 		//폼 내부의 데이터를 전송할 주소
-		document.diaryEnrollFrm.action = "${pageContext.request.contextPath}/diary/diaryDetail.do"
+		document.diaryEnrollFrm.action = "location.href='${ pageContext.request.contextPath }/diary/diaryDetail.do'"
+		
 		//폼제출
 		document.diaryEnrollFrm.submit();
 	});

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,12 +45,36 @@ public class SchedulerController {
 //		}
 		
 		mav.addObject("list", addList);
-		mav.setViewName("scheduler/scheduler");
+		
+		//방번호유무
+		String srNo = (String)session.getAttribute("srNo");
+		
+		if(srNo==null)
+			mav.setViewName("/mypage1/mypage1_scheduler");
+		else
+			mav.setViewName("/mypage2/mapage2_scheduler");
+			
 		
 		return mav;
 		
 		
 	}
+	
+	
+	@RequestMapping("/studyroom/scheduler.do")
+	public ModelAndView studyRoomScheduler(ModelAndView mav, HttpSession session) {
+
+		//내역가져오기
+		List<Scheduler> addList = makeScheduleArrays(session);
+		
+		mav.addObject("list", addList);
+		mav.setViewName("scheduler/studyroom-scheduler");
+		
+		return mav;
+	}
+	
+	
+	
 	
 	
 	public List<Scheduler> makeScheduleArrays(HttpSession session){
@@ -295,11 +322,7 @@ public class SchedulerController {
 	
 	
 	
-	
-	
-	
-	
-	
+
 	
 	
 }

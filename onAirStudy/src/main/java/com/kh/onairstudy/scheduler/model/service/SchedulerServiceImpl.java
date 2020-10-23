@@ -58,8 +58,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 	public int deleteTodo(Map<String, Object> map) {
 		return schedulerDAO.deleteTodo(map);
 	}
-	
-	
+
 	
 	
 }

@@ -26,6 +26,48 @@
 
 </select>
 
+<insert id="insertService">
+
+	insert into 
+		service 
+	values(
+	seq_service_no.nextval, 
+		#{category},  
+		default, 
+		#{serviceTitle}, 
+		#{serviceContent},
+		null, 
+		#{memberId}, 
+		default, 
+		default, 
+		default
+	)
+</insert>
+
+<!-- <select id="categoryServiceList" >
+		SELECT *
+
+		FROM service
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='serviceTitle' and keyword != null and keyword != '' ">
+				AND ServiceTitle like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='category' and keyword != null and keyword != '' ">
+				AND category like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType=='memberId' and keyword != null and keyword != '' ">
+				AND memberId like CONCAT('%', #{keyword}, '%')
+			</if>	
+		</trim>
+	
+	</select>  -->
+	
+	
+
+
+
+
+
 <resultMap type="map" id="serviceListMap">
 	
 	<result column="no" property="no"/>

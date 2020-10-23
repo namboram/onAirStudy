@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.message.model.service.MessageService;
@@ -64,7 +65,14 @@ public class MessageController {
 		map.put("memberId", member.getMemberId());
 		map.put("no", no);
 		Message message = messageService.selectMessageOne(map);
+		map.put("no", no+1);
+		Message message2 = messageService.selectMessageOne(map); 
+		if(message.getReadYN().equals("N") && message.getReceiverId().equals(member.getMemberId())) {
+			int result = messageService.updateRead(map);
+			log.info("result = {}",result);
+		}
 		model.addAttribute("message",message);
+		model.addAttribute("message2",message2);
 		return "message/messageDetail";
 	}
 	
@@ -81,5 +89,42 @@ public class MessageController {
 		map.put("type", type);
 		int result = messageService.deleteMessageList(map);
 		return result;
+	}
+	
+	@RequestMapping(value="/message/insertMessage.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int insertMessage(Message message) {
+		log.info("message={}",message);
+		int result=messageService.insertMessage(message);
+		return result;
+	}
+	
+	@RequestMapping(value="/message/searchMessage.do",method=RequestMethod.POST)
+	public String searchMessage(@RequestParam Map<String, String> param,Model model,HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		String type = param.get("type");
+		String type2="";
+		if(type.equals("수신함"))
+			type2="receive";
+		else if(type.equals("발신함"))
+			type2="send";
+		else 
+			type2="all";
+		log.info("type={}",type2);
+		String keyword = param.get("keyword");
+		String searchContent = param.get("searchContent");
+		//log.info("keyword={}",keyword);
+		//log.info("searchContent={}",searchContent);
+		Map<String,Object> map = new HashMap<>();
+		map.put("type", type2);
+		map.put("keyword", keyword);
+		map.put("searchContent", searchContent);
+		map.put("memberId", member.getMemberId());
+		List<Message> messageList = messageService.SearchMessageList(map);
+		model.addAttribute("title",type);
+		model.addAttribute("messageList",messageList);
+		
+		
+		return "message/messageList";
 	}
 }

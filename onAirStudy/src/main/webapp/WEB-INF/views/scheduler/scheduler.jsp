@@ -1,30 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
-    <!-- 커스텀 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
-    
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<!-- 커스텀 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/scheduler.css" />
+
 <!--컬러픽커-->
-<script src="${pageContext.request.contextPath }/resources/js/jquery.minicolors.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.minicolors.css">
+<script
+	src="${pageContext.request.contextPath }/resources/js/jquery.minicolors.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/jquery.minicolors.css">
 
 <!--데이트픽커-->
-<link href="${pageContext.request.contextPath }/resources/css/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
+<link
+	href="${pageContext.request.contextPath }/resources/css/datepicker.min.css"
+	rel="stylesheet" type="text/css" media="all">
 <!-- Air datepicker css -->
-<script src="${pageContext.request.contextPath }/resources/js/datepicker.js"></script> <!-- Air datepicker js -->
-<script src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+<script
+	src="${pageContext.request.contextPath }/resources/js/datepicker.js"></script>
+<!-- Air datepicker js -->
+<script
+	src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script>
+<!-- 달력 한글 추가를 위해 커스텀 -->
 
 <!-- 삭제나 업뎃했을때 -->
 <c:if test="${ not empty sche }">
-<script>
+	<script>
 	$(document).ready(function(){
 
 		$('#viewSchedule').modal("show");
@@ -37,10 +45,10 @@
 		
 		});
 </script>
-</c:if>  
- 
+</c:if>
+<!-- 투두 업뎃했을때 -->
 <c:if test="${ not empty todo }">
-<script>
+	<script>
 	$(document).ready(function(){
 
 		$('#viewTodoList').modal("show");
@@ -53,153 +61,143 @@
 		
 		});
 </script>
-</c:if>   
-  <div class='cal-divB col-lg-10 p-0'>
-        <div class="infoB">
-        </div>
-        <br/>
-        <table class="tableB table">
-        
-        </table>
-  </div>
+</c:if>
+<div class='cal-divB'>
+	<div class="infoB"></div>
+	<br />
+	<table class="tableB table">
 
-		<!-- 메뉴바  -->
-        <div class="dropdown-menu dropB"><p id="pXB">X</p>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="insertForm(this.value);" data-target="#iuschedule">일정 등록</button>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewSchedule(this.value);" data-target="#viewSchedule">일정 보기</button>
-            <button class="dropdown-item btn btn-primary" data-toggle="modal" onclick="viewTodoList(this.value);" data-target="#viewTodoList">To do List</button>
-          </div>
+	</table>
+</div>
 
-	<div id="containerBB">
-	
-          <!-- 일정등록 모달 -->
-          <div class="modal" id="iuschedule" tabindex="-1">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="titleB">일정 등록</h5>
-                  <button type="button" class="close" data-dismiss="modal" id="openB" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
+<!-- 메뉴바  -->
+<div class="dropdown-menu dropB">
+	<p id="pXB">X</p>
+	<button class="dropdown-item btn btn-primary" data-toggle="modal"
+		onclick="insertForm(this.value);" data-target="#iuschedule">일정
+		등록</button>
+	<button class="dropdown-item btn btn-primary" data-toggle="modal"
+		onclick="viewSchedule(this.value);" data-target="#viewSchedule">일정
+		보기</button>
+	<button class="dropdown-item btn btn-primary" data-toggle="modal"
+		onclick="viewTodoList(this.value);" data-target="#viewTodoList">To
+		do List</button>
+</div>
 
-                <!-- 등록하는 부분 -->
-                <div class="modal-body">
-                    <form id="iuscheduleFrm" method="post">
-                        
-						<h3 style="margin-right:180px;">날짜 입력</h3>
+<div id="containerBB">
+
+	<!-- 일정등록 모달 -->
+	<div class="modal" id="iuschedule" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="titleB">일정 등록</h5>
+					<button type="button" class="close" data-dismiss="modal" id="openB"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<!-- 등록하는 부분 -->
+				<div class="modal-body">
+					<form id="iuscheduleFrm" method="post">
+
+						<h3 style="margin-right: 180px;">날짜 입력</h3>
+						<br /> <input type="text" class="datepick delB" name="startDate">
+						~ <input type="text" class="datepick delB" name="endDate">
+						<br /> <br />
+
+						<h3 style="margin-right: 180px;">내용 입력</h3>
+						<br /> <input type="text" class="marginB delB" name="content"
+							style="width: 300px;" placeholder="내용 입력"> <br /> <br />
+
+						<label for="hidden-input">형광펜 색상 선택 : </label> <input
+							type="hidden" id="hidden-input" class="demo" name="colorCode">
+						<br /> <br /> <label for="timeOption">시간설정 : <select
+							class="makeSelB" name="timeOption" id="time1">
+								<option value="후다닥">다닥</option>
+						</select> <select class="makeSelB" name="timeOption" id="time2">
+								<option value="후다닥">다닥</option>
+						</select>
+						</label> <input type="hidden" name="timeOpt" val="" /> <br /> <br /> <input
+							type="checkbox" name="DYN" value=""> <label for="DYN">디데이
+							일정으로 등록하기</label> <input type="hidden" name="scheduleYN" value="Y" /> <br />
 						<br />
-                        <input type="text" class="datepick delB" name="startDate">  ~  
-                        <input type="text" class="datepick delB" name="endDate">
-                        <br/>
-                        <br/>
-						
-						<h3 style="margin-right:180px;">내용 입력</h3>
-						<br />
-                        <input type="text" class="marginB delB" name="content" style="width: 300px;" placeholder="내용 입력">
-                        <br/>
-                        <br/>
-                        
-                        <label for="hidden-input">형광펜 색상 선택 : </label>
-                        <input type="hidden" id="hidden-input" class="demo" name="colorCode">
-                        <br/>
-                        <br/>
 
-                        <label for="timeOption">시간설정 : 
-                        
-                        <select class="makeSelB" name="timeOption" id="time1">
-                        	<option value="후다닥">다닥</option>
-                        </select>
-                        	
-                        <select class="makeSelB" name="timeOption" id="time2">
-                        	<option value="후다닥">다닥</option>
-                        </select>
-                        </label>
-                        <input type="hidden" name="timeOpt" val="" />
-
-                        <br/>
-                        <br/>
-
-                        <input type="checkbox" name="DYN" value="">
-                        <label for="DYN">디데이 일정으로 등록하기</label>
-                        <input type="hidden" name="scheduleYN" value="Y" />
-
-                        <br/>
-                        <br/>
-
-                    </form>
-                </div>
-                <div class="modal-footer" id="footerB">
-                    <button type="button" id="subB" class="btn btn-primary">등록하기</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
-          
-          
-          <!-- 일정보기모달 -->
-          <div class="modal" id="viewSchedule" tabindex="0">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="theDateB">일정 보기</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-
-          		 <div class="modal-body" id="viewBody">
-					<table class="table" id="viewTable">
-						
-					</table>	
-                </div>
-                <div class="modal-footer" style="height:60px;">
-                
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-
-			<!-- To do list 모달창 -->
-          <div class="modal" id="viewTodoList" tabindex="0">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="todoDateB">2020년 10월 18일</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-				<h5>To do List</h5>
-				<form id="storeTodoFrm" method="POST">
-					<table class="table" id="todoTable">
-					
-					
-					</table>	
-					<table class="table" id="addTableTodo">
-					
-					
-					</table>	
-				</form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" onclick="deleteTodoBtn();" class="btn btn-danger">모두삭제</button>
-                    <button type="button" id="storeTodo" class="btn btn-primary">저장하기</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+					</form>
+				</div>
+				<div class="modal-footer" id="footerB">
+					<button type="button" id="subB" class="btn btn-primary">등록하기</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
-    
-    <script>
+
+
+
+	<!-- 일정보기모달 -->
+	<div class="modal" id="viewSchedule" tabindex="0">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="theDateB">일정 보기</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body" id="viewBody">
+					<table class="table" id="viewTable">
+
+					</table>
+				</div>
+				<div class="modal-footer" style="height: 60px;"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- To do list 모달창 -->
+	<div class="modal" id="viewTodoList" tabindex="0">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="todoDateB">2020년 10월 18일</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h5>To do List</h5>
+					<form id="storeTodoFrm" method="POST">
+						<table class="table" id="todoTable">
+
+
+						</table>
+						<table class="table" id="addTableTodo">
+
+
+						</table>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" onclick="deleteTodoBtn();"
+						class="btn btn-danger">모두삭제</button>
+					<button type="button" id="storeTodo" class="btn btn-primary">저장하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
 
     function deleteTodoBtn(){
 		var thisDate = $("#todoDateB").html();
@@ -874,7 +872,7 @@
                     var y = event.pageY;
 
 					//메뉴보여주기
-                    $(".dropB").css("display", "none").css("left", x).css("top", y+20).css("display", "block");
+                    $(".dropB").css("display", "none").css("left", x-220).css("top", y-80).css("display", "block");
 
 					//서브메뉴에 날짜값 넣어주기
 					$(".dropB").children().attr("value", e.id);
@@ -884,7 +882,3 @@
 
 		
         </script>
-        
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
-

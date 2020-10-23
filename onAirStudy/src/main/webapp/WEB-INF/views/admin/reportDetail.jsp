@@ -5,9 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<%-- <jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/> --%>
 <style>
 	#adDivB{
 		/* width:calc(100%-270px); */
@@ -16,13 +13,15 @@
 		background-color:skyblue;
 	}
 </style>
-<div id="adDivB col-lg-10">
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div class="row">
+	<div class="col-lg-2">
+		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
+	</div>
+	<div class = "col-lg-10">
 	
-	
-
-
-
-
+	</div>
 </div>
 
 
