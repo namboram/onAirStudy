@@ -1,13 +1,13 @@
 package com.kh.onairstudy.diary.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.diary.model.dao.DiaryDAO;
 import com.kh.onairstudy.diary.model.vo.Diary;
-import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -18,33 +18,15 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Autowired
 	private DiaryDAO diaryDAO;
-	
-	@Override
-	public List<Diary> selectDiaryList() {
-		return diaryDAO.selectDiaryList();
+
+	 @Override public List<Diary> selectDiaryList() { 
+		 return diaryDAO.selectDiaryList(); 
 	}
 
-	/*
-	@Override
-	public int insertDiary(Diary diary) {
-		int result =0;
-		result = diaryDAO.insertDiary(diary);
-		
-		//2. attachment insert
-			if(diary.getAttachList() != null) {
-					
-				for(DiaryAttachment attach : diary.getAttachList()) {
-					//생성된 boardNo값 대입하기
-					attach.setBoardNo(diary.getNo());
-					result = diaryDAO.insertAttachment(attach);
-				}	
-			}			
-		return result;
-	}
-	*/
-	@Override
-	public Diary selectOneDiaryCollection(int no) {
-		return diaryDAO.selectOneDiaryCollection(no);
-	}
+
+
+
+
+
 	
 }

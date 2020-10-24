@@ -1,26 +1,14 @@
 package com.kh.onairstudy.diary.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.diary.model.service.DiaryService;
 import com.kh.onairstudy.diary.model.vo.Diary;
-import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,29 +19,35 @@ public class DiaryController {
 
 	@Autowired
 	private DiaryService diaryService;
+
 	
 	@RequestMapping("/diaryList.do")
-	public String diary(Model model) {
-		log.debug("공부다이어리 인덱스 페이지 요청!");
-		List<Diary> list = null;
+	public ModelAndView diaryList(ModelAndView mav) {
+		//VO
+		List<Diary> list = diaryService.selectDiaryList();
 		
-		try {
-			list = diaryService.selectDiaryList();
-			model.addAttribute("list", list);
-		} catch(Exception e) {
-			log.error("공부다이어리 목록 조회 오류", e);
-			//예외페이지 이동을 위해 스프링 컨테이너에 예외 던짐.
-			throw e;
-		}
+		//Map	
+//		List<Map<String, Object>> list = diaryService.selectDiaryMapList();
 		
 		log.debug("list = {}", list);
+		mav.addObject("list", list);
 		
-		 
-		return "diary/diaryList";
+		mav.setViewName("diary/diaryList");
+		return mav;
 	}
+	/*
+	@GetMapping("/diary/diarySearch")
+	public String search(@RequestParam(value="keyword") String keyword, Model model) {
+		
+		List<DiaryDto> diarySList = diaryService.searchPosts(keyword);
+		
+		model.addAttribute("diaryList", diarySList);
+		
+		return "diary/diarylist";
+	}
+*/
 	
-
-
+	
 	/*
 	@RequestMapping(value = "/diaryEnroll.do",
 			method = RequestMethod.POST)

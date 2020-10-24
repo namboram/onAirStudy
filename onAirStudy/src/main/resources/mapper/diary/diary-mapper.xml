@@ -17,6 +17,7 @@
 		    diary D
 		order by 
 		    no desc
+ 	
  	</select>
  	
  	<resultMap type="map" id="diaryMap">
@@ -28,70 +29,7 @@
  		<result column="diary_date" property="diaryDate"/>
  		<result column="file_count" property="fileCount"/>
  	</resultMap>
- 	
-<!--  	<select id="selectDiaryList" resultType="diary">
-	 	select
-		   D.*,
-		   (select
-		        count(*)
-		    from 
-		        diary_attachment
-		    where
-		        diary_no = D.no) file_count
-		from
-		    diary D
-		order by 
-		    no desc
- 	</select> -->
-<!--  	
- 	<insert id="insertDiary">
- 		insert into
- 			diary
- 		values(
- 			seq_diary_no.nextval,
- 			#{ diaryTitle },
- 			#{ memberId },
- 			default,
- 			#{ diaryCotent },
+ 
 
- 		)
- 	</insert>
- 	
- 		<select id="selectOneDiaryCollection" resultMap="diaryCollectionMap">
-  		select
-		    D.*,
-		    A.no as "attach_no",
-		    A.diary_no,
-		    A.original_filename,
-		    A.renamed_filename,
-		    A.upload_date,
-		    A.download_count
-		from 
-		    diary D
-		        left join attachment A
-		            on D.no = A.diary_no
-		where
-		    D.no = #{ no }
-  	</select>
-  	
-  	collection을 사용하는 resultMap은 id/result태그를 생략할 수 없다.
-  	<resultMap type="diary" id="diaryCollectionMap">
-  		<id column="no" property="no"/>
-  		<result column="title" property="title"/>
-  		<result column="member_id" property="memberId"/>
-  		<result column="content" property="content"/>
-  		<result column="reg_date" property="regDate"/>
-  		<result column="read_count" property="readCount"/>
-  		
-  		<collection property="attachList" ofType="attachment">
-  			<id column="attach_no" property="no"/>
-  			<result column="board_no" property="boardNo"/>
-  			<result column="original_filename" property="originalFilename"/>
-  			<result column="renamed_filename" property="renamedFilename"/>
-  			<result column="upload_date" property="uploadDate"/>
-  			<result column="download_count" property="downloadCount"/>
-  			
-  		</collection>
-  	</resultMap> -->
  	
 </mapper>
