@@ -16,7 +16,7 @@
 			action="${ pageContext.request.contextPath }/studyroom/searchStudyroom.do"
 			id="searchRoom" method="POST">
 			<div class="row">
-				<input type="text" class="form-control col-sm-6"
+				<input type="text" class="searchFrm form-control col-sm-6"
 					name="searchKeyword" value="${ param.searchKeyword }"
 					placeholder="어떤 스터디 그룹을 찾으시나요?" required />
 
