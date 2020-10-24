@@ -36,11 +36,12 @@
   		
   	</resultMap>
   	
- <delete id="deleteInvitation">
+ <delete id="deleteInvitation" parameterType="int">
   delete from 
-  	invitation
-  where
-   sr_no = #{srNo}
+  	invitation 
+    where 	
+    no = #{no}
+ 
  </delete>
  
  <update id="updateInvitation">

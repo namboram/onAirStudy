@@ -26,6 +26,7 @@ public class StudyRoom implements Serializable{
 	private int forcedExitOpt;
 	private char forcedExitYN;
 	
+	private int category;
 	private String sCategory;
 	private String memberId;
 	private String status;

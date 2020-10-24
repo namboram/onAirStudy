@@ -1,6 +1,7 @@
 package com.kh.onairstudy.studyroom.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	@Override
 	public List<StudyRoom> selectMystudyList() {		
 		return studyRoomDAO.selectMystudyList();
+	}
+	
+	@Override
+	public int insertWating(StudyRoomWaiting srWating) {
+		return studyRoomDAO.insertWating(srWating);
 	}
 
 	@Override
@@ -68,6 +74,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		
 		return result;
 	}
+	
+	@Override
+	public List<Map<String, Object>> searchRoom(Map<String, String> param) {
+		return studyRoomDAO.searchRoom(param);
+	}
+	
 //성실스터디방 List
 	@Override
 	public List<StudyRoomList> selectDiligentStudyroom() {
@@ -88,7 +100,32 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public StudyRoomInfo selectRoomInfo(int roomNum) {
 		return studyRoomDAO.selectRoomInfo(roomNum);
 	}
-	
+
+	@Override
+	public int insertWish(StudyRoomWish srWish) {
+		return studyRoomDAO.insertWish(srWish);
+	}
+
+	@Override
+	public int selectParticipatingRoomCnt(String memberId) {
+		return studyRoomDAO.selectParticipatingRoomCnt(memberId);
+	}
+
+	@Override
+	public int deleteWaiting(Map<String, Object> param) {
+		return studyRoomDAO.deleteWaiting(param);
+	}
+
+	@Override
+	public int insertStudyLog(Map<String, Object> param) {
+		return studyRoomDAO.insertStudyLog(param);
+	}
+
+
+
+
+
+
 	
 	
 }

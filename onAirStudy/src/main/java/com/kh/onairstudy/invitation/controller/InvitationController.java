@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,9 +42,10 @@ public class InvitationController {
 	}
 
 	@RequestMapping(value = "mypage1/deleteInvitation.do", method = RequestMethod.POST)
-	public String deleteInvitation(Invitation invi, 
+	public String deleteInvitation(Invitation invi,
 									RedirectAttributes redirectAttr) {
-		
+	
+			
 		int result = invitationService.deleteInvitation(invi.getNo());
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "초대를 거부 하였습니다." : "오류가 발생하였습니다.");
@@ -52,21 +55,14 @@ public class InvitationController {
 	@RequestMapping(value = "mypage1/updateInvitation.do", method = RequestMethod.POST)
 	public String updateInvitation(Invitation invi, 
 									RedirectAttributes redirectAttr,HttpSession session) {
-		Member member = (Member)session.getAttribute("loginMember");
-		invi.setInvitedId(member.getMemberId());
-	
+//		Member member = (Member)session.getAttribute("loginMember");
+		List<StudyRoomLog> logList = new ArrayList<>();
 		
-		List<StudyRoomLog> sLogList = new ArrayList<>();
+		StudyRoomLog srLog = new StudyRoomLog();
+		srLog.setMemberId(invi.getInvitedId());
+		logList.add(srLog);
 		
-		for(StudyRoomLog sList : sLogList) {
-			sList.setNo(invi.getNo());
-			sList.setMemberId(invi.getInvitedId());
-//			sLogList.add(sList);
-		}
-				
-		log.debug("sLogList = {}",sLogList);
-		invi.setSLog(sLogList);
-		
+		invi.setSLog(logList);
 		int result = invitationService.updateInvitation(invi);
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "초대를 수락 하였습니다." : "오류가 발생하였습니다.");

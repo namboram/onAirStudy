@@ -1,6 +1,7 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public int insertWating(StudyRoomWaiting srWating) {
+		return sqlSession.insert("studyroom.insertWating",srWating);
+	}
 
 	@Override
 	public List<StudyRoom> selectMystudyList() {
@@ -82,6 +88,32 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public StudyRoomInfo selectRoomInfo(int roomNum) {
 		return sqlSession.selectOne("studyroom.selectRoomInfo", roomNum);
 	}
+
+	@Override
+	public int insertWish(StudyRoomWish srWish) {
+		return sqlSession.insert("studyroom.insertWish", srWish);
+	}
+
+	@Override
+	public List<Map<String, Object>> searchRoom(Map<String, String> param) {
+		return sqlSession.selectList("studyroom.searchRoom", param);
+	}
+
+	@Override
+	public int selectParticipatingRoomCnt(String memberId) {
+		return sqlSession.selectOne("studyroom.selectParticipatingRoomCnt", memberId);
+	}
+
+	@Override
+	public int deleteWaiting(Map<String, Object> param) {
+		return sqlSession.delete("studyroom.deleteWaiting", param);
+	}
+
+	@Override
+	public int insertStudyLog(Map<String, Object> param) {
+		return sqlSession.insert("studyroom.insertStudyLog", param);
+	}
+
 
 	
 	

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.common.Utils;
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -36,12 +39,64 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
-@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
+//@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
 public class StudyRoomController {
 
 	@Autowired
 	private StudyRoomService studyRoomService;
 
+	//메인 페이지 스터디룸 리스트
+	@RequestMapping("/studyroom/studyroomlist.do")
+	public ModelAndView studyroomlist(ModelAndView mav) {
+		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
+		mav.addObject("sCategory", sCategory);
+	
+		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
+		mav.addObject("srList", srList);
+
+		mav.setViewName("studyroom/studyRoomList");
+		return mav;
+	}	
+	
+	//방신청
+	@RequestMapping("/studyroom/applystudyroom.do")
+	public String applyS(StudyRoomWaiting srWating,
+						RedirectAttributes redirectAttr) {
+		
+		int result = studyRoomService.insertWating(srWating);
+		redirectAttr.addFlashAttribute("msg", result>0 ? "신청을 완료 하였습니다." : "오류가 발생하였습니다.");
+		return "redirect:/studyroom/studyroomlist.do";
+	}
+	
+	//찜
+	@RequestMapping("/studyroom/favStudyroom.do")
+	public String favR(StudyRoomWish srWish,
+						RedirectAttributes redirectAttr) {
+		
+		int result = studyRoomService.insertWish(srWish);
+		redirectAttr.addFlashAttribute("msg", result>0 ? "신청을 완료 하였습니다." : "오류가 발생하였습니다.");
+		return "redirect:/studyroom/studyroomlist.do";
+	}
+	
+	//찾기
+	@RequestMapping(value = "/studyroom/searchStudyroom.do", method = RequestMethod.POST)
+	public String searchRoom(HttpServletRequest request, HttpServletResponse response) {
+		//1. 사용자입력값
+				String searchKeyword = request.getParameter("searchKeyword");
+				
+				Map<String, String> param = new HashMap<>();
+				param.put("searchKeyword", searchKeyword);
+				
+				System.out.println("param@controller = " + param);
+				
+				//2. 업무로직
+				List<Map<String, Object>> list = null;
+				
+				list = studyRoomService.searchRoom(param);
+				return "redirect:/studyroom/studyroomlist.do";
+				
+	}
+	//마이페이지 스터디 방 리스트 3개
 	@RequestMapping("/mypage1/mystudylist.do")
 	public ModelAndView mystudylist(ModelAndView mav) {
 
@@ -61,18 +116,7 @@ public class StudyRoomController {
 		return mav;
 	}
 
-	@RequestMapping("/studyroom/studyroomlist.do")
-	public ModelAndView studyroomlist(ModelAndView mav) {
-		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
-		mav.addObject("sCategory", sCategory);
-
-		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
-		mav.addObject("srList", srList);
-
-		mav.setViewName("studyroom/studyRoomList");
-		return mav;
-	}
-
+	//스터디방 생성
 	@RequestMapping("mypage1/newstudy.do")
 	public void newstudy(Model model) {
 		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
@@ -145,18 +189,25 @@ public class StudyRoomController {
 		String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
 		
 //		int count = studyRoomService.selectParticipatingRoomCnt(memberId);
-//		//select count(*) from sr_log where member_id = 'honggd' and status_log = '참여';
-//		int resultDelete = 0;
-//		int resultInsert = 0;
-//		
-//		if(count == 3) {
-//		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
-//		}else {
-//			resultDelete = studyRoomService.deleteWaiting(memberId, roomNum);
-//			//delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
-//			resultInsert = studyRoomService.insertStudyLog(memberId, roomNum);
-//			//insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
-//		}
+		//select count(*) from sr_log where member_id = 'honggd' and status_log = '참여';
+		int count = 0;
+		int resultDelete = 0;
+		int resultInsert = 0;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("memberId", memberId);
+		param.put("roomNum", roomNum);
+		
+		if(count == 3) {
+		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
+		}else {
+			resultDelete = 1;
+//			resultDelete = studyRoomService.deleteWaiting(param);
+//			delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
+			resultInsert = 1;
+//			resultInsert = studyRoomService.insertStudyLog(param);
+//			insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
+		}
 		
 		redirectAttr.addAttribute("roomNum"	, roomNum);
 		redirectAttr.addFlashAttribute("msg", msg);
@@ -164,15 +215,4 @@ public class StudyRoomController {
 		return "redirect:/studyroom/main.do";
 	}
 
-	
-
-
-	
-	@RequestMapping("/studyroom/exit")
-	public String exitRoom() {
-		
-//		방 정보 세션 날리기
-		return "redirect:/";
-		//return "redirect:/mypage1/mypage1_index.do";
-	}
 }

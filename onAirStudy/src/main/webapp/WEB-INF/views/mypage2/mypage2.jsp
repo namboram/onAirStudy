@@ -115,7 +115,7 @@ function closePopup() {
 
 function exitRoom() {
 	if(confirm("방을 나가시겠습니까?") == true){
-		location.href = "${pageContext.request.contextPath}/studyroom/exit.do";
+		location.href = "${pageContext.request.contextPath}/mypage1/mypage1_index.do";
 	}
 }
 
