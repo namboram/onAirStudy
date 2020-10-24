@@ -5,13 +5,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-	crossorigin="anonymous">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/mystudygruop.css">
-
 
 
 <div class="invitation" style="margin-bottom: 0;">
@@ -138,8 +134,8 @@
 </div>
 
 <script>
-function studyEntry(srNo){
-	location.href = "${ pageContext.request.contextPath }/attend/mypage2.do?no=" + srNo;
+function studyEntry(roomNum){
+	location.href = "${ pageContext.request.contextPath}/studyroom/main.do?roomNum=" + roomNum;
 }
 </script>
 

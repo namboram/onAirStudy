@@ -9,10 +9,13 @@ public interface InvitationDAO {
 
 	List<Invitation> selectInvitationList();
 	
-	int deleteInvitation(int no);
-
 	int updateInvitation(Invitation invi);
 
 	int insertStudyRoomLog(StudyRoomLog sLog);
+
+	int deleteInvitation(int no);
+
+//	int updateInvitation(int no);
+
 
 }

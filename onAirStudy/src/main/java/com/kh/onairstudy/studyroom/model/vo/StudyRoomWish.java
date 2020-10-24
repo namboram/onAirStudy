@@ -18,7 +18,7 @@ public class StudyRoomWish implements Serializable{
 	
 	private int no;
 	private String memberId;
-	private int sr_no;
+	private int srNo;
 	private String wTitle;
 	private String wComment;
 	
