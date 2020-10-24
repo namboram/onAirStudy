@@ -59,7 +59,7 @@
 						<td>${ r.no }</td>
 						<td>${ r.category }</td>
 						<c:if test="${ r.CONTENT_CATEGORY ==  'R' }">
-							<td><a href="${ pageContext.request.contextPath }/admin/roomDetail.do?no=${ r.CONTENT_ID }">방신고</a></td>
+							<td><a href="${ pageContext.request.contextPath }/admin/studyDetail.do?no=${ r.CONTENT_ID }">방신고</a></td>
 						</c:if>
 						<c:if test="${ r.CONTENT_CATEGORY ==  'C' }">
 							<td><a href="#" onclick="showModal('${r.CONTENT_CATEGORY}', ${ r.no });">채팅</a></td>

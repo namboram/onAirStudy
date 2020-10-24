@@ -40,23 +40,23 @@ public class AdminController {
 	@RequestMapping("/admin/memberList.do")
 	public ModelAndView adminMemberList(ModelAndView mav,
 										@RequestParam(value="searchType",
-														required=false)String searchType,
+										required=false)String searchType,
 										@RequestParam(value="searchContent",
 										required=false)String searchKeyword) {
 		
 		Map<String, Object> search = new HashMap<>();
 		
-		System.out.println("ss="+searchKeyword);
+		log.debug("ss={}", searchKeyword);
 		
 		if(searchType!=null && searchKeyword !=null) {
 			search.put("searchType", searchType);
 			search.put("searchKeyword", searchKeyword);
 		}
 
-		System.out.println("search="+search);
+		log.debug("search={}", search);
 		
 		List<Member> list = adminService.memberList(search);
-		System.out.println("list="+list);
+		log.debug("list={}", list);
 		
 		mav.addObject("search", search);
 		mav.addObject("list", list);
@@ -67,10 +67,10 @@ public class AdminController {
 	@RequestMapping("/admin/memberDetail.do")
 	public ModelAndView memberDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
 		
-		System.out.println(memberId);
+		log.debug("memberId ={}", memberId);
 		
 		Map<String, Object> map = adminService.memberDetail(memberId);
-		System.out.println(map);
+		log.debug("map={}",map);
 		
 		mav.addObject("m", map);
 		
@@ -90,9 +90,9 @@ public class AdminController {
 			search.put("searchKeyword", searchKeyword);
 		}
 		
-		System.out.println("search = "+search);
+		log.debug("search = {}",search);
 		List<Map<String, Object>> map = adminService.serviceList(search);
-		System.out.println("map="+map);
+		log.debug("map={}",map);
 		
 		mav.addObject("search", search);
 		mav.addObject("list", map);
@@ -104,7 +104,7 @@ public class AdminController {
 	public ModelAndView serviceDetail(ModelAndView mav,
 									@RequestParam("no")int no) {
 		
-		System.out.println("no="+no);
+		log.debug("no={}",no);
 		
 		Map<String, Object> sv = adminService.serviceDetail(no);
 		Map<String, Object> av = adminService.serviceDetailAv(no);
@@ -120,16 +120,17 @@ public class AdminController {
 	public String insertService(ServiceCenter sc, 
 								RedirectAttributes redirectAttr, 
 								@RequestParam("replyNo") int replyNo) {
-		System.out.println("sc="+sc);
+		log.debug("sc={}",sc);
 		sc.setReply_no(replyNo);
 		
 		int result = adminService.insertService(sc);
 		if(result>0)
-			System.out.println("등록성공");
+			log.debug("등록성공");
 		else
-			System.out.println("등록실패");
+			log.debug("등록실패");
 		
 		result = adminService.updateService(replyNo);
+		
 		if(result>0)
 			redirectAttr.addFlashAttribute("msg", "답변 등록 성공!");
 		else
@@ -147,7 +148,7 @@ public class AdminController {
 		map.put("searchContent", searchContent);
 		
 		List<Map<String, Object>> list = adminService.reportList(map);
-		System.out.println("list = "+list);
+		log.debug("list = {}",list);
 		
 		mav.addObject("list", list);
 		mav.addObject("searchContent", searchContent);
@@ -169,6 +170,34 @@ public class AdminController {
 		cont = adminService.showModal(map);
 		
 		return cont;
+	}
+	
+	@RequestMapping("/admin/studyList.do")
+	public ModelAndView studyList(ModelAndView mav,
+								@RequestParam(value="searchType",
+								required=false)String searchType,
+								@RequestParam(value="searchContent",
+								required=false)String searchKeyword) {
+		
+		Map<String, Object> search = new HashMap<>();
+		
+		log.debug("ss={}", searchKeyword);
+		
+		if(searchType!=null && searchKeyword !=null) {
+			search.put("searchType", searchType);
+			search.put("searchKeyword", searchKeyword);
+		}
+
+		log.debug("search={}", search);
+		
+		List<Member> list = adminService.studyList(search);
+		log.debug("list={}", list);
+		
+		mav.addObject("search", search);
+		mav.addObject("list", list);
+		
+		
+		return mav;
 	}
 	
 	
