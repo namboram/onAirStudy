@@ -12,7 +12,7 @@ public interface AdminService {
 
 	Map<String, Object> memberDetail(String memberId);
 
-	List<Map<String, Object>> serviceList();
+	List<Map<String, Object>> serviceList(Map<String, Object> search);
 
 	Map<String, Object> serviceDetail(int no);
 

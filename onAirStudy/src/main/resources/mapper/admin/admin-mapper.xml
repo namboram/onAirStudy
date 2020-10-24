@@ -53,8 +53,21 @@ and withdraw_yn = 'N'
   	service_category C 
   on 
   	 S.category = C.no
-  	   where
+where
   	S.reply_no = 0
+
+<if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+ 	<if test="searchType == 'memberId'">
+		 and member_id like '%' || #{ searchKeyword } || '%'
+ 	</if>
+ 	<if test="searchType =='category'">
+		 and S.category = #{ searchKeyword }
+ 	</if>
+ 	<if test="searchType =='status'">
+		 and service_status = #{ searchKeyword }
+ 	</if>
+</if>
+
   order by
   	S.no desc
   </select>

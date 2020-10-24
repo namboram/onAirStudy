@@ -45,7 +45,7 @@
 				<option value="blacklist">블랙리스트 여부</option>
 			</select>
 			
-			<div id="hideB1">
+			<div id="hideB1" style="display:inline-block">
 			<input type="text"/>
 			<button type="button" onclick="gogo();">검색</button>
 			</div>
@@ -94,11 +94,11 @@
 			value = $(this).children("option:selected").val();
 			if(value=="blacklist"){
 				$("#hideB1").css("display", "none");
-				$("#hideB2").css("display", "block");
+				$("#hideB2").css("display", "inline-block");
 				return;
 			}
 				$("#hideB2").css("display", "none");
-				$("#hideB1").css("display", "block");
+				$("#hideB1").css("display", "inline-block");
 
 		});
 	});

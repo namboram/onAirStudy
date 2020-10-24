@@ -27,8 +27,8 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> serviceList() {
-		return sqlSession.selectList("admin.serviceList");
+	public List<Map<String, Object>> serviceList(Map<String, Object> search) {
+		return sqlSession.selectList("admin.serviceList", search);
 	}
 
 	@Override
