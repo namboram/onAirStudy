@@ -32,7 +32,7 @@ where
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
-			select
+		select
   		A.*,
   		(select category
          from sr_category
@@ -178,6 +178,8 @@ values(
 	seq_wish_no.nextval, #{memberId}, #{srNo})
 </insert>
 
+<!-- 방생성  -->
+
 <insert id="insertStudyRoom">
 
 insert into 
@@ -205,7 +207,7 @@ values(
 	#{srComment}, 0, 0, '-', '-', 0, 'N')
 	
 </insert>
-
+<!-- 생성   -->
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">

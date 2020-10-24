@@ -9,10 +9,10 @@
 <div class="col-lg ">
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <div class="row">
-<div class="col-lg-2 ">
+<div class="col-lg-2 p-0">
 <jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 </div>
-<div class="col-lg-10 p-0">
+<div class="col-lg-10 p-0.1">
 <jsp:include page="/WEB-INF/views/studyroom/studyRoom_form.jsp"></jsp:include>
 </div>
 </div>

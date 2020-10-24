@@ -2,6 +2,7 @@ package com.kh.onairstudy.studyroom.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class StudyRoomList implements Serializable{
 	private String sTitle;
 	private String srPic;
 	private String mPic;
+
 	
 
 }

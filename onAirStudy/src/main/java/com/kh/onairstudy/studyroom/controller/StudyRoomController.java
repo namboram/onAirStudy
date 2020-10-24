@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.common.Utils;
-import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -53,7 +51,7 @@ public class StudyRoomController {
 	
 		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
 		mav.addObject("srList", srList);
-
+		
 		mav.setViewName("studyroom/studyRoomList");
 		return mav;
 	}	
@@ -124,24 +122,28 @@ public class StudyRoomController {
 	public void newstudy(Model model) {
 		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
 		model.addAttribute("sCategory", sCategory);
+		
+	}
+	
+	@RequestMapping("mypage1/insrtStudyList.do")
+	public String insrtStudyList (StudyRoomList sList,HttpSession session) {	
+		StudyCategory sCate = (StudyCategory)session.getAttribute("roomInfo");
+		
+		int result = studyRoomService.insertStudyRoom(sList);
+		
+		return "redirect:/mypage1/newstudy.do";
 	}
 
 	@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
 	public String newstudyEnroll(StudyRoom studyroom,
-			@RequestParam(value = "upFile", required = false) MultipartFile[] upFiles, RedirectAttributes redirectAttr,
+			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
 			HttpServletRequest request) throws IllegalStateException, IOException {
+			
 
-		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
-		List<StudyRoom> studyList = studyRoomService.selectMystudyList();
-
-		List<ProfileAttachment> proList = new ArrayList<>();
-
-		String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
-
-		for (MultipartFile upFile : upFiles) {
-
-			if (upFile.isEmpty())
-				continue;
+			List<ProfileAttachment> proList = new ArrayList<>();
+		
+			String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
+			
 			// 1. 파일명 생성
 			String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
 			// 2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장 tranferTo.
@@ -151,19 +153,20 @@ public class StudyRoomController {
 			ProfileAttachment profile = new ProfileAttachment();
 			profile.setOriginalFilename(upFile.getOriginalFilename());
 			profile.setRenamedFilename(renamedFilename);
+			profile.setFilePath(saveDirectory);
 			proList.add(profile);
-
-		}
-		log.debug("proList = {}", proList);
-		studyroom.setProList(proList);
+			
+		
+			log.debug("proList = {}", proList);
+			studyroom.setProList(proList);
 
 		// studyroom. profile 객체 DB저장하기
 
-		int result = studyRoomService.insertStudyRoom(studyroom);
+			int result = studyRoomService.insertStudyRoom(studyroom);
 
-		redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
+			redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
 
-		return "redirect:/mypage1/mystudylist.do";
+			return "redirect:/mypage1/mystudylist.do";
 
 	}
 

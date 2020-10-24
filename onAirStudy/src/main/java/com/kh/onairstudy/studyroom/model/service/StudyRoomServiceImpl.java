@@ -54,25 +54,28 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyCategory> selectCategoryList() {
 		return studyRoomDAO.selectCategoryList();
 	}
-	
+//	방생성
 	@Override
 	public int insertStudyRoom(StudyRoom studyroom) {
 		
 		int result = 0;
-		StudyRoomList roomlist = new StudyRoomList();
-				
-		result = studyRoomDAO.insertStudyRoom(roomlist);
+		
 		result = studyRoomDAO.insertStudyRoomList(studyroom);
 		
 		if(studyroom.getProList() != null) {
 			for(ProfileAttachment profile : studyroom.getProList()) {
 				
-				profile.setNo(studyroom.getSrNo());
+				profile.setSrNo(studyroom.getSrNo());
 				result = studyRoomDAO.insertProfileAttachment(profile);
 			}
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public int insertStudyRoom(StudyRoomList sList) {
+		return studyRoomDAO.insertStudyRoom(sList);
 	}
 	
 //검색
@@ -128,6 +131,8 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public int insertStudyLog(Map<String, Object> param) {
 		return studyRoomDAO.insertStudyLog(param);
 	}
+
+
 
 	
 	

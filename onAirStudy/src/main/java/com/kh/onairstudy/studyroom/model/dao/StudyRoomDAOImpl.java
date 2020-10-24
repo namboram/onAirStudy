@@ -53,12 +53,7 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
-
-	@Override
-	public int insertStudyRoom(StudyRoomList roomlist) {
-		return sqlSession.insert("studyroom.insertStudyRoom", roomlist);
-	}
-
+//방생성
 	@Override
 	public int insertProfileAttachment(ProfileAttachment profile) {
 		return sqlSession.insert("studyroom.insertProfileAttachment", profile);
@@ -67,6 +62,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	@Override
 	public int insertStudyRoomList(StudyRoom studyroom) {
 		return sqlSession.insert("studyroom.insertStudyRoomList", studyroom);
+	}
+	
+	@Override
+	public int insertStudyRoom(StudyRoomList sList) {
+		return sqlSession.insert("studyroom.insertStudyRoom", sList);
 	}
 
 //검색
@@ -134,6 +134,8 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public int insertStudyLog(Map<String, Object> param) {
 		return sqlSession.insert("studyroom.insertStudyLog", param);
 	}
+
+
 	
 	
 }

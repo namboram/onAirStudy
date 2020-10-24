@@ -22,9 +22,16 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectStudyRoomList();
 
 	List<StudyCategory> selectCategoryList();
-
+//방생성
 	int insertStudyRoom(StudyRoom studyroom);
+	
+	int insertStudyRoom(StudyRoomList sList);
+//검색
+	List<StudyRoomList> listAll(String search_option, String keyword);
 
+	int countArticle(String search_option, String keyword);	
+	
+//
 	List<StudyRoomList> selectDiligentStudyroom();
 
 	List<StudyRoomLog> selectParticipantList(int roomNum);
@@ -43,10 +50,8 @@ public interface StudyRoomService {
 
 	int insertStudyLog(Map<String, Object> param);
 
-	//검색
-	List<StudyRoomList> listAll(String search_option, String keyword);
 
-	int countArticle(String search_option, String keyword);
+	
 
 
 }

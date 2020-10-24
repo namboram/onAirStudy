@@ -71,10 +71,8 @@
 						<form
 							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
 							id="favRoom" method="POST">
-							<input type="text" class="form-control" name="srNo"
-								value="${roomList.srNo }" hidden> <input type="text"
-								class="form-control" name="memberId"
-								value="${loginMember.memberId }" hidden>
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden>
 							<button type="submit" class="heartBtn">
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png">
@@ -200,5 +198,7 @@ $(':checkbox[name="srCategory"]').on({
 </script>
 
 
-
+<div class="col-lg p-0 m-0">
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>
 
