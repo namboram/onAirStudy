@@ -131,6 +131,20 @@ select
 		no != 100
 </select>
 
+<insert id="insertWating">
+insert 
+	into sr_waiting_list 
+values(
+	seq_waiting_no.nextval, #{memberId}, #{srNo})
+</insert>
+
+<insert id="insertWish">
+insert 
+	into sr_wish_list 
+values(
+	seq_wish_no.nextval, #{memberId}, #{srNo})
+</insert>
+
 <insert id="insertStudyRoom">
 
 insert into 
@@ -158,6 +172,15 @@ values(
 	#{srComment}, 0, 0, '-', '-', 0, 'N')
 	
 </insert>
+<!-- 찾기 -->
+<select id="searchRoom" resultType="map">
+		select
+			sr_title
+		from 
+			sr_info
+		where 
+			sr_title like '% #{ searchKeyword } %'
+</select>
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">
