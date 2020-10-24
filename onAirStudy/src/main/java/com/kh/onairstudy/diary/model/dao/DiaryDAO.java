@@ -10,4 +10,6 @@ public interface DiaryDAO {
 
 	int insertDiary(Diary diary);
 
+	Diary selectOneDiaryCollection(int no);
+
 }

@@ -26,4 +26,13 @@ public class DiaryDAOImpl implements DiaryDAO {
 	public int insertDiary(Diary diary) {
 		return sqlSession.insert("diary.insertDiary", diary);
 	}
+
+
+	@Override
+	public Diary selectOneDiaryCollection(int no) {
+		return sqlSession.selectOne("diary.selectOneDiaryCollection", no);
+	}
+	
+
+
 }
