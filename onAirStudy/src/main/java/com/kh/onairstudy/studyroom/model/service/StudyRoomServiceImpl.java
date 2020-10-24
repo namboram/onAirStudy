@@ -106,6 +106,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.insertWish(srWish);
 	}
 
+	@Override
+	public int selectParticipatingRoomCnt(String memberId) {
+		return studyRoomDAO.selectParticipatingRoomCnt(memberId);
+	}
+
+
 
 
 

@@ -39,4 +39,7 @@ public interface StudyRoomService {
 
 	List<Map<String, Object>> searchRoom(Map<String, String> param);
 
+	int selectParticipatingRoomCnt(String memberId);
+
+
 }

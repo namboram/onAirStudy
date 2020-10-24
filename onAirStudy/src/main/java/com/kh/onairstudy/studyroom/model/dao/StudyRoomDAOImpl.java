@@ -99,6 +99,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.searchRoom", param);
 	}
 
+	@Override
+	public int selectParticipatingRoomCnt(String memberId) {
+		return sqlSession.selectOne("studyroom.selectParticipatingRoomCnt", memberId);
+	}
+
 
 	
 	
