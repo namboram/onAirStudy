@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.admin.model.dao.AdminDAO;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.report.model.vo.Report;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 
 @Service
@@ -49,6 +50,19 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int updateService(int replyNo) {
 		return adminDAO.updateService(replyNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> reportList(Map<String, Object> map) {
+		return adminDAO.reportList(map);
+	}
+
+	@Override
+	public Map<String, Object> showModal(Map<String, Object> map) {
+		if(map.get("category").equals("C"))
+			return adminDAO.showModal1(map);
+		else
+			return adminDAO.showModal2(map);
 	}
 	
 	

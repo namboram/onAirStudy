@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -137,13 +138,40 @@ public class AdminController {
 		return "redirect:/service/serviceList.do";
 	}
 	
-	@RequestMapping("/admin/reportList.do")
-	public ModelAndView reportList(ModelAndView mav) {
+	@RequestMapping(value="/admin/reportList.do")
+	public ModelAndView reportList(ModelAndView mav,
+									@RequestParam(value="searchContent", required=false) String searchContent) {
 		
+		//mepper에서 if test문 작성하기 위해 map에 넣어서 전송
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchContent", searchContent);
 		
+		List<Map<String, Object>> list = adminService.reportList(map);
+		System.out.println("list = "+list);
 		
+		mav.addObject("list", list);
+		mav.addObject("searchContent", searchContent);
 		return mav;
 	}
+	
+	@RequestMapping("/admin/showModal.do")
+	@ResponseBody
+	public Map<String, Object> showModal(@RequestParam("category") String category,
+										@RequestParam("no") String no)
+										throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("category", category);
+		map.put("no", no);
+		
+		Map<String, Object> cont = new HashMap<>();
+		
+		cont = adminService.showModal(map);
+		
+		return cont;
+	}
+	
+	
 	
 	
 }

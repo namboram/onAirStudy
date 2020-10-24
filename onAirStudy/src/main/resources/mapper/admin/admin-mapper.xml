@@ -130,4 +130,68 @@ where
 where
 	no = #{ replyNo } 
  </update>
+ 
+ <select id="reportList" resultType="map" parameterType="string">
+ select
+ 	L.no as "no",
+ 	C.category as "category",
+ 	content_id,
+ 	content_category,
+ 	reporter,
+ 	reported_member,
+ 	reported_date,
+ 	vaild_yn
+ from
+ 	report_log L
+ join
+ 	report_category C
+ on
+ 	L.category = C.no
+ <if test=" searchContent != null">
+ where
+ 	reported_member like '%'||#{ searchContent }||'%'
+ </if>
+ order by
+ 	L.no desc
+ </select>
+ 
+ <select id="showModal1" resultType="map">
+ select 
+ 	no,
+ 	member_id,
+ 	sr_no,
+ 	chat_content,
+ 	to_char(send_date, 'yyyy-mm-dd') as "SEND_DATE"
+ from
+ 	chatting
+ where
+ 	no = #{ no }
+ </select>
+ 
+ <select id="showModal2" resultType="map">
+ select 
+ 	no,
+ 	sender_id,
+ 	receiver_id,
+ 	msg_content,
+ 	to_char(send_date, 'yyyy-mm-dd') as "SEND_DATE"
+ from
+ 	message
+ where
+ 	no = #{ no }
+ </select>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 </mapper>

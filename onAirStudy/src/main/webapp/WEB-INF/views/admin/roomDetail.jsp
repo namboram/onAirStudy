@@ -64,10 +64,10 @@
 					<th>신고내역</th>
 					<td>
 					<c:if test="${ m.report == 0 }">
-					<a href="#" onclick="alert('신고내역이 없습니다.')">${ m.report }</a> 회
+					${ m.report } 회
 					</c:if>
 					<c:if test="${ m.report > 0 }">
-					<a href="${ pageContext.request.contextPath }/admin/reportList.do?searchContent=${ m.MEMBER_ID }"> ${ m.report } </a> 회
+					<a href="${ pageContext.request.contextPath }/admin/report?mid=${ m.MEMBER_ID }"> ${ m.report } </a> 회
 					</c:if>
 					</td>
 				</tr>
