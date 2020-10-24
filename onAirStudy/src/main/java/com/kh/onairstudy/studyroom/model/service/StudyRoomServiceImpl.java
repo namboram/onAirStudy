@@ -75,10 +75,18 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return result;
 	}
 	
+//검색
 	@Override
-	public List<Map<String, Object>> searchRoom(Map<String, String> param) {
-		return studyRoomDAO.searchRoom(param);
+	public List<StudyRoomList> listAll(String search_option, String keyword) {
+		return studyRoomDAO.listAll(search_option,keyword);
 	}
+
+	@Override
+	public int countArticle(String search_option, String keyword) {
+		return studyRoomDAO.countArticle(search_option,keyword);
+	}
+
+	
 	
 //성실스터디방 List
 	@Override
@@ -120,11 +128,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public int insertStudyLog(Map<String, Object> param) {
 		return studyRoomDAO.insertStudyLog(param);
 	}
-
-
-
-
-
 
 	
 	

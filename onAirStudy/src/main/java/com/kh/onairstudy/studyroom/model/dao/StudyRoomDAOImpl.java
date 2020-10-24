@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,26 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.insert("studyroom.insertStudyRoomList", studyroom);
 	}
 
+//검색
+	@Override
+	public List<StudyRoomList> listAll(String search_option, String keyword) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("studyroom.listAll", map);
+	}
+
+
+	@Override
+	public int countArticle(String search_option, String keyword) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne("studyroom.countArticle", map);
+	}
+
+
+	
 //성실스터디방 List
 	@Override
 	public List<StudyRoomList> selectDiligentStudyroom() {
@@ -113,9 +134,6 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public int insertStudyLog(Map<String, Object> param) {
 		return sqlSession.insert("studyroom.insertStudyLog", param);
 	}
-
-
-	
 	
 	
 }

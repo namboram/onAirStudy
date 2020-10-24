@@ -12,17 +12,31 @@
 
 <div class="studyRoomList" style="margin-bottom: 0;">
 	<div class="col-lg-12 p-4 text-center">
+	
 		<form
 			action="${ pageContext.request.contextPath }/studyroom/searchStudyroom.do"
 			id="searchRoom" method="POST">
 			<div class="row">
+			
+			<select class="optionFrm" name="search_option ">
+			<option value="memberId"
+			<c:if test="${map.search_option == 'memberId'}">selected</c:if>
+  			 >그룹 리더</option>
+
+        	<option value="sr_title" 
+			<c:if test="${map.search_option == 'sr_title'}">selected</c:if>
+        	>제목</option>
+			
+			</select>
 				<input type="text" class="searchFrm form-control col-sm-6"
-					name="searchKeyword" value="${ param.searchKeyword }"
+					name="keyword" value="${ map.Keyword }"
 					placeholder="어떤 스터디 그룹을 찾으시나요?" required />
 
 				<button type="submit" class="btn btn-light btn-sm">검색</button>
 			</div>
 		</form>
+		
+		
 		<br>
 		<c:forEach items="${ sCategory }" var="sCategory">
 			<input type="checkbox" name="srCategory" id="srCategory"
@@ -30,12 +44,13 @@
 			<label for="srCategory">${ sCategory.category }</label>
 		</c:forEach>
 	</div>
-	<div class="container">
+	
+	
+	<div class="container" id="container">
 		<div class="row" id="srlistG">
 			<c:forEach items="${ srList }" var="roomList">
-
-
-				<div class="col-sm-3" id="srProfile">
+				<input type="hidden" name="category" vlaue="${roomList.category}" />
+				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 					<div class="sr_pic">
 						<img class="roomPic"
 							src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }">
@@ -66,13 +81,15 @@
 						<h5 id="searchT" class="text-center">${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
 						</h5>
 
-
+						<c:if test="${ roomList.srOpenedYN == 'Y'}">
 						<button type="button" class="btn btn-light btn-sm"
 							onclick="previewR('${ roomList.srNo }')">둘러보기</button>
 						<button type="button" class="btn btn-light btn-sm"
-							onclick="applyR('${ roomList.srNo }')">신청하기</button>
+							onclick="applyR('${ roomList.srNo }')">신청하기</button>	
 						<button type="button" class="btn btn-danger btn-sm"
-							onclick="reportR('${ roomList.srNo }')">신고하기</button>
+							onclick="reportR('${ roomList.srNo }')">신고하기</button>						
+						</c:if>
+						
 					</div>
 				</div>
 				<br />
@@ -80,6 +97,14 @@
 		</div>
 	</div>
 </div>
+
+<!-- <script>
+$(':checkbox[name="srCategory"]').on({
+    click: function(e) {
+        $('#srlistG').eq(':checkbox[name="srCategory"]').val();
+    }
+});
+</script> -->
 
 
 <!-- The Modal -->

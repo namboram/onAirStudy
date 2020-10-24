@@ -33,7 +33,10 @@ public interface StudyRoomDAO {
 	int insertStudyRoomList(StudyRoom studyroom);
 	
 	int insertWish(StudyRoomWish srWish);
-
+	//검색
+	List<StudyRoomList> listAll(String search_option, String keyword);
+	int countArticle(String search_option, String keyword);
+	
 	//
 	List<StudyRoomList> selectDiligentStudyroom();
 
@@ -50,6 +53,8 @@ public interface StudyRoomDAO {
 	int deleteWaiting(Map<String, Object> param);
 
 	int insertStudyLog(Map<String, Object> param);
+
+
 
 
 	

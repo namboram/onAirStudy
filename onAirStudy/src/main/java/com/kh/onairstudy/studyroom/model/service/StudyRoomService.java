@@ -37,13 +37,16 @@ public interface StudyRoomService {
 
 	int insertWish(StudyRoomWish srWish);
 
-	List<Map<String, Object>> searchRoom(Map<String, String> param);
-
 	int selectParticipatingRoomCnt(String memberId);
 
 	int deleteWaiting(Map<String, Object> param);
 
 	int insertStudyLog(Map<String, Object> param);
+
+	//검색
+	List<StudyRoomList> listAll(String search_option, String keyword);
+
+	int countArticle(String search_option, String keyword);
 
 
 }

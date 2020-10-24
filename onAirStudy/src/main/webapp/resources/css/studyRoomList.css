@@ -10,8 +10,13 @@
     }
 
 .col-lg-12 .searchFrm{
-	margin-left:25%;
+	margin-left:2%;
 }
+
+.col-lg-12 .optionFrm{
+	margin-left:19%;
+}
+
 
 #srlistG #srProfile{
 	background-color: fff; 
