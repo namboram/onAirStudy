@@ -6,19 +6,36 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 <style>
-	#adDivB{
-		/* width:calc(100%-270px); */
+	.tableB{
+		background-color:white;
+		border:2px solid #b0d9ff;
+		padding:50px;
+	}
+	.adDivB{
 		display:inline-block;
-		height:100%;
-		background-color:skyblue;
+		background-color:#e8f4ff;
 		padding:100px;
+		text-align:center;
+	}
+	.adDivB h3{
+		text-align:left;
+		margin-bottom:50px;
+	}
+	.adDivB button{
+		text-align:right;
+		margin-top:50px;
 	}
 	#contdB{
+		text-align:center;
+		padding-top:50px;
 		height: 300px;
 	}
-	#answerB{
-		width:80%;
+	[name=serviceContent]{
+		width:100%;
 		height:300px;
+		text-align:center;
+		padding:50px;
+		border:2px solid #b0d9ff;
 	}
 </style>
 
@@ -27,9 +44,9 @@
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
-	<div class="col-lg-10">
+	<div class="col-lg-10 adDivB">
 		<h3>문의 상세보기</h3>
-		<table class="table">
+		<table class="table tableB">
 			<tr>
 				<th>번호</th>
 				<td>${ sv.NO }</td>
@@ -66,6 +83,7 @@
 		</c:if>
 		</form>
 	</div>
+>>>>>>> branch 'master' of https://github.com/ekfhdwld/onAirStudy.git
 </div>
 <script>
 	$(document).ready(function(){

@@ -101,6 +101,8 @@
 				<!-- 등록하는 부분 -->
 				<div class="modal-body">
 					<form id="iuscheduleFrm" method="post">
+					
+						<input type="hidden" name="memberId" value="${ loginMember.memberId }" />
 
 						<h3 style="margin-right: 180px;">날짜 입력</h3>
 						<br /> <input type="text" class="datepick delB" name="startDate">
@@ -198,6 +200,19 @@
 
 
 <script>
+
+	var srNo = "${ roonInfo.srNo }";
+
+	//방번호 유무에 따라 히든태그 생성
+	$(document).ready(function(){
+		if(srNo != ""){
+			var inputH = $("#iuscheduleFrm").createElement("input");
+				inputH.setAttribute("type", "hidden");
+				inputH.setAttribute("name", "srNo");
+				inputH.setAttribute("value", srNo);
+			}
+		});
+	
 
     function deleteTodoBtn(){
 		var thisDate = $("#todoDateB").html();

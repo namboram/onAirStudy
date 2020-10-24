@@ -6,11 +6,15 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 <style>
-	#adDivB{
-		width:calc(100%-270px);
+	.adDivB{
 		display:inline-block;
-		height:100%;
-		background-color:skyblue;
+		background-color:#e8f4ff;
+		padding:100px;
+		text-align:center;
+	}
+	.adDivB h3{
+		text-align:left;
+		margin-bottom:50px;
 	}
 	#memberTableB{
 		width:100%;
@@ -18,6 +22,14 @@
 	}
 	#memberTableB td{
 		width:150px;
+	}
+	.tableB{
+		background-color:white;
+		border:2px solid #b0d9ff;
+		padding:50px;
+	}
+	#searchTypeB{
+		width:200px;
 	}
 </style>
 
@@ -27,29 +39,30 @@
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-	<div class="col-lg-10">
+	<div class="col-lg-10 adDivB">
 		
 		<div style="margin:50px;">
-		<form id="memberListFrm" method="post">
-			<select name="serchType" id="serchType">
+		<form id="memberListFrm" action="${ pageContext.request.contextPath }/admin/memberList.do" method="post">
+			<select class="custom-select" name="searchType" id="searchTypeB">
 				<option value="memberId">아이디</option>
 				<option value="blacklist">블랙리스트 여부</option>
 			</select>
 			
-			<div id="hideB1">
-			<input type="text"/>
-			<button type="submit" onclick="gogo();">검색</button>
+			<div id="hide1B" style="display:inline-block">
+				<input type="text" name="searchContent"/>
+				<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
 			</div>
-			<div id="hideB2" style="display:none;">
-			<input type="radio" name="seatchContent"/>
-			<label for="Y">Y</label>
-			<input type="radio" name="seatchContent"/>
-			<label for="N">N</label>
+			<div id="hide2B" style="display:none;">
+				<select class="custom-select" name="searchContent">
+				<option value="none" selected disabled>선택</option>
+				<option value="Y">Y</option>
+				<option value="N">N</option>
+				</select>
 			</div>
 		</form>
 		</div>
 	
-	<table class="table" id="memberTableB">
+	<table class="table tableB">
 		
 		<tr>
 		<th>회원 아이디</th>
@@ -71,6 +84,19 @@
 		
 	</table>
 	
+	<nav aria-label="Page navigation example" style="display:inline-block;">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
+		</nav>
 	
 	</div>
 </div>
@@ -81,23 +107,47 @@
 
 		var value = "";
 	$(document).ready(function(){
-		$("#selectedWhere").change(function(){
+		$("#searchTypeB").change(function(){
 			value = $(this).children("option:selected").val();
 			if(value=="blacklist"){
-				$("#hideB1").css("display", "none");
-				$("#hideB2").css("display", "block");
-				return;
+				$("#hide1B").css("display", "none");
+				$("#hide2B").css("display", "inline-block");
 			}
-				$("#hideB2").css("display", "none");
-				$("#hideB1").css("display", "block");
+				$("#hide2B").css("display", "none");
+				$("#hide1B").css("display", "inline-block");
 
 		});
 	});
 
-	function gogo(){
-		
+	function searchNow(){
+		$("#memberListFrm").submit();
 
 	}
+
+	$(document).ready(function(){
+		$("#hide2B select").change(function(){
+			$("[name=searchContent]").val($("#hide2B option:selected").val());
+			searchNow();
+		});
+	});
+	
+
+    var searchType = "<c:out value="${search['searchType']}"/>";
+	var searchContent = "<c:out value="${search['searchKeyword']}"/>";
+
+//검색유지
+$(document).ready(function(){
+	if(searchType != "" && searchContent != ""){
+		if(searchType == 'memberId'){
+			$("#hide1B input").val(searchContent);
+		}else if( searchType == 'blacklist'){
+			$("#hide1B").css("display", "none");
+			$("#hide2B").css("display", "inline-block");
+			$('#hide2B [name=searchContent] option:eq('+searchContent+')').prop('selected', true);
+	}
+		$('[name=searchType]').val(searchType).prop('selected', true);
+	}
+	});
 	
 
 </script>
