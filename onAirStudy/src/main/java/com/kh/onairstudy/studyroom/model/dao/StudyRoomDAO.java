@@ -45,6 +45,12 @@ public interface StudyRoomDAO {
 
 	List<Map<String, Object>> searchRoom(Map<String, String> param);
 
+	int selectParticipatingRoomCnt(String memberId);
+
+	int deleteWaiting(Map<String, Object> param);
+
+	int insertStudyLog(Map<String, Object> param);
+
 
 	
 

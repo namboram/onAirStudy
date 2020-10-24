@@ -134,8 +134,8 @@
 </div>
 
 <script>
-function studyEntry(srNo){
-	location.href = "${ pageContext.request.contextPath}/studyroom/main.do?no=" + srNo;
+function studyEntry(roomNum){
+	location.href = "${ pageContext.request.contextPath}/studyroom/main.do?roomNum=" + roomNum;
 }
 </script>
 
