@@ -12,7 +12,14 @@ from(select rownum rnum,
     )
 where 
 rnum between 1 and 10
-
+<if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+ 	<if test="searchType == 'memberId'">
+		 and member_id like '%' || #{ searchKeyword } || '%'
+ 	</if>
+ 	<if test="searchType =='blacklist'">
+		 and blacklist_yn = #{ searchKeyword }
+ 	</if>
+</if>
  </select>
  
  <resultMap type="member" id="memberMap">

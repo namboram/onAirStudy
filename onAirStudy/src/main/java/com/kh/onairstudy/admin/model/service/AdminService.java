@@ -8,7 +8,7 @@ import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 
 public interface AdminService {
 
-	List<Member> memberList();
+	List<Member> memberList(Map<String, Object> search);
 
 	Map<String, Object> memberDetail(String memberId);
 

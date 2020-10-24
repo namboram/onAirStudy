@@ -38,16 +38,26 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberList.do")
 	public ModelAndView adminMemberList(ModelAndView mav,
-										@RequestParam(value="selectedWhere",
-														required=false)String w,
-										@RequestParam(value="selectedContent",
-										required=false)String c) {
+										@RequestParam(value="searchType",
+														required=false)String searchType,
+										@RequestParam(value="searchContent",
+										required=false)String searchKeyword) {
 		
-		System.out.println("흠냐뤼ㅏ"+w);
-		System.out.println("흠냐뤼ㅏ"+c);
-		List<Member> list = adminService.memberList();
+		Map<String, Object> search = new HashMap<>();
+		
+		System.out.println("ss="+searchKeyword);
+		
+		if(searchType!=null && searchKeyword !=null) {
+			search.put("searchType", searchType);
+			search.put("searchKeyword", searchKeyword);
+		}
+
+		System.out.println("search="+search);
+		
+		List<Member> list = adminService.memberList(search);
 		System.out.println("list="+list);
 		
+		mav.addObject("search", search);
 		mav.addObject("list", list);
 		
 		return mav;

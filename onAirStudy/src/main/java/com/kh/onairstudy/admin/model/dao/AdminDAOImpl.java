@@ -17,8 +17,8 @@ public class AdminDAOImpl implements AdminDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Member> memberLis() {
-		return sqlSession.selectList("admin.memberList");
+	public List<Member> memberLis(Map<String, Object> search) {
+		return sqlSession.selectList("admin.memberList", search);
 	}
 
 	@Override

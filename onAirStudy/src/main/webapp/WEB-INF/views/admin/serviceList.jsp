@@ -49,7 +49,7 @@
 			</select>
 		</div>
 		<div id="hide3B" style="display:none;">
-			<input type="radio"name="searchContent" value="답변대기" />답변대기
+			<input type="radio" name="searchContent" value="답변대기" />답변대기
 			<input type="radio" name="searchContent" value="답변완료"/>답변완료
 		</div>
 		</form>
@@ -94,16 +94,6 @@
 			</ul>
 		</nav>
 
-		<c:if test="${ not empty search }">
-		<c:forEach items="${ search }" var="s">
-	
-		${ s.searchType }
-		${ s.searchContent }
-		</c:forEach>
-		</c:if>
-		
-		
-		
 	</div>
 </div>
 <script>
@@ -140,6 +130,7 @@
 	});
 
 	function searchNow(){
+		console.log($("[name=searchType]"))
 		$("#serviceSerchB").submit();	
 	}
 
@@ -156,6 +147,29 @@
 			searchNow();
 		});
 	});
+
+	    var searchType = "<c:out value="${search['searchType']}"/>";
+		var searchContent = "<c:out value="${search['searchKeyword']}"/>";
+
+	//검색유지
+	$(document).ready(function(){
+		if(searchType != "" && searchContent != ""){
+			if(searchType == 'memberId'){
+				$("#hide1B input").val(searchContent);
+			}else if(searchType == 'category'){
+				a.css("display", "none");
+				b.css("display", "inline-block");
+				$('#hide2B [name=searchContent] option:eq('+searchContent+')').prop('selected', true);
+			}else if( searchType == 'status'){
+				a.css("display", "none");
+				c.css("display", "inline-block");
+				$('#hide3B [name=searchContent]:radio[value='+searchContent+']').prop('checked', true);
+		}
+			$('[name=searchType]').val(searchType).prop('selected', true);
+		}
+		});
+		
+	
 
 </script>
 
