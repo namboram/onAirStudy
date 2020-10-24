@@ -32,7 +32,7 @@
 					name="keyword" value="${ map.Keyword }"
 					placeholder="어떤 스터디 그룹을 찾으시나요?" required />
 
-				<button type="submit" class="btn btn-light btn-sm">검색</button>
+				<button type="submit" class="btn btn-light btn-sm" style="margin-top:1%;">검색</button>
 			</div>
 		</form>
 		
@@ -44,13 +44,22 @@
 			<label for="srCategory">${ sCategory.category }</label>
 		</c:forEach>
 	</div>
-	
+
 	
 	<div class="container" id="container">
+	
+		<div class="rBtn">
+			<button type="button" class="btn btn-outline-primary">
+			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
+				방 만들기</a>
+		</button>
+	</div>
+	<br />
+	
 		<div class="row" id="srlistG">
 			<c:forEach items="${ srList }" var="roomList">
-				<input type="hidden" name="category" vlaue="${roomList.category}" />
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
+				<input type="hidden" name="category" vlaue="${roomList.category}" />
 					<div class="sr_pic">
 						<img class="roomPic"
 							src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }">
