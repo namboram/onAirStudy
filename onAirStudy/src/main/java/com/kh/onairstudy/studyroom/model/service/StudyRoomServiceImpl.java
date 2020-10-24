@@ -111,6 +111,16 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.selectParticipatingRoomCnt(memberId);
 	}
 
+	@Override
+	public int deleteWaiting(Map<String, Object> param) {
+		return studyRoomDAO.deleteWaiting(param);
+	}
+
+	@Override
+	public int insertStudyLog(Map<String, Object> param) {
+		return studyRoomDAO.insertStudyLog(param);
+	}
+
 
 
 

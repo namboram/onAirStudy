@@ -194,13 +194,19 @@ public class StudyRoomController {
 		int resultDelete = 0;
 		int resultInsert = 0;
 		
+		Map<String, Object> param = new HashMap<>();
+		param.put("memberId", memberId);
+		param.put("roomNum", roomNum);
+		
 		if(count == 3) {
 		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
 		}else {
-//			resultDelete = studyRoomService.deleteWaiting(memberId, roomNum);
-			//delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
-//			resultInsert = studyRoomService.insertStudyLog(memberId, roomNum);
-			//insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
+			resultDelete = 1;
+//			resultDelete = studyRoomService.deleteWaiting(param);
+//			delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
+			resultInsert = 1;
+//			resultInsert = studyRoomService.insertStudyLog(param);
+//			insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
 		}
 		
 		redirectAttr.addAttribute("roomNum"	, roomNum);
