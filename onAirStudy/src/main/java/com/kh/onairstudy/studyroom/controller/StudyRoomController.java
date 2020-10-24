@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.common.Utils;
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -42,6 +45,58 @@ public class StudyRoomController {
 	@Autowired
 	private StudyRoomService studyRoomService;
 
+	//메인 페이지 스터디룸 리스트
+	@RequestMapping("/studyroom/studyroomlist.do")
+	public ModelAndView studyroomlist(ModelAndView mav) {
+		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
+		mav.addObject("sCategory", sCategory);
+	
+		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
+		mav.addObject("srList", srList);
+
+		mav.setViewName("studyroom/studyRoomList");
+		return mav;
+	}	
+	
+	//방신청
+	@RequestMapping("/studyroom/applystudyroom.do")
+	public String applyS(StudyRoomWaiting srWating,
+						RedirectAttributes redirectAttr) {
+		
+		int result = studyRoomService.insertWating(srWating);
+		redirectAttr.addFlashAttribute("msg", result>0 ? "신청을 완료 하였습니다." : "오류가 발생하였습니다.");
+		return "redirect:/studyroom/studyroomlist.do";
+	}
+	
+	//찜
+	@RequestMapping("/studyroom/favStudyroom.do")
+	public String favR(StudyRoomWish srWish,
+						RedirectAttributes redirectAttr) {
+		
+		int result = studyRoomService.insertWish(srWish);
+		redirectAttr.addFlashAttribute("msg", result>0 ? "신청을 완료 하였습니다." : "오류가 발생하였습니다.");
+		return "redirect:/studyroom/studyroomlist.do";
+	}
+	
+	//찾기
+	@RequestMapping(value = "/studyroom/searchStudyroom.do", method = RequestMethod.POST)
+	public String searchRoom(HttpServletRequest request, HttpServletResponse response) {
+		//1. 사용자입력값
+				String searchKeyword = request.getParameter("searchKeyword");
+				
+				Map<String, String> param = new HashMap<>();
+				param.put("searchKeyword", searchKeyword);
+				
+				System.out.println("param@controller = " + param);
+				
+				//2. 업무로직
+				List<Map<String, Object>> list = null;
+				
+				list = studyRoomService.searchRoom(param);
+				return "redirect:/studyroom/studyroomlist.do";
+				
+	}
+	//마이페이지 스터디 방 리스트 3개
 	@RequestMapping("/mypage1/mystudylist.do")
 	public ModelAndView mystudylist(ModelAndView mav) {
 
@@ -61,18 +116,7 @@ public class StudyRoomController {
 		return mav;
 	}
 
-	@RequestMapping("/studyroom/studyroomlist.do")
-	public ModelAndView studyroomlist(ModelAndView mav) {
-		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
-		mav.addObject("sCategory", sCategory);
-
-		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
-		mav.addObject("srList", srList);
-
-		mav.setViewName("studyroom/studyRoomList");
-		return mav;
-	}
-
+	//스터디방 생성
 	@RequestMapping("mypage1/newstudy.do")
 	public void newstudy(Model model) {
 		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
@@ -121,15 +165,15 @@ public class StudyRoomController {
 	}
 
 	@RequestMapping("/studyroom/main.do")
-	public String main( @RequestParam("roomNum") int roomNum, Model model) {
+	public String main(Model model) {
 
-		log.debug("roomNum = {}", roomNum);
-		
+		int roomNum = 15;
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
+		model.addAttribute("roomInfo", roomInfo);
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
-		model.addAttribute("roomInfo", roomInfo);
+		log.debug("roomInfo = {}", roomInfo);
 		model.addAttribute("participants", participants);
 		model.addAttribute("applicants", applicants);
 
@@ -140,32 +184,16 @@ public class StudyRoomController {
 					method = RequestMethod.POST)
 	public String acceptMember(RedirectAttributes redirectAttr, 
 							  @RequestParam("id") String memberId,
-							  @RequestParam("roomNum") int roomNum) {
+							  @RequestParam("roomNum") String roomNum) {
 			
-		String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
-		
-//		int count = studyRoomService.selectParticipatingRoomCnt(memberId);
-//		//select count(*) from sr_log where member_id = 'honggd' and status_log = '참여';
-//		int resultDelete = 0;
-//		int resultInsert = 0;
-//		
-//		if(count == 3) {
-//		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
-//		}else {
-//			resultDelete = studyRoomService.deleteWaiting(memberId, roomNum);
-//			//delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
-//			resultInsert = studyRoomService.insertStudyLog(memberId, roomNum);
-//			//insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
-//		}
-		
-		redirectAttr.addAttribute("roomNum"	, roomNum);
-		redirectAttr.addFlashAttribute("msg", msg);
+		log.debug("memberId = {}", memberId);
+		log.debug("roomNum = {}", roomNum);
+//		int result = 0;
+//		String msg = (result > 0) ? memberId + "님이 식구가 되었습니다!" : memberId + "님 식구등록에 실패했습니다!";
+		redirectAttr.addFlashAttribute("msg", memberId+"님이 " + roomNum + "번 방의 식구가 됐습니다!");
 		
 		return "redirect:/studyroom/main.do";
 	}
-
-	
-
 
 	
 	@RequestMapping("/studyroom/exit")

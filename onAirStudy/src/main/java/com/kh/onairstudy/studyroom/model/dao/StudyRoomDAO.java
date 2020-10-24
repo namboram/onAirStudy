@@ -1,6 +1,7 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -12,6 +13,8 @@ import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
 public interface StudyRoomDAO {
+	
+	int insertWating(StudyRoomWaiting srWating);
 
 	List<StudyRoom> selectMystudyList();
 
@@ -29,6 +32,8 @@ public interface StudyRoomDAO {
 
 	int insertStudyRoomList(StudyRoom studyroom);
 	
+	int insertWish(StudyRoomWish srWish);
+
 	//
 	List<StudyRoomList> selectDiligentStudyroom();
 
@@ -37,5 +42,12 @@ public interface StudyRoomDAO {
 	List<String> selectApplicantList(int roomNum);
 
 	StudyRoomInfo selectRoomInfo(int roomNum);
+
+	List<Map<String, Object>> searchRoom(Map<String, String> param);
+
+
+	
+
+	
 
 }

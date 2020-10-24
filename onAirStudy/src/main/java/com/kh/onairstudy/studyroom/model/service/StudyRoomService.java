@@ -1,6 +1,7 @@
 package com.kh.onairstudy.studyroom.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
@@ -31,5 +32,11 @@ public interface StudyRoomService {
 	List<String> selectApplicantList(int roomNum);
 
 	StudyRoomInfo selectRoomInfo(int roomNum);
+
+	int insertWating(StudyRoomWaiting srWating);
+
+	int insertWish(StudyRoomWish srWish);
+
+	List<Map<String, Object>> searchRoom(Map<String, String> param);
 
 }
