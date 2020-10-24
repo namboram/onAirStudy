@@ -17,8 +17,8 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDAO adminDAO;
 
 	@Override
-	public List<Member> memberList() {
-		return adminDAO.memberLis();
+	public List<Member> memberList(Map<String, Object> search) {
+		return adminDAO.memberLis(search);
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Map<String, Object>> serviceList() {
-		return adminDAO.serviceList();
+	public List<Map<String, Object>> serviceList(Map<String, Object> search) {
+		return adminDAO.serviceList(search);
 	}
 
 	@Override

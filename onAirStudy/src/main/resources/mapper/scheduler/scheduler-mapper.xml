@@ -44,10 +44,10 @@ order by
 		<if test="memberId == null">
 		null,
 		</if>
-		<if test="srNo != null">
+		<if test="srNo != 0">
 		#{ srNo },
 		</if>
-		<if test="srNo == null">
+		<if test="srNo == 0">
 		null,
 		</if>
 		#{startDate},
@@ -69,12 +69,12 @@ set
 	member_id = #{memberId},
 	</if>
 	<if test="memberId == null">
-	null,
+	member_id = null,
 	</if>
-	<if test="srNo != null">
+	<if test="srNo != 0">
 	sr_no = #{srNo},
 	</if>
-	<if test="srNo == null">
+	<if test="srNo == 0">
 	sr_no = null,
 	</if>
 	start_date = #{startDate},

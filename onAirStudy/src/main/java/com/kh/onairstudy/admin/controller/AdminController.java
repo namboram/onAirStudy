@@ -1,10 +1,10 @@
 package com.kh.onairstudy.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,16 +38,26 @@ public class AdminController {
 	
 	@RequestMapping("/admin/memberList.do")
 	public ModelAndView adminMemberList(ModelAndView mav,
-										@RequestParam(value="selectedWhere",
-														required=false)String w,
-										@RequestParam(value="selectedContent",
-										required=false)String c) {
+										@RequestParam(value="searchType",
+														required=false)String searchType,
+										@RequestParam(value="searchContent",
+										required=false)String searchKeyword) {
 		
-		System.out.println("흠냐뤼ㅏ"+w);
-		System.out.println("흠냐뤼ㅏ"+c);
-		List<Member> list = adminService.memberList();
+		Map<String, Object> search = new HashMap<>();
+		
+		System.out.println("ss="+searchKeyword);
+		
+		if(searchType!=null && searchKeyword !=null) {
+			search.put("searchType", searchType);
+			search.put("searchKeyword", searchKeyword);
+		}
+
+		System.out.println("search="+search);
+		
+		List<Member> list = adminService.memberList(search);
 		System.out.println("list="+list);
 		
+		mav.addObject("search", search);
 		mav.addObject("list", list);
 		
 		return mav;
@@ -67,11 +77,23 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/serviceList.do")
-	public ModelAndView serviceList(ModelAndView mav, HttpServletResponse response) {
+	public ModelAndView serviceList(ModelAndView mav, HttpServletRequest request) {
 		
-		List<Map<String, Object>> map = adminService.serviceList();
+		String searchType = (String)request.getParameter("searchType");
+		String searchKeyword = (String)request.getParameter("searchContent");
+		
+		Map<String, Object> search = new HashMap<>();
+		
+		if(searchType != null && searchKeyword != null) {
+			search.put("searchType", searchType);
+			search.put("searchKeyword", searchKeyword);
+		}
+		
+		System.out.println("search = "+search);
+		List<Map<String, Object>> map = adminService.serviceList(search);
 		System.out.println("map="+map);
 		
+		mav.addObject("search", search);
 		mav.addObject("list", map);
 		
 		return mav;
@@ -115,6 +137,13 @@ public class AdminController {
 		return "redirect:/service/serviceList.do";
 	}
 	
+	@RequestMapping("/admin/reportList.do")
+	public ModelAndView reportList(ModelAndView mav) {
+		
+		
+		
+		return mav;
+	}
 	
 	
 }

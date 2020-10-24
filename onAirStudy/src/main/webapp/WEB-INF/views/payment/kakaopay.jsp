@@ -17,13 +17,11 @@
 
 <script>
 $(function() {
-
-
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp40686526');
 			
 		IMP.request_pay({
-		    pg : 'kakaopay', // version 1.1.0부터 지원.
+		    pg : 'kakaopay' , // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '(주)OAS',
@@ -34,25 +32,34 @@ $(function() {
 	
 		        var msg = '결제가 완료되었습니다.';
 		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        
-	        	window.close();
+				
+			     window.close();
+		      	 window.opener.location="${  pageContext.request.contextPath }/pay/payHistory?memberId=${loginMember.memberId}";  
+			
+				//세션에 로그인한 아이디값이 value로 들어간다
+		       /*  $('input#memberId').val(session.getAttribute("memberId"));
+				console.log("$('input#memberId').val()");*/
 				
 	
 			} else {
-				
+		 
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		      	//실패시 이동할 페이지
 	            location.href="${ pageContext.request.contextPath }/premium.do";
-	            alert(msg);
+	            alert(msg); 
 		    }
-		    alert(msg);
-	   	
+		    
+		    
 		});
+
+	            
 	
 }); 
 
-</script>
 
+
+</script>
+ 	
 </body>
 </html>
