@@ -16,8 +16,7 @@
 	<div class="col-sm" style="background-color: #FBF7FD; padding: 20px;">
 		<h2 class="text-gray" style="float: left; padding-right: auto;">
 			My Study Group</h2>
-		<button type="button" class="btn btn-outline-primary"
-			data-toggle="modal" data-target="#myModal_ok"
+		<button type="button" class="btn btn-outline-primary"			
 			style="border-radius: 35px;">
 			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
 				방 만들기</a>

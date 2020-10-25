@@ -32,7 +32,7 @@ where
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
-			select
+		select
   		A.*,
   		(select category
          from sr_category
@@ -90,6 +90,38 @@ where
   		<result column="wstatus" property="wStatus"/>
   	</resultMap>
 
+<!-- 찾기 -->
+<select id="listAll" resultMap="studyMap">
+select
+    *
+	from 
+		sr_list L left join sr_info F on l.sr_no = F.sr_no 
+	<include refid="search"/>
+</select>
+
+<select id="countArticle" resultType="int">
+select
+    count(*)
+	from 
+		sr_list L left join sr_info F on l.sr_no = F.sr_no
+<include refid="search"/> 
+</select>
+
+<sql id="search">
+<choose>
+<when test = "search_option =='all'">
+	where
+		member_id like '%' ||#{keyword}|| '%'
+	 or	sr_title like '%' ||#{keyword}|| '%'
+</when>
+<otherwise>
+	where
+	 ${search_option} like '%' ||#{keyword}|| '%'
+</otherwise>
+</choose>
+</sql>
+<!--  -->
+
 <select id="selectStudyRoomList" resultMap="studyMap">
 select
     L.*,
@@ -105,7 +137,8 @@ select
 	from 
 		sr_list L
 	where
-		L.sr_no>8
+		L.sr_no>8 and
+		sr_ended_yn != 'Y'
 </select>
 
   	<resultMap type="map" id="studyMap">
@@ -145,6 +178,8 @@ values(
 	seq_wish_no.nextval, #{memberId}, #{srNo})
 </insert>
 
+<!-- 방생성  -->
+
 <insert id="insertStudyRoom">
 
 insert into 
@@ -172,15 +207,7 @@ values(
 	#{srComment}, 0, 0, '-', '-', 0, 'N')
 	
 </insert>
-<!-- 찾기 -->
-<select id="searchRoom" resultType="map">
-		select
-			sr_title
-		from 
-			sr_info
-		where 
-			sr_title like '% #{ searchKeyword } %'
-</select>
+<!-- 생성   -->
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">

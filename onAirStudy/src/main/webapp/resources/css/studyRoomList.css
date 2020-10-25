@@ -10,8 +10,24 @@
     }
 
 .col-lg-12 .searchFrm{
-	margin-left:25%;
+	margin-left:2%;
+	margin-top:1%;
 }
+
+.col-lg-12 .optionFrm{
+	margin-left:19%;
+	margin-top:1%;
+}
+
+.rBtn{
+	height: 60px;
+	padding-top:20px
+}
+
+.rBtn .btn{
+	border-radius: 35px; float: right;
+}
+
 
 #srlistG #srProfile{
 	background-color: fff; 
@@ -19,7 +35,9 @@
 	border-radius: 5%; 
 	width: 300px; 
 	height: 450px;
-	margin: 4%;
+	margin-left: 4%;
+	margin-right: 4%;
+	margin-bottom: 8%;
 	padding:8px;
 	
 }

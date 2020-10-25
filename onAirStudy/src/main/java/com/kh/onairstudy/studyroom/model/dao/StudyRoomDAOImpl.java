@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,12 +53,7 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
-
-	@Override
-	public int insertStudyRoom(StudyRoomList roomlist) {
-		return sqlSession.insert("studyroom.insertStudyRoom", roomlist);
-	}
-
+//방생성
 	@Override
 	public int insertProfileAttachment(ProfileAttachment profile) {
 		return sqlSession.insert("studyroom.insertProfileAttachment", profile);
@@ -67,7 +63,32 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public int insertStudyRoomList(StudyRoom studyroom) {
 		return sqlSession.insert("studyroom.insertStudyRoomList", studyroom);
 	}
+	
+	@Override
+	public int insertStudyRoom(StudyRoomList sList) {
+		return sqlSession.insert("studyroom.insertStudyRoom", sList);
+	}
 
+//검색
+	@Override
+	public List<StudyRoomList> listAll(String search_option, String keyword) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("studyroom.listAll", map);
+	}
+
+
+	@Override
+	public int countArticle(String search_option, String keyword) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne("studyroom.countArticle", map);
+	}
+
+
+	
 //성실스터디방 List
 	@Override
 	public List<StudyRoomList> selectDiligentStudyroom() {
@@ -115,7 +136,6 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 
 
-	
 	
 	
 }

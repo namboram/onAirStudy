@@ -38,26 +38,19 @@ public class TestController {
 	
 	@RequestMapping(value = "mypage2/testquestion.do", method = RequestMethod.POST)
 	public String testQuestion( Test test, 
-			@RequestParam(value = "upFile", required = false) MultipartFile upFiles,
-			RedirectAttributes redirectAttr, HttpServletRequest request, Model model) throws IllegalStateException, IOException{
+			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
+			HttpServletRequest request) throws IllegalStateException, IOException{
 		
-		List<Test> test1 = testService.selectStudyNo();
-		model.addAttribute(test);
-		
-	  String saveDirectory = request.getServletContext().getRealPath("/resources/testPic");
-		
-		MultipartFile upFile = null;
-//		if(upFile.isEmpty()) continue;
-			
+						
+		String saveDirectory = request.getServletContext().getRealPath("/resources/testPic");
 		String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
+//		if(upFile.isEmpty()) continue;
 			
 		File dest = new File(saveDirectory, renamedFilename);
 		upFile.transferTo(dest);
-					
-		test.setRenamedFilename(renamedFilename);
 		
-			
-		
+		test.setFilePath(saveDirectory);
+		test.setRenamedFilename(renamedFilename);		
 		
 		int result = testService.insertQuestion(test);
 		
