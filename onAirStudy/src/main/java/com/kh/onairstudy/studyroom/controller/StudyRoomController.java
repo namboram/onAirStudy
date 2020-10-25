@@ -197,23 +197,22 @@ public class StudyRoomController {
 		String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
 		
 		int count = studyRoomService.selectParticipatingRoomCnt(memberId);
-		//select count(*) from sr_log where member_id = 'honggd' and status_log = '참여';
+		log.debug("count = {}", count);
 		int result = 0;
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("memberId", memberId);
 		param.put("roomNum", roomNum);
 		
+		log.debug("param = {}",param);
+	
+		
 		if(count >= 3) {
 		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
 		}else {
 			result = studyRoomService.insertStudyLog(param);
-//			delete from sr_waiting_list where member_id = 'qwerty' and sr_no = '9';
-//			insert into sr_log values(seq_sr_log_no.nextval, 16, 'songsong', '참여', 0, 'N');
 			msg = result == 1 ? memberId + "님이 " + "스터디방에 참여하게 되었습니다" : "참여신청 수락에 실패하였습니다";
 		}
-		
-		
 		
 		redirectAttr.addAttribute("roomNum"	, roomNum);
 		redirectAttr.addFlashAttribute("msg", msg);

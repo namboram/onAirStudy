@@ -19,9 +19,6 @@ import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
-@Transactional(propagation = Propagation.REQUIRED,
-				isolation = Isolation.READ_COMMITTED,
-				rollbackFor = Exception.class)
 @Service
 public class StudyRoomServiceImpl implements StudyRoomService{
 
@@ -125,13 +122,14 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.selectParticipatingRoomCnt(memberId);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED,
+					isolation = Isolation.READ_COMMITTED,
+					rollbackFor = Exception.class)
 	@Override
 	public int insertStudyLog(Map<String, Object> param) {
-		
 		int result = studyRoomDAO.deleteWaiting(param);
-		
 		result = studyRoomDAO.insertStudyLog(param);
-		
+		result = studyRoomDAO.insertAttendance(param);
 		return result;
 	}
 
