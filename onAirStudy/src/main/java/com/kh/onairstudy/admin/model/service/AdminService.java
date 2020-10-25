@@ -37,4 +37,6 @@ public interface AdminService {
 
 	int studyDelete(int no);
 
+	int updateReport(int no);
+
 }

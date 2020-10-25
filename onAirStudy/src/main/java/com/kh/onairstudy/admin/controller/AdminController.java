@@ -253,4 +253,25 @@ public class AdminController {
 		return "redirect:/admin/studyDetail.do?no="+no;
 	}
 	
+	@RequestMapping("/admin/updateReport.do")
+	public String updateReport(@RequestParam("no")int no,
+								@RequestParam(value="searchContent",
+								required=false) String searchContent,
+								RedirectAttributes redirectAttr) {
+		
+		log.debug("no={}", no);
+		log.debug("searchContent={}", searchContent);
+		
+		int result = adminService.updateReport(no);
+		
+		if(result>0)
+			redirectAttr.addFlashAttribute("msg", "신고 무효처리 성공");
+		else
+			redirectAttr.addFlashAttribute("msg", "신고 무효처리 실패");
+		
+		if(searchContent != "" || searchContent != null)
+			return "redirect:/admin/reportList.do?searchContent="+searchContent;
+		
+		return "redirect:/admin/reportList.do";
+	}
 }

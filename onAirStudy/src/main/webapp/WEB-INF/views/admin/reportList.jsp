@@ -23,7 +23,9 @@
 			<form id="reportListFrm"
 				action="${ pageContext.request.contextPath }/admin/reportList.do"
 				method="get">
-
+				<select class="custom-select" name="searchType" id="searchTypeB">
+					<option value="">피신고자</option>
+				</select>
 				<input type="text" name="searchContent" value="${ searchContent }" placeholder="아이디" />
 
 				<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
@@ -61,7 +63,15 @@
 						<td><a
 							href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${ r.REPORTED_MEMBER }">${ r.REPORTED_MEMBER }</a></td>
 						<td><fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${ r.REPORTED_DATE  }" /></td>
-						<td>${ r.VAILD_YN }</td>
+						<td>
+						<c:if test="${ r.VAILD_YN == 'Y' }">
+						<button type="button" class="btn btn-light" onclick="updateR(${ r.no });">${ r.VAILD_YN }</button>
+						</c:if>
+						<c:if test="${ r.VAILD_YN == 'N' }">
+						<button type="button" class="btn btn-light">${ r.VAILD_YN }</button>
+						</c:if>
+						
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -127,6 +137,8 @@
 	function showModal(category, no){
 
 			var html = "";
+			var title = $("#exampleModalLabel");
+			title.html("");
 
 			$.ajax({
 				url:"${ pageContext.request.contextPath }/admin/showModal.do",
@@ -146,6 +158,9 @@
 							+ "<td>"+data.CHAT_CONTENT+"</td></tr>"
 							+ "<tr><th>발신일</th>"
 							+ "<td>"+data.SEND_DATE+"</td></tr>";
+
+							title.html("채팅내용");
+						
 					}
 					//쪽지일때
 					else{
@@ -159,6 +174,7 @@
 							+ "<tr><th>발신일</th>"
 							+ "<td>"+data.SEND_DATE+"</td></tr>";
 
+							title.html("쪽지내용");
 					}
 
 					
@@ -179,6 +195,20 @@
 				
 			});
 		}
+
+	function updateR(no){
+
+		var loc = "${ pageContext.request.contextPath }/admin/updateReport.do?no="+no;
+		var content = $("[name=searchContent]");	
+
+		//검색어저장
+		if(content.val() != "")
+			loc += "&searchContent="+content.val();
+				
+		
+		if(confirm(no+"번 신고내역을 무효처리 하시겠습니까? 적용 시 복구할 수 없습니다."))
+			location.href = loc;
+	}
 		
 
 </script>

@@ -91,6 +91,11 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.update("admin.studyDelete", no);
 	}
 
+	@Override
+	public int updateReport(int no) {
+		return sqlSession.update("admin.updateReport", no);
+	}
+
 	
 	
 }

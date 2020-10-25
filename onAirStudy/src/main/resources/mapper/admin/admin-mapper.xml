@@ -265,7 +265,14 @@ join
  	sr_no = #{ no }
  </update>
  
- 
+ <update id="updateReport">
+ update
+ 	report_log
+ set
+ 	vaild_yn = 'N'
+ where
+ 	no = #{ no }
+ </update>
  
  
  

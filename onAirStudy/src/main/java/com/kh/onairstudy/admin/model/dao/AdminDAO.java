@@ -39,4 +39,6 @@ public interface AdminDAO {
 
 	int studyDelete(int no);
 
+	int updateReport(int no);
+
 }

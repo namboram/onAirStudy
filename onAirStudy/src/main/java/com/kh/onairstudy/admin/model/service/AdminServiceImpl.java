@@ -89,6 +89,11 @@ public class AdminServiceImpl implements AdminService {
 	public int studyDelete(int no) {
 		return adminDAO.studyDelete(no);
 	}
+
+	@Override
+	public int updateReport(int no) {
+		return adminDAO.updateReport(no);
+	}
 	
 	
 	
