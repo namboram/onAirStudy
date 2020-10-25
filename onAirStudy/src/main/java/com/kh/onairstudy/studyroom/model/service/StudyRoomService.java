@@ -25,7 +25,7 @@ public interface StudyRoomService {
 //방생성
 	int insertStudyRoom(StudyRoom studyroom);
 	
-	int insertStudyRoom(StudyRoomList sList);
+	int insertStudyRoom(Map<String, Object> param);
 //검색
 	List<StudyRoomList> listAll(String search_option, String keyword);
 

@@ -74,8 +74,8 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 	@Override
-	public int insertStudyRoom(StudyRoomList sList) {
-		return studyRoomDAO.insertStudyRoom(sList);
+	public int insertStudyRoom(Map<String, Object> param) {
+		return studyRoomDAO.insertStudyRoom(param);
 	}
 	
 //검색

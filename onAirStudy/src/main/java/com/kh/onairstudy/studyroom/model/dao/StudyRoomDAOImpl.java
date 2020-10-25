@@ -66,8 +66,8 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 
 	@Override
-	public int insertStudyRoom(StudyRoomList sList) {
-		return sqlSession.insert("studyroom.insertStudyRoom", sList);
+	public int insertStudyRoom(Map<String, Object> param) {
+		return sqlSession.insert("studyroom.insertStudyRoom", param);
 	}
 
 //검색
