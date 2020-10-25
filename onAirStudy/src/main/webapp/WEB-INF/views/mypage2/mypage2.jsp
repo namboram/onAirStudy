@@ -93,28 +93,34 @@ $(function(){
 	var day = week[d.getDay()];  //오늘 요일
 	var now = d.getHours() + ":" + d.getMinutes(); //현재시각
 
-	var attendDay = $("#attendDay").val().split(",");
-	var attendTime = $("#attendTime").val().split(",");
+	var attendDay = $("#attendDay").val().split(","); //출석체크 요일
+	var attendTime = $("#attendTime").val().split(/[:,]/); //출석체크 시간
 
-	
+	var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
+	var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
 
+	console.log(attendTime);
 	
-
-
-	
-	//var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
-	//var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
-	//popupOpen();
-	
+	for(var i in attendDay){
+		if(attendDay[i] == day){
+			var startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), attendTime[i*2] , attendTime[(i*2)+1] );
+			var endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(),  startTime.getHours(), startTime.getMinutes()+10 );
+			if(startTime.getTime() <= d.getTime() && d.getTime() <=endTime.getTime() ){
+				popupOpen();
+			}
+		}
+	}
 });
 
 function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
 	var url = "popup.html";
-	var name = "popup test";
+	var name = "출석체크";
 	var option = "width = 500, height = 500, top = 100, left = 200, location = no";
 	popupObj = window.open(url, name, option);
-	/*  if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
-		   clearTimeout(stopTimeCheck);           */            
+	/*
+		if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
+		   clearTimeout(stopTimeCheck);   
+	*/                     
 	   
 	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
 }
