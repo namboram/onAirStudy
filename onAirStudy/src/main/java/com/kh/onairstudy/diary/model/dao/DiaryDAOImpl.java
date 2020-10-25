@@ -1,6 +1,6 @@
 package com.kh.onairstudy.diary.model.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.diary.model.vo.Diary;
-import com.kh.onairstudy.diary.model.vo.DiarySearchVo;
+import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 
 @Repository
 public class DiaryDAOImpl implements DiaryDAO {
-
 
 
 	@Autowired
@@ -25,6 +24,19 @@ public class DiaryDAOImpl implements DiaryDAO {
 	}
 
 
+	@Override
+	public int insertDiary(Diary diary) {
+		return sqlSession.insert("diary.insertDiary", diary);
+	}
+
+
+	@Override
+	public int insertAttachment(DiaryAttachment attach) {
+		return sqlSession.insert("diary.insertAttachment", attach);
+	}
+
+	
+	
 
 	
 

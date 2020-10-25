@@ -25,9 +25,9 @@ div#board-container label.custom-file-label{text-align:left;}
 		<input type="text" class="form-control" 
 			   name="memberId" 
 			   value="${ diary.memberId }" readonly required>
-	    <input type="number" class="form-control" name="readCount" title="조회수"
+	    <input type="number" class="form-control" name="readCnt" title="조회수"
 			   value="${ diary.readCnt }" readonly>
-		<input type="datetime-local" class="form-control" name="regDate" 
+		<input type="datetime-local" class="form-control" name="diaryDate" 
 			   value='<fmt:formatDate value="${ diary.diaryDate }" pattern="yyyy-MM-dd'T'HH:mm"/>'>
 		<hr />
 		
@@ -40,7 +40,7 @@ div#board-container label.custom-file-label{text-align:left;}
 			</button>
 		</c:forEach> 
 		
-	    <textarea class="form-control" name="content" 
+	    <textarea class="form-control" name="diaryContent" 
 	    		  placeholder="내용" required>${ diary.diaryContent }</textarea>
 	</div>
 

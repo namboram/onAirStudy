@@ -33,11 +33,14 @@
 			<mapping path="/**"/>
 			<beans:bean class="com.kh.onairstudy.common.interceptor.LoggerInterceptor"/>
 		</interceptor>
+		 
 		<interceptor>
-			<mapping path="/diary/**/*.do"/>
-			<exclude-mapping path="/diary/diaryList.do"/>
-			<beans:bean class="com.kh.onairstudy.common.interceptor.LoginCheckInterceptor"/>
+			 <mapping path="/diary/**/*.do"/>
+			<exclude-mapping path="/diary/diaryList.do"/>  
+			<beans:bean class="com.kh.onairstudy.common.interceptor.LoginCheckInterceptor"/>	
 		</interceptor>
+		
+		
 	</interceptors> 
 	
 	<!-- #11.1 @Aspect 이하 @Pointcut @Before 등 aop 관련 어노테이션 등록처리 -->

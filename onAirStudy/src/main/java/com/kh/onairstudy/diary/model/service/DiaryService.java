@@ -12,6 +12,9 @@ public interface DiaryService {
 	List<Diary> selectDiaryList();
 
 
+	int insertDiary(Diary diary);
+
+
 
 
 
