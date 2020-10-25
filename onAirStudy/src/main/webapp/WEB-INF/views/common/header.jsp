@@ -65,7 +65,8 @@
                            onclick="location.href='${ pageContext.request.contextPath }/diary/diaryList.do'">공부다이어리</a></a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
-                        <a class="nav-link">공지사항</a>
+                        <a class="nav-link"
+                        	onclick="location.href='${ pageContext.request.contextPath }/notice/noticeList.do'">공지사항</a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
                         <a class="nav-link"

@@ -27,6 +27,14 @@ public interface AdminService {
 
 	Map<String, Object> showModal(Map<String, Object> map);
 
-	List<Member> studyList(Map<String, Object> search);
+	List<Map<String, Object>> studyList(Map<String, Object> search);
+
+	int serviceCnt();
+
+	Map<String, Object> studyDetail(int no);
+
+	List<String> studyMembers(int no);
+
+	int studyDelete(int no);
 
 }

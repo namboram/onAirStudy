@@ -5,80 +5,91 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-<style>
-	.adDivB{
-		display:inline-block;
-		background-color:#e8f4ff;
-		padding:100px;
-		text-align:center;
-	}
-	.adDivB h3{
-		text-align:left;
-		margin-bottom:50px;
-	}
-	.tableB{
-		background-color:white;
-		border:2px solid #b0d9ff;
-		padding:50px;
-	}
-</style>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<!-- css -->
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/adminCommon.css" />
+
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
 <div class="row">
+
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
 	<div class="col-lg-10 adDivB">
-		<h3>회원 상세보기</h3>
 		<table class="table tableB">
 				<tr>
-					<th>아이디</th>
-					<td>${ m.MEMBER_ID }</td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td>${ m.MEMBER_NAME }</td>
-				</tr>
-				<tr>
-					<th>회원 등급</th>
-					<td>${ m.MEMBER_ROLE }</td>
-				</tr>
-				<tr>
-					<th>핸드폰</th>
-					<td>${ m.PHONE }</td>
-				</tr>
-				<tr>
-					<th>성실포인트</th>
-					<td>${ m.DILIGENT_POINT } 점</td>
-				</tr>
-				<tr>
-					<th>자기소개</th>
-					<td>${ m.COMMENT  == null ? "없음" : m.COMMENT } </td>
+					<th>방번호</th>
+					<td>${ s.SR_NO }</td>
 				</tr>
 				<tr>
 					<th>카테고리</th>
-					<td>${ m.cate }</td>
+					<td>${ s.CATEGORY }</td>
 				</tr>
 				<tr>
-					<th>신고내역</th>
+					<th>방장아이디</th>
+					<td><a href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${ s.MEMBER_ID }">${ s.MEMBER_ID }</a></td>
+				</tr>
+				<tr>
+					<th>참여회원</th>
 					<td>
-					<c:if test="${ m.report == 0 }">
-					${ m.report } 회
+					<c:if test="${ list != null }">
+						<c:forEach items="${ list }" var="m">
+							<a href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${ m }"> ${ m } </a>
+						</c:forEach>
 					</c:if>
-					<c:if test="${ m.report > 0 }">
-					<a href="${ pageContext.request.contextPath }/admin/report?mid=${ m.MEMBER_ID }"> ${ m.report } </a> 회
+					<c:if test="${ list == null }">
+						참여회원 없음
 					</c:if>
 					</td>
 				</tr>
 				<tr>
-					<th>블랙리스트</th>
-					<td>${ m.BLACKLIST_YN }</td>
+					<th>방제목</th>
+					<td>${ s.SR_TITLE }</td>
+				</tr>
+				<tr>
+					<th>한줄소개</th>
+					<td>${ s.SR_COMMENT }</td>
+				</tr>
+				<tr>
+					<th>목표</th>
+					<td>${ s.SR_GOAL }</td>
+				</tr>
+				<tr>
+					<th>방종류</th>
+					<td>${ s.SR_SORT } </td>
+				</tr>
+				<tr>
+					<th>생성일</th>
+					<td><fmt:formatDate value="${ s.SR_ENROLL_DATE }" pattern="yyyy-MM-dd"/></td>
+				</tr>
+				<tr>
+					<th>오픈여부</th>
+					<td>${ s.SR_OPENED_YN }</td>
+				</tr>
+				<tr>
+					<th>삭제여부</th>
+					<td id="deleteB">${ s.SR_ENDED_YN }</td>
 				</tr>
 		
 		</table>
 		
+		<button type="button" class="btn btn-danger" onclick="studyDelete();">방 삭제하기</button>
+		
 	</div>
 </div>
 
+
+<script>
+
+	function studyDelete() {
+		if (confirm("방을 삭제처리 하시겠습니까? 적용 시 복구할 수 없습니다."))
+			location.replace('${ pageContext.request.contextPath }/admin/studyDelete.do?no=${ s.SR_NO }');
+
+	}
+</script>
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+

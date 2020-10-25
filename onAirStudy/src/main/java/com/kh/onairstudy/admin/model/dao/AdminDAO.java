@@ -29,4 +29,14 @@ public interface AdminDAO {
 	
 	Map<String, Object> showModal2(Map<String, Object> map);
 
+	List<Map<String, Object>> studyList(Map<String, Object> search);
+
+	int serviceCnt();
+
+	Map<String, Object> studyDetail(int no);
+
+	List<String> studyMembers(int no);
+
+	int studyDelete(int no);
+
 }

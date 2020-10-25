@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,31 +38,46 @@ public class AdminController {
 		return "/admin/adminIndex"; 
 	}
 	
+	//관리자 마이페이지 문의사항 카운트
+	@RequestMapping("/admin/serviceCnt.do")
+	@ResponseBody
+	public int serviceCnt() {
+		
+		int result = adminService.serviceCnt();
+		
+		return result;
+	}
+	
 	@RequestMapping("/admin/memberList.do")
-	public ModelAndView adminMemberList(ModelAndView mav,
-										@RequestParam(value="searchType",
-										required=false)String searchType,
-										@RequestParam(value="searchContent",
-										required=false)String searchKeyword) {
+	public Model adminMemberList(Model model,
+								@RequestParam(value="searchType",
+								required=false)String searchType,
+								@RequestParam(value="searchContent",
+								required=false)String[] searchKeyword) {
 		
 		Map<String, Object> search = new HashMap<>();
 		
 		log.debug("ss={}", searchKeyword);
 		
 		if(searchType!=null && searchKeyword !=null) {
+
 			search.put("searchType", searchType);
-			search.put("searchKeyword", searchKeyword);
+			search.put("searchKeyword", searchKeyword[0]);
+			
+			if(searchKeyword.length > 1)
+				search.replace("searchKeyword", searchKeyword[1]);
+				
 		}
 
 		log.debug("search={}", search);
 		
 		List<Member> list = adminService.memberList(search);
 		log.debug("list={}", list);
+
+		model.addAttribute("search", search);
+		model.addAttribute("list", list);
 		
-		mav.addObject("search", search);
-		mav.addObject("list", list);
-		
-		return mav;
+		return model;
 	}
 	
 	@RequestMapping("/admin/memberDetail.do")
@@ -177,20 +193,24 @@ public class AdminController {
 								@RequestParam(value="searchType",
 								required=false)String searchType,
 								@RequestParam(value="searchContent",
-								required=false)String searchKeyword) {
+								required=false)String[] searchKeyword) {
 		
 		Map<String, Object> search = new HashMap<>();
 		
 		log.debug("ss={}", searchKeyword);
 		
 		if(searchType!=null && searchKeyword !=null) {
+				
 			search.put("searchType", searchType);
-			search.put("searchKeyword", searchKeyword);
+			search.put("searchKeyword", searchKeyword[0]);
+			
+			if(searchKeyword.length > 1)
+				search.replace("searchKeyword", searchKeyword[1]);
 		}
 
 		log.debug("search={}", search);
 		
-		List<Member> list = adminService.studyList(search);
+		List<Map<String, Object>> list = adminService.studyList(search);
 		log.debug("list={}", list);
 		
 		mav.addObject("search", search);
@@ -200,7 +220,37 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping("/admin/studyDetail.do")
+	public Model studyDetail(Model model,
+							@RequestParam("no") int no) {
+		
+		log.debug("no = {}", no);
+		
+		Map<String, Object> map = adminService.studyDetail(no);
+		List<String> list = adminService.studyMembers(no);
+		
+		log.debug("map={}", map);
+		log.debug("list={}", list);
+		
+		model.addAttribute("s", map);
+		model.addAttribute("list", list);
+		
+		return model;
+	}
 	
-	
+	@RequestMapping("/admin/studyDelete.do")
+	public String studyDelete(@RequestParam("no") int no,
+								RedirectAttributes redirectAttr) {
+		
+		int result = adminService.studyDelete(no);
+		
+		if(result > 0)
+			redirectAttr.addFlashAttribute("msg", "방 삭제처리 완료");
+		else
+			redirectAttr.addFlashAttribute("msg", "방 삭제처리 완료");
+			
+		
+		return "redirect:/admin/studyDetail.do?no="+no;
+	}
 	
 }

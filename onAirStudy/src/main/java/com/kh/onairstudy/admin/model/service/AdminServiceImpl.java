@@ -23,6 +23,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public int serviceCnt() {
+		return adminDAO.serviceCnt();
+	}
+
+	@Override
 	public Map<String, Object> memberDetail(String memberId) {
 		return adminDAO.memberDetail(memberId);
 	}
@@ -63,6 +68,26 @@ public class AdminServiceImpl implements AdminService {
 			return adminDAO.showModal1(map);
 		else
 			return adminDAO.showModal2(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> studyList(Map<String, Object> search) {
+		return adminDAO.studyList(search);
+	}
+
+	@Override
+	public Map<String, Object> studyDetail(int no) {
+		return adminDAO.studyDetail(no);
+	}
+
+	@Override
+	public List<String> studyMembers(int no) {
+		return adminDAO.studyMembers(no);
+	}
+
+	@Override
+	public int studyDelete(int no) {
+		return adminDAO.studyDelete(no);
 	}
 	
 	

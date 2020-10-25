@@ -5,31 +5,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-<style>
-	.adDivB{
-		display:inline-block;
-		background-color:#e8f4ff;
-		padding:100px;
-		text-align:center;
-	}
-	.tableB{
-		background-color:white;
-		border:2px solid #b0d9ff;
-		padding:50px;
-	}
-	#changeSubjectB th{
-		width:150px;
-	}
-</style>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<!-- css -->
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/adminCommon.css" />
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <div class="row">
+	
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
+	
+	
 	<div class="col-lg-10 adDivB">
-
-
 		<div style="margin: 50px;">
 			<form id="reportListFrm"
 				action="${ pageContext.request.contextPath }/admin/reportList.do"
@@ -71,15 +60,16 @@
 							href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${ r.REPORTER }">${ r.REPORTER }</a></td>
 						<td><a
 							href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${ r.REPORTED_MEMBER }">${ r.REPORTED_MEMBER }</a></td>
-						<td><fmt:formatDate type="date" value="${ r.REPORTED_DATE  }" /></td>
+						<td><fmt:formatDate type="date" pattern="yyyy-MM-dd" value="${ r.REPORTED_DATE  }" /></td>
 						<td>${ r.VAILD_YN }</td>
 					</tr>
 				</c:forEach>
 			</c:if>
 
-
-
 		</table>
+
+
+
 
 		<!-- Modal -->
 		<div class="modal fade" id="modalUpB" tabindex="-1"
@@ -94,15 +84,15 @@
 						</button>
 					</div>
 					<div class="modal-body">
-					
-					<table class="table" id="changeSubjectB">
-					
-					
-					
-					
-					</table>
-					
-					
+
+						<table class="table" id="changeSubjectB">
+
+
+
+
+						</table>
+
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
@@ -111,6 +101,9 @@
 				</div>
 			</div>
 		</div>
+
+
+
 
 	</div>
 </div>
@@ -184,20 +177,17 @@
 					
 				}
 				
-			
-
-
 			});
-				
-
 		}
 		
-	
 
 </script>
 
 
 
 
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+
+
+

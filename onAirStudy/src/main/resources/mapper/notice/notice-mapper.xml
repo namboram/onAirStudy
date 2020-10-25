@@ -3,5 +3,50 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
+
+<select id="noticeList" resultType="map">
+select 
+	*
+from
+	notice
+</select>
+
+<insert id="insertNotice">
+insert into
+	notice
+values(
+	seq_notice_no.nextval,
+	#{ title },
+	#{ content },
+	default,
+	default
+)
+</insert>
+
+<select id="noticeDetail" resultType="map">
+select
+	*
+from
+	notice
+where
+	no = #{ no }
+</select>
+
+<update id="updateNotice">
+update
+	notice
+set
+	title = #{ title },
+	content = #{ content }
+where
+	no = #{ no }
+</update>
+
+<delete id="deleteNotice">
+delete
+	notice
+where
+	no = #{ no }
+</delete>
  
 </mapper>

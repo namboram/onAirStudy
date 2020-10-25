@@ -23,6 +23,11 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
+	public int serviceCnt() {
+		return sqlSession.selectOne("admin.serviceCnt");
+	}
+
+	@Override
 	public Map<String, Object> memberDetail(String memberId) {
 		return sqlSession.selectOne("admin.memberDetail", memberId);
 	}
@@ -64,6 +69,26 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public Map<String, Object> showModal2(Map<String, Object> map) {
 		return sqlSession.selectOne("admin.showModal2", map);
+	}
+
+	@Override
+	public List<Map<String, Object>> studyList(Map<String, Object> search) {
+		return sqlSession.selectList("admin.studyList", search);
+	}
+
+	@Override
+	public Map<String, Object> studyDetail(int no) {
+		return sqlSession.selectOne("admin.studyDetail", no);
+	}
+
+	@Override
+	public List<String> studyMembers(int no) {
+		return sqlSession.selectList("admin.studyMembers", no);
+	}
+
+	@Override
+	public int studyDelete(int no) {
+		return sqlSession.update("admin.studyDelete", no);
 	}
 
 	
