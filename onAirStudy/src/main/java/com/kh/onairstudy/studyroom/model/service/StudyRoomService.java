@@ -46,8 +46,6 @@ public interface StudyRoomService {
 
 	int selectParticipatingRoomCnt(String memberId);
 
-	int deleteWaiting(Map<String, Object> param);
-
 	int insertStudyLog(Map<String, Object> param);
 
 

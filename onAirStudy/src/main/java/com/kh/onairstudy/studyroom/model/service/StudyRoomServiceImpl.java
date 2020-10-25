@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.onairstudy.studyroom.model.dao.StudyRoomDAO;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
@@ -16,9 +19,9 @@ import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
-/*@Transactional(propagation = Propagation.REQUIRED,
-isolation = Isolation.READ_COMMITTED,
-rollbackFor = Exception.class)*/
+@Transactional(propagation = Propagation.REQUIRED,
+				isolation = Isolation.READ_COMMITTED,
+				rollbackFor = Exception.class)
 @Service
 public class StudyRoomServiceImpl implements StudyRoomService{
 
@@ -123,13 +126,13 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 
 	@Override
-	public int deleteWaiting(Map<String, Object> param) {
-		return studyRoomDAO.deleteWaiting(param);
-	}
-
-	@Override
 	public int insertStudyLog(Map<String, Object> param) {
-		return studyRoomDAO.insertStudyLog(param);
+		
+		int result = studyRoomDAO.deleteWaiting(param);
+		
+		result = studyRoomDAO.insertStudyLog(param);
+		
+		return result;
 	}
 
 
