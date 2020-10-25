@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.report.model.vo.Report;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 
 public interface AdminService {
@@ -21,5 +22,21 @@ public interface AdminService {
 	int insertService(ServiceCenter sc);
 
 	int updateService(int replyNo);
+
+	List<Map<String, Object>> reportList(Map<String, Object> map);
+
+	Map<String, Object> showModal(Map<String, Object> map);
+
+	List<Map<String, Object>> studyList(Map<String, Object> search);
+
+	int serviceCnt();
+
+	Map<String, Object> studyDetail(int no);
+
+	List<String> studyMembers(int no);
+
+	int studyDelete(int no);
+
+	int updateReport(int no);
 
 }

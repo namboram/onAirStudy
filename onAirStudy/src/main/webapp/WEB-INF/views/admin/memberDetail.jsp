@@ -5,31 +5,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-<style>
-	.adDivB{
-		display:inline-block;
-		background-color:#e8f4ff;
-		padding:100px;
-		text-align:center;
-	}
-	.adDivB h3{
-		text-align:left;
-		margin-bottom:50px;
-	}
-	.tableB{
-		background-color:white;
-		border:2px solid #b0d9ff;
-		padding:50px;
-	}
-</style>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<!-- css -->
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/adminCommon.css" />
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <div class="row">
+
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
 	<div class="col-lg-10 adDivB">
+	
 		<h3>회원 상세보기</h3>
 		<table class="table tableB">
 				<tr>
@@ -64,10 +53,10 @@
 					<th>신고내역</th>
 					<td>
 					<c:if test="${ m.report == 0 }">
-					${ m.report } 회
+					<a href="#" onclick="alert('신고내역이 없습니다.')">${ m.report }</a> 회
 					</c:if>
 					<c:if test="${ m.report > 0 }">
-					<a href="${ pageContext.request.contextPath }/admin/report?mid=${ m.MEMBER_ID }"> ${ m.report } </a> 회
+					<a href="${ pageContext.request.contextPath }/admin/reportList.do?searchContent=${ m.MEMBER_ID }"> ${ m.report } </a> 회
 					</c:if>
 					</td>
 				</tr>
@@ -81,4 +70,7 @@
 	</div>
 </div>
 
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+

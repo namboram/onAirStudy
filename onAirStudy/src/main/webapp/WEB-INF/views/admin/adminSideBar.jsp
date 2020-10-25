@@ -21,10 +21,10 @@
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
 		<ul class="list-unstyled">
-			<li><a href="${ pageContext.request.contextPath }/admin/serviceList.do">문의사항 <div class="countingAlarm">6</div></a></li>
-			<li><a href="${ pageContext.request.contextPath }/admin/reportList.do">신고내역 <div class="countingAlarm">4</div></a></li>
-			<li><a href="${ pageContext.request.contextPath }/admin/memberList.do">회원관리</a></li>
-			<li><a href="#">그룹관리</a></li>
+			<li id="serviceLiB"><a href="${ pageContext.request.contextPath }/admin/serviceList.do">문의사항 <div class="countingAlarm" id="serviceCnt">6</div></a></li>
+			<li id="reportLiB"><a href="${ pageContext.request.contextPath }/admin/reportList.do">신고내역</a></li>
+			<li id="memberLiB"><a href="${ pageContext.request.contextPath }/admin/memberList.do">회원관리</a></li>
+			<li id="studyLiB"><a href="${ pageContext.request.contextPath }/admin/studyList.do">그룹관리</a></li>
 		</ul>
 	</nav>
 	
@@ -32,6 +32,19 @@
 	$(".dropdownStart a").click(function(){
 		 $(this).next("ul").slideToggle(300, 'linear');
 		
+	});
+
+	$(document).ready(function(){
+		$.ajax({
+			url:"${ pageContext.request.contextPath }/admin/serviceCnt.do",
+			success:function(data){
+				console.log("성공");
+				$("#serviceCnt").html(data);
+			},
+			error:function(){
+				console.log("실패");
+			}
+		});
 	});
 	</script>
 	

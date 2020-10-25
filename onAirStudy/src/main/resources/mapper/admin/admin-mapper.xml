@@ -35,6 +35,15 @@ rnum between 1 and 10
   	<result column="category" property="category"/> 
   </resultMap>
   
+  <select id="serviceCnt" resultType="int">
+  select
+  	count(*)
+  from
+  	service
+  where
+  	service_status = '답변대기'
+  </select>
+  
   <select id="memberDetail" resultType="map">
 select 
 	M.*, 
@@ -130,4 +139,141 @@ where
 where
 	no = #{ replyNo } 
  </update>
+ 
+ <select id="reportList" resultType="map" parameterType="string">
+ select
+ 	L.no as "no",
+ 	C.category as "category",
+ 	content_id,
+ 	content_category,
+ 	reporter,
+ 	reported_member,
+ 	reported_date,
+ 	vaild_yn
+ from
+ 	report_log L
+ join
+ 	report_category C
+ on
+ 	L.category = C.no
+ <if test=" searchContent != null">
+ where
+ 	reported_member like '%'||#{ searchContent }||'%'
+ </if>
+ order by
+ 	L.no desc
+ </select>
+ 
+ <select id="showModal1" resultType="map">
+ select 
+ 	no,
+ 	member_id,
+ 	sr_no,
+ 	chat_content,
+ 	to_char(send_date, 'yyyy-mm-dd') as "SEND_DATE"
+ from
+ 	chatting
+ where
+ 	no = #{ no }
+ </select>
+ 
+ <select id="showModal2" resultType="map">
+ select 
+ 	no,
+ 	sender_id,
+ 	receiver_id,
+ 	msg_content,
+ 	to_char(send_date, 'yyyy-mm-dd') as "SEND_DATE"
+ from
+ 	message
+ where
+ 	no = #{ no }
+ </select>
+ 
+ <select id="studyList" resultType="map">
+ select
+ 	sr_no,
+ 	member_id,
+ 	to_char(sr_enroll_date, 'yyyy-mm-dd') as "SR_ENROLL_DATE",
+ 	C.category as "CATEGORY",
+ 	sr_title,
+ 	sr_sort
+ from
+ 	sr_list L 
+join 
+ 	sr_info I 
+ using(sr_no)
+ join 
+ 	sr_category C 
+ on 
+ 	L.sr_category = C.no
+ <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+ 	<if test="searchType == 'memberId'">
+		 and member_id like '%' || #{ searchKeyword } || '%'
+ 	</if>
+ 	<if test="searchType =='srNo'">
+		 and sr_no = #{ searchKeyword }
+ 	</if>
+ 	<if test="searchType =='srSort'">
+		 and sr_sort = #{ searchKeyword }
+ 	</if>
+</if>
+ </select>
+ 
+ <select id="studyDetail" resultType="map">
+ select
+ 	sr_no,
+	member_id,
+	C.category as "CATEGORY",
+	sr_enroll_date,
+	sr_opened_yn,
+	sr_ended_yn,
+	sr_sort,
+	sr_title,
+	sr_goal,
+	sr_comment
+ from
+ 	sr_list L 
+ join 
+ 	sr_info I 
+ using(sr_no) 
+ join 
+ 	sr_category C 
+ on 
+ 	L.sr_category = C.no
+ where
+ 	sr_no = #{ no }
+ </select>
+ 
+ <select id="studyMembers" resultType="string">
+ select 
+ 	member_id 
+ from 
+ 	sr_log 
+ where 
+ 	sr_no = #{ no } 
+ and 
+ 	leader_yn='N'
+ </select>
+ 
+ <update id="studyDelete">
+ update
+ 	sr_list
+ set
+ 	sr_ended_yn = 'Y'
+ where
+ 	sr_no = #{ no }
+ </update>
+ 
+ <update id="updateReport">
+ update
+ 	report_log
+ set
+ 	vaild_yn = 'N'
+ where
+ 	no = #{ no }
+ </update>
+ 
+ 
+ 
 </mapper>

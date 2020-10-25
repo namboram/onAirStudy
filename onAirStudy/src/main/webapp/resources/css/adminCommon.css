@@ -1,0 +1,29 @@
+	.adDivB{
+		display:inline-block;
+		background-color:#e8f4ff;
+		padding:100px;
+		text-align:center;
+	}
+	.tableB{
+		text-align:center;
+		background-color:white;
+		border:2px solid #b0d9ff;
+		padding:50px;
+	}
+	#searchTypeB{
+		width:150px;
+	}
+	#changeSubjectB th{
+		width:150px;
+	}
+	.adDivB h3{
+		text-align:left;
+		margin-bottom:50px;
+	}
+	[name=serviceContent]{
+		width:100%;
+		height:300px;
+		text-align:center;
+		padding:50px;
+		border:2px solid #b0d9ff;
+	}

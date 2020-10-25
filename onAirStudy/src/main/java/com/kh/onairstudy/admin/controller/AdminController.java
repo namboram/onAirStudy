@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,40 +38,55 @@ public class AdminController {
 		return "/admin/adminIndex"; 
 	}
 	
+	//관리자 마이페이지 문의사항 카운트
+	@RequestMapping("/admin/serviceCnt.do")
+	@ResponseBody
+	public int serviceCnt() {
+		
+		int result = adminService.serviceCnt();
+		
+		return result;
+	}
+	
 	@RequestMapping("/admin/memberList.do")
-	public ModelAndView adminMemberList(ModelAndView mav,
-										@RequestParam(value="searchType",
-														required=false)String searchType,
-										@RequestParam(value="searchContent",
-										required=false)String searchKeyword) {
+	public Model adminMemberList(Model model,
+								@RequestParam(value="searchType",
+								required=false)String searchType,
+								@RequestParam(value="searchContent",
+								required=false)String[] searchKeyword) {
 		
 		Map<String, Object> search = new HashMap<>();
 		
-		System.out.println("ss="+searchKeyword);
+		log.debug("ss={}", searchKeyword);
 		
 		if(searchType!=null && searchKeyword !=null) {
+
 			search.put("searchType", searchType);
-			search.put("searchKeyword", searchKeyword);
+			search.put("searchKeyword", searchKeyword[0]);
+			
+			if(searchKeyword.length > 1)
+				search.replace("searchKeyword", searchKeyword[1]);
+				
 		}
 
-		System.out.println("search="+search);
+		log.debug("search={}", search);
 		
 		List<Member> list = adminService.memberList(search);
-		System.out.println("list="+list);
+		log.debug("list={}", list);
+
+		model.addAttribute("search", search);
+		model.addAttribute("list", list);
 		
-		mav.addObject("search", search);
-		mav.addObject("list", list);
-		
-		return mav;
+		return model;
 	}
 	
 	@RequestMapping("/admin/memberDetail.do")
 	public ModelAndView memberDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
 		
-		System.out.println(memberId);
+		log.debug("memberId ={}", memberId);
 		
 		Map<String, Object> map = adminService.memberDetail(memberId);
-		System.out.println(map);
+		log.debug("map={}",map);
 		
 		mav.addObject("m", map);
 		
@@ -89,9 +106,9 @@ public class AdminController {
 			search.put("searchKeyword", searchKeyword);
 		}
 		
-		System.out.println("search = "+search);
+		log.debug("search = {}",search);
 		List<Map<String, Object>> map = adminService.serviceList(search);
-		System.out.println("map="+map);
+		log.debug("map={}",map);
 		
 		mav.addObject("search", search);
 		mav.addObject("list", map);
@@ -103,7 +120,7 @@ public class AdminController {
 	public ModelAndView serviceDetail(ModelAndView mav,
 									@RequestParam("no")int no) {
 		
-		System.out.println("no="+no);
+		log.debug("no={}",no);
 		
 		Map<String, Object> sv = adminService.serviceDetail(no);
 		Map<String, Object> av = adminService.serviceDetailAv(no);
@@ -119,16 +136,17 @@ public class AdminController {
 	public String insertService(ServiceCenter sc, 
 								RedirectAttributes redirectAttr, 
 								@RequestParam("replyNo") int replyNo) {
-		System.out.println("sc="+sc);
+		log.debug("sc={}",sc);
 		sc.setReply_no(replyNo);
 		
 		int result = adminService.insertService(sc);
 		if(result>0)
-			System.out.println("등록성공");
+			log.debug("등록성공");
 		else
-			System.out.println("등록실패");
+			log.debug("등록실패");
 		
 		result = adminService.updateService(replyNo);
+		
 		if(result>0)
 			redirectAttr.addFlashAttribute("msg", "답변 등록 성공!");
 		else
@@ -137,13 +155,123 @@ public class AdminController {
 		return "redirect:/service/serviceList.do";
 	}
 	
-	@RequestMapping("/admin/reportList.do")
-	public ModelAndView reportList(ModelAndView mav) {
+	@RequestMapping(value="/admin/reportList.do")
+	public ModelAndView reportList(ModelAndView mav,
+									@RequestParam(value="searchContent", required=false) String searchContent) {
 		
+		//mepper에서 if test문 작성하기 위해 map에 넣어서 전송
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchContent", searchContent);
+		
+		List<Map<String, Object>> list = adminService.reportList(map);
+		log.debug("list = {}",list);
+		
+		mav.addObject("list", list);
+		mav.addObject("searchContent", searchContent);
+		return mav;
+	}
+	
+	@RequestMapping("/admin/showModal.do")
+	@ResponseBody
+	public Map<String, Object> showModal(@RequestParam("category") String category,
+										@RequestParam("no") String no)
+										throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("category", category);
+		map.put("no", no);
+		
+		Map<String, Object> cont = new HashMap<>();
+		
+		cont = adminService.showModal(map);
+		
+		return cont;
+	}
+	
+	@RequestMapping("/admin/studyList.do")
+	public ModelAndView studyList(ModelAndView mav,
+								@RequestParam(value="searchType",
+								required=false)String searchType,
+								@RequestParam(value="searchContent",
+								required=false)String[] searchKeyword) {
+		
+		Map<String, Object> search = new HashMap<>();
+		
+		log.debug("ss={}", searchKeyword);
+		
+		if(searchType!=null && searchKeyword !=null) {
+				
+			search.put("searchType", searchType);
+			search.put("searchKeyword", searchKeyword[0]);
+			
+			if(searchKeyword.length > 1)
+				search.replace("searchKeyword", searchKeyword[1]);
+		}
+
+		log.debug("search={}", search);
+		
+		List<Map<String, Object>> list = adminService.studyList(search);
+		log.debug("list={}", list);
+		
+		mav.addObject("search", search);
+		mav.addObject("list", list);
 		
 		
 		return mav;
 	}
 	
+	@RequestMapping("/admin/studyDetail.do")
+	public Model studyDetail(Model model,
+							@RequestParam("no") int no) {
+		
+		log.debug("no = {}", no);
+		
+		Map<String, Object> map = adminService.studyDetail(no);
+		List<String> list = adminService.studyMembers(no);
+		
+		log.debug("map={}", map);
+		log.debug("list={}", list);
+		
+		model.addAttribute("s", map);
+		model.addAttribute("list", list);
+		
+		return model;
+	}
 	
+	@RequestMapping("/admin/studyDelete.do")
+	public String studyDelete(@RequestParam("no") int no,
+								RedirectAttributes redirectAttr) {
+		
+		int result = adminService.studyDelete(no);
+		
+		if(result > 0)
+			redirectAttr.addFlashAttribute("msg", "방 삭제처리 완료");
+		else
+			redirectAttr.addFlashAttribute("msg", "방 삭제처리 완료");
+			
+		
+		return "redirect:/admin/studyDetail.do?no="+no;
+	}
+	
+	@RequestMapping("/admin/updateReport.do")
+	public String updateReport(@RequestParam("no")int no,
+								@RequestParam(value="searchContent",
+								required=false) String searchContent,
+								RedirectAttributes redirectAttr) {
+		
+		log.debug("no={}", no);
+		log.debug("searchContent={}", searchContent);
+		
+		int result = adminService.updateReport(no);
+		
+		if(result>0)
+			redirectAttr.addFlashAttribute("msg", "신고 무효처리 성공");
+		else
+			redirectAttr.addFlashAttribute("msg", "신고 무효처리 실패");
+		
+		if(searchContent != "" || searchContent != null)
+			return "redirect:/admin/reportList.do?searchContent="+searchContent;
+		
+		return "redirect:/admin/reportList.do";
+	}
 }
