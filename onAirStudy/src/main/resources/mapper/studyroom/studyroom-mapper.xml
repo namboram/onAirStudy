@@ -270,4 +270,49 @@ values(
   		<result column="category" property="category"/>
   	</resultMap>
 
+	<insert id="insertStudyLog">
+		insert into 
+			sr_log 
+		values(
+			seq_sr_log_no.nextval ,
+			#{ roomNum },
+			#{ memberId },
+			'참여',
+			0 ,
+			'N'
+		)
+	</insert>
+
+	<insert id="insertAttendance">
+		insert into 
+			attendance 
+		values(
+			seq_attendance_no.nextval ,
+			#{roomNum} ,
+			#{memberId} ,
+			default ,
+			default
+		)
+	</insert>
+	
+
+	<delete id="deleteWaiting">
+		delete from
+			sr_waiting_list
+		where
+			member_id = #{memberId}
+		and 
+			sr_no = #{roomNum}	
+	</delete>
+	
+	<select id="selectParticipatingRoomCnt" resultType="_int">
+		select 
+			count(*) 
+		from 
+			sr_log 
+		where 
+			member_id = #{memberId} 
+		and 
+			status_log = '참여'
+	</select>
 </mapper>

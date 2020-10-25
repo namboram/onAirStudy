@@ -53,6 +53,8 @@ public interface StudyRoomDAO {
 
 	int insertStudyLog(Map<String, Object> param);
 
+	int insertAttendance(Map<String, Object> param);
+
 
 
 

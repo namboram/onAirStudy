@@ -22,15 +22,15 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	@Override
 	public int insertWating(StudyRoomWaiting srWating) {
-		return sqlSession.insert("studyroom.insertWating",srWating);
+		return sqlSession.insert("studyroom.insertWating", srWating);
 	}
 
 	@Override
 	public List<StudyRoom> selectMystudyList() {
-		
+
 		return sqlSession.selectList("studyroom.selectMystudyList");
 	}
 
@@ -53,6 +53,7 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
+
 //방생성
 	@Override
 	public int insertProfileAttachment(ProfileAttachment profile) {
@@ -63,7 +64,7 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public int insertStudyRoomList(StudyRoom studyroom) {
 		return sqlSession.insert("studyroom.insertStudyRoomList", studyroom);
 	}
-	
+
 	@Override
 	public int insertStudyRoom(StudyRoomList sList) {
 		return sqlSession.insert("studyroom.insertStudyRoom", sList);
@@ -72,23 +73,20 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 //검색
 	@Override
 	public List<StudyRoomList> listAll(String search_option, String keyword) {
-		Map<String,String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectList("studyroom.listAll", map);
 	}
 
-
 	@Override
 	public int countArticle(String search_option, String keyword) {
-		Map<String,String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("studyroom.countArticle", map);
 	}
 
-
-	
 //성실스터디방 List
 	@Override
 	public List<StudyRoomList> selectDiligentStudyroom() {
@@ -135,7 +133,9 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.insert("studyroom.insertStudyLog", param);
 	}
 
+	@Override
+	public int insertAttendance(Map<String, Object> param) {
+		return sqlSession.insert("studyroom.insertAttendance", param);
+	}
 
-	
-	
 }
