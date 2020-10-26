@@ -41,9 +41,9 @@ public class SchedulerController {
 		List<Scheduler> addList = makeScheduleArrays(member, info);
 		
 		//확인
-		for(Scheduler sch : addList) {
-			System.out.println(sch);
-		}
+//		for(Scheduler sch : addList) {
+//			System.out.println(sch);
+//		}
 		
 		mav.addObject("list", addList);
 		
@@ -231,12 +231,9 @@ public class SchedulerController {
 	public String insertTodo(@RequestParam("content") String[] contents,
 							@RequestParam("checked") boolean[] yn,
 							@RequestParam("startDate") Date startDate,
-							HttpSession session,
+							@SessionAttribute("loginMember") Member member,
+							@SessionAttribute(value="roomInfo", required=false) StudyRoomInfo info,
 							RedirectAttributes redirectAttr) {
-		
-		String memberId = (String)session.getAttribute("memberId");
-		memberId=null;
-		int srNo = 15;
 		
 		Scheduler sch = null;
 		List<Scheduler> list = new ArrayList<>();
@@ -245,8 +242,14 @@ public class SchedulerController {
 
 			sch = new Scheduler();
 			
-			sch.setMemberId(memberId);
-			sch.setSrNo(srNo);
+
+			sch.setMemberId(member.getMemberId());
+			sch.setSrNo(0);
+			//방번호유무
+			if(info != null) {
+				sch.setSrNo(info.getSrNo());
+				sch.setMemberId(null);
+			}
 			sch.setStartDate(startDate);
 			sch.setEndDate(startDate);
 			sch.setContent(contents[i]);
@@ -258,8 +261,9 @@ public class SchedulerController {
 		}
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("memberId", memberId);
-		map.put("srNo", srNo);
+		map.put("memberId", member.getMemberId());
+		if(info != null)
+			map.put("srNo", info.getSrNo());
 		map.put("startDate", startDate);
 		
 		//이전내역삭제
@@ -283,12 +287,22 @@ public class SchedulerController {
 	
 	@RequestMapping("/scheduler/delTodo.do")
 	public String deleteTodo(@RequestParam("startDate") Date startDate,
+							@SessionAttribute("loginMember") Member member,
+							@SessionAttribute(value="roomInfo", required=false) StudyRoomInfo info,
 							RedirectAttributes redirectAttr) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("memberId", null);
-		map.put("srNo", 15);
+		
+		map.put("memberId", member.getMemberId());
+		map.put("srNo", null);
+
+		//방번호유무
+		if(info != null) {
+			map.put("memberId", null);
+			map.put("srNo", info.getSrNo());
+		}
+		
 		map.put("startDate", startDate);
 
 		int result = schedulerService.deleteTodo(map);

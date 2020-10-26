@@ -103,6 +103,7 @@
 					<form id="iuscheduleFrm" method="post">
 					
 						<input type="hidden" name="memberId" value="${ loginMember.memberId }" />
+						<input type="hidden" name="no" value="" />
 
 						<h3 style="margin-right: 180px;">날짜 입력</h3>
 						<br /> <input type="text" class="datepick delB" name="startDate">
@@ -201,7 +202,7 @@
 
 <script>
 
-	var srNo = "${ roonInfo.srNo }";
+	var srNo = "${ roomInfo.srNo }";
 
 	//방번호 유무에 따라 히든태그 생성
 	$(document).ready(function(){
@@ -405,6 +406,7 @@
 				for(var i in schedules){
 					if(schedules[i].no == no){
 						$("[name=no]").val(no);
+						console.log(no);
 						needDate = schedules[i].startDate;
 						$("[name=startDate]").val(needDate);
 						$("[name=endDate]").val(schedules[i].endDate);
