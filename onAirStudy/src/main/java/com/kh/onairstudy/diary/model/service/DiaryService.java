@@ -15,6 +15,9 @@ public interface DiaryService {
 	int insertDiary(Diary diary);
 
 
+	Diary selectOneDiary(int no);
+
+
 
 
 

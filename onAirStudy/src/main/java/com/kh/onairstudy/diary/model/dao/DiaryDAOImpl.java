@@ -35,6 +35,12 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return sqlSession.insert("diary.insertAttachment", attach);
 	}
 
+
+	@Override
+	public Diary selectOneDiary(int no) {
+		return sqlSession.selectOne("diary.selectOneDiary",no);
+	}
+
 	
 	
 
