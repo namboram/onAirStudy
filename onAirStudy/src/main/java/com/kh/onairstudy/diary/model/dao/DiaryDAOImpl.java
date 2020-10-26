@@ -38,8 +38,23 @@ public class DiaryDAOImpl implements DiaryDAO {
 
 	@Override
 	public Diary selectOneDiary(int no) {
-		return sqlSession.selectOne("diary.selectOneDiary",no);
+		return sqlSession.selectOne("diary.selectOneDiary", no);
 	}
+
+
+	@Override
+	public List<DiaryAttachment> selectAttachList(int no) {
+		return sqlSession.selectList("diary.selectAttachList", no);
+	}
+
+
+	@Override
+	public void diaryReadCount(int no) {
+		sqlSession.update("diary.diaryReadCount", no);
+		
+	}
+
+
 
 	
 	

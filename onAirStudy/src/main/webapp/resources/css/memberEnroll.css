@@ -4,16 +4,17 @@
 /* 폼 */
 div#enroll-out-container{ 
 	background-color:rgb(255, 195, 163); 
+
 }
 div#enroll-top-container{ 
 	background-color:rgb(255, 195, 163); 
-	padding-top: 40px; 
+	padding: 30px;
 	text-align: center;
 	vertical-align: middle; 
 }
 
 div#enroll-bottom-container{
-    height: 70vh;
+    height: 80vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -24,14 +25,16 @@ div#enroll-bottom-container{
 }
 #memberEnrollFrm{
 	background-color: white;
-	padding: 65px;
+	padding-right: 50px;
+	padding-left: 50px;
+	padding-top: 10px;
     border-radius: 20px;
     font-family: 'Nanum Gothic', 'Secular One';
 }
 .formMember{
     width:100%;
     position: relative;
-    height: 30px;
+    height: 40px;
     overflow: hidden;
 }
 
@@ -61,7 +64,7 @@ div#enroll-bottom-container{
     bottom: -2px;
     height: 100%;
     width: 100%;
-    border-bottom: 2px solid rgba(255, 195, 163, 0.849);
+	border-bottom: 2px solid rgba(255, 195, 163, 0.849);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
 }
@@ -76,7 +79,6 @@ div#enroll-bottom-container{
 .formMember input:valid + .label-member .content-member{
     transform: translateY(-100%);
     font-size: 5px;
-    color: tomato;
 }
 
 .formMember input:focus + .label-member::after, 
@@ -108,11 +110,10 @@ input[type=checkbox]:checked + .form-check-label em{
 	border-color: 1px soild gray;
 }
 input#enroll-submit{ 
-	width:500px; 
+	width:200px; 
 	color: black; 
 	background-color:rgb(255, 195, 163);
 } 
 input#enroll-reset{
-	width:500px;
-	border: none; 
+	width:200px; 
 }

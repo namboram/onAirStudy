@@ -26,18 +26,21 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 		<input type="text" class="form-control" 
 			   name="memberId" 
 			   value="${ diary.memberId }" readonly required>
+	   
 	    <input type="number" class="form-control" name="readCnt" title="조회수"
 			   value="${ diary.readCnt }" readonly>
+		
 		<input type="datetime-local" class="form-control" name="diaryDate" 
 			   value='<fmt:formatDate value="${ diary.diaryDate }" pattern="yyyy-MM-dd'T'HH:mm"/>'>
 		<hr />
 		
+		<c:forEach items="${ diary.attachList }" var="attach">
 		<!-- 다이어리 사진 송출  -->
 			<button type="button" 
-					class="btn btn-outline-success btn-block"
-					onclick="fileDownload('${ attach.no }')">
+					class="btn btn-outline-success btn-block">
 				첨부파일 - ${ attach.originalFilename }
 			</button>
+		</c:forEach>
 		
 		
 	    <textarea class="form-control" name="diaryContent" 
@@ -60,4 +63,6 @@ function fileDownload(no){
 
 
 </script>
+
+<jsp:include page="/WEB-INF/views/diary/diaryReply.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

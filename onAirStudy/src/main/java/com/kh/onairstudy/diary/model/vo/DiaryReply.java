@@ -1,6 +1,7 @@
 package com.kh.onairstudy.diary.model.vo;
 
-import java.io.Serializable;  
+import java.io.Serializable;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,12 +16,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class DiaryAttachment implements Serializable{
+public class DiaryReply implements Serializable{
 
 	private int no;
+	private String memeberId;
 	private int diaryNo;
-	private String originalFilename;
-	private String renamedFilename;
+	private String replyContent;
+	private Date replyDate;
 	
 	
 }
