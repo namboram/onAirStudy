@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* diaryList  */
 div.diary-container{
 	width:70%; 
 	height:900px; 
@@ -8,11 +9,9 @@ div.diary-container{
 	font-family: 'Nanum Gothic', 'Secular One';
 	font-weight: bold;
 }
-
 .diary-top-container{
 	margin: 5px;
 	background-color: rgb(255, 195, 170);
-	
 }
 .diary-search-write-container{
 	width: 800px;
@@ -22,14 +21,12 @@ div.diary-container{
 	margin-left: -146px;
 }
 #selectFrm{
-
 	height: 100px;
 	display: inline-block;
 }
 #diary-select-bar{
 	height: 39px;
 	border: 3px solid rgb(255, 195, 163);
-
 }
 .pink_window {
 	display: inline-block;
@@ -55,8 +52,6 @@ div.diary-container{
 	font-weight: ivory;
 	border-radius: 3px;
 	cursor: pointer;
-	
-
 }
 #diary-searchbtn:hover {
 	background: rgb(255, 195, 163);
@@ -72,3 +67,11 @@ div.diary-container{
 #diary-addbtn:hover {
 	background: gray;
 }
+
+
+/* diaryForm  */
+div#diaryfrm-container{width:400px; margin:0 auto; }
+div#diaryfrm-top-container{ background-color: rgb(255, 195, 163); padding: 20px;}
+div#diaryfrm-container input{margin-bottom:15px;}
+/* 부트스트랩 : 파일라벨명 정렬*/
+div#diaryfrm-container label.custom-file-label{text-align:left;}
