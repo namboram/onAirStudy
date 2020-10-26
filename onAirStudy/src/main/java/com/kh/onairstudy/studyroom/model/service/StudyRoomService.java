@@ -21,6 +21,8 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectStudyRoomList();
 
 	List<StudyCategory> selectCategoryList();
+	
+	List<StudyRoomWish> selectMywish();
 //방생성
 	int insertStudyRoom(StudyRoom studyroom);
 
@@ -53,6 +55,7 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
+
 
 	
 
