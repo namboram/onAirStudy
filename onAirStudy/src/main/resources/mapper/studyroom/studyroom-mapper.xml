@@ -3,6 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="studyroom">
+
+<select id="selectsrList" resultType="studyroomlist">
+select
+	*
+from
+	sr_list 
+</select>
+
 <select id="selectMystudyList" resultMap="studyRoomMap">
 select
         F.sr_no,
@@ -139,6 +147,8 @@ select
 	where
 		L.sr_no>8 and
 		sr_ended_yn != 'Y'
+	order by
+		sr_opened_yn desc
 </select>
 
   	<resultMap type="map" id="studyMap">
@@ -180,7 +190,7 @@ values(
 
 <!-- 방생성  -->
 
-<insert id="insertStudyRoom">
+<insert id="insertStudyRoomList">
 
 insert into 
 	sr_list 
@@ -193,10 +203,10 @@ values (
 insert into 
 	profile_attachment 
 values(
-	seq_profile_no.nextval, #{memberId}, #{srNo}, #{originalFilename}, #{renamedFilename}, #{filePath})
+	seq_profile_no.nextval, null, #{srNo}, #{originalFilename}, #{renamedFilename}, #{filePath})
 </insert>
 
-<insert id="insertStudyRoomList">
+<insert id="insertStudyRoom">
 
 insert into 
 	sr_info 
@@ -207,6 +217,18 @@ values(
 	#{srComment}, 0, 0, '-', '-', 0, 'N')
 	
 </insert>
+
+<insert id="insertStudyRoomLog">
+insert 
+	into sr_log 
+values(
+	seq_sr_log_no.nextval, #{srNo}, #{memberId}, '참여', 0, 'Y')
+</insert>
+
+<select id="selectStudyRoomLog" resultType="Map">
+select*
+from sr_log
+</select>
 <!-- 생성   -->
 
 <!-- 성실스터디방 List -->

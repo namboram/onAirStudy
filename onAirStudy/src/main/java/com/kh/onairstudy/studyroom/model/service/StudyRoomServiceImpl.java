@@ -60,23 +60,52 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		
 		int result = 0;
 		
-		result = studyRoomDAO.insertStudyRoomList(studyroom);
-		
-		if(studyroom.getProList() != null) {
-			for(ProfileAttachment profile : studyroom.getProList()) {
-				
-				profile.setSrNo(studyroom.getSrNo());
-				result = studyRoomDAO.insertProfileAttachment(profile);
+		StudyRoomList srList = new StudyRoomList();
+//		srList.setSrCategory(studyroom.getCategory());
+//		srList.setMemberId(studyroom.getMemberId());
+//		result = studyRoomDAO.insertStudyRoomList(srList);			
+//		
+		int rol = srList.getSrNo();
+		if(rol > 0) {
+			studyroom.setSrNo(srList.getSrNo());
+			result = studyRoomDAO.insertStudyRoom(studyroom);	
+			
+			StudyRoomLog srLog = new StudyRoomLog();
+			srLog.setMemberId(studyroom.getMemberId());
+			srLog.setSrNo(srList.getSrNo());
+			result = studyRoomDAO.insertStudyRoomLog(srLog);
+			
+			if(studyroom.getProList() != null) {
+				for(ProfileAttachment profile : studyroom.getProList()) {
+					
+					profile.setSrNo(srList.getSrNo());
+					result = studyRoomDAO.insertProfileAttachment(profile);
+				}
+					
 			}
+			
 		}
+		
+	
+			
 		
 		return result;
 	}
 	
 	@Override
-	public int insertStudyRoom(StudyRoomList sList) {
-		return studyRoomDAO.insertStudyRoom(sList);
+	public int insertStudyRoomList(StudyRoomList srList) {
+		return studyRoomDAO.insertStudyRoomList(srList);
 	}
+
+	
+	@Override
+	public List<StudyRoomLog> selectStudyRoomLog() {
+		// TODO Auto-generated method stub
+		return studyRoomDAO.selectStudyRoomLog();
+	}
+
+	
+
 	
 //검색
 	@Override
@@ -88,8 +117,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public int countArticle(String search_option, String keyword) {
 		return studyRoomDAO.countArticle(search_option,keyword);
 	}
-
-	
 	
 //성실스터디방 List
 	@Override
@@ -133,6 +160,10 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return result;
 	}
 
+	@Override
+	public List<StudyRoomList> selectsrList() {
+		return studyRoomDAO.selectsrList();
+	}
 
 
 	
