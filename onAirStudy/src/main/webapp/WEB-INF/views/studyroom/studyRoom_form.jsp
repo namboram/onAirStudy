@@ -55,8 +55,9 @@
 								
 								<c:forEach var="s" items="${srList}" varStatus="status">
 								 <c:set var="r" value="${(sLog[status.index])}" />
-								<c:if test="${ r.srNo == null && s.memberId eq loginMember.memberId }">
-								<input type="text" id="srNo" name=srNo value="${s.srNo}" hidden/>
+								 <c:set var="l" value="${(studyList[status.index])}" />
+								<c:if test="${s.memberId eq loginMember.memberId && l.srRanking == 0}">
+								<input type="text" id="srNo" name=srNo value="${s.srNo}" />
 								</c:if>
 								</c:forEach>
 								

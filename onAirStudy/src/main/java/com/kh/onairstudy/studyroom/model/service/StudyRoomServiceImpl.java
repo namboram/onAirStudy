@@ -81,12 +81,17 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 			srLog.setSrNo(srList.getSrNo());
 			result = studyRoomDAO.insertStudyRoomLog(srLog);
 			
+			
+			ProfileAttachment profile = new ProfileAttachment();
 			if(studyroom.getProList() != null) {
-				for(ProfileAttachment profile : studyroom.getProList()) {
-					
-					profile.setSrNo(srList.getSrNo());
-					result = studyRoomDAO.insertProfileAttachment(profile);
-				}
+//				for(ProfileAttachment profile : studyroom.getProList()) {
+//					
+//					profile.setSrNo(srList.getSrNo());
+//					result = studyRoomDAO.insertProfileAttachment(profile);
+//				}
+				profile.setMemberId(studyroom.getMemberId());
+				profile.setSrNo(srList.getSrNo());
+				result = studyRoomDAO.insertProfileAttachment(profile);
 					
 			}
 			

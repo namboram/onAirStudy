@@ -130,13 +130,15 @@ public class StudyRoomController {
 				model.addAttribute("srList", srList);
 				List<StudyRoomLog> sLog =studyRoomService.selectStudyRoomLog();
 				model.addAttribute("sLog", sLog);
+				List<StudyRoom> studyList = studyRoomService.selectMystudyList();
+				model.addAttribute("studyList", studyList);
 			}
 			
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
 		public String newstudyEnroll(StudyRoom studyroom,
 									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
-									@RequestParam("srCategory") int srCategory, Model model,
+									@RequestParam("srCategory") int srCategory, 
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
 					Member loginMember = (Member)session.getAttribute("loginMember");
 					
