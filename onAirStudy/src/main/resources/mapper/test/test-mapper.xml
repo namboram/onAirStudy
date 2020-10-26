@@ -27,7 +27,5 @@ select
 	sr_no
 from
   	sr_info
-
-
 </select>
 </mapper>
