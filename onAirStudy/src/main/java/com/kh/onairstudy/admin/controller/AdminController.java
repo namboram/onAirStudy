@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -92,7 +93,6 @@ public class AdminController {
 		
 		return mav;
 	}
-	
 	@RequestMapping("/admin/serviceList.do")
 	public ModelAndView serviceList(ModelAndView mav, HttpServletRequest request) {
 		
@@ -134,7 +134,6 @@ public class AdminController {
 	
 	@RequestMapping("/admin/insertService.do")
 	public String insertService(ServiceCenter sc, 
-								RedirectAttributes redirectAttr, 
 								@RequestParam("replyNo") int replyNo) {
 		log.debug("sc={}",sc);
 		sc.setReply_no(replyNo);
@@ -147,12 +146,7 @@ public class AdminController {
 		
 		result = adminService.updateService(replyNo);
 		
-		if(result>0)
-			redirectAttr.addFlashAttribute("msg", "답변 등록 성공!");
-		else
-			redirectAttr.addFlashAttribute("msg", "답변 등록 실패!");
-		
-		return "redirect:/service/serviceList.do";
+		return "redirect:/admin/serviceDetail.do?no="+replyNo;
 	}
 	
 	@RequestMapping(value="/admin/reportList.do")
