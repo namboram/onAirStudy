@@ -304,7 +304,7 @@ join
 	(select count(*) as "p_cnt", to_char(enroll_date, 'yyyyMMdd') as "en_date" from member where member_role ='P' group by to_char(enroll_date, 'yyyyMMdd'))
 using 
 	("en_date")
-order by 1 desc
+order by 1
  ]]>
  </select>
  
