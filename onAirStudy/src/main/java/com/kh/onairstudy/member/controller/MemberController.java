@@ -204,8 +204,8 @@ public class MemberController {
 		
 		
 		//로그인 성공한 경우
-		if( loginMember != null && 
-			bcryptPasswordEncoder.matches(password, loginMember.getPassword()) ) {
+//		if( loginMember != null && 
+//			bcryptPasswordEncoder.matches(password, loginMember.getPassword()) ) {
 		
 		
 			log.debug("loginMember = " + loginMember);
@@ -218,11 +218,11 @@ public class MemberController {
 				return "redirect:" + location;
 				
 			
-		} else {
-			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
-			return "redirect:" + location;
-		
-		}
+//		} else {
+//			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
+//			return "redirect:" + location;
+//		
+//		}
 	}
 		
 		/**
