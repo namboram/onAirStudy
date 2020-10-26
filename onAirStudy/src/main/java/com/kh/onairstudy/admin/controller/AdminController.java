@@ -1,5 +1,7 @@
 package com.kh.onairstudy.admin.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,12 +32,28 @@ public class AdminController {
 	
 
 	@RequestMapping("/admin/main.do")
-	public String adminMain(ModelAndView mav) {
+	public ModelAndView adminMain(ModelAndView mav, HttpServletRequest request) {
 			
+		//정보 몽땅 가져오기
+		Map<String, Object> map = adminService.adminMain();
 		
+		//오늘 날짜
+		Date date = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		String today = df.format(date);
+		map.put("today", today);
 		
+		//그래프 정보
+		List<Map<String, Object>> memberAll = adminService.memberAll();		
 		
-		return "/admin/adminIndex"; 
+		log.debug("map ={}", map);
+		log.debug("memberAll={}", memberAll);
+		
+		request.setAttribute("map", map);
+		mav.addObject("memberAll", memberAll);
+		mav.setViewName("admin/adminIndex");
+		
+		return mav; 
 	}
 	
 	//관리자 마이페이지 문의사항 카운트

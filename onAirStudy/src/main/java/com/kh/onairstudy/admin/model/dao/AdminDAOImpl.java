@@ -18,6 +18,11 @@ public class AdminDAOImpl implements AdminDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
+	public Map<String, Object> adminMain() {
+		return sqlSession.selectOne("admin.adminMain");
+	}
+
+	@Override
 	public List<Member> memberLis(Map<String, Object> search) {
 		return sqlSession.selectList("admin.memberList", search);
 	}
@@ -95,6 +100,12 @@ public class AdminDAOImpl implements AdminDAO {
 	public int updateReport(int no) {
 		return sqlSession.update("admin.updateReport", no);
 	}
+
+	@Override
+	public List<Map<String, Object>> memberAll() {
+		return sqlSession.selectList("admin.memberAll");
+	}
+
 
 	
 	
