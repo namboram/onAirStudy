@@ -56,6 +56,14 @@ public class DiaryDAOImpl implements DiaryDAO {
 
 	
 	
+
+	@Override
+	public Diary selectOneDiary(int no) {
+		return sqlSession.selectOne("diary.selectOneDiary",no);
+	}
+
+
+
 	
 	
 

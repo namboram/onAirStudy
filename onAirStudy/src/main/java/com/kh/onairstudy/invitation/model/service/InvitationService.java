@@ -3,6 +3,7 @@ package com.kh.onairstudy.invitation.model.service;
 import java.util.List;
 
 import com.kh.onairstudy.invitation.model.vo.Invitation;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 public interface InvitationService {
 
@@ -13,6 +14,8 @@ public interface InvitationService {
 //	int updateInvitation(int no);
 
 	int updateInvitation(Invitation invi);
+
+	int selectParticipatingRoomCnt(StudyRoomLog srLog);
 
 
 

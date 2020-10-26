@@ -18,7 +18,7 @@
 			id="searchRoom" method="POST">
 			<div class="row">
 			
-			<select class="optionFrm" name="search_option ">
+			<select class="optionFrm" name="search_option " >
 			<option value="memberId"
 			<c:if test="${map.search_option == 'memberId'}">selected</c:if>
   			 >그룹 리더</option>
@@ -57,7 +57,8 @@
 	<br />
 	
 		<div class="row" id="srlistG">
-			<c:forEach items="${ srList }" var="roomList">
+			<c:forEach items="${ srList }" var="roomList" varStatus="status">
+				 <c:set var="w" value="${(selectW[status.index])}" />
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
 					<div class="sr_pic">
@@ -66,18 +67,22 @@
 						<img class="memPic"
 							src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }">
 					</div>
-
-					<div class="hBtn">
+			
+					<div class="hBtn" >
 						<form
 							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
 							id="favRoom" method="POST">
 							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
-							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden>
-							<button type="submit" class="heartBtn">
+							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
+														
+							<button type="submit" class="heartBtn" style="<c:if test="${ loginMember.memberId eq w.memberId }">background-color:gray;</c:if>"
+							<c:if test="${ loginMember.memberId eq w.memberId }"> disabled </c:if>>
 								<img class="heartP"
-									src="${pageContext.request.contextPath }/resources/images/heart.png">
+									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
+							
 						</form>
+					
 					</div>
 
 					<div class="contentR">
@@ -133,12 +138,7 @@ $(':checkbox[name="srCategory"]').on({
 
 				<div class="modal-body">
 					<input type="text" class="form-control" name="srNo" hidden>
-					<input type="text" class="form-control" name="memberId"
-						value="${ loginMember.memberId }" hidden>
-					<c:set value="${name=srNo}" var="sRoom" />
-					<h4>${ sRoom.srTitle }</h4>
-					<h4>${ sRoom.srGoal }</h4>
-					<h4>${ sRoom.srComment }</h4>
+					
 				</div>
 
 

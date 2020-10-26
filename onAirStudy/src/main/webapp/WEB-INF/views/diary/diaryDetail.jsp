@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <style>
-div#diary-container{width:400px;}
+/* div#diary-container{width:400px;} */
 input, button, textarea {margin-bottom:15px;}
 button {
 	overflow: hidden;
@@ -15,10 +15,11 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 </style>
 
 
-<div id="diary-container" class="mx-auto text-center">
-	<h2>STUDY DIARY</h2>
-	
-	<div id="diary-main-container">
+<div id="diary-container" class="mx-auto col-sm-10 offset-sm-1">
+	<div class="text-center">
+		<h2>STUDY DIARY</h2>
+	</div>
+	<%-- <div id="diary-main-container">
 		<input type="text" class="form-control" 
 			   placeholder="제목" name="diaryTitle" id="title" 
 			   value="${ diary.diaryTitle }" required>
@@ -44,6 +45,9 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 		
 	    <textarea class="form-control" name="diaryContent" 
 	    		  placeholder="내용" required>${ diary.diaryContent }</textarea>
+	</div> --%>
+	<div class="border border-secondary">
+		${diary.diaryContent}
 	</div>
 
 </div>

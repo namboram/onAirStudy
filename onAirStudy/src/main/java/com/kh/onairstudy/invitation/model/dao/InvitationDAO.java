@@ -15,6 +15,8 @@ public interface InvitationDAO {
 
 	int deleteInvitation(int no);
 
+	int selectParticipatingRoomCnt(StudyRoomLog srLog);
+
 //	int updateInvitation(int no);
 
 

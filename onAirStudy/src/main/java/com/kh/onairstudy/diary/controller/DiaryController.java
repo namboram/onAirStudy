@@ -47,6 +47,12 @@ public class DiaryController {
 		return mav;
 	}
 
+//	@RequestMapping("/diaryForm.do")
+//	public void diaryForm() {
+//		//url -> viewName
+//		//ViewNameTranslator에 의해서 자동 유추됨.
+//	}
+	
 	@RequestMapping("/diaryForm.do")
 	public void diaryForm() {
 		//url -> viewName
