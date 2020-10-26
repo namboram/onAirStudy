@@ -30,8 +30,7 @@
  		<result column="file_count" property="fileCount"/>
  	</resultMap>
  	
- 	
- 	
+ 	<!-- 다이어리 등록  -->
  	<insert id="insertDiary">
 		insert into
 			diary
@@ -50,6 +49,8 @@
 				dual
 		</selectKey>
 	</insert>
+ 	
+ 	<!-- 첨부파일 등록 -->
  	<insert id="insertAttachment">
 		insert into 
 			diary_attachment
@@ -60,53 +61,48 @@
 			#{ renamedFilename }
 
 		)	
-	
 	</insert>
-	<select id="selectOneDiary" resultType="diary">
-		select
-			*
-		from
-			diary
-		where no = #{no}
-	</select>
+
+ 	<!-- 글불러오기  -->
+ 	<select id="selectOneDiary" resultType="diary">
+ 		select
+ 			*
+ 		from
+ 			diary
+ 		where
+ 			no = #{ no }
+ 	</select>
+ 	<select id="selectAttachList" resultType="diaryAttachment">
+ 		select
+ 			*
+ 		from
+ 			diary_attachment
+ 		where
+ 			diary_no = #{ no }
+ 	</select>
  	
- 	<!-- <select id="selectOneDiaryCollection" resultMap="diaryCollectionMap">
-  		select
-		    D.*,
-		    A.no as "attach_no",
-		    A.diary_no,
-		    A.original_filename,
-		    A.renamed_filename,
-		    A.upload_date,
-		    A.download_count
-		from 
-		    diary D
-		        left join diary_attachment A
-		            on D.no = A.diary_no
-		where
-		    D.no = #{ no }
-  	</select>
+ 	
+  	<!-- 게시판 조회수   -->
+  	<update id="diaryReadCount" >
+  		update
+  			diary
+  		set
+  			read_cnt = read_cnt+1
+  		where
+  			no = #{ no }
+  	</update>
   	
-	collection을 사용하는 resultMap은 id/result태그를 생략할 수 없다.
-  	<resultMap type="diary" id="diaryCollectionMap">
-  		<id column="no" property="no"/>
-  		<result column="member_id" property="memberId"/>
- 		<result column="diary_title" property="diaryTitle"/>
- 		<result column="diary_content" property="diaryContent"/>
- 		<result column="read_cnt" property="readCnt"/>
- 		<result column="diary_date" property="diaryDate"/>
- 		<result column="file_count" property="fileCount"/>
-  		
-  		<collection property="attachList" ofType="attachment">
-  			<id column="no" property="no"/>
-  			<result column="diary_no" property="boardNo"/>
-  			<result column="original_filename" property="originalFilename"/>
-  			<result column="renamed_filename" property="renamedFilename"/>
-  			<result column="upload_date" property="uploadDate"/>
-  			<result column="download_count" property="downloadCount"/>
-  			
-  		</collection>
-  	</resultMap> -->
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   	
  	
 </mapper>

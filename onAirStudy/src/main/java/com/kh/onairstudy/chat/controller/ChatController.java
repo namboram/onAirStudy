@@ -80,15 +80,5 @@ public class ChatController {
         return chat;
     }
     
-    //채팅 저장
-    @RequestMapping("/chat/insertChat.do")
-    @ResponseBody
-    public int insertChat(Chat chat) {
-//    	Map<String,Object> map = new HashMap<>();
-//    	map.put("chat", chat);
-    	int result = chatService.insertChat(chat);
-    	return result;
-    }
-    
     
 }
