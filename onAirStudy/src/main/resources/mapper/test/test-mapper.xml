@@ -28,4 +28,26 @@ select
 from
   	sr_info
 </select>
+
+<select id="selectQuestion" resultMap="testMap">
+SELECT * FROM
+	( SELECT * FROM pre_test
+	ORDER BY dbms_random.value )
+  <![CDATA[  
+	WHERE sr_no=#{srNo} and rownum <= 10
+]]> 
+</select>
+<resultMap type="map" id="testMap">
+<id column="sr_no" property="srNo"/>
+<result column="test_no" property="testNo"/>
+<result column="test_question" property="testQuestion"/>
+<result column="test_answer" property="testAnswer"/>
+<result column="test_choice1" property="testChoice_1"/>
+<result column="test_choice2" property="testChoice_2"/>
+<result column="test_choice3" property="testChoice_3"/>
+<result column="test_choice4" property="testChoice_4"/>
+<result column="file_path" property="filePath"/>
+<result column="renamed_filename" property="renamedFilename"/>
+</resultMap>
+
 </mapper>

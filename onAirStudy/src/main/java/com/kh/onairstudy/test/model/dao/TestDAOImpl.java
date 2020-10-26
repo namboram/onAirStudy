@@ -24,4 +24,10 @@ public class TestDAOImpl implements TestDAO {
 		return sqlSession.selectList("test.selectStudyNo");
 	}
 
+	@Override
+	public List<Test> selectQuestion(int srNo) {
+		
+		return sqlSession.selectList("test.selectQuestion", srNo);
+	}
+
 }
