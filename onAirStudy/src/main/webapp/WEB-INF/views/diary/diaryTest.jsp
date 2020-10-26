@@ -41,6 +41,7 @@
         } else {
             var textarea = editor.getContext().element.originElement;
             textarea.value = contents;
+            location href="";
             return true;
         }
 

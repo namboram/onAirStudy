@@ -19,7 +19,7 @@
             <p>Let's start studying at OnAirStudy</p>
         </div>
         <div id="enroll-bottom-container" class="mx-auto text-center">
-            <form id="memberEnrollFrm" action="memberEnroll.do" method="post">
+            <form id="memberEnrollFrm" action="memberEnroll.do" method="post" onsubmit="return validate();">
                 
                 <div class="mx-auto" id="member-enroll-table">
                     <h2>Sign up</h2>
@@ -31,12 +31,11 @@
                                            autocomplete="off"
                                            class="form-control" 
                                            id="memberId_"
-                                           required>
+>
                                     <label for="memberId" class="label-member">
                                         <span class="content-member">Id*</span>
                                     </label>
-                                    <span class="guide ok">이 아이디는 사용가능합니다.</span>
-                                    <span class="guide error">이 아이디는 사용할 수 없습니다.</span> 
+
                                    <!--  0:사용불가, 1:사용가능 -->
                                     <input type="hidden" id="idValid" value="0" />
                             </div>
@@ -45,7 +44,7 @@
                                 <input type="password" 
                                 class="form-control" 
                                 name="password" 
-                                id="password_" required>
+                                id="password_">
                                 <label for="password" class="label-member">
                                     <span class="content-member">password*</span>
                                 </label>
@@ -55,7 +54,7 @@
                                 <input type="password" 
                                 class="form-control" 
                                 name="passwordCheck" 
-                                id="passwordCheck_" required>
+                                id="passwordCheck_">
                                 <label for="passwordCheck" class="label-member">
                                     <span class="content-member">password check*</span>
                                 </label>
@@ -65,7 +64,7 @@
                                 <input type="text" 
                                 class="form-control" 
                                 name="memberName" 
-                                id="memberName" required>
+                                id="memberName">
                                 <label for="memberName" class="label-member">
                                     <span class="content-member">name*</span>
                                 </label>
@@ -75,7 +74,7 @@
                                 <input type="tel" 
                                 class="form-control" 
                                 name="phone" 
-                                id="phone" required>
+                                id="phone">
                                 <label for="phone" class="label-member">
                                     <span class="content-member">phone*</span>
                                 </label>
@@ -88,7 +87,7 @@
                                 <input type="text" 
                                 class="form-control" 
                                 name="comment" 
-                                id="comment" required >
+                                id="comment" >
                                 <label for="comment" class="label-member">
                                     <span class="content-member">comment</span>
                                 </label>
@@ -151,87 +150,49 @@ $(document).ready(function(){
 	});
 });
 
+
 /* 회원가입-유효성검사 */
-/* 아이디중복검사 ajax  */
-$("#memberId_").keyup(function(){
-	var $this = $(this);
+function validate() {
+       var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디가 적합한지 검사할 정규식
 
-	//처음 작성 또는 재작성하는 경우
-	if($this.val().length < 4){
-		$(".guide").hide();
-		$("#idValid").val(0);
-		return;
-	}
+       // 이메일이 적합한지 검사할 정규식
 
-	console.log($this.val());
+       var id = document.getElementById("memberId_");
+       var pw = document.getElementById("password_");
 
-	$.ajax({
-		url : "${ pageContext.request.contextPath }/member/checkIdDuplicate.do",
-		data : {
-			memberId : $this.val()
-		},
-		method : "GET",
-		dataType : "json",
-		success : function(data){
-			console.log(data);
-			var $ok = $(".guide.ok");
-			var $error = $(".guide.error");
-			var $idValid = $("#idValid");
+       if(!check(re,id,"아이디는 4~12자의 영문 대소문자와 숫자로만 입력")) {
+           return false;
+       }
 
-			if(data.isAvailable){
-				//아이디사용가능한 경우
-				$ok.show();
-				$error.hide();
-				$idValid.val(1);
-			}
-			else{
-				//아디디 사용불가능한 경우
-				$ok.hide();
-				$error.show();
-				$idValid.val(0);
-			}
-			
-		},
-		error : function(xhr, status, err){
-			console.log("처리실패!");
-			console.log(xhr);
-			console.log(status);
-			console.log(err);
-		}
-	});
-	
-	
-}); 
+       if(join.pw.value != join.passwordCheck_.value) {
+           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
+           join.checkpw.value = "";
+           join.checkpw.focus();
+           return false;
+       }
 
-/* 비밀번호체크  */	
-$("#passwordCheck_").blur(function(){
-	var $p1 = $("#password_"), $p2 = $("#passwordCheck_");
-	if(p1.val() != p2.val()){
-		alert("패스워드가 일치하지 않습니다.");
-		$p1.focus();
-	}
+
+       if(join.memberName.value=="") {
+           alert("이름을 입력해 주세요");
+           join.name.focus();
+           return false;
+       }
+
+       
+       alert("회원가입이 완료되었습니다.");
+   }
+
+   function check(re, what, message) {
+       if(re.test(what.value)) {
+           return true;
+       }
+       alert(message);
+       what.value = "";
+       what.focus();
+       //return false;
+   }
 });
-/* 아이디중복검사  */	
-$("#memberEnrollFrm").submit(function(){
 
-	var $memberId = $("#memberId_");
-	if(/^\w{4,}$/.test($memberId.val()) == false) {
-		alert("아이디는 최소 4자리이상이어야 합니다.");
-		$memberId.focus();
-		return false;
-	}
-
-	//사용자 아이디 중복여부
-	var $idValid = $("#idValid");
-	if($idValid.val() == 0){
-		alert("사용가능한 아이디를 입력하세요.");
-		$memberId.select();
-		return false;
-	}
-	
-	
-	return true;
-});
 </script> 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
