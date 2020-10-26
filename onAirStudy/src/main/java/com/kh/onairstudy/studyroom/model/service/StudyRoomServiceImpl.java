@@ -117,6 +117,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public int countArticle(String search_option, String keyword) {
 		return studyRoomDAO.countArticle(search_option,keyword);
 	}
+
 	
 //성실스터디방 List
 	@Override

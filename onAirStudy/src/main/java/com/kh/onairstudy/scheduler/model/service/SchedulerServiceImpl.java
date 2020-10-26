@@ -59,6 +59,6 @@ public class SchedulerServiceImpl implements SchedulerService {
 		return schedulerDAO.deleteTodo(map);
 	}
 
-	
+
 	
 }

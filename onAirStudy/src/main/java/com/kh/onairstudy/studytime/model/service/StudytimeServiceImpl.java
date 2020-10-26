@@ -15,7 +15,15 @@ public class StudytimeServiceImpl implements StudytimeService {
 	private StudytimeDAO studytimeDAO;
 
 	@Override
-	public List<Studytime> selectList() {
-		return studytimeDAO.selectList();
+	public List<Studytime> selectList(String memberId) {
+		return studytimeDAO.selectList(memberId);
 	}
+
+	@Override
+	public void insertStudyTime(Studytime studytime) {
+		studytimeDAO.insertStudyTime(studytime);
+		
+	}
+	
+	
 }

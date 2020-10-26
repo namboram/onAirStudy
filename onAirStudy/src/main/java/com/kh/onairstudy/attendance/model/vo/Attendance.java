@@ -18,6 +18,11 @@ import lombok.ToString;
 
 public class Attendance implements Serializable{
 
-	
+	private int no;
+	private int srNo;
+	private String memberId;
+	private int attendCnt;
+	private Date attendDate;
+	private int maximumCnt;
 	
 }

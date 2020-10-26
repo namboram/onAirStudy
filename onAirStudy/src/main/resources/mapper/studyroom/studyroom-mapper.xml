@@ -231,6 +231,7 @@ from sr_log
 </select>
 <!-- 생성   -->
 
+
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">
 	  	select *
