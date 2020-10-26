@@ -25,12 +25,12 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 
 	@Override
 	public int insertWating(StudyRoomWaiting srWating) {
-		return sqlSession.insert("studyroom.insertWating", srWating);
+		return sqlSession.insert("studyroom.insertWating",srWating);
 	}
 
 	@Override
 	public List<StudyRoom> selectMystudyList() {
-
+		
 		return sqlSession.selectList("studyroom.selectMystudyList");
 	}
 
@@ -53,7 +53,6 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
-
 //방생성
 	@Override
 	public int insertProfileAttachment(ProfileAttachment profile) {
@@ -61,31 +60,48 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 
 	@Override
-	public int insertStudyRoomList(StudyRoom studyroom) {
-		return sqlSession.insert("studyroom.insertStudyRoomList", studyroom);
+	public int insertStudyRoom(StudyRoom studyroom) {
+		return sqlSession.insert("studyroom.insertStudyRoom", studyroom);		
+	}
+	
+	@Override
+	public int insertStudyRoomList(StudyRoomList srList) {
+		return sqlSession.insert("studyroom.insertStudyRoomList", srList);	
+	}
+
+
+	
+
+	@Override
+	public List<StudyRoomLog> selectStudyRoomLog() {
+		return sqlSession.selectList("studyroom.selectStudyRoomLog");
 	}
 
 	@Override
-	public int insertStudyRoom(Map<String, Object> param) {
-		return sqlSession.insert("studyroom.insertStudyRoom", param);
+	public int insertStudyRoomLog(StudyRoomLog srLog) {
+		return sqlSession.insert("studyroom.insertStudyRoomLog", srLog);
 	}
+
+
 
 //검색
 	@Override
 	public List<StudyRoomList> listAll(String search_option, String keyword) {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String,String> map = new HashMap<String, String>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectList("studyroom.listAll", map);
 	}
 
+
 	@Override
 	public int countArticle(String search_option, String keyword) {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String,String> map = new HashMap<String, String>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("studyroom.countArticle", map);
 	}
+
 
 //성실스터디방 List
 	@Override
@@ -137,5 +153,16 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public int insertAttendance(Map<String, Object> param) {
 		return sqlSession.insert("studyroom.insertAttendance", param);
 	}
+	
+	
+	
+	@Override
+	public List<StudyRoomList> selectsrList() {
+		return sqlSession.selectList("studyroom.selectsrList");
+	}
+
+
+
+
 
 }

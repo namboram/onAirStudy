@@ -18,7 +18,7 @@
 			id="searchRoom" method="POST">
 			<div class="row">
 			
-			<select class="optionFrm" name="search_option ">
+			<select class="optionFrm" name="search_option " >
 			<option value="memberId"
 			<c:if test="${map.search_option == 'memberId'}">selected</c:if>
   			 >그룹 리더</option>
@@ -133,12 +133,7 @@ $(':checkbox[name="srCategory"]').on({
 
 				<div class="modal-body">
 					<input type="text" class="form-control" name="srNo" hidden>
-					<input type="text" class="form-control" name="memberId"
-						value="${ loginMember.memberId }" hidden>
-					<c:set value="${name=srNo}" var="sRoom" />
-					<h4>${ sRoom.srTitle }</h4>
-					<h4>${ sRoom.srGoal }</h4>
-					<h4>${ sRoom.srComment }</h4>
+					
 				</div>
 
 

@@ -12,7 +12,6 @@ import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
 public interface StudyRoomService {
-	
 	List<StudyRoom> selectMystudyList();
 
 	List<StudyRoomWaiting> selectMywaitingList();
@@ -24,12 +23,14 @@ public interface StudyRoomService {
 	List<StudyCategory> selectCategoryList();
 //방생성
 	int insertStudyRoom(StudyRoom studyroom);
-	
-	int insertStudyRoom(Map<String, Object> param);
+
+	int insertStudyRoomList(StudyRoomList srList);
+
 //검색
 	List<StudyRoomList> listAll(String search_option, String keyword);
 
 	int countArticle(String search_option, String keyword);	
+	
 	
 //
 	List<StudyRoomList> selectDiligentStudyroom();
@@ -47,7 +48,11 @@ public interface StudyRoomService {
 	int selectParticipatingRoomCnt(String memberId);
 
 	int insertStudyLog(Map<String, Object> param);
+	
+	
+	List<StudyRoomList> selectsrList();
 
+	List<StudyRoomLog> selectStudyRoomLog();
 
 	
 
