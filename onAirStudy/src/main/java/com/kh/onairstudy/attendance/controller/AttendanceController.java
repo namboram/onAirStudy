@@ -36,7 +36,7 @@ public class AttendanceController {
 		
 		int attendCnt = attendanceService.getAttendCnt(param);
 		
-		param.put("attendCnt", attendCnt);
+		param.put("attendCnt", attendCnt+1);
 	
 		int result = attendanceService.updateAttendance(param);
 		String msg = result == 0 ? "출석체크에 실패하였습니다." : "출석체크에 성공하였습니다";
