@@ -16,12 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.common.Utils;
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -126,10 +126,20 @@ public class StudyRoomController {
 	}
 	
 	@RequestMapping("mypage1/insrtStudyList.do")
-	public String insrtStudyList (StudyRoomList sList,HttpSession session) {	
-		StudyCategory sCate = (StudyCategory)session.getAttribute("roomInfo");
+		public String insrtStudyList( @RequestParam("sellist1") int sellist1, 
+									  HttpSession session) {	
+	
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		String memberId = loginMember.getMemberId();
 		
-		int result = studyRoomService.insertStudyRoom(sList);
+		log.debug("sellist1 = {}",sellist1);
+		log.debug("memberId = {}", memberId);
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("memberId", memberId);
+		param.put("srCategory", sellist1);
+		
+		int result = studyRoomService.insertStudyRoom(param);
 		
 		return "redirect:/mypage1/newstudy.do";
 	}

@@ -30,7 +30,7 @@ public interface StudyRoomDAO {
 	//방생성
 	int insertProfileAttachment(ProfileAttachment profile);
 	int insertStudyRoomList(StudyRoom studyroom);
-	int insertStudyRoom(StudyRoomList sList);
+	int insertStudyRoom(Map<String, Object> param);
 	
 	//검색
 	List<StudyRoomList> listAll(String search_option, String keyword);

@@ -51,13 +51,11 @@
 							<label for="groupCategory" style="margin-left: 6%;">
 							<h5>카테고리 먼저 선택 후 확인을 눌러 주세요.</h5></label>
 							<div class="row">
-								<select class="custom-select" id="groupCategory" name="sellist1"
-									style="width: 75%; margin-left: 7%;">
+								<select class="custom-select" id="groupCategory" name="sellist1" style="width: 75%; margin-left: 7%;">
 									<c:forEach items="${sCategory}" var="cate">
 										<option id="srCategory" value="${cate.no}">${cate.category}</option>
 									</c:forEach>
 								</select>
-							
 								<input type="text" name = "memberId" value="${ loginMember.memberId }" hidden>
 								<button type="submit" class="btn btn-light btn-sm"
 									style="margin-left: 5%; border: 2px solid #AD8686;">확인</button>
