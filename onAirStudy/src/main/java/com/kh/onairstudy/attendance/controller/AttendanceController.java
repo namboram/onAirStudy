@@ -50,5 +50,9 @@ public class AttendanceController {
 		return "redirect:/studyroom/main.do";
 	}
 	
+	@RequestMapping("/new.do")
+	public String index() {
+		return "/attendance/new";
+	}
 	
 }
