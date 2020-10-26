@@ -4,14 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.onairstudy.diary.model.dao.DiaryDAO;
 import com.kh.onairstudy.diary.model.vo.Diary;
 import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 
-/*@Transactional(propagation = Propagation.REQUIRED,
+@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
-rollbackFor = Exception.class)*/
+rollbackFor = Exception.class)
+//어떠한 예외가 발생해도 rollback해달라는 말!
 @Service
 public class DiaryServiceImpl implements DiaryService {
 

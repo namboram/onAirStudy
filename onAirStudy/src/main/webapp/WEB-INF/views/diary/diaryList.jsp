@@ -11,15 +11,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Secular+One&display=swap" rel="stylesheet">
 
 
-
-
-
+<style>
+tr[data-no]{
+	cursor:pointer;
+}
+</style>
 <script>
+$(function(){
+	$("tr[data-no]").click(function(){
+		var no = $(this).attr("data-no");
+		console.log(no);
+		location.href = "${ pageContext.request.contextPath }/diary/diaryDetail.do?no=" + no;
+		});	
+});
+
 function goDiaryForm(){
 	location.href = "${pageContext.request.contextPath}/diary/diaryForm.do";
 }
 </script>
-
 <!-- 검색창 --> 
 <div class="diary-container">
 	<h2>STUDY DIARY</h2>
@@ -79,13 +88,7 @@ function goDiaryForm(){
 <!-- call diaryForm.jsp ! -->
 <script>
 /*  */
-$(function(){
-	$("tr[data-no]").click(function(){
-		var no = $(this).attr("data-no");
-		console.log(no);
-		location.href = "${ pageContext.request.contextPath }/diary/diaryDetail.do?no=" + no;
-		});	
-});
+
 /* 글쓰기모달_ 폼제출 및 유효성검사*/
 /* $(document).ready(function(){
 	$('#add-btn').click(function(){

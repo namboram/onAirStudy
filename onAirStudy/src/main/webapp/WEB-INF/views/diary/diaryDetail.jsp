@@ -5,13 +5,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <style>
-div#board-container{width:400px;}
+div#diary-container{width:400px;}
 input, button, textarea {margin-bottom:15px;}
 button {
 	overflow: hidden;
 }
 /* 부트스트랩 : 파일라벨명 정렬*/
-div#board-container label.custom-file-label{text-align:left;}
+div#diary-detail-container label.custom-file-label{text-align:left;}
 </style>
 
 
@@ -32,13 +32,12 @@ div#board-container label.custom-file-label{text-align:left;}
 		<hr />
 		
 		<!-- 다이어리 사진 송출  -->
-		<c:forEach items="${ diary.attachList }" var="attach">
 			<button type="button" 
 					class="btn btn-outline-success btn-block"
 					onclick="fileDownload('${ attach.no }')">
 				첨부파일 - ${ attach.originalFilename }
 			</button>
-		</c:forEach> 
+		
 		
 	    <textarea class="form-control" name="diaryContent" 
 	    		  placeholder="내용" required>${ diary.diaryContent }</textarea>
