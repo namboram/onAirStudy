@@ -10,49 +10,26 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/diary.css" />
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Secular+One&display=swap" rel="stylesheet">
 
-<!-- Modal -->
-<div class="modal fade" id="diaryModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="diaryModalLabel">다이어리 기록</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       	<form id="diaryEnrollFrm" 
-       		  method="post" 
-       		  encytpe="multipart/form-data" 
-		  	  action="${pageContext.request.contextPath}/diary/diaryEnroll.do"
-		  	  onsubmit="return diaryValidate();">
-		  
-		  <div class="diary-form-group">
-		    <label for="diaryModalTitle">제목</label>
-		    <input type="text" class="form-control" id="diary-title" placeholder="" required>
-		  </div>
-		  <div class="diary-form-group">
-		    <input type="file" class="form-control-file" id="diary-fileup" name="upFile">
-		  </div>
-		  <div class="diary-form-group">
-		    <label for="diaryModalContent">내용</label>
-		    <textarea class="form-control" id="diary-content" rows="3" required></textarea>
-		  </div>	
-					
-		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary" id="add-btn">저장</button>
-      </div>
-    </div>
-  </div>
-</div>
 
+<style>
+tr[data-no]{
+	cursor:pointer;
+}
+</style>
+<script>
+$(function(){
+	$("tr[data-no]").click(function(){
+		var no = $(this).attr("data-no");
+		console.log(no);
+		location.href = "${ pageContext.request.contextPath }/diary/diaryDetail.do?no=" + no;
+		});	
+});
 
-
-
-<!-- diarylist  -->	
+function goDiaryForm(){
+	location.href = "${pageContext.request.contextPath}/diary/diaryForm.do";
+}
+</script>
+<!-- 검색창 --> 
 <div class="diary-container">
 	<h2>STUDY DIARY</h2>
 	
@@ -75,16 +52,12 @@
 		        <button class="btn btn-outline-danger" id="diary-searchbtn"type="submit">검색</button>
   		
   		</form>
-		    <!-- call model button -->
-		    <button class="btn btn-light" id="diary-addbtn" 
-		       		data-toggle="modal" data-target="#diaryModal" onclick="checkMember()">글쓰기</button>			
-  
-        
+		    <input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goDiaryForm();"/>
   	</div>
 		
     <br />
     <!-- 공부다이어리 목록 -->
-	<table class="table">
+	<table class="table" class="table table-striped table-hover">
 	    <tr class="header">
 	      <th>번호</th>
 	      <th>제목</th>
@@ -115,15 +88,9 @@
 <!-- call diaryForm.jsp ! -->
 <script>
 /*  */
-$(function(){
-	$("tr[data-no]").click(function(){
-		var no = $(this).attr("data-no");
-		console.log(no);
-		location.href = "${ pageContext.request.contextPath }/diary/diaryDetail.do?no=" + no;
-		});	
-});
+
 /* 글쓰기모달_ 폼제출 및 유효성검사*/
-$(document).ready(function(){
+/* $(document).ready(function(){
 	$('#add-btn').click(function(){
 		var dTitle = $("#diary-title").val();
 		var dFileup = $("#diary-fileup").val(); 
@@ -140,13 +107,13 @@ $(document).ready(function(){
 			return;
 		}
 		//폼 내부의 데이터를 전송할 주소
-		document.diaryEnrollFrm.action = "location.href='${ pageContext.request.contextPath }/diary/diaryDetail.do'"
+		document.diaryEnrollFrm.action = "location.href='${ pageContext.request.contextPath }/diary/diaryDetail.do?diary-title='+dTitle+''"
 		
 		//폼제출
 		document.diaryEnrollFrm.submit();
-	});
-});
 
+});
+ */
 
 
 
