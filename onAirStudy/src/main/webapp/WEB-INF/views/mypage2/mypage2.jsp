@@ -15,6 +15,21 @@
 
 
 
+<div class="modal fade" data-backdrop="static" id="myModal"
+	role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body">
+				<button class="btn btn btn-outline-primary" onclick="goToAttendCheck(${roomInfo.srNo})">출석체크</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
 <div class="row">	
 	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
@@ -96,12 +111,15 @@ $(function(){
 	var attendDay = $("#attendDay").val().split(","); //출석체크 요일
 	var attendTime = $("#attendTime").val().split(/[:,]/); //출석체크 시간
 	var attendCheck = $("#attendCheck").val(); //출석체크 수행 여부
+
+	console.log(attendCheck);
 	
 	for(var i in attendDay){
 		if(attendDay[i] == day && attendCheck == 0){
 			var startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), attendTime[i*2] , attendTime[(i*2)+1] );
 			var endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(),  startTime.getHours(), startTime.getMinutes()+10 );
 			if(startTime.getTime() <= d.getTime() && d.getTime() <=endTime.getTime() ){
+				console.log("모달띄워요");
 				 $('#myModal').modal('show'); 
 			}
 		}
