@@ -5,7 +5,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-
+<style>
+.modal-dialog{
+width: 150px;
+    margin: 10% auto;
+}
+.modal-content{
+background-color: transparent; 
+   border: 0;
+    border-radius: 0;
+    outline: 0;
+    box-shadow: none;
+}
+</style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
@@ -13,10 +25,7 @@
 <!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-
-
-<div class="modal fade" data-backdrop="static" id="myModal"
-	role="dialog">
+<div class="modal fade" data-backdrop="static" id="myModal" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -26,9 +35,6 @@
 		</div>
 	</div>
 </div>
-
-
-
 
 <div class="row">	
 	<nav class="side-navbar col-lg-2">
@@ -63,7 +69,7 @@
 						<li><div class="participantsJH">
 							<div class="status"></div>
 							<span>${part.memberId }</span>
-							<div class="icon icon-mail message"  onclick="alert('쪽지를 보내봅시다~')"></div>
+							<div class="icon icon-mail message" onclick="alert('쪽지를 보내봅시다~')"></div>
 						</div></li>
 					</c:forEach>
 				</ul>
