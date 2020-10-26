@@ -1,7 +1,6 @@
 package com.kh.onairstudy.diary.model.vo;
 
-import java.io.Serializable; 
-import java.util.Date;
+import java.io.Serializable;  
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

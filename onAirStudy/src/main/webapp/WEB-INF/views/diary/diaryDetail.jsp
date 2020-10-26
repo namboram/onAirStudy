@@ -31,12 +31,13 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 			   value='<fmt:formatDate value="${ diary.diaryDate }" pattern="yyyy-MM-dd'T'HH:mm"/>'>
 		<hr />
 		
+		<c:forEach items="${ diary.attachList }" var="attach">
 		<!-- 다이어리 사진 송출  -->
 			<button type="button" 
-					class="btn btn-outline-success btn-block"
-					onclick="fileDownload('${ attach.no }')">
+					class="btn btn-outline-success btn-block">
 				첨부파일 - ${ attach.originalFilename }
 			</button>
+		</c:forEach>
 		
 		
 	    <textarea class="form-control" name="diaryContent" 

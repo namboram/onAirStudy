@@ -114,9 +114,13 @@ public class DiaryController {
 		 public ModelAndView diaryDetail(@RequestParam("no") int no,
 				 						 ModelAndView mav) { 
 			//1. 각 테이블별 쿼리로처리 
-			//Board board = boardService.selectOneBoard(no); 
+			Diary diary = diaryService.selectOneDiary(no); 
+			log.debug("diary={}", diary);
+			
+			mav.addObject("diary", diary);
 			//2. mybatis collection을 이용해서 join된 쿼리 전송 
 			
+			 mav.setViewName("diary/diaryDetail");
 			 return mav; 
 		 }
 		 
