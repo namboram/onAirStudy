@@ -15,6 +15,8 @@ public interface DiaryDAO {
 
 	int insertAttachment(DiaryAttachment attach);
 
+	Diary selectOneDiary(int no);
+
 
 
 
