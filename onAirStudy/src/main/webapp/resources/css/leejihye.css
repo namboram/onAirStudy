@@ -5,6 +5,19 @@
 *     SIDEBAR
 * ==========================================================
 */
+
+.modal-dialog{
+width: 150px;
+    margin: 10% auto;
+}
+.modal-content{
+background-color: transparent; 
+   border: 0;
+    border-radius: 0;
+    outline: 0;
+    box-shadow: none;
+}
+
 nav.navbar-default{
 	
 	margin-bottom: 0px;
@@ -171,18 +184,15 @@ nav.side-navbar .avatar {
 nav.side-navbar .title {
   margin-left: 10px;
 }
-
 nav.side-navbar .title h1 {
   color: #333;
 }
-
 nav.side-navbar .title p {
   font-size: 0.9em;
   font-weight: 200;
   margin-bottom: 0;
   color: #aaa;
 }
-
 */
 nav.side-navbar span.heading {
   text-transform: uppercase;

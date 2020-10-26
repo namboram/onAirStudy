@@ -25,7 +25,7 @@
 			</div>
 			<div class="avatar">
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
-				<h3>Honggd</h3>
+				<h3 class="userName">${loginUser.memberId}</h3>
 				<h5>premium</h5>
 			</div>
 			<div class="d-day-display">
@@ -35,6 +35,7 @@
 			</div>
 			<input type="hidden" name="day" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden" name="time" id="attendTime" value="${roomInfo.attendTime }"/>
+			<input type="hidden" name="check" id="attendCheck" value="${attendCheck }"/>
 		</div>
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
@@ -92,24 +93,20 @@ $(function(){
 	
 	var day = week[d.getDay()];  //오늘 요일
 	var now = d.getHours() + ":" + d.getMinutes(); //현재시각
-
 	var attendDay = $("#attendDay").val().split(","); //출석체크 요일
 	var attendTime = $("#attendTime").val().split(/[:,]/); //출석체크 시간
-
-	var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
-	var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
-
-	console.log(attendTime);
+	var attendCheck = $("#attendCheck").val(); //출석체크 수행 여부
 	
 	for(var i in attendDay){
-		if(attendDay[i] == day){
+		if(attendDay[i] == day && attendCheck == 0){
 			var startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), attendTime[i*2] , attendTime[(i*2)+1] );
 			var endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(),  startTime.getHours(), startTime.getMinutes()+10 );
 			if(startTime.getTime() <= d.getTime() && d.getTime() <=endTime.getTime() ){
-				popupOpen();
+				 $('#myModal').modal('show'); 
 			}
 		}
 	}
+
 });
 
 function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
@@ -184,6 +181,10 @@ function post_to_url(path, params, method) {
 		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
 	}
 
+	function goToAttendCheck(roomNum){
+		var memberId = $(".userName").html();
+		post_to_url("${pageContext.request.contextPath}/attend/check.do", {"id" : memberId, "roomNum" : roomNum});
+	}
 	
 </script>
 
