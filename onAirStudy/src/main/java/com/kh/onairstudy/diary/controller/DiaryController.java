@@ -47,13 +47,24 @@ public class DiaryController {
 		return mav;
 	}
 
+//	@RequestMapping("/diaryForm.do")
+//	public void diaryForm() {
+//		//url -> viewName
+//		//ViewNameTranslator에 의해서 자동 유추됨.
+//	}
+	
 	@RequestMapping("/diaryForm.do")
-	public void diaryForm() {
-		//url -> viewName
-		//ViewNameTranslator에 의해서 자동 유추됨.
+	public String diaryForm() {
+		return "diary/diaryTest";
 	}
 	
-	
+	@RequestMapping("/insertDiary.do")
+	public String insertDiary(Diary diary,RedirectAttributes redirectAttr) {
+		int result = diaryService.insertDiary(diary);
+		log.info("diary={}",diary);
+		redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
+		return "redirect:/diary/diaryList.do";
+	}
 	@RequestMapping(value = "/diaryEnroll.do", method = RequestMethod.POST)
 	public String diaryEnroll(Diary diary,
 							  @RequestParam(value = "upFile",
@@ -114,9 +125,9 @@ public class DiaryController {
 		 public ModelAndView diaryDetail(@RequestParam("no") int no,
 				 						 ModelAndView mav) { 
 			//1. 각 테이블별 쿼리로처리 
-			//Board board = boardService.selectOneBoard(no); 
+			Diary diary = diaryService.selectOneDiary(no); 
 			//2. mybatis collection을 이용해서 join된 쿼리 전송 
-			
+			mav.addObject("diary", diary);
 			 return mav; 
 		 }
 		 
