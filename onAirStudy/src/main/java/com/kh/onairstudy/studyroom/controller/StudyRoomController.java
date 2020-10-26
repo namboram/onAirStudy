@@ -177,7 +177,7 @@ public class StudyRoomController {
 					studyroom.setProList(proList);
 					studyroom.setCategory(srCategory);
 					studyroom.setSrNo(srList.getSrNo());
-					System.out.println("srList.getSrNo()" + srList.getSrNo());
+					
 
 				//studyroom. profile 객체 DB저장하기
 
