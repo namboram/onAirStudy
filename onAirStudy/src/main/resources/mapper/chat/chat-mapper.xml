@@ -24,4 +24,16 @@ SELECT
        where x.sr_no = #{roomNo} and rownum <=10
       ]]> 
  </select>
+ <insert id="insertChat">
+ 	insert into
+ 		chatting
+ 	values(
+ 		seq_chatting_no.nextval,
+ 		#{memberId},
+ 		#{srNo},
+ 		#{chatContent},
+ 		default
+ 	)
+ 	
+ </insert>
 </mapper>

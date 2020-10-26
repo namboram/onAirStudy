@@ -141,13 +141,37 @@
 			<div class="fix_btn row">
 				<textarea name="msg" id="msgi" rows="2" class="form-control col-sm-8"></textarea>
 				<!-- <input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" /> -->
-				<button type="button" class="send col-sm-4 btn btn-secondary">보내기</button>
+				<button type="button" onclick="insertChat();" class="send col-sm-4 btn btn-secondary">보내기</button>
 			</div>
 		</div>
 
 	</div>
 </div>
 <script>
+//채팅 저장
+function insertChat(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/chat/insertChat.do",
+		type : "POST",
+		data :
+			{
+				memberId : "${loginMember.memberId}",
+				srNo : "${roomNo}",
+				chatContent : $("#msgi").val()
+						
+			} ,
+		dataType : "json",
+		success : function(result) {
+		
+		},
+		error : function(xhr, status, err) {
+			console.log("처리실패!");
+			console.log(xhr);
+			console.log(status);
+			console.log(err);
+		}
+	});
+}
 //생성된 메시지로 가기//맨 아래로 가기
 function moveDown(){
 	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
