@@ -24,6 +24,8 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomList> selectStudyRoomList();
 
+	List<StudyRoomWish> selectMywish();
+
 	List<StudyCategory> selectCategoryList();
 
 	int insertWish(StudyRoomWish srWish);
@@ -63,6 +65,7 @@ public interface StudyRoomDAO {
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
+
 
 
 	

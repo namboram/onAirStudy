@@ -164,6 +164,14 @@ select
   		<result column="sr_pic" property="srPic"/>
   		<result column="m_pic" property="mPic"/>
   	</resultMap>
+  	
+ <select id="StudyRoomWish" resultType="StudyRoomWish">
+ select
+ 	*
+ from
+ 	sr_wish_list
+ 	
+ </select>
 
 <select id="selectCategoryList" resultType="studycategory">
 	select

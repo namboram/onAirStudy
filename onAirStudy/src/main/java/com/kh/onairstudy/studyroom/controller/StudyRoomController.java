@@ -52,6 +52,9 @@ public class StudyRoomController {
 			List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
 			mav.addObject("srList", srList);
 			
+			List<StudyRoomWish> selectW =  studyRoomService.selectMywish();
+			mav.addObject("selectW", selectW);
+			
 			mav.setViewName("studyroom/studyRoomList");
 			return mav;
 		}	
@@ -68,11 +71,21 @@ public class StudyRoomController {
 		
 		//찜
 		@RequestMapping("/studyroom/favStudyroom.do")
-		public String favR(StudyRoomWish srWish,
-							RedirectAttributes redirectAttr) {
+		public String favR(StudyRoomWish srWish, 
+							RedirectAttributes redirectAttr) {		
 			
 			int result = studyRoomService.insertWish(srWish);
-			redirectAttr.addFlashAttribute("msg", result>0 ? "관심 목록에 추가 하였습니다." : "오류가 발생하였습니다.");
+			
+			String msg = "관심 목록에 추가 하였습니다.";
+			
+			if(result < 1) {
+			    msg = "관심 목록에 있는 방입니다.";
+			}else {
+				
+				msg = "관심 목록에 추가 하였습니다.";
+			}
+			redirectAttr.addFlashAttribute("msg", msg);
+			
 			return "redirect:/studyroom/studyroomlist.do";
 		}
 		

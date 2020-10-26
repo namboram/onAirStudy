@@ -49,6 +49,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomList> selectStudyRoomList() {
 		return studyRoomDAO.selectStudyRoomList();
 	}
+	
+	@Override
+	public List<StudyRoomWish> selectMywish() {
+		return studyRoomDAO.selectMywish();
+	}
+
 
 	@Override
 	public List<StudyCategory> selectCategoryList() {
@@ -165,6 +171,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomList> selectsrList() {
 		return studyRoomDAO.selectsrList();
 	}
+
 
 
 	

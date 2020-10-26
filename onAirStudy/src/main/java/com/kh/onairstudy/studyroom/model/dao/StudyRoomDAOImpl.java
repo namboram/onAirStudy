@@ -48,6 +48,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyRoomList> selectStudyRoomList() {
 		return sqlSession.selectList("studyroom.selectStudyRoomList");
 	}
+	
+	@Override
+	public List<StudyRoomWish> selectMywish() {
+		return sqlSession.selectList("studyroom.StudyRoomWish");
+	}
 
 	@Override
 	public List<StudyCategory> selectCategoryList() {
@@ -160,6 +165,8 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyRoomList> selectsrList() {
 		return sqlSession.selectList("studyroom.selectsrList");
 	}
+
+	
 
 
 
