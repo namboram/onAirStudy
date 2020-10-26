@@ -246,7 +246,7 @@ $(document).ready(function() {
 				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
 				// 가장 처음 데이터 번호가 1일경우 스크롤 종료
 				var length = result.size;
-				if (result[0].no == 1) {
+				if (length < 10) {
 					//console.log("resultno"+ result[0].no);
 					isEnd = true;
 				}
@@ -380,7 +380,11 @@ $(document).ready(function() {
 			// 여기는 입장시
 			//	           일반메세지 들어오는곳         
 			client.subscribe('/subscribe/chat/'+ roomNo,function(chat) {
-				var endNo = $("#list-guestbook li").last().data("no") + 1;
+				var endNo = $("#list-guestbook li").last().data("no");
+				if(isNaN(endNo))
+					endNo = 1;
+				else
+					endNo = endNo+1;
 				//받은 데이터
 				var content = JSON.parse(chat.body);
 				var html = renderList(content,endNo);

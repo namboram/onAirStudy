@@ -6,22 +6,24 @@
  <select id="selectChatList" resultType="chat">
 SELECT  R.no,R.member_id,R.sr_no,R.chat_content,r.send_date,L.vaild_yn
 
-FROM (SELECT rownum r , c.* FROM chatting c ORDER BY c.no DESC) R
+FROM (SELECT rownum r , c.* FROM chatting c ) R
             left outer join (select * from report_log where content_category='C') L
             on R.no = L.content_id
-WHERE sr_no = #{roomNo} and R.no BETWEEN #{startNo} AND #{endNo}
+WHERE sr_no = #{roomNo} and R.no BETWEEN #{startNo} AND #{endNo} order by R.no desc
  </select>
  <select id="selectFirstChatList" resultType="chat">
 <![CDATA[  
 SELECT 
      x.*,L.vaild_yn
-  FROM ( SELECT c.*
+FROM 
+( SELECT c.*
            FROM chatting c
+           where rownum <=10
           ORDER BY c.no desc
        ) x  
        left outer join (select * from report_log where content_category='C') L
             on x.no = L.content_id
-       where x.sr_no = #{roomNo} and rownum <=10
+where x.sr_no = #{roomNo} order by x.no 
       ]]> 
  </select>
  <insert id="insertChat">
@@ -31,7 +33,6 @@ SELECT
  		seq_chatting_no.nextval,
  		#{memberId},
  		#{srNo},
- 		#{chatContent},
  		default
  	)
  	
