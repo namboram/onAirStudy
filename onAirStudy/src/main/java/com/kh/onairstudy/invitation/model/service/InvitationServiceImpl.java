@@ -24,10 +24,7 @@ public class InvitationServiceImpl implements InvitationService {
 		return invitationDAO.selectInvitationList();
 	}
 	
-	@Override
-	public int deleteInvitation(int no) {
-		return invitationDAO.deleteInvitation(no);
-	}
+
 
 	@Override
 	public int updateInvitation(Invitation invi) {
@@ -36,20 +33,31 @@ public class InvitationServiceImpl implements InvitationService {
 		
 		result = invitationDAO.updateInvitation(invi);
 		
-		if(invi.getInvitationYN() != 'Y') {
+//		StudyRoomLog sLog = new StudyRoomLog();
+		if(invi.getSLog() != null) {
 			
 			for(StudyRoomLog sLog : invi.getSLog()) {
 				
-				sLog.setNo(invi.getNo());				
+				sLog.setSrNo(invi.getSrNo());				
 				result = invitationDAO.insertStudyRoomLog(sLog);
 			}
-//				StudyRoomLog sLog = new StudyRoomLog();
-//			
-//				sLog.setSrNo(invi.getSrNo());
-//				sLog.setMemberId(invi.getInvitiedId());
-//				result = invitationDAO.insertStudyRoomLog(sLog);
+//			sLog.setSrNo(invi.getSrNo());	
+//			result = invitationDAO.insertStudyRoomLog(sLog);
 			}
 		
 		return result;
 	}
+
+
+	@Override
+	public int deleteInvitation(int no) {
+		return invitationDAO.deleteInvitation(no);
+	}
+
+
+
+//	@Override
+//	public int updateInvitation(int no) {
+//		return invitationDAO.updateInvitation(no);
+//	}
 }

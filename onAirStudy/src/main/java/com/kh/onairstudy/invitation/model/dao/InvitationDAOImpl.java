@@ -21,18 +21,25 @@ public class InvitationDAOImpl implements InvitationDAO {
 		return sqlSession.selectList("invitation.selectInvitationList");
 	}
 	
-	@Override
-	public int deleteInvitation(int no) {
-		return sqlSession.delete("invitation.deleteInvitation", no);
-	}
 
 	@Override
 	public int updateInvitation(Invitation invi) {
 		return sqlSession.update("invitation.updateInvitation", invi);
 	}
+	
+//	@Override
+//	public int updateInvitation(int no) {
+//		return sqlSession.update("invitation.updateInvitation", no);
+//	}
 
 	@Override
 	public int insertStudyRoomLog(StudyRoomLog sLog) {
 		return sqlSession.insert("invitation.insertStudyRoomLog", sLog);
+	}
+
+
+	@Override
+	public int deleteInvitation(int no) {
+		return sqlSession.delete("invitation.deleteInvitation", no);
 	}
 }

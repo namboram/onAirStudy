@@ -8,7 +8,7 @@
 
 ​ 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/diary.css" />
-
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Secular+One&display=swap" rel="stylesheet">
 
 <!-- Modal -->
 <div class="modal fade" id="diaryModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,6 +50,8 @@
 </div>
 
 
+
+
 <!-- diarylist  -->	
 <div class="diary-container">
 	<h2>STUDY DIARY</h2>
@@ -59,18 +61,25 @@
 	</div>
     
 
-  	<div>
- 		 <select name ="diary-select-bar">
-         	<option value="제목">제목</option> 
-         	<option value="작성자">작성자</option>
-        </select>
-        <input type="search" class="form-control col-sm-6" 
-        	   id="diary-search" name="diary-search" placeholder=""/>&nbsp;
-        <button class="btn btn-outline-diary-search" type="submit">검색</button>
+  	<div class="diary-search-write-container">
+  		
+  		<form action="/diary/diarySearch" method="GET" id="selectFrm">
+	 		 <select name ="diary-select-bar" id="diary-select-bar">
+	         	<option value="제목">제목</option> 
+	         	<option value="작성자">작성자</option>
+	        </select>
+	  		<span class="pink_window">
+		        <input type="search" class="search" 
+		        	   id="keywordS" name="keywordS" placeholder="검색어를 입력해주세요"/>&nbsp;
+	  		</span>
+		        <button class="btn btn-outline-danger" id="diary-searchbtn"type="submit">검색</button>
+  		
+  		</form>
+		    <!-- call model button -->
+		    <button class="btn btn-light" id="diary-addbtn" 
+		       		data-toggle="modal" data-target="#diaryModal" onclick="checkMember()">글쓰기</button>			
+  
         
-        <!-- call model button -->
-	    <button class="btn btn-light" id="diary-addbtn" 
-	       		data-toggle="modal" data-target="#diaryModal" onclick="checkMember()">글쓰기</button>			
   	</div>
 		
     <br />
@@ -99,33 +108,9 @@
 	      <td>${ diary.readCnt }</td>
 		</tr>
 	    </c:forEach>
-	</table>
-	<div class="diary-bottom-container">
-		
-		  <ul class="pagination">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-	</div>
-	
+	    </table>
+
 </div>
-
-
-
-
 
 <!-- call diaryForm.jsp ! -->
 <script>
@@ -163,18 +148,6 @@ $(document).ready(function(){
 });
 
 
-
-/* 비회원 글쓰기 불가  */
-/* function checkMember(){
-	var memberId
-	if(memberId ==''){
-		//비활성화
-		$("#diary-addbtn").css('background-color','#fff');
-	} else{
-	//활성화
-		$("#diary-addbtn").css('background-color','rgb(255, 195, 163)')	;
-	}
-} */
 
 
 

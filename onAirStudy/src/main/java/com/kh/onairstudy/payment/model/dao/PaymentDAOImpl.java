@@ -9,5 +9,14 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public int updatePayHistory(String memberId) {
+		return sqlSession.update("payment.updatePayHistory", memberId);
+	}
+
+	
+	
+	
 	
 }

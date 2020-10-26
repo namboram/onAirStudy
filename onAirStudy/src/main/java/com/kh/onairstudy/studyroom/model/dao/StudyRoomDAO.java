@@ -1,6 +1,7 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -12,6 +13,8 @@ import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
 public interface StudyRoomDAO {
+	
+	int insertWating(StudyRoomWaiting srWating);
 
 	List<StudyRoom> selectMystudyList();
 
@@ -23,11 +26,15 @@ public interface StudyRoomDAO {
 
 	List<StudyCategory> selectCategoryList();
 
+	int insertWish(StudyRoomWish srWish);
+	//방생성
 	int insertProfileAttachment(ProfileAttachment profile);
-
-	int insertStudyRoom(StudyRoomList roomlist);
-
 	int insertStudyRoomList(StudyRoom studyroom);
+	int insertStudyRoom(StudyRoomList sList);
+	
+	//검색
+	List<StudyRoomList> listAll(String search_option, String keyword);
+	int countArticle(String search_option, String keyword);
 	
 	//
 	List<StudyRoomList> selectDiligentStudyroom();
@@ -37,5 +44,23 @@ public interface StudyRoomDAO {
 	List<String> selectApplicantList(int roomNum);
 
 	StudyRoomInfo selectRoomInfo(int roomNum);
+
+	List<Map<String, Object>> searchRoom(Map<String, String> param);
+
+	int selectParticipatingRoomCnt(String memberId);
+
+	int deleteWaiting(Map<String, Object> param);
+
+	int insertStudyLog(Map<String, Object> param);
+
+	int insertAttendance(Map<String, Object> param);
+
+
+
+
+
+	
+
+	
 
 }

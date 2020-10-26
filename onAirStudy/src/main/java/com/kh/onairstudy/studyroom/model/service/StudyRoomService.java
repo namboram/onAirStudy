@@ -1,6 +1,7 @@
 package com.kh.onairstudy.studyroom.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
@@ -21,9 +22,16 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectStudyRoomList();
 
 	List<StudyCategory> selectCategoryList();
-
+//방생성
 	int insertStudyRoom(StudyRoom studyroom);
+	
+	int insertStudyRoom(StudyRoomList sList);
+//검색
+	List<StudyRoomList> listAll(String search_option, String keyword);
 
+	int countArticle(String search_option, String keyword);	
+	
+//
 	List<StudyRoomList> selectDiligentStudyroom();
 
 	List<StudyRoomLog> selectParticipantList(int roomNum);
@@ -31,5 +39,17 @@ public interface StudyRoomService {
 	List<String> selectApplicantList(int roomNum);
 
 	StudyRoomInfo selectRoomInfo(int roomNum);
+
+	int insertWating(StudyRoomWaiting srWating);
+
+	int insertWish(StudyRoomWish srWish);
+
+	int selectParticipatingRoomCnt(String memberId);
+
+	int insertStudyLog(Map<String, Object> param);
+
+
+	
+
 
 }

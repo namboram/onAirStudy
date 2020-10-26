@@ -6,15 +6,21 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<!-- css -->
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/adminCommon.css" />
+
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <div class="row">
+
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-	<div class="col-lg-10">
+	<div class="col-lg-10 adDivB">
+	
 		<h3>회원 상세보기</h3>
-		<table class="table">
+		<table class="table tableB">
 				<tr>
 					<th>아이디</th>
 					<td>${ m.MEMBER_ID }</td>
@@ -47,10 +53,10 @@
 					<th>신고내역</th>
 					<td>
 					<c:if test="${ m.report == 0 }">
-					${ m.report } 회
+					<a href="#" onclick="alert('신고내역이 없습니다.')">${ m.report }</a> 회
 					</c:if>
 					<c:if test="${ m.report > 0 }">
-					<a href="${ pageContext.request.contextPath }/admin/report?mid=${ m.MEMBER_ID }"> ${ m.report } </a> 회
+					<a href="${ pageContext.request.contextPath }/admin/reportList.do?searchContent=${ m.MEMBER_ID }"> ${ m.report } </a> 회
 					</c:if>
 					</td>
 				</tr>
@@ -64,4 +70,7 @@
 	</div>
 </div>
 
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+

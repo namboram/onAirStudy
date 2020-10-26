@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,12 +37,67 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
-@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
+//@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
 public class StudyRoomController {
 
 	@Autowired
 	private StudyRoomService studyRoomService;
 
+	//메인 페이지 스터디룸 리스트
+	@RequestMapping("/studyroom/studyroomlist.do")
+	public ModelAndView studyroomlist(ModelAndView mav) {
+		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
+		mav.addObject("sCategory", sCategory);
+	
+		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
+		mav.addObject("srList", srList);
+		
+		mav.setViewName("studyroom/studyRoomList");
+		return mav;
+	}	
+	
+	//방신청
+	@RequestMapping("/studyroom/applystudyroom.do")
+	public String applyS(StudyRoomWaiting srWating,
+						RedirectAttributes redirectAttr) {
+		
+		int result = studyRoomService.insertWating(srWating);
+		redirectAttr.addFlashAttribute("msg", result>0 ? "신청을 완료 하였습니다." : "오류가 발생하였습니다.");
+		return "redirect:/studyroom/studyroomlist.do";
+	}
+	
+	//찜
+	@RequestMapping("/studyroom/favStudyroom.do")
+	public String favR(StudyRoomWish srWish,
+						RedirectAttributes redirectAttr) {
+		
+		int result = studyRoomService.insertWish(srWish);
+		redirectAttr.addFlashAttribute("msg", result>0 ? "신청을 완료 하였습니다." : "오류가 발생하였습니다.");
+		return "redirect:/studyroom/studyroomlist.do";
+	}
+	
+	//찾기
+	@RequestMapping(value = "/studyroom/searchStudyroom.do", method = RequestMethod.POST)
+	public ModelAndView searchRoom(@RequestParam(defaultValue="") String keyword, 
+								@RequestParam(defaultValue="srtitle") String search_option, 
+								ModelAndView mav) throws Exception {
+		//1. map에 저장
+		List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword);
+		
+		int count = studyRoomService.countArticle(search_option, keyword);
+		//mav에 값을 넣고 페이지 지정, map에 자료 저장
+		Map<String,Object> map = new HashMap<String, Object>(); 
+		
+		map.put("sList", sList);
+		map.put("count", count);
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		mav.addObject("map",map);
+		mav.setViewName("studyroom/studyRoomList");
+		return mav;
+	}
+	
+	//마이페이지 스터디 방 리스트 3개
 	@RequestMapping("/mypage1/mystudylist.do")
 	public ModelAndView mystudylist(ModelAndView mav) {
 
@@ -61,40 +117,33 @@ public class StudyRoomController {
 		return mav;
 	}
 
-	@RequestMapping("/studyroom/studyroomlist.do")
-	public ModelAndView studyroomlist(ModelAndView mav) {
-		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
-		mav.addObject("sCategory", sCategory);
-
-		List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
-		mav.addObject("srList", srList);
-
-		mav.setViewName("studyroom/studyRoomList");
-		return mav;
-	}
-
+	//스터디방 생성
 	@RequestMapping("mypage1/newstudy.do")
 	public void newstudy(Model model) {
 		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
 		model.addAttribute("sCategory", sCategory);
+		
+	}
+	
+	@RequestMapping("mypage1/insrtStudyList.do")
+	public String insrtStudyList (StudyRoomList sList,HttpSession session) {	
+		StudyCategory sCate = (StudyCategory)session.getAttribute("roomInfo");
+		
+		int result = studyRoomService.insertStudyRoom(sList);
+		
+		return "redirect:/mypage1/newstudy.do";
 	}
 
 	@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
 	public String newstudyEnroll(StudyRoom studyroom,
-			@RequestParam(value = "upFile", required = false) MultipartFile[] upFiles, RedirectAttributes redirectAttr,
+			@RequestParam(value = "upFile", required = false) MultipartFile upFile, RedirectAttributes redirectAttr,
 			HttpServletRequest request) throws IllegalStateException, IOException {
+			
 
-		List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
-		List<StudyRoom> studyList = studyRoomService.selectMystudyList();
-
-		List<ProfileAttachment> proList = new ArrayList<>();
-
-		String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
-
-		for (MultipartFile upFile : upFiles) {
-
-			if (upFile.isEmpty())
-				continue;
+			List<ProfileAttachment> proList = new ArrayList<>();
+		
+			String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
+			
 			// 1. 파일명 생성
 			String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
 			// 2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장 tranferTo.
@@ -104,59 +153,70 @@ public class StudyRoomController {
 			ProfileAttachment profile = new ProfileAttachment();
 			profile.setOriginalFilename(upFile.getOriginalFilename());
 			profile.setRenamedFilename(renamedFilename);
+			profile.setFilePath(saveDirectory);
 			proList.add(profile);
-
-		}
-		log.debug("proList = {}", proList);
-		studyroom.setProList(proList);
+			
+		
+			log.debug("proList = {}", proList);
+			studyroom.setProList(proList);
 
 		// studyroom. profile 객체 DB저장하기
 
-		int result = studyRoomService.insertStudyRoom(studyroom);
+			int result = studyRoomService.insertStudyRoom(studyroom);
 
-		redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
+			redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
 
-		return "redirect:/mypage1/mystudylist.do";
+			return "redirect:/mypage1/mystudylist.do";
 
 	}
 
+	//스터디방 입장 - 인덱스 페이지
 	@RequestMapping("/studyroom/main.do")
-	public String main(Model model) {
+	public String main( @RequestParam("roomNum") int roomNum, Model model) {
 
-		int roomNum = 15;
+		log.debug("roomNum = {}", roomNum);
+		
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
-		model.addAttribute("roomInfo", roomInfo);
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
-		log.debug("roomInfo = {}", roomInfo);
+		model.addAttribute("roomInfo", roomInfo);
 		model.addAttribute("participants", participants);
 		model.addAttribute("applicants", applicants);
 
 		return "mypage2/mypage2";
 	}
 	
+	//참여신청 수락
 	@RequestMapping(value = "/studyroom/accept.do", 
 					method = RequestMethod.POST)
 	public String acceptMember(RedirectAttributes redirectAttr, 
 							  @RequestParam("id") String memberId,
-							  @RequestParam("roomNum") String roomNum) {
+							  @RequestParam("roomNum") int roomNum) {
 			
-		log.debug("memberId = {}", memberId);
-		log.debug("roomNum = {}", roomNum);
-//		int result = 0;
-//		String msg = (result > 0) ? memberId + "님이 식구가 되었습니다!" : memberId + "님 식구등록에 실패했습니다!";
-		redirectAttr.addFlashAttribute("msg", memberId+"님이 " + roomNum + "번 방의 식구가 됐습니다!");
+		String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
+		
+		int count = studyRoomService.selectParticipatingRoomCnt(memberId);
+		log.debug("count = {}", count);
+		int result = 0;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("memberId", memberId);
+		param.put("roomNum", roomNum);
+		
+		log.debug("param = {}",param);
+	
+		
+		if(count >= 3) {
+		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
+		}else {
+			result = studyRoomService.insertStudyLog(param);
+			msg = result == 1 ? memberId + "님이 " + "스터디방에 참여하게 되었습니다" : "참여신청 수락에 실패하였습니다";
+		}
+		
+		redirectAttr.addAttribute("roomNum"	, roomNum);
+		redirectAttr.addFlashAttribute("msg", msg);
 		
 		return "redirect:/studyroom/main.do";
-	}
-
-	
-	@RequestMapping("/studyroom/exit")
-	public String exitRoom() {
-		
-//		방 정보 세션 날리기
-		return "redirect:/";
-		//return "redirect:/mypage1/mypage1_index.do";
 	}
 }

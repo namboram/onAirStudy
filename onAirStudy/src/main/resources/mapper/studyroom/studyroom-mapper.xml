@@ -32,7 +32,7 @@ where
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
-			select
+		select
   		A.*,
   		(select category
          from sr_category
@@ -90,6 +90,38 @@ where
   		<result column="wstatus" property="wStatus"/>
   	</resultMap>
 
+<!-- 찾기 -->
+<select id="listAll" resultMap="studyMap">
+select
+    *
+	from 
+		sr_list L left join sr_info F on l.sr_no = F.sr_no 
+	<include refid="search"/>
+</select>
+
+<select id="countArticle" resultType="int">
+select
+    count(*)
+	from 
+		sr_list L left join sr_info F on l.sr_no = F.sr_no
+<include refid="search"/> 
+</select>
+
+<sql id="search">
+<choose>
+<when test = "search_option =='all'">
+	where
+		member_id like '%' ||#{keyword}|| '%'
+	 or	sr_title like '%' ||#{keyword}|| '%'
+</when>
+<otherwise>
+	where
+	 ${search_option} like '%' ||#{keyword}|| '%'
+</otherwise>
+</choose>
+</sql>
+<!--  -->
+
 <select id="selectStudyRoomList" resultMap="studyMap">
 select
     L.*,
@@ -105,7 +137,8 @@ select
 	from 
 		sr_list L
 	where
-		L.sr_no>8
+		L.sr_no>8 and
+		sr_ended_yn != 'Y'
 </select>
 
   	<resultMap type="map" id="studyMap">
@@ -130,6 +163,22 @@ select
 	where
 		no != 100
 </select>
+
+<insert id="insertWating">
+insert 
+	into sr_waiting_list 
+values(
+	seq_waiting_no.nextval, #{memberId}, #{srNo})
+</insert>
+
+<insert id="insertWish">
+insert 
+	into sr_wish_list 
+values(
+	seq_wish_no.nextval, #{memberId}, #{srNo})
+</insert>
+
+<!-- 방생성  -->
 
 <insert id="insertStudyRoom">
 
@@ -158,6 +207,7 @@ values(
 	#{srComment}, 0, 0, '-', '-', 0, 'N')
 	
 </insert>
+<!-- 생성   -->
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">
@@ -220,4 +270,49 @@ values(
   		<result column="category" property="category"/>
   	</resultMap>
 
+	<insert id="insertStudyLog">
+		insert into 
+			sr_log 
+		values(
+			seq_sr_log_no.nextval ,
+			#{ roomNum },
+			#{ memberId },
+			'참여',
+			0 ,
+			'N'
+		)
+	</insert>
+
+	<insert id="insertAttendance">
+		insert into 
+			attendance 
+		values(
+			seq_attendance_no.nextval ,
+			#{roomNum} ,
+			#{memberId} ,
+			default ,
+			default
+		)
+	</insert>
+	
+
+	<delete id="deleteWaiting">
+		delete from
+			sr_waiting_list
+		where
+			member_id = #{memberId}
+		and 
+			sr_no = #{roomNum}	
+	</delete>
+	
+	<select id="selectParticipatingRoomCnt" resultType="_int">
+		select 
+			count(*) 
+		from 
+			sr_log 
+		where 
+			member_id = #{memberId} 
+		and 
+			status_log = '참여'
+	</select>
 </mapper>
