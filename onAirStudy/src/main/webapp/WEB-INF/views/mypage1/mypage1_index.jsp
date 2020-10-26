@@ -75,7 +75,7 @@
 
 		<h3>
 			일일 공부시간
-			<button type="button" class="btn btn-primary" data-toggle="modal"
+			<button type="button" class="btn btn-primary" data-toggle="modal" 
 				data-target="#exampleModal" data-whatever="@getbootstrap">시간
 				등록하기</button>
 		</h3>
@@ -105,33 +105,36 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">일일 공부시간 등록</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form id="form">
-					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">날짜</label> <input
-							type="date" class="form-control" id="studyDate">
-					</div>
-					<div class="form-group">
-						<label for="message-text" class="col-form-label">공부한 시간</label> <input
-							type="number" class="form-control" id="studyTime">
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" id="submit" class="btn btn-primary">등록</button>
+	<form class="form-studyTime" method="POST" action="${pageContext.request.contextPath}/mypage1_studyTime.do">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">일일 공부시간 등록</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="form">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">날짜</label> 
+							<input type="date" name="studyDate" class="form-control" id="studyDate">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">공부한 시간</label> <input
+								type="number" name="studyTime" class="form-control" id="studyTime">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="submit" class="btn btn-primary">등록</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </div>
 
 
@@ -139,11 +142,11 @@
 <script>
 
 /* modal 등록버튼 */
-$('#submit').click(function(){
+/* $('#submit').click(function(){
 	 $('#studyDate').text($('#studyDate').val());
      $('#studyTime').text($('#studyTime').val());
     
-});
+}); */
 
 
 
@@ -158,7 +161,7 @@ $('#submit').click(function(){
 			<c:forEach items="${ attendList }" var="attend" >
 				var json = new Object();
 				labels.push("${attend.attendCnt}");
-				data.push("${attend.maximumCnt}");
+				data.push("${attend.attendCnt}");
 			</c:forEach>
 
 

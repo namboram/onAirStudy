@@ -15,8 +15,8 @@ public class AttendanceDAOImpl implements AttendanceDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Attendance> selectList() {
-		return sqlSession.selectList("attendance.selectList");
+	public List<Attendance> selectList(String memberId) {
+		return sqlSession.selectList("attendance.selectList", memberId);
 	}
 	
 }

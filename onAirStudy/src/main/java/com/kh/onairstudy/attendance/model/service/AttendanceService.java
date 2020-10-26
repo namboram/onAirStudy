@@ -6,6 +6,6 @@ import com.kh.onairstudy.attendance.model.vo.Attendance;
 
 public interface AttendanceService {
 
-	List<Attendance> selectList();
+	List<Attendance> selectList(String memberId);
 
 }

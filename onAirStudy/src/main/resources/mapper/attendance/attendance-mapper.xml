@@ -5,10 +5,12 @@
 <mapper namespace="attendance">
  
  
- <select id="selectList" resultMap="attendanceMap">
+ <select id="selectList" parameterType="String" resultMap="attendanceMap">
  
  select *
  from attendance
+ where member_id = #{memberId}
+
  
  </select>
  
@@ -19,7 +21,6 @@
  	<result column="member_id" property="memberId"/>
  	<result column="attend_cnt" property="attendCnt"/>
  	<result column="recent_attend_date" property="attendDate"/>
- 	<result column="maximum_cnt" property="maximumCnt"/>
  
  </resultMap>
 </mapper>

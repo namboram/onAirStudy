@@ -22,8 +22,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	private AttendanceDAO AttendanceDAO;
 
 	@Override
-	public List<Attendance> selectList() {
-		return AttendanceDAO.selectList();
+	public List<Attendance> selectList(String memberId) {
+		return AttendanceDAO.selectList(memberId);
 	}
 	
 	
