@@ -95,7 +95,7 @@
 
 						<c:if test="${ roomList.srOpenedYN == 'Y'}">
 						<button type="button" class="btn btn-light btn-sm"
-							onclick="previewR('${ roomList.srNo }')">둘러보기</button>
+							onclick="previewR('${ roomList.srNo }','${roomList.memberId }','${roomList.sTitle }')">둘러보기</button>
 						<button type="button" class="btn btn-light btn-sm"
 							onclick="applyR('${ roomList.srNo }')">신청하기</button>	
 						<button type="button" class="btn btn-danger btn-sm"
@@ -119,7 +119,7 @@ $(':checkbox[name="srCategory"]').on({
 </script> -->
 
 
-<!-- The Modal -->
+<!-- 둘러보기 -->
 <div class="modal fade" id="previewFrm" role="dialog"
 	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
 	<div class="modal-dialog">
@@ -131,16 +131,16 @@ $(':checkbox[name="srCategory"]').on({
 				<button type="button" class="close" data-dismiss="modal">×</button>
 			</div>
 			<!-- Modal body -->
-			<form
-				action="${ pageContext.request.contextPath }/studyroom/applystudyroom.do"
-				id="applyS" method="POST">
-
-
 				<div class="modal-body">
-					<input type="text" class="form-control" name="srNo" hidden>
+				<div id="intro"></div>
+				<div id="leader"></div>
 					
 				</div>
 
+			<form
+				action="${ pageContext.request.contextPath }/studyroom/applystudyroom.do"
+				id="applyS" method="POST">
+					<input type="text" class="form-control" name="srNo" hidden>
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
@@ -153,12 +153,16 @@ $(':checkbox[name="srCategory"]').on({
 </div>
 
 <script>
-	function previewR(srNo) {
+	function previewR(srNo,leader,title) {
 		$("#previewFrm").modal().find("[name=srNo]").val(srNo);
+
+		var content = title+"의 미리 보기 입니다.";
+		$("#intro").html(content);
+		$("#leader").html(leader);
 	}
 </script>
 
-
+<!-- 신청 -->
 <div class="modal fade" id="applyRFrm" role="dialog"
 	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -244,7 +248,6 @@ $(':checkbox[name="srCategory"]').on({
 			$("#reportContents").html(content);
 			$("#contentIdK").val(no);
 			$("#reportIdK").html(leader);
-
 		};
 		//모달 안에 신고하기 버튼
 		function doReport() {
@@ -258,7 +261,6 @@ $(':checkbox[name="srCategory"]').on({
 								reporter : "${loginMember.memberId}",
 								reportedMember : $("#reportIdK").text(),
 								category : $("#reportCategK").val()
-
 							},
 							dataType : "json",
 							success : function(result) {
@@ -272,7 +274,6 @@ $(':checkbox[name="srCategory"]').on({
 								console.log(err);
 							}
 						});
-
 			}
 		}
 		</script>
@@ -280,4 +281,3 @@ $(':checkbox[name="srCategory"]').on({
 <div class="col-lg p-0 m-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
-

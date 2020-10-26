@@ -71,16 +71,10 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 //		srList.setMemberId(studyroom.getMemberId());
 //		result = studyRoomDAO.insertStudyRoomList(srList);			
 //		
-		int rol = srList.getSrNo();
-		if(rol > 0) {
+		
 			studyroom.setSrNo(srList.getSrNo());
-			result = studyRoomDAO.insertStudyRoom(studyroom);	
-			
-			StudyRoomLog srLog = new StudyRoomLog();
-			srLog.setMemberId(studyroom.getMemberId());
-			srLog.setSrNo(srList.getSrNo());
-			result = studyRoomDAO.insertStudyRoomLog(srLog);
-			
+			result = studyRoomDAO.insertStudyRoom(studyroom);		
+						
 			
 			ProfileAttachment profile = new ProfileAttachment();
 			if(studyroom.getProList() != null) {
@@ -95,10 +89,10 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 					
 			}
 			
-		}
-		
-	
-			
+			StudyRoomLog srLog = new StudyRoomLog();
+			srLog.setMemberId(studyroom.getMemberId());
+			srLog.setSrNo(srList.getSrNo());
+			result = studyRoomDAO.insertStudyRoomLog(srLog);			
 		
 		return result;
 	}
