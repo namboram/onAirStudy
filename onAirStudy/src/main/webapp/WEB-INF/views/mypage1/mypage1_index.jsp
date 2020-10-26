@@ -16,18 +16,35 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
+
 	<div class="col-lg-10" style="background-color: #FBF7FD;">
 
 		<h1>My page</h1>
 		<hr>
 		<div class="row">
-			<h3>그룹 내 나의 출석률</h3>
-			ㅡㅡㅡㅡㅡㅡㅡㅡ띄우기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			<h3>이번달 스터디방별 출석 그래프</h3>
+			---
+				<table>
+						<tr>
+							<th>출석횟수</th>
+							<th>최대출석횟수</th>
+						</tr>
+			<c:forEach items="${ attendList }" var="attend">
+						<tr>
+							<td>${ attend.attendCnt }</td>
+							<td>${ attend.maximumCnt }</td>
+						</tr>
+			</c:forEach>
+					</table>
+			---
+			
 			<h3>
 				오늘의 To Do List
 				<button type="button" class="btn btn-light"
 					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더
 					보기</button>
+					
+				
 			</h3>
 		</div>
 
@@ -35,19 +52,20 @@
 			<div class="col-md-5">
 				<canvas id="myChart1"></canvas>
 			</div>
-			ㅡㅡㅡㅡㅡㅡㅡㅡ
 
 			<div>
-				<table>
-					<tr>
-						<th>일정여부</th>
-						<th>TO DO LIST 내용</th>
-					</tr>
-					<tr>
-						<%-- <td>${ td.scheduleYN }</td>
-					<td>${ td.content }</td> --%>
-					</tr>
-				</table>
+			
+					<c:forEach items="${ todoList }" var="td">
+					<table>
+						<tr>
+							<th>TO DO LIST</th>
+						</tr>
+						<tr>
+							<td>${ td.scheduleYN }</td>
+							<td>${ td.content }</td>
+						</tr>
+					</table>
+					</c:forEach>
 			</div>
 
 		</div>
@@ -63,18 +81,18 @@
 		</h3>
 		<div class="col-md-7">
 			<div>
-				<c:forEach items="${studytimeList}" var="st">
 					<table>
 						<tr>
 							<th>날짜</th>
 							<th>시간</th>
 						</tr>
+				<c:forEach items="${studytimeList}" var="st">
 						<tr>
-							<td>${ st.studyDate }</td>
+							<td><fmt:formatDate pattern="yyyy.MM.dd" value="${ st.studyDate }"/></td>
 							<td>${ st.studyTime }</td>
 						</tr>
-					</table>
 				</c:forEach>
+					</table>
 			</div>
 			<canvas id="lineChart"></canvas>
 		</div>
@@ -127,16 +145,30 @@ $('#submit').click(function(){
     
 });
 
-/* 막대 차트 */
-			var ctx = document.getElementById("myChart1").getContext('2d');
 
-			var myChart = new Chart(ctx, {
+
+/* 막대 차트 */
+
+			var ctx = document.getElementById("myChart1").getContext('2d');
+			//차트 값 생성
+
+			var labels = new Array();
+			var data = new Array();
+
+			<c:forEach items="${ attendList }" var="attend" >
+				var json = new Object();
+				labels.push("${attend.attendCnt}");
+				data.push("${attend.maximumCnt}");
+			</c:forEach>
+
+
+				var myChart1 = new Chart(ctx, {
 				type : 'bar',
 				data : {
-					labels : [ "6월", "7월", "8월", "9월", "10월", "11월" ],
+					labels : [ "스터디방1", "스터디방2", "스터디방3" ],
 					datasets : [ {
-						label : '출석률',
-						data : [ 12, 19, 3, 5, 2, 3 ],
+						 	label: labels,
+				            data: data,
 						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
 								'rgba(255, 206, 86, 0.2)',
@@ -163,18 +195,38 @@ $('#submit').click(function(){
 				}
 			});
 
+	
+
+	
+							
+
+			
+			
+
 
 
 /* 일일 공부시간 그래프 */
 			
 			var ctxL = document.getElementById("lineChart").getContext('2d');
+
+			var labels = new Array();
+			var data = new Array();
+
+			<c:forEach items="${ studytimeList }" var="st" >
+				var json = new Object();
+				labels.push("${st.studyDate}");
+				data.push("${st.studyTime}");
+			</c:forEach>
+
+			
 			var myLineChart = new Chart(ctxL, {
 				type: 'line',
 				data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July"],
+/* 				labels: ["January", "February", "March", "April", "May", "June", "July"], */
+				labels:labels,
 				datasets: [{
-				label: "나의 일일 공부시간",
-				data: [65, 59, 80, 81, 56, 55, 40],
+				label: labels,
+				data: data,
 				backgroundColor: [
 				'rgba(105, 0, 132, .2)',
 				],
@@ -190,5 +242,17 @@ $('#submit').click(function(){
 				responsive: true
 				}
 			});
+
+
+
+			
+
+
 </script>
+
+
+
+
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

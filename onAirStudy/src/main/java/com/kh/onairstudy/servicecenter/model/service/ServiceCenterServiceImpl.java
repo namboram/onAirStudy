@@ -33,6 +33,11 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 		return serviceCenterDAO.insert(servicecenter);
 	}
 
+	@Override
+	public List<ServiceCenter> listAll(String search_option, String keyword, int start, int end) {
+		 return serviceCenterDAO.listAll(search_option, keyword, start, end);
+	}
+
 
 	
 

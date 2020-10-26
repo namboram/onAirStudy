@@ -1,17 +1,14 @@
 package com.kh.onairstudy.attendance.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.onairstudy.attendance.model.service.AttendanceService;
-import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
+import com.kh.onairstudy.attendance.model.vo.Attendance;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +40,8 @@ public class AttendanceController {
 //		
 //		return mav;
 //	}
+	
+	
 
 	
 }
