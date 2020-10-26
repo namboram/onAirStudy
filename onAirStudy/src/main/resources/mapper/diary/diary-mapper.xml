@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="diary">
  
- 	<select id="selectDiaryList" resultMap="diaryMap">
+ 	<select id="selectDiaryList" resultType="diary">
 	 	select
 		   D.*,
 		   (select
@@ -17,6 +17,7 @@
 		    diary D
 		order by 
 		    no desc
+ 	
  	</select>
  	
  	<resultMap type="map" id="diaryMap">
@@ -29,35 +30,40 @@
  		<result column="file_count" property="fileCount"/>
  	</resultMap>
  	
-<!--  	<select id="selectDiaryList" resultType="diary">
-	 	select
-		   D.*,
-		   (select
-		        count(*)
-		    from 
-		        diary_attachment
-		    where
-		        diary_no = D.no) file_count
-		from
-		    diary D
-		order by 
-		    no desc
- 	</select> -->
-<!--  	
- 	<insert id="insertDiary">
- 		insert into
- 			diary
- 		values(
- 			seq_diary_no.nextval,
- 			#{ diaryTitle },
- 			#{ memberId },
- 			default,
- 			#{ diaryCotent },
-
- 		)
- 	</insert>
  	
- 		<select id="selectOneDiaryCollection" resultMap="diaryCollectionMap">
+ 	
+ 	<insert id="insertDiary">
+		insert into
+			diary
+		values(
+			seq_diary_no.nextval,
+			#{ memberId },
+			#{ diaryTitle },
+			#{ diaryContent },
+			default,
+			default		
+		)
+		<selectKey order="AFTER" resultType="_int" keyProperty="no">
+			select
+				seq_diary_no.currval
+			from 
+				dual
+		</selectKey>
+	</insert>
+ 	<insert id="insertAttachment">
+		insert into 
+			diary_attachment
+		values (
+			seq_diary_attach_no.nextval, 
+			#{ diaryNo },
+			#{ originalFilename },
+			#{ renamedFilename }
+
+		)	
+	
+	</insert>
+ 	
+ 	<!-- <select id="selectOneDiaryCollection" resultMap="diaryCollectionMap">
   		select
 		    D.*,
 		    A.no as "attach_no",
@@ -68,24 +74,25 @@
 		    A.download_count
 		from 
 		    diary D
-		        left join attachment A
+		        left join diary_attachment A
 		            on D.no = A.diary_no
 		where
 		    D.no = #{ no }
   	</select>
   	
-  	collection을 사용하는 resultMap은 id/result태그를 생략할 수 없다.
+	collection을 사용하는 resultMap은 id/result태그를 생략할 수 없다.
   	<resultMap type="diary" id="diaryCollectionMap">
   		<id column="no" property="no"/>
-  		<result column="title" property="title"/>
   		<result column="member_id" property="memberId"/>
-  		<result column="content" property="content"/>
-  		<result column="reg_date" property="regDate"/>
-  		<result column="read_count" property="readCount"/>
+ 		<result column="diary_title" property="diaryTitle"/>
+ 		<result column="diary_content" property="diaryContent"/>
+ 		<result column="read_cnt" property="readCnt"/>
+ 		<result column="diary_date" property="diaryDate"/>
+ 		<result column="file_count" property="fileCount"/>
   		
   		<collection property="attachList" ofType="attachment">
-  			<id column="attach_no" property="no"/>
-  			<result column="board_no" property="boardNo"/>
+  			<id column="no" property="no"/>
+  			<result column="diary_no" property="boardNo"/>
   			<result column="original_filename" property="originalFilename"/>
   			<result column="renamed_filename" property="renamedFilename"/>
   			<result column="upload_date" property="uploadDate"/>
@@ -93,5 +100,6 @@
   			
   		</collection>
   	</resultMap> -->
+  	
  	
 </mapper>

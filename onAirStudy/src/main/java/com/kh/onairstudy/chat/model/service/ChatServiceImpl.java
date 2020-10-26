@@ -42,6 +42,11 @@ public class ChatServiceImpl implements ChatService {
 		
 		return chatDAO.selectFirstChatList(roomNo);
 	}
+
+	@Override
+	public int insertChat(Chat chat) {
+		return chatDAO.insertChat(chat);
+	}
 	
 	
 	

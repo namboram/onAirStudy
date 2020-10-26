@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.report.model.vo.Report;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 
 public interface AdminDAO {
 
-	List<Member> memberLis();
+	List<Member> memberLis(Map<String, Object> search);
 
 	Map<String, Object> memberDetail(String memberId);
 
-	List<Map<String, Object>> serviceList();
+	List<Map<String, Object>> serviceList(Map<String, Object> search);
 
 	Map<String, Object> serviceDetail(int no);
 
@@ -21,5 +22,23 @@ public interface AdminDAO {
 	int insertService(ServiceCenter sc);
 
 	int updateService(int replyNo);
+
+	List<Map<String, Object>> reportList(Map<String, Object> map);
+
+	Map<String, Object> showModal1(Map<String, Object> map);
+	
+	Map<String, Object> showModal2(Map<String, Object> map);
+
+	List<Map<String, Object>> studyList(Map<String, Object> search);
+
+	int serviceCnt();
+
+	Map<String, Object> studyDetail(int no);
+
+	List<String> studyMembers(int no);
+
+	int studyDelete(int no);
+
+	int updateReport(int no);
 
 }

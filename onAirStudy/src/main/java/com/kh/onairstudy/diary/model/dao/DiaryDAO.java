@@ -1,8 +1,11 @@
 package com.kh.onairstudy.diary.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.diary.model.vo.Diary;
+import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
+
 
 public interface DiaryDAO {
 
@@ -10,6 +13,11 @@ public interface DiaryDAO {
 
 	int insertDiary(Diary diary);
 
-	Diary selectOneDiaryCollection(int no);
+	int insertAttachment(DiaryAttachment attach);
+
+
+
+
+
 
 }

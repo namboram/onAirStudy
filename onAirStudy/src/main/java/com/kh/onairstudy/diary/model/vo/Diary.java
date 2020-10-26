@@ -2,6 +2,7 @@ package com.kh.onairstudy.diary.model.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,6 @@ public class Diary implements Serializable{
 	private int readCnt;
 	
 	private int fileCount;
+	private List<DiaryAttachment> attachList;
 	
 }

@@ -5,13 +5,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-	crossorigin="anonymous">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/mystudygruop.css">
-
 
 
 <div class="invitation" style="margin-bottom: 0;">
@@ -20,8 +16,7 @@
 	<div class="col-sm" style="background-color: #FBF7FD; padding: 20px;">
 		<h2 class="text-gray" style="float: left; padding-right: auto;">
 			My Study Group</h2>
-		<button type="button" class="btn btn-outline-primary"
-			data-toggle="modal" data-target="#myModal_ok"
+		<button type="button" class="btn btn-outline-primary"			
 			style="border-radius: 35px;">
 			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
 				방 만들기</a>
@@ -138,8 +133,8 @@
 </div>
 
 <script>
-function studyEntry(srNo){
-	location.href = "${ pageContext.request.contextPath }/attend/mypage2.do?no=" + srNo;
+function studyEntry(roomNum){
+	location.href = "${ pageContext.request.contextPath}/studyroom/main.do?roomNum=" + roomNum;
 }
 </script>
 

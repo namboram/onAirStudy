@@ -31,6 +31,12 @@ public class ChatDAOImpl implements ChatDAO {
 	public List<Chat> selectFirstChatList(int roomNo) {
 		return sqlSession.selectList("chat.selectFirstChatList",roomNo);
 	}
+
+	@Override
+	public int insertChat(Chat chat) {
+		return sqlSession.insert("chat.insertChat",chat);
+	}
+	
 	
 	
 	

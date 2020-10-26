@@ -13,4 +13,6 @@ public interface ChatService {
 
 	List<Chat> selectFirstChatList(int roomNo);
 
+	int insertChat(Chat chat);
+
 }

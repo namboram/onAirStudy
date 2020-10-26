@@ -24,9 +24,7 @@
 				<div class="messageAlarm">1</div>
 			</div>
 			<div class="avatar">
-				<img
-					src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg"
-					alt="...">
+				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
 				<h3>Honggd</h3>
 				<h5>premium</h5>
 			</div>
@@ -35,11 +33,13 @@
 				<span>D - 37</span></br> <span>2020.11.02</span></br> <span>토익시험</span></br>
 				<hr>
 			</div>
+			<input type="hidden" name="day" id="attendDay" value="${roomInfo.attendDay}"/>
+			<input type="hidden" name="time" id="attendTime" value="${roomInfo.attendTime }"/>
 		</div>
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
 		<ul class="list-unstyled">
-			<li><a href="#">우리 스터디방</a></li>
+			<li><a onclick="goToIndex()">우리 스터디방</a></li>
 			<li>
 				<a href="#participantsDropdown" aria-expanded="false" data-toggle="collapse">참여인원</a>
 				<ul id="participantsDropdown" class="collapse list-unstyled">
@@ -87,21 +87,40 @@
 
 <script>
 $(function(){
-	let today = new Date();   
-	console.log(today);
+	var d = new Date();
+	var week = new Array('일','월','화','수','목','금','토');
+	
+	var day = week[d.getDay()];  //오늘 요일
+	var now = d.getHours() + ":" + d.getMinutes(); //현재시각
+
+	var attendDay = $("#attendDay").val().split(","); //출석체크 요일
+	var attendTime = $("#attendTime").val().split(/[:,]/); //출석체크 시간
+
 	var popupObj; //팝업 창 생성 여부 확인, 전역 변수로 설정
 	var stopTimeCheck = ""; //해당 팝업을 다시 열었을 경우 타이머 초기화
-	//popupOpen();
+
+	console.log(attendTime);
 	
+	for(var i in attendDay){
+		if(attendDay[i] == day){
+			var startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), attendTime[i*2] , attendTime[(i*2)+1] );
+			var endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(),  startTime.getHours(), startTime.getMinutes()+10 );
+			if(startTime.getTime() <= d.getTime() && d.getTime() <=endTime.getTime() ){
+				popupOpen();
+			}
+		}
+	}
 });
 
 function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
 	var url = "popup.html";
-	var name = "popup test";
+	var name = "출석체크";
 	var option = "width = 500, height = 500, top = 100, left = 200, location = no";
 	popupObj = window.open(url, name, option);
-	/*  if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
-		   clearTimeout(stopTimeCheck);           */            
+	/*
+		if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
+		   clearTimeout(stopTimeCheck);   
+	*/                     
 	   
 	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
 }
@@ -115,7 +134,8 @@ function closePopup() {
 
 function exitRoom() {
 	if(confirm("방을 나가시겠습니까?") == true){
-		location.href = "${pageContext.request.contextPath}/studyroom/exit.do";
+		location.href = "${pageContext.request.contextPath}/mypage1/mypage1_index.do";
+		//이 부분 뒤로가기 막아서,,, 다시 방으로 못들어가게 합시당
 	}
 }
 
@@ -159,6 +179,12 @@ function post_to_url(path, params, method) {
 	function goToInvitation(){
 		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
 	}
+	
+	function goToIndex(){
+		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+	}
+
+	
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

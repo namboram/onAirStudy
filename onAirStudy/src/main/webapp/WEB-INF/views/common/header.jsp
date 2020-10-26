@@ -65,7 +65,8 @@
                            onclick="location.href='${ pageContext.request.contextPath }/diary/diaryList.do'">공부다이어리</a></a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
-                        <a class="nav-link">공지사항</a>
+                        <a class="nav-link"
+                        	onclick="location.href='${ pageContext.request.contextPath }/notice/noticeList.do'">공지사항</a>
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
                         <a class="nav-link"
@@ -90,7 +91,12 @@
 			</c:if>
 
 			<c:if test="${ not empty loginMember }">
+				<c:if test="${ loginMember.memberRole == 'A' }">
+				<a href="${ pageContext.request.contextPath }/admin/main.do">${ loginMember.memberName }</a>님, 안녕하세요.
+				</c:if>
+				<c:if test="${ loginMember.memberRole != 'A' }">
 				<a href="${ pageContext.request.contextPath }/mypage1_index.do">${ loginMember.memberName }</a>님, 안녕하세요.
+				</c:if>
 			    &nbsp;
 			    <button class="btn my-2 my-sm-0"
 					type="button" id="logoutBtn"

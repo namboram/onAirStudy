@@ -5,13 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
+
+<!-- css -->
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/adminCommon.css" />
+
 <style>
-	#adDivB{
-		width:calc(100%-270px);
-		display:inline-block;
-		height:100%;
-		background-color:skyblue;
-	}
 	#memberTableB{
 		width:100%;
 		text-align:center;
@@ -19,59 +17,83 @@
 	#memberTableB td{
 		width:150px;
 	}
+	#searchTypeBB{
+		width:200px;
+	}
 </style>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
+
 <div class="row">
+
 	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-	<div class="col-lg-10">
-		
-		<div style="margin:50px;">
-		<form id="memberListFrm" method="post">
-			<select name="serchType" id="serchType">
-				<option value="memberId">아이디</option>
-				<option value="blacklist">블랙리스트 여부</option>
-			</select>
-			
-			<div id="hideB1">
-			<input type="text"/>
-			<button type="submit" onclick="gogo();">검색</button>
-			</div>
-			<div id="hideB2" style="display:none;">
-			<input type="radio" name="seatchContent"/>
-			<label for="Y">Y</label>
-			<input type="radio" name="seatchContent"/>
-			<label for="N">N</label>
-			</div>
-		</form>
+	<div class="col-lg-10 adDivB">
+
+		<div style="margin: 50px;">
+			<form id="memberListFrm"
+				action="${ pageContext.request.contextPath }/admin/memberList.do"
+				method="post">
+				<select class="custom-select" name="searchType" id="searchTypeBB">
+					<option value="memberId">아이디</option>
+					<option value="blacklist">블랙리스트 여부</option>
+				</select>
+
+				<div id="hide1B" style="display: inline-block">
+					<input type="text" name="searchContent" />
+					<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
+				</div>
+				<div id="hide2B" style="display: none;">
+					<select class="custom-select" name="searchContent">
+						<option value="none" selected disabled>선택</option>
+						<option value="Y">Y</option>
+						<option value="N">N</option>
+					</select>
+				</div>
+			</form>
 		</div>
-	
-	<table class="table" id="memberTableB">
-		
-		<tr>
-		<th>회원 아이디</th>
-		<th>회원 이름</th>
-		<th>결제 여부</th>
-		<th>블랙리스트 여부</th>
-		</tr>
-		
-		<c:if test="${ not empty list }">
-		<c:forEach items="${ list }" var="m">
+
+		<table class="table tableB">
+
 			<tr>
-				<td><a href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${m.memberId}">${ m.memberId }</a></td>
-				<td>${ m.memberName }</td>
-				<td>${ m.memberRole == 'P'? '프리미엄' : m.memberRole == 'A'? '관리자': '일반' }</td>
-				<td>${ m.blacklist }</td>
+				<th>회원 아이디</th>
+				<th>회원 이름</th>
+				<th>결제 여부</th>
+				<th>블랙리스트 여부</th>
 			</tr>
-		</c:forEach> 
-		</c:if>
-		
-	</table>
-	
-	
+
+			<c:if test="${ not empty list }">
+				<c:forEach items="${ list }" var="m">
+					<tr>
+						<td><a
+							href="${ pageContext.request.contextPath }/admin/memberDetail.do?mid=${m.memberId}">${ m.memberId }</a></td>
+						<td>${ m.memberName }</td>
+						<td>${ m.memberRole == 'P'? '프리미엄' : m.memberRole == 'A'? '관리자': '일반' }</td>
+						<td>${ m.blacklist }</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+
+		</table>
+
+		<nav aria-label="Page navigation example"
+			style="display: inline-block;">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+				</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</ul>
+		</nav>
+
 	</div>
 </div>
 
@@ -79,27 +101,58 @@
 
 <script>
 
-		var value = "";
-	$(document).ready(function(){
-		$("#selectedWhere").change(function(){
+	var value = "";
+	$(document).ready(function() {
+		$("#searchTypeBB").change(function() {
+			console.log("??");
 			value = $(this).children("option:selected").val();
-			if(value=="blacklist"){
-				$("#hideB1").css("display", "none");
-				$("#hideB2").css("display", "block");
+
+			$("#hide1B input").val("");
+
+			if (value == "blacklist") {
+				$("#hide1B").css("display", "none");
+				$("#hide2B").css("display", "inline-block");
 				return;
 			}
-				$("#hideB2").css("display", "none");
-				$("#hideB1").css("display", "block");
+			$("#hide2B").css("display", "none");
+			$("#hide1B").css("display", "inline-block");
 
 		});
 	});
 
-	function gogo(){
-		
+	function searchNow() {
+		$("#memberListFrm").submit();
 
 	}
-	
 
+	$(document).ready(function() {
+		$("#hide2B select").change(function() {
+			$("[name=searchContent]").val($("#hide2B option:selected").val());
+			searchNow();
+		});
+	});
+
+	var searchType = "<c:out value="${search['searchType']}"/>";
+	var searchContent = "<c:out value="${search['searchKeyword']}"/>";
+
+	//검색유지
+	$(document).ready(
+			function() {
+				if (searchType != "" && searchContent != "") {
+					if (searchType == 'memberId') {
+						$("#hide1B input").val(searchContent);
+					} else if (searchType == 'blacklist') {
+						$("#hide1B").css("display", "none");
+						$("#hide2B").css("display", "inline-block");
+						$(
+								'#hide2B [name=searchContent] option:eq('
+										+ searchContent + ')').prop('selected',
+								true);
+					}
+					$('[name=searchType]').val(searchType).prop('selected',
+							true);
+				}
+			});
 </script>
 
 

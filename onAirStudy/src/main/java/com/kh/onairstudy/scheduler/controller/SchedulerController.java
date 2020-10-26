@@ -6,23 +6,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.scheduler.model.service.SchedulerService;
 import com.kh.onairstudy.scheduler.model.vo.Scheduler;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,22 +33,22 @@ public class SchedulerController {
 	private SchedulerService schedulerService;
 	
 	@RequestMapping("/scheduler/main.do")
-	public ModelAndView mainScheduler(ModelAndView mav, HttpSession session) {
+	public ModelAndView mainScheduler(ModelAndView mav, 
+										@SessionAttribute("loginMember") Member member,
+										@SessionAttribute(value="roomInfo", required=false) StudyRoomInfo info) {
 
 		//내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(session);
+		List<Scheduler> addList = makeScheduleArrays(member, info);
 		
 		//확인
-//		for(Scheduler sch : addList) {
-//			System.out.println(sch);
-//		}
+		for(Scheduler sch : addList) {
+			System.out.println(sch);
+		}
 		
 		mav.addObject("list", addList);
 		
 		//방번호유무
-		String srNo = (String)session.getAttribute("srNo");
-		
-		if(srNo==null)
+		if(info==null)
 			mav.setViewName("/mypage1/mypage1_scheduler");
 		else
 			mav.setViewName("/mypage2/mapage2_scheduler");
@@ -61,39 +60,35 @@ public class SchedulerController {
 	}
 	
 	
-	@RequestMapping("/studyroom/scheduler.do")
-	public ModelAndView studyRoomScheduler(ModelAndView mav, HttpSession session) {
-
-		//내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(session);
-		
-		mav.addObject("list", addList);
-		mav.setViewName("scheduler/studyroom-scheduler");
-		
-		return mav;
-	}
+//	@RequestMapping("/studyroom/scheduler.do")
+//	public ModelAndView studyRoomScheduler(ModelAndView mav, HttpSession session) {
+//
+//		//내역가져오기
+//		List<Scheduler> addList = makeScheduleArrays(session);
+//		
+//		mav.addObject("list", addList);
+//		mav.setViewName("scheduler/studyroom-scheduler");
+//		
+//		return mav;
+//	}
 	
 	
 	
-	
-	
-	public List<Scheduler> makeScheduleArrays(HttpSession session){
+	public List<Scheduler> makeScheduleArrays(Member member, StudyRoomInfo info){
 				
 				//로그인된 아이디 가져오기
-				//추후에 방번호가 같이 오면 방번호 null 유무로  가져옴
-				String memberId = (String)session.getAttribute("memberId");
-				String srNo = (String)session.getAttribute("srNo");
-				//임시
-				memberId = "honggd";
-				srNo="15";
+				String memberId = member.getMemberId();
+				String srNo = null;
 				
-				if(srNo != null)
-					 memberId = null;
-					
+				//방번호유무 갈림
+				if(info != null) {
+					memberId = null;
+					srNo = Integer.toString(info.getSrNo());
+				}
+		
 				Map<String, Object> map = new HashMap<>();
 				map.put("memberId", memberId);
 				map.put("srNo", srNo);
-				
 					
 				List<Scheduler> list = schedulerService.mainScheduler(map);
 				
@@ -146,11 +141,8 @@ public class SchedulerController {
 		
 		sch.setEnabledYN("N");
 		
+		log.debug("sch={}", sch);
 		System.out.println("sch="+sch);
-		
-		//방예시
-		sch.setMemberId(null);
-		sch.setSrNo(15);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		
@@ -174,10 +166,6 @@ public class SchedulerController {
 		sch.setEnabledYN("N");
 		
 		System.out.println("sch="+sch);
-		
-		//방예시
-		sch.setMemberId(null);
-		sch.setSrNo(15);
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		redirectAttr.addFlashAttribute("sche", "good");
@@ -295,7 +283,6 @@ public class SchedulerController {
 	
 	@RequestMapping("/scheduler/delTodo.do")
 	public String deleteTodo(@RequestParam("startDate") Date startDate,
-							HttpSession session,
 							RedirectAttributes redirectAttr) {
 		
 		Map<String, Object> map = new HashMap<>();

@@ -195,7 +195,7 @@ public class MemberController {
 			 				  @RequestParam("password") String password,
 			 				  Model model,
 			 				  HttpSession session,
-			 				  RedirectAttributes redirectAttr) {
+			 				  RedirectAttributes redirectAttr) throws Exception {
 		
 		Member loginMember = memberService.selectOneMember(memberId); 
 		log.debug("loginMember = " + loginMember);
@@ -204,34 +204,26 @@ public class MemberController {
 		
 		
 		//로그인 성공한 경우
-//		if(
-//			loginMember != null && 
-//			bcryptPasswordEncoder.matches(password, loginMember.getPassword())
-//		) {
+//		if( loginMember != null && 
+//			bcryptPasswordEncoder.matches(password, loginMember.getPassword()) ) {
 		
 		
-		
-		
-		log.debug("loginMember = " + loginMember);
-			//세션에 로그인한 사용자 정보 속성 저장
-			//model은 기본적으로 requestScope에서 작동하므로,
-			//@SessionAttributes를 클래스 레벨에 선언해서 sessionScope에 저장
-			model.addAttribute("loginMember", loginMember);
+			log.debug("loginMember = " + loginMember);
+				//세션에 로그인한 사용자 정보 속성 저장
+				//model은 기본적으로 requestScope에서 작동하므로,
+				//@SessionAttributes를 클래스 레벨에 선언해서 sessionScope에 저장
+				model.addAttribute("loginMember", loginMember);
+				session.setAttribute("loginUser", loginMember);
+				
+				return "redirect:" + location;
+				
 			
-			//session에 저장된 next값 확인
-			String next = (String)session.getAttribute("next");
-			if(next != null)
-				location = next;
-
-			return "redirect:" + location;
-			
-		}
-		//로그인 실패한 경우
-//		else {
+//		} else {
 //			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
+//			return "redirect:" + location;
+//		
 //		}
-		
-//		}
+	}
 		
 		/**
 		* @SessionAttributes 를 통해 사용자정보를 관리했다면,
@@ -241,10 +233,14 @@ public class MemberController {
 		* @return
 		*/
 		@RequestMapping("member/memberLogout.do")
-		public String memberLogout(SessionStatus sessionStatus) {
+		public String memberLogout(SessionStatus sessionStatus, HttpSession session) {
 		
 		if(!sessionStatus.isComplete())
 			sessionStatus.setComplete();
+		
+		if(session.getAttribute("loginUser") != null) {
+			session.setAttribute("loginUser", null);
+		}
 		
 		return "redirect:/";
 	}

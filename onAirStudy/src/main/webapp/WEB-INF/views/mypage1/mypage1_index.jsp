@@ -16,18 +16,35 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
+
 	<div class="col-lg-10" style="background-color: #FBF7FD;">
 
 		<h1>My page</h1>
 		<hr>
 		<div class="row">
-			<h3>그룹 내 나의 출석률</h3>
-			ㅡㅡㅡㅡㅡㅡㅡㅡ띄우기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			<h3>이번달 스터디방별 출석 그래프</h3>
+			---
+				<table>
+						<tr>
+							<th>출석횟수</th>
+							<th>최대출석횟수</th>
+						</tr>
+			<c:forEach items="${ attendList }" var="attend">
+						<tr>
+							<td>${ attend.attendCnt }</td>
+							<td>${ attend.maximumCnt }</td>
+						</tr>
+			</c:forEach>
+					</table>
+			---
+			
 			<h3>
 				오늘의 To Do List
 				<button type="button" class="btn btn-light"
 					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더
 					보기</button>
+					
+				
 			</h3>
 		</div>
 
@@ -35,19 +52,20 @@
 			<div class="col-md-5">
 				<canvas id="myChart1"></canvas>
 			</div>
-			ㅡㅡㅡㅡㅡㅡㅡㅡ
 
 			<div>
-				<table>
-					<tr>
-						<th>일정여부</th>
-						<th>TO DO LIST 내용</th>
-					</tr>
-					<tr>
-						<%-- <td>${ td.scheduleYN }</td>
-					<td>${ td.content }</td> --%>
-					</tr>
-				</table>
+			
+					<c:forEach items="${ todoList }" var="td">
+					<table>
+						<tr>
+							<th>TO DO LIST</th>
+						</tr>
+						<tr>
+							<td>${ td.scheduleYN }</td>
+							<td>${ td.content }</td>
+						</tr>
+					</table>
+					</c:forEach>
 			</div>
 
 		</div>
@@ -57,24 +75,24 @@
 
 		<h3>
 			일일 공부시간
-			<button type="button" class="btn btn-primary" data-toggle="modal"
+			<button type="button" class="btn btn-primary" data-toggle="modal" 
 				data-target="#exampleModal" data-whatever="@getbootstrap">시간
 				등록하기</button>
 		</h3>
 		<div class="col-md-7">
 			<div>
-				<c:forEach items="${studytimeList}" var="st">
 					<table>
 						<tr>
 							<th>날짜</th>
 							<th>시간</th>
 						</tr>
+				<c:forEach items="${studytimeList}" var="st">
 						<tr>
-							<td>${ st.studyDate }</td>
+							<td><fmt:formatDate pattern="yyyy.MM.dd" value="${ st.studyDate }"/></td>
 							<td>${ st.studyTime }</td>
 						</tr>
-					</table>
 				</c:forEach>
+					</table>
 			</div>
 			<canvas id="lineChart"></canvas>
 		</div>
@@ -87,33 +105,36 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">일일 공부시간 등록</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form id="form">
-					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">날짜</label> <input
-							type="date" class="form-control" id="studyDate">
-					</div>
-					<div class="form-group">
-						<label for="message-text" class="col-form-label">공부한 시간</label> <input
-							type="number" class="form-control" id="studyTime">
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" id="submit" class="btn btn-primary">등록</button>
+	<form class="form-studyTime" method="POST" action="${pageContext.request.contextPath}/mypage1_studyTime.do">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">일일 공부시간 등록</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="form">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">날짜</label> 
+							<input type="date" name="studyDate" class="form-control" id="studyDate">
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">공부한 시간</label> <input
+								type="number" name="studyTime" class="form-control" id="studyTime">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="submit" class="btn btn-primary">등록</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </div>
 
 
@@ -121,22 +142,36 @@
 <script>
 
 /* modal 등록버튼 */
-$('#submit').click(function(){
+/* $('#submit').click(function(){
 	 $('#studyDate').text($('#studyDate').val());
      $('#studyTime').text($('#studyTime').val());
     
-});
+}); */
+
+
 
 /* 막대 차트 */
-			var ctx = document.getElementById("myChart1").getContext('2d');
 
-			var myChart = new Chart(ctx, {
+			var ctx = document.getElementById("myChart1").getContext('2d');
+			//차트 값 생성
+
+			var labels = new Array();
+			var data = new Array();
+
+			<c:forEach items="${ attendList }" var="attend" >
+				var json = new Object();
+				labels.push("${attend.attendCnt}");
+				data.push("${attend.attendCnt}");
+			</c:forEach>
+
+
+				var myChart1 = new Chart(ctx, {
 				type : 'bar',
 				data : {
-					labels : [ "6월", "7월", "8월", "9월", "10월", "11월" ],
+					labels : [ "스터디방1", "스터디방2", "스터디방3" ],
 					datasets : [ {
-						label : '출석률',
-						data : [ 12, 19, 3, 5, 2, 3 ],
+						 	label: labels,
+				            data: data,
 						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
 								'rgba(255, 206, 86, 0.2)',
@@ -163,18 +198,38 @@ $('#submit').click(function(){
 				}
 			});
 
+	
+
+	
+							
+
+			
+			
+
 
 
 /* 일일 공부시간 그래프 */
 			
 			var ctxL = document.getElementById("lineChart").getContext('2d');
+
+			var labels = new Array();
+			var data = new Array();
+
+			<c:forEach items="${ studytimeList }" var="st" >
+				var json = new Object();
+				labels.push("${st.studyDate}");
+				data.push("${st.studyTime}");
+			</c:forEach>
+
+			
 			var myLineChart = new Chart(ctxL, {
 				type: 'line',
 				data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July"],
+/* 				labels: ["January", "February", "March", "April", "May", "June", "July"], */
+				labels:labels,
 				datasets: [{
-				label: "나의 일일 공부시간",
-				data: [65, 59, 80, 81, 56, 55, 40],
+				label: labels,
+				data: data,
 				backgroundColor: [
 				'rgba(105, 0, 132, .2)',
 				],
@@ -190,5 +245,17 @@ $('#submit').click(function(){
 				responsive: true
 				}
 			});
+
+
+
+			
+
+
 </script>
+
+
+
+
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

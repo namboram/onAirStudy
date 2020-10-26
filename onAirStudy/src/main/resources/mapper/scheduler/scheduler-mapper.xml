@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="scheduler">
+
 <select id="schedulerList" resultType="Scheduler">
 select
 	*
@@ -17,6 +18,7 @@ from
 	</if>
 </where>
 order by 
+	schedule_yn desc, 
 	(end_date - start_date) desc
 </select>
 <resultMap id="listMap" type="map">
@@ -44,10 +46,10 @@ order by
 		<if test="memberId == null">
 		null,
 		</if>
-		<if test="srNo != null">
+		<if test="srNo != 0">
 		#{ srNo },
 		</if>
-		<if test="srNo == null">
+		<if test="srNo == 0">
 		null,
 		</if>
 		#{startDate},
@@ -69,12 +71,12 @@ set
 	member_id = #{memberId},
 	</if>
 	<if test="memberId == null">
-	null,
+	member_id = null,
 	</if>
-	<if test="srNo != null">
+	<if test="srNo != 0">
 	sr_no = #{srNo},
 	</if>
-	<if test="srNo == null">
+	<if test="srNo == 0">
 	sr_no = null,
 	</if>
 	start_date = #{startDate},

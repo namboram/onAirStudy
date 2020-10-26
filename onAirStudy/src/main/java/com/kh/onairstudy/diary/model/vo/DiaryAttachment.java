@@ -19,11 +19,9 @@ import lombok.ToString;
 public class DiaryAttachment implements Serializable{
 
 	private int no;
-	private int boardNo;
+	private int diaryNo;
 	private String originalFilename;
 	private String renamedFilename;
-	private Date uploadDate;
-	private int downloadCount;
 	
 	
 }

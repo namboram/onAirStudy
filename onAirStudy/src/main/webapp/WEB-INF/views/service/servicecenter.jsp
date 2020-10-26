@@ -7,6 +7,13 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
+<script>
+//아래쪽에서 이 함수를 호출해서 페이지값을 컨트롤러에 맵핑시킨다
+function list(page){
+    console.log("페이지를 이동합니다.");
+    location.href="${pageContext.request.contextPath}/list.do?curPage="+page;
+}
+</script>
     
     
     <!-- 맨위 배너 -->
@@ -22,12 +29,12 @@
 	
 
 	<!--   서비스별 질문 -->
-<div class="row">
+<div class="row" >
 	<div class="m-5">
 	
 		<h3>서비스별 질문</h3>
 		<hr>
-			<ul class="row">
+			<ul class="row" >
 			<li>
 				<div class="mx-auto d-block">
 				<a href="#">
@@ -36,8 +43,9 @@
 				</a>
 				</div>
 			</li>
+			
 			<li>
-				<div class="mx-auto">
+				<div class="mx-auto d-block">
 				<a href="#">
 					<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
 					<h4 style="margin-top:20%;">채팅</h4></a></div>
@@ -57,13 +65,15 @@
 			</ul>
 			<hr>
 		</div>
+			
 				
 	<!-- 자주묻는 질문 -->
 	<div class="m-5">
 		<h3>자주하는 질문</h3>
 		
-		<div class="bs-example">
+	 <div class="bs-example">
 		    <div class="accordion" id="accordionExample">	        
+		       
 		       <c:forEach items="${ serviceContentList }" var="sc">      
 			        <div class="card">
 			            <div class="card-header">
@@ -82,8 +92,8 @@
 		    </div>
 		</div>			
 	</div> 
-
 </div>
+
 
 
 <!-- 문의게시판 목록 -->
@@ -95,27 +105,36 @@
 
 
 
-        <!-- search{s} -->
-		 <div class="form-group row justify-content-center">
-			<div class="w100" style="padding-right:10px">
-				<select class="form-control form-control-sm" name="searchType" id="searchType">
-					<option value="serviceTitle">제목</option>
-					<option value="category">카테고리</option>
-					<option value="memberId">작성자</option>
-				</select>
-			</div>
-			<div class="w300" style="padding-right:10px">
-				<input type="text" class="form-control form-control-sm" name="keyword" id="keyword" placeholder="검색어를 입력하세요">
-			</div>
-			<div>
-				<button class="btn btn-sm btn-primary" name="search" type="submit" id="search">검색</button>
-				
-			</div>
-		</div> 
-		<!-- search{e} -->
+<!-- 검색 -->
+	<form name="form1" method="post" action="${pageContext.request.contextPath}/list.do">
+	 <div class="form-group row justify-content-center">
+				<div class="w100" style="padding-right:10px">
+			 <select name="search_option">
+		        <option value="memberId"
+		<c:if test="${map.search_option == 'memberId'}">selected</c:if>
+		   >작성자</option>
 		
-
+		        <option value="title" 
+		<c:if test="${map.search_option == 'serviceTitle'}">selected</c:if>
+		        >제목</option>
 		
+		        <option value="content" 
+		<c:if test="${map.search_option == 'serviceContent'}">selected</c:if>
+		        >내용</option>
+		
+		        <option value="all" 
+		<c:if test="${map.search_option == 'all'}">selected</c:if>
+		        >작성자+내용+제목</option>
+		
+		    </select>
+		    <input name="keyword" placeholder="검색어를 입력하세요" value="${map.keyword}">
+		    <input class="btn btn-sm btn-primary" name="search" type="submit" value="조회">
+	
+		</div>
+	</div>
+			
+	</form>
+			
 
         
      
@@ -141,6 +160,9 @@
 						</tr>
 					    </c:forEach>
 				</table>	
+				
+				
+				
 				
 				<!-- 페이징처리 -->			
 				<div class="container">
@@ -171,20 +193,6 @@
 
 </div> 
 
-<script>
-
-   // 생략	
-	$(document).on('click', '#btnSearch', function(e){
-		e.preventDefault();
-		var url = "${pageContext.request.contextPath}/servicecenter.do";
-		url = url + "?searchType=" + $('#searchType').val();
-		url = url + "&keyword=" + $('#keyword').val();
-		
-		location.href = url;
-		console.log(url);
-	});	
-
-</script>
 
 
 

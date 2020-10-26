@@ -54,9 +54,8 @@ $(function(){
                         <fieldset class="col-lg" style="border: unset; background-color: #FFF0F0; border-radius: 15px;">
                             <legend>Question</legend>
                        	<input type="text" class="form-control" name="memberId" value="${ loginMember.memberId }" hidden>
- 						<c:set value="${test1}" var="cate"/>
- 						<input type="number" class="form-control" name="memberId" value="${ cate.srNo }" hidden/>
-                        <textarea id="testQestion" name ="testQeustion" rows="12" class="col-lg-12">문제를 입력해 주세요</textarea>
+ 						<input type="number" class="form-control" name="srNo" value="${ roomInfo.srNo }" hidden/>
+                        <textarea id="testQestion" name ="testQeustion" placeholder="문제를 입력해 주세요" rows="12" class="col-lg-12"></textarea>
                             
                         </fieldset>
                         <br>
@@ -74,19 +73,19 @@ $(function(){
                             <br>
                             <div class="form-check" style="align-items: center;">
                                 <input type="button" class="btn btn-outline-dark" id="choice1" value="1"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" class="col-lg-10"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_1" class="col-lg-10"
                                     style="border-radius: 15px;">
                                 <br>
                                 <input type="button" class="btn btn-outline-dark" id="choice2" value="2"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" class="col-lg-10"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_2" class="col-lg-10"
                                     style="border-radius: 15px; margin-top: 15px;">
                                 <br>
                                 <input type="button" class="btn btn-outline-dark" id="choice3" value="3"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" class="col-lg-10"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_3" class="col-lg-10"
                                     style="border-radius: 15px; margin-top: 15px;">
                                 <br>
                                 <input type="button" class="btn btn-outline-dark" id="choice4" value="4"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" class="col-lg-10"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_4" class="col-lg-10"
                                     style="border-radius: 15px; margin-top: 15px;">
                             </div>
                             <br>
@@ -100,44 +99,14 @@ $(function(){
                     </div>
                     <br><br>
                     <div align="center">
-                        <button type="submit" class="btn btn-outline-primary" style="margin-right: 30px;" data-toggle="modal" data-target="#myModal_ok_G">등록 </button>
+                        <button type="submit" value="저장 " class="btn btn-outline-primary" style="margin-right: 30px;">등록 </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                     </div>
                     <br>
-                </div>
-              
+                </div>              
 
             </div>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_ok_G">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header" style="color: #E2A182;">
-                            <h4 class="modal-title">문제 등록</h4>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            문제를 등록 하시겠습니까?
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline" value="저장">확인</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        </form>
-    </div>
+            
  
     <script>
     $("#choice1").click(function(){
