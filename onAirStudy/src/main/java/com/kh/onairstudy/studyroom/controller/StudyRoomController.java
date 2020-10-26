@@ -71,22 +71,13 @@ public class StudyRoomController {
 		
 		//찜
 		@RequestMapping("/studyroom/favStudyroom.do")
-		public String favR(StudyRoomWish srWish, 
-							RedirectAttributes redirectAttr) {		
+		public String favR(StudyRoomWish srWish, HttpSession session, RedirectAttributes redirectAttr) {	
 			
+						
 			int result = studyRoomService.insertWish(srWish);
-			
-			String msg = "관심 목록에 추가 하였습니다.";
-			
-			if(result < 1) {
-			    msg = "관심 목록에 있는 방입니다.";
-			}else {
-				
-				msg = "관심 목록에 추가 하였습니다.";
-			}
-			redirectAttr.addFlashAttribute("msg", msg);
-			
+			redirectAttr.addFlashAttribute("msg", result>0 ? "관심 목록에 추가 하였습니다." : "오류가 발생하였습니다.");
 			return "redirect:/studyroom/studyroomlist.do";
+			
 		}
 		
 		//찾기

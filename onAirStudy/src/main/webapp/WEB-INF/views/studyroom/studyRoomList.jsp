@@ -73,14 +73,16 @@
 							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
 							id="favRoom" method="POST">
 							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
-							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden>
-							
-							<button type="submit" class="heartBtn" style="<c:if test="${ loginMember.memberId eq w.memberId }">background-color:gray;</c:if>">
+							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
+														
+							<button type="submit" class="heartBtn" style="<c:if test="${ loginMember.memberId eq w.memberId }">background-color:gray;</c:if>"
+							<c:if test="${ loginMember.memberId eq w.memberId }"> disabled </c:if>>
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
 							
 						</form>
+					
 					</div>
 
 					<div class="contentR">
