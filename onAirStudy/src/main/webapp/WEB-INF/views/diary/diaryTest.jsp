@@ -4,10 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/>
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="" name="title"/>
-</jsp:include>
-		<link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
 <script>
@@ -52,7 +50,7 @@
 
 <div class = "col-sm-10 offset-sm-1">  
 
-    <h2>STUDY DIARY 글쓰기</h2>
+    <h2>STUDY DIARY</h2>
     
     <div class ="form-group">
 	    <form method="post" onsubmit="return check();" action="${ pageContext.request.contextPath }/diary/insertDiary.do"> 

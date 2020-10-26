@@ -62,14 +62,7 @@
 
 		)	
 	</insert>
-	<select id="selectOneDiary" resultType="diary">
-		select
-			*
-		from
-			diary
-		where no = #{no}
-	</select>
- 	
+
  	<!-- 글불러오기  -->
  	<select id="selectOneDiary" resultType="diary">
  		select

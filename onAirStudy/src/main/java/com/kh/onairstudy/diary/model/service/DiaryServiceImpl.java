@@ -43,8 +43,7 @@ public class DiaryServiceImpl implements DiaryService {
 //			}
 //			
 //		}
-		
-		
+
 		return result;
 	}
 

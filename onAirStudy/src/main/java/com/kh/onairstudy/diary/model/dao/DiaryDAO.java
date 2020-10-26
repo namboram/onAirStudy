@@ -21,7 +21,6 @@ public interface DiaryDAO {
 
 	void diaryReadCount(int no);
 
-	Diary selectOneDiary(int no);
 
 
 

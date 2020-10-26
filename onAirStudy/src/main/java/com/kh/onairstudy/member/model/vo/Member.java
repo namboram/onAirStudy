@@ -25,7 +25,7 @@ public class Member implements Serializable{
 		   private int diligentPoint;
 		   private String blacklist;
 		   private String withdraw;
-		   private String memberComment;
+		   private String comment;
 		   private int category;
 		   private Date enrollDate;
 		   

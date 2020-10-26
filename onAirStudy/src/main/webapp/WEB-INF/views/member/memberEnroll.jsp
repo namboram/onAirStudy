@@ -87,7 +87,7 @@
                             <div class="formMember">
                                 <input type="text" 
                                 class="form-control" 
-                                name="memberComment" 
+                                name="comment" 
                                 id="comment" required >
                                 <label for="comment" class="label-member">
                                     <span class="content-member">comment</span>

@@ -16,7 +16,7 @@
 			default,
 			default,
 			default,
-			#{ memberComment },
+			#{ comment },
 			#{ category },
 			default
 		
