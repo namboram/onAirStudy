@@ -41,4 +41,8 @@ public interface AdminDAO {
 
 	int updateReport(int no);
 
+	Map<String, Object> adminMain();
+
+	List<Map<String, Object>> memberAll();
+
 }
