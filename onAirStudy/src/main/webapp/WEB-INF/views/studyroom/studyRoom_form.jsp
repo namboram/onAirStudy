@@ -88,7 +88,7 @@
 						</div>
 						<div class="col-sm pt-3 text-center">
                         <button type="submit" class="btn btn-outline-primary">등록 </button>
-                        <button type="button" class="btn btn-danger">취소</button>
+                        <button type="button" class="btn btn-danger"><a href="${ pageContext.request.contextPath }/mypage1/mystudylist.do">취소</a></button>
                     </div>
 		</form>
 					</div>

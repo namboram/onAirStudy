@@ -9,6 +9,7 @@ select
 	*
 from
 	sr_list 
+
 </select>
 
 <select id="selectMystudyList" resultMap="studyRoomMap">
@@ -164,6 +165,13 @@ select
   		<result column="sr_pic" property="srPic"/>
   		<result column="m_pic" property="mPic"/>
   	</resultMap>
+  	
+ <select id="StudyRoomWish" resultType="StudyRoomWish">
+ select
+ 	*
+ from
+ 	sr_wish_list 	
+ </select>
 
 <select id="selectCategoryList" resultType="studycategory">
 	select
@@ -186,6 +194,9 @@ insert
 	into sr_wish_list 
 values(
 	seq_wish_no.nextval, #{memberId}, #{srNo})
+
+<!--  where not exists
+ (select sr_no from sr_wish_list where sr_no == #{srNo}) -->
 </insert>
 
 <!-- 방생성  -->
