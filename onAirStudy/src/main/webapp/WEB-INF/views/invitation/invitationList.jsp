@@ -7,17 +7,20 @@
 <%-- 한글 깨짐 방지 --%>
 
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<div class="col-lg p-0">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+</div>
 <div class="row">
 
-<div class="col-lg-2">
+	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
-</div>
+	</div>
 
-<div class="col-lg-10 p-0">
-<jsp:include page="/WEB-INF/views/invitation/invitationListForm.jsp"></jsp:include>
-</div>
+	<div class="col-lg-10 p-0 m-0">
+		<jsp:include page="/WEB-INF/views/invitation/invitationListForm.jsp"></jsp:include>
+	</div>
 </div>
 <div class="col-lg p-0">
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
+

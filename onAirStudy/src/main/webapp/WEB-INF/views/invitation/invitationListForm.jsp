@@ -10,14 +10,14 @@
 
 
 
-<div id="invitation" style="margin-bottom: 0;">
+<div id="invitation" style="margin-bottom: 0px;">
 
 	<div class="col-lg" style="background-color: #FBF7FD; padding: 20px;">
 		<h2 class="text-gray">Invitation List</h2>
 		<hr>
 		<div class="container">
 			<div class="col-sm"
-				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; padding: 20px;">
+				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; margin-left:7%; padding: 20px; height:86.5%; width:85%;">
 				<h3>나를 초대한 스터디 그룹</h3>
 				<table class="table">
 					<thead class="thead-rounded">
