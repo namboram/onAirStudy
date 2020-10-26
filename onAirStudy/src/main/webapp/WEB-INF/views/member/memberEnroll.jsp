@@ -8,7 +8,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/member.css" />
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/memberEnroll.css" />
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Secular+One&display=swap" rel="stylesheet">
 
 <div id="enroll-out-container">
@@ -33,7 +33,7 @@
                                            id="memberId_"
                                            required>
                                     <label for="memberId" class="label-member">
-                                        <span class="content-member">Id</span>
+                                        <span class="content-member">Id*</span>
                                     </label>
                                     <span class="guide ok">이 아이디는 사용가능합니다.</span>
                                     <span class="guide error">이 아이디는 사용할 수 없습니다.</span> 
@@ -47,7 +47,7 @@
                                 name="password" 
                                 id="password_" required>
                                 <label for="password" class="label-member">
-                                    <span class="content-member">password</span>
+                                    <span class="content-member">password*</span>
                                 </label>
                             </div>
                             <br>
@@ -57,7 +57,7 @@
                                 name="passwordCheck" 
                                 id="passwordCheck_" required>
                                 <label for="passwordCheck" class="label-member">
-                                    <span class="content-member">password check</span>
+                                    <span class="content-member">password check*</span>
                                 </label>
                             </div>
                             <br>
@@ -67,7 +67,7 @@
                                 name="memberName" 
                                 id="memberName" required>
                                 <label for="memberName" class="label-member">
-                                    <span class="content-member">name</span>
+                                    <span class="content-member">name*</span>
                                 </label>
                             </div>
                             <br>
@@ -77,16 +77,18 @@
                                 name="phone" 
                                 id="phone" required>
                                 <label for="phone" class="label-member">
-                                    <span class="content-member">phone</span>
+                                    <span class="content-member">phone*</span>
                                 </label>
                             </div>
-                            <input type="button" value="휴대폰인증.." onclick="popupCertification()" />
+                            <!--
+                             <input type="button" value="휴대폰인증.." onclick="popupCertification()" /> 
+                             -->
                             <br>
                             <div class="formMember">
                                 <input type="text" 
                                 class="form-control" 
-                                name="comment" 
-                                id="comment" required>
+                                name="memberComment" 
+                                id="comment" required >
                                 <label for="comment" class="label-member">
                                     <span class="content-member">comment</span>
                                 </label>
@@ -111,14 +113,15 @@
 		</div>
 		<br />
 		<input type="submit" value="가입완료" id="enroll-submit">
-		<br />
 		<input type="reset" value="취소" id="enroll-reset">
+		<br />
+		<br />
 	</form>
 </div>
 </div>
 </div>
 <script>
-
+<%-- 
 /* 휴대폰번호 인증 팝업 */
 function popupCertification(){
 
@@ -135,7 +138,7 @@ function popupCertification(){
 	$frm.attr("method", "POST");
 	$frm.attr("target", title);//폼과 팝업창 연결
 	$frm.submit();
-}
+} --%>
 
 /* 체크박스 체크 한개만 가능하도록  */
 $(document).ready(function(){
@@ -201,7 +204,7 @@ $("#memberId_").keyup(function(){
 }); 
 
 /* 비밀번호체크  */	
-$("#password2").blur(function(){
+$("#passwordCheck_").blur(function(){
 	var $p1 = $("#password_"), $p2 = $("#passwordCheck_");
 	if(p1.val() != p2.val()){
 		alert("패스워드가 일치하지 않습니다.");

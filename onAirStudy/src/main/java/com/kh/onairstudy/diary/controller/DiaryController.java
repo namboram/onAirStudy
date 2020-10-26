@@ -118,11 +118,18 @@ public class DiaryController {
 			log.debug("diary={}", diary);
 			
 			mav.addObject("diary", diary);
-			//2. mybatis collection을 이용해서 join된 쿼리 전송 
-			
-			 mav.setViewName("diary/diaryDetail");
+			mav.setViewName("diary/diaryList");
+			mav.setViewName("diary/diaryDetail");
 			 return mav; 
 		 }
+		 
+		 
+		@RequestMapping("/diaryReply.do")
+		public String diaryReply() {
+			log.debug("댓글페이지 요청");
+			
+			return "diary/diaryReply";
+		}
 		 
 		
 }

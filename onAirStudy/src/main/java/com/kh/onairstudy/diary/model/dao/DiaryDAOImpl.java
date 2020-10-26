@@ -47,6 +47,13 @@ public class DiaryDAOImpl implements DiaryDAO {
 		return sqlSession.selectList("diary.selectAttachList", no);
 	}
 
+
+	@Override
+	public void diaryReadCount(int no) {
+		sqlSession.update("diary.diaryReadCount", no);
+		
+	}
+
 	
 	
 	

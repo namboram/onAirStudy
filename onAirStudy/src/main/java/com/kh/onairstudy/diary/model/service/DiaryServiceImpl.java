@@ -52,6 +52,7 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public Diary selectOneDiary(int no) {
 		Diary diary = diaryDAO.selectOneDiary(no); 
+		diaryDAO.diaryReadCount(no);
 		
 		List<DiaryAttachment> attachList = diaryDAO.selectAttachList(no);
 		diary.setAttachList(attachList);
