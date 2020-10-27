@@ -13,13 +13,15 @@
 
 <div class="row">
 
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 	
-	<div class="col-lg-10 adDivB">
+	<div class="col-lg-10 adDivB p-0">
+		<div style="padding:5%;">
 		
 		<div style="margin: 50px;">
+		
 			<form id="serviceSearchB" action="${ pageContext.request.contextPath }/admin/serviceList.do" method="post">
 			<select class="custom-select" name="searchType" id="searchTypeB">
 				<option value="memberId" >작성자</option>
@@ -88,9 +90,10 @@
 				</a></li>
 			</ul>
 		</nav>
-
 	</div>
-</div>
+	
+</div>	
+
 <script>
 
 	var a = $("#hide1B");
