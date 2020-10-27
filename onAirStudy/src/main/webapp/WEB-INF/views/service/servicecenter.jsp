@@ -20,13 +20,13 @@ function selectCategory(category) {
 }
 
 function searchClick() {
-	const selectOption = $("#searchOption").val();
-	const keyword = $("#keyword").val();
+	var selectOption = $("#searchOption").val();
+	var keyword = $("#keyword").val();
 	location.href="${pageContext.request.contextPath}/list.do?search_option="+selectOption + "&keyword=" + keyword;
 }
 
 function isLogined() {
-	const memberid = $("#member_id").val();
+	var memberid = $("#member_id").val();
 	
 	if(memberid != null) {
 		return memberid;
@@ -56,6 +56,7 @@ $(document).ready(function() {
 });
 </script>
     
+
     
     <!-- 맨위 배너 -->
 	<div class="container-fluid" style="height: 20vh; background-color: rgb(247, 235, 229);">
@@ -67,7 +68,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-	<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
 
 	<!--   서비스별 질문 -->
 <div class="row" >
@@ -180,25 +180,34 @@ $(document).ready(function() {
      
         <div class="float-right" >
 			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
+			<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
 		</div>
 		
+		
+					  
 					<table class="table table-hover" id="board">
 					    <tr>
 					      <th>번호</th>
 					      <th>답변상태</th>
+					      <th>카테고리</th>
 					      <th>제목</th>
 					      <th>작성자</th>
 					      <th>작성날짜</th>
 					    </tr>
-					    <c:forEach items="${ serviceList }" var="service">
-					    <tr>
-					      <td>${ service.no }</td>
-					      <td>${ service.serviceStatus }</td>
-					      <td>${ service.serviceTitle }</td>
-					      <td>${ service.memberId }</td>
-					      <td><fmt:formatDate value="${ service.serviceDate }" pattern="yy/MM/dd"/></td>
-						</tr>
-					    </c:forEach>
+					    
+					      <c:if test="${ serviceList != null }">
+						    <c:forEach items="${ serviceList }" var="s" >
+						    <tr>
+							      <td>${ s.no }</td>
+							      <td>${ s.serviceStatus }</td>
+							      <td>${ s.category }</td>
+							      <td>
+							      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=${ s.no }">${ s.serviceTitle }</a></td>
+							      <td>${ s.memberId }</td>
+							      <td><fmt:formatDate value="${ s.serviceDate }" pattern="yy/MM/dd"/></td>
+							</tr>
+						    </c:forEach>
+					    </c:if>
 				</table>	
 				
 				

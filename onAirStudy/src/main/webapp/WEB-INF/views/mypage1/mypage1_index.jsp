@@ -14,8 +14,9 @@
 	</div>
 	<!-- 차트 링크 -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-
+	
+	<!-- date 링크 -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 	<div class="col-lg-10" style="background-color: #FBF7FD;">
 
@@ -23,54 +24,43 @@
 		<hr>
 		
 		
-		<div class="row">
-		
-	
 			<h3>이번달 스터디방별 출석 그래프</h3>
+			
+		<div class="row">
+			
+				<%-- <c:if> member_role 이 'M'이면 안보이게, 'p'면 보이게 하기--%>
 				<div class="col-md-5">
 					<canvas id="myChart1"></canvas>
+					<input type="hidden" name="hiddenAttend" value="${attendList }" />
 				</div>	
-							
-			<%-- 	<table>
-						<tr>
-							<th>출석횟수</th>
-						
-						</tr>
-			<c:forEach items="${ attendList }" var="attend">
-						<tr>
-							<td>${ attend.attendCnt }</td>
-						
-						</tr>
-			</c:forEach>
-					</table> --%>
+			<%-- </c:if> --%>	
 			
-			
-			
-		<div>
-			<h3>
-				오늘의 To Do List
-				<button type="button" class="btn btn-light"
+			-------------옮기자----->
+			<!-- To Do List-->
+            <div class="col-lg-3 col-md-6">
+              <div class="card to-do">
+                <h2 class="display h4">To do List<button type="button" class="btn btn-light float-right"
 					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더
-					보기</button>
-			</h3>
-			
-			<div>
-			
-							<h4>TO DO LIST</h4>
-					<c:forEach items="${ todoList }" var="td">
-						<h5> ${ td.scheduleYN } : ${ td.content } </h5>	
-					</c:forEach>
-			</div>
-		</div>
+					보기</button></h2>
+                
+                <p>To Do List로 계획을 짜봅시다~.</p>
+					
+                <ul class="check-lists list-unstyled">
+	                <c:forEach items="${ todoList }" var="td" varStatus="status">
+	                  <li class="d-flex align-items-center"> 
+	                    <input type="checkbox" id="list-1${status.index}" name="list-1" class="form-control-custom">
+	                    <label for="list-1">${ td.content }</label>
+	                  </li>
+	               </c:forEach>
+                </ul>
+              </div>
+            </div>
+		
 
-
-
-
-		<div class="row">
-			
-		</div>
 
 		</div>
+		
+	
 
 		<hr>
 
@@ -81,8 +71,14 @@
 				data-target="#exampleModal" data-whatever="@getbootstrap">시간
 				등록하기</button>
 		</h3>
+	
+	<%-- <c:if test=""> --%>
+		<h4 class="text-center">공부한 날짜와 시간을 등록해보세요.</h4>
+		<br>
+	<%-- </c:if> --%>
+		
 		<div class="col-md-7">
-			<div>
+			<%-- <div>
 					<table>
 						<tr>
 							<th>날짜</th>
@@ -95,8 +91,9 @@
 						</tr>
 				</c:forEach>
 					</table>
-			</div>
-			<canvas id="lineChart"></canvas>
+			</div> --%>
+			
+			<canvas id="lineChart" style="margin-left:30%;"></canvas>
 		</div>
 	</div>
 </div>
@@ -149,22 +146,28 @@
 			var ctx = document.getElementById("myChart1").getContext('2d');
 			//차트 값 생성
 
-			var labels = new Array();
+		
 			var data = new Array();
-
 			<c:forEach items="${ attendList }" var="attend" >
 				var json = new Object();
-				labels.push( "출석률");
+				
 				data.push("${attend.attendCnt}");
 			</c:forEach>
+			
 
-
+			
 				var myChart1 = new Chart(ctx, {
 				type : 'bar',
 				data : {
-					labels : [ "스터디방1", "스터디방2", "스터디방3" ],
+					labels : [
+						<c:forEach items="${ srList }" var="s" >
+						'${s["SR_TITLE"]}',	 
+						</c:forEach>
+						
+				],
 					datasets : [ {
-						 	label: labels,
+						 	label: '스터디방별 출석률',
+						 	
 				            data: data,
 						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
@@ -209,9 +212,17 @@
 			var labels = new Array();
 			var data = new Array();
 
+			/* var date = moment(st.studyDate).format("MMM Do YY"); */  
+
+			
+			
+
+
+
+			
 			<c:forEach items="${ studytimeList }" var="st" >
 				var json = new Object();
-				labels.push("${st.studyDate}");
+				labels.push("${st.studyDate}"); 
 				data.push("${st.studyTime}");
 			</c:forEach>
 
@@ -219,10 +230,9 @@
 			var myLineChart = new Chart(ctxL, {
 				type: 'line',
 				data: {
-/* 				labels: ["January", "February", "March", "April", "May", "June", "July"], */
-				labels: labels,
+					labels: labels,
 				datasets: [{
-				label: labels,
+				label: '날짜별 공부시간',
 				data: data,
 				backgroundColor: [
 				'rgba(105, 0, 132, .2)',
@@ -239,10 +249,6 @@
 				responsive: true
 				}
 			});
-
-
-
-			
 
 
 </script>

@@ -1,6 +1,7 @@
 package com.kh.onairstudy.servicecenter.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,11 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	@Override
 	public int totalCount(String search_option, String keyword, int category) {
 		return serviceCenterDAO.totalCount(search_option, keyword, category);
+	}
+
+	@Override
+	public Map<String, Object> serviceDetail(int no) {
+		return serviceCenterDAO.serviceDetail(no);
 	}
 
 }

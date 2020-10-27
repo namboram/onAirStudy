@@ -88,14 +88,25 @@ public class ServiceCenterController {
 	        mav.setViewName("service/servicecenter");    
 	            
 	        
-	        return mav;    //게시판 페이지로 이동
-	    
+	        return mav;   
 	    }
 	
 	
+	 
+//	상세보기
+	 @RequestMapping("/serviceDetail.do")
+		public String noticeDetail(ModelAndView mav, @RequestParam("no") int no) {
+			
+			Map<String, Object> map = serviceCenterService.serviceDetail(no);
+			mav.addObject("map",map);
+			
+			
+			return "service/serviceDetail";
+		}
+		
 	
-	
-	
+	 
+	 
 	
 // 글쓰기폼
 	@RequestMapping("/service/serviceForm.do")

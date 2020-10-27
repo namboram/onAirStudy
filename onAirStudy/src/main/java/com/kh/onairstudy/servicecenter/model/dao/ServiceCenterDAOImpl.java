@@ -64,6 +64,11 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 				
 	}
 
+	@Override
+	public Map<String, Object> serviceDetail(int no) {
+		return sqlSession.selectOne("service.serviceDetail",no);
+	}
+
 	
 
 

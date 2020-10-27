@@ -1,6 +1,7 @@
 package com.kh.onairstudy.servicecenter.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.common.PagingCriteria;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
@@ -18,6 +19,8 @@ public interface ServiceCenterDAO {
 	List<ServiceCenter> listAll(String search_option, String keyword, int category);
 
 	int totalCount(String search_option, String keyword, int category);
+
+	Map<String, Object> serviceDetail(int no);
 
 
 }

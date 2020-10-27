@@ -12,15 +12,12 @@
 div#board-container {
 	width: 400px;
 }
-
 input, button, textarea {
 	margin-bottom: 15px;
 }
-
 button {
 	overflow: hidden;
 }
-
 </style>
 
 
@@ -30,7 +27,7 @@ button {
 	<div id="diary-main-container">
 		<input type="text" class="form-control" 
 			   name="diaryTitle" id="title" 
-			   value="${ map.TITLE }" required>
+			   value="${ s.TITLE }" required>
 		<input type="text" class="form-control" 
 			   name="memberId" 
 			   value="관리자" readonly required>
@@ -46,5 +43,3 @@ button {
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
-

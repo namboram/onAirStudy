@@ -128,21 +128,23 @@
 
 
 <!-- 이달의 성실멤버 -->
-	<div class="container-fluid" style="background-color: #F2EDEA; height:900px; " >
+	<div class="container-fluid" style="background-color: #F2EDEA; height:800px; " >
+		<br>
 		<h3 class="text-center">
 			이달의 성실 멤버
 			</h3>
-		
-			<div class="container-sm-5 p-5">
+		<br>
+			<div class="container">
 			<div class="row" id="srlistG">
 				
-				<c:forEach items="${ dm_List }" var="dm">
-					<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+				<c:forEach items="${ dm_List }" var="dm" end="9">
+					
+					<div class="m-2 p-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 300px;">
 						<div class="">
 						
 						<%-- <img class="mPic"
 							src="${pageContext.request.contextPath }/resources/upload/${ dm.mPic }"	width="150px"> 						
-							<a href="${pageContext.request.contextPath }/"></a>  --%>
+							<a href="${pageContext.request.contextPath }/"></a>   --%>
 						
 						<h5 class="text-center">
 							${ dm.memberId }
@@ -177,16 +179,15 @@
 
 <!-- 이달의 성실 스터디방 -->
 	<div class="container-fluid" style="background-color: #E3DBD6;  height:550px;">
-		<h3 class="text-center">
-			이달의 성실 스터디방
-			</h3>
-					<div class="container-sm-5 p-5">
+	<br>
+		<h3 class="text-center">이달의 성실 스터디방</h3>
+			
+		<div class="container-sm-5 p-5">
 			<div class="row" id="srlistG">
-				<c:forEach items="${ ds_List }" var="ds">
+				<c:forEach items="${ ds_List }" var="ds" end="4">
 				
 				
-				
-					<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+					<div class="m-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
 						<div class="">
 						
 						<%-- <img class="mPic"
@@ -220,60 +221,74 @@
 
 <!-- 스터디방 리스트 -->
 	<div class="container-fluid"
-		style="background-color: rgb(209, 203, 200); height:900px;">
-		<h3 class="text-left">
+		style="background-color: rgb(209, 203, 200); height:1150px;">
+		<br>
+		<h3 class="text-center">
 			현재 모집중인 스터디
 			<button type="button" class="btn btn-light" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">더 보기</button>
 			</h2>
+			<br>
 			
 			<div class="container-sm">
 			<div class="row" id="srlistG">
 				<c:forEach items="${ srList }" var="roomList" end="5">
 				
 				
-					<div class="col-sm-3" id="srProfile">
+					<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
+						<input type="hidden" name="category" vlaue="${roomList.category}" />
 						<div class="sr_pic">
-						<img class="roomPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }"	width="150px"> 
+							<img class="roomPic"
+								src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }"> 
+							<img class="memPic"
+								src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"> 						
 						</div>
-						<img class="memPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"	width="150px"> 						
-							<a href="${pageContext.request.contextPath }/">
-							<img src="${pageContext.request.contextPath }/resources/images/heart.png"
-								 width="20px"></a> <br>
-						<h5 class="text-center">
-							${ roomList.sTitle }
-						</h5>
-						<h5 class="text-center">
-							그룹 리더 : ${ roomList.memberId }
-							</h5>
+						
+						<form
+							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
+							id="favRoom" method="POST">
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
+														
+							<button type="submit" class="heartBtn" style="<c:if test="${ loginMember.memberId eq w.memberId }">background-color:gray;</c:if>"
+							<c:if test="${ loginMember.memberId eq w.memberId }"> disabled </c:if>>
+								<img class="heartP"
+									src="${pageContext.request.contextPath }/resources/images/heart.png" >
+							</button>
 							
-							<h5 class="text-center">
-							${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
-							</h5>
+						</form>
 							
 							<br>
-					
-				
 							
-								<button type="button" class="btn btn-light btn-sm">둘러보기</button>
-								<button type="submit" class="btn btn-light btn-sm">신청하기</button>
-								<button type="button" class="btn btn-danger btn-sm">신고하기</button>
+						<div class="contentR">
+							<br>
+								<h5 class="text-center">${ roomList.sTitle }</h5>
+								<h5 class="text-center">그룹 리더 : ${ roomList.memberId }</h5>
+		
+								<h5 id="searchT" class="text-center">${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
+								</h5>
+		
+								<c:if test="${ roomList.srOpenedYN == 'Y'}">
+								<button type="button" class="btn btn-light btn-sm"
+									onclick="previewR('${ roomList.srNo }','${roomList.memberId }','${roomList.sTitle }')">둘러보기</button>
+								<button type="button" class="btn btn-light btn-sm"
+									onclick="applyR('${ roomList.srNo }')">신청하기</button>	
+								<button type="button" class="btn btn-danger btn-sm"
+									onclick="reportR('${ roomList.srNo }','${roomList.memberId }','${roomList.sTitle }')">신고하기</button>						
+								</c:if>
 							
+						</div>
+	
 					</div>
-			
-					
-					
-					
-					<br />
 				</c:forEach>
 			</div>
 		</div>
-	</div>
+</div>
 
 
 
 
+<div class="col-lg p-0 m-0">
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>
 
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -12,6 +12,7 @@
 </select>
 
 
+
 <select id="listAll" resultMap="serviceListMap">
 	select * 
 	from service
@@ -27,8 +28,6 @@
 
  </select>
 
-
- 
 
 
 <sql id="search">
@@ -54,9 +53,6 @@
 
 
 
-
-
-
 <resultMap type="map" id="serviceMap">
 	<id column="no" property="no"/>	
 	<result column="category" property="category"/>
@@ -71,12 +67,14 @@
  	<![CDATA[
  		select * 
  		from (select /* + INDEX_DESC(service) */ 
- 			  rownum rn, no, category, service_title, service_content, member_id
+ 			  rownum rn, no, category, service_title, service_status, service_date, service_content, member_id
  			  from service where rownum <= #{pageNum} * #{amount})
  		where rn > (#{pageNum} - 1) * #{amount}
  		order by no desc
  	]]>
 </select>
+
+
  
 <insert id="insertService">
 
@@ -97,6 +95,15 @@
 </insert>
 
 
+
+<select id="serviceDetail" resultType="map">
+select
+	*
+from 
+	service
+where
+	no = #{no}
+</select>
 	
 
 
