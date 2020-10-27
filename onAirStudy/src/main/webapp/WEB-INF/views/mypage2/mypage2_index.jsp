@@ -6,7 +6,7 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 <style>
-.col-sm-4, .col-sm-8{
+.forms .col-sm-4, .forms .col-sm-8{
 	text-align: center;
 }
 </style>
@@ -63,8 +63,12 @@
 									<hr />								
 									<div class="form-group row">
 										<div class="col-sm-5 offset-sm-7">
-											<button type="submit" class="btn btn-primary">방 정보 수정</button>
-											<button type="submit" class="btn btn-primary">스터디 탈퇴</button>
+											<c:forEach var="p" items="${ participants}">
+												<c:if test="${ loginUser.memberId eq p.memberId && p.leaderYN eq 'Y' }">
+													<button type="button" class="btn btn-primary" onclick="modifyInfo()">방 정보 수정</button>
+												</c:if>
+											</c:forEach>
+											<button type="submit" class="btn btn-danger">스터디 탈퇴</button>
 										</div>
 									</div>
 								</form>
@@ -74,3 +78,11 @@
 				</div>
 			</div>
 		</section>
+
+		
+<script>
+function modifyInfo(){
+	$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/mypage2_question.do");
+}
+
+</script>
