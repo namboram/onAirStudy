@@ -27,12 +27,12 @@
 
 <div class="row">
 
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-	<div class="col-lg-10 adDivB">
-
+	<div class="col-lg-10 adDivB p-0">
+	<div style="padding:5%;">
 		<div style="margin: 50px;">
 			<form id="memberListFrm"
 				action="${ pageContext.request.contextPath }/admin/memberList.do"
@@ -95,9 +95,8 @@
 		</nav>
 
 	</div>
+
 </div>
-
-
 
 <script>
 
