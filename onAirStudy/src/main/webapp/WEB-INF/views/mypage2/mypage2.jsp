@@ -65,6 +65,9 @@
 						<li><div class="participantsJH">
 							<div class="status"></div>
 							<span>${part.memberId }</span>
+							<c:if test="${part.leaderYN eq 'Y'}">
+								<span>팀장</span>
+							</c:if>
 							<div class="icon icon-mail message" onclick="alert('쪽지를 보내봅시다~')"></div>
 						</div></li>
 					</c:forEach>
@@ -108,7 +111,7 @@
 
 <script>
 $(function(){
-	/* var d = new Date();
+	var d = new Date();
 	var week = new Array('일','월','화','수','목','금','토');
 	
 	var day = week[d.getDay()];  //오늘 요일
@@ -128,10 +131,7 @@ $(function(){
 				 $('#myModal').modal('show'); 
 			}
 		}
-	} */
-//	 $('#myModal').modal('show'); 
-
-
+	}
 });
 
 function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.

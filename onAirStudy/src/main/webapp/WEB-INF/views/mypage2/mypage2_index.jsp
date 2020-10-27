@@ -42,27 +42,26 @@
 										</div>
 									</div>
 									<hr />
-									<c:if test="${ roomInfo.forceExitYN eq 'Y'}">
+									<c:if test="${roomInfo.forceExitYN == 'Y'}">
 										<div class="form-group row">
-										<label class="col-sm-4 form-control-label">우리방 규칙</label>
-										<div class="col-sm-8">
-											<p>팀장 경고 누적 ${ roomInfo.forceExitOpt }회시 자동 탈퇴 처리</p>
+											<label class="col-sm-4 form-control-label">우리방 규칙</label>
+											<div class="col-sm-8">
+												<p>팀장 경고 누적 ${ roomInfo.forceExitOpt }회시 자동 탈퇴 처리</p>
+											</div>
 										</div>
-									</div>
-									</c:if>
-									<hr />			
+										<hr />
+									</c:if>	
 									<div class="form-group row">
-										<label class="col-sm-4 form-control-label">출석현황</label>
-										<div class="col-sm-8">
-											<p>전체 출석 일수  : ${roomInfo.attendanceCnt}days</p>
-											<p>sinsa  : 27days</p>
-											<p>sejong : 30days</p>
-											<p>qwerty : 23days</p>
-											<p>honggd : 25days</p>
-											
+											<label class="col-sm-4 form-control-label">출석현황</label>
+											<div class="col-sm-8">
+												<p>전체 출석 일수  : ${roomInfo.attendanceCnt}days</p>
+												<p>sinsa  : 27days</p>
+												<p>sejong : 30days</p>
+												<p>qwerty : 23days</p>
+												<p>honggd : 25days</p>
+											</div>
 										</div>
-									</div>
-									<hr />									
+									<hr />								
 									<div class="form-group row">
 										<div class="col-sm-5 offset-sm-7">
 											<button type="submit" class="btn btn-primary">방 정보 수정</button>
