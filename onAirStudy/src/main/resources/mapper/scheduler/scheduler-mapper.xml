@@ -18,7 +18,7 @@ from
 	</if>
 </where>
 order by 
-	schedule_yn desc, 
+	schedule_yn, 
 	(end_date - start_date) desc
 </select>
 <resultMap id="listMap" type="map">
