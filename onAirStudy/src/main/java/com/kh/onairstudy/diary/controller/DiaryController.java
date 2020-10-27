@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,7 +121,6 @@ public class DiaryController {
    }
    
       
-      
        @RequestMapping("/diaryDetail.do") 
        public ModelAndView diaryDetail(@RequestParam("no") int no,
                                 ModelAndView mav) { 
@@ -131,5 +131,40 @@ public class DiaryController {
           return mav; 
        }
        
+       //다이어리 댓글-------------------------------------
+       @RequestMapping("/insertDiaryReply.do")
+   		public String memo(Model model) {
+   		log.debug("댓글 인덱스 페이지 요청!");
+   		List<Diary> list = null;
+   		
+   		try {
+   			list = diaryService.selectDiaryReplyList();
+   			model.addAttribute("list", list);
+   		} catch(Exception e) {
+   			log.error("댓글 목록 조회 오류", e);
+   			throw e;
+   		}
+   		
+   		log.debug("list = {}", list);
+   		
+   		
+   		return "diary/diaryDetail";
+   	}
+   	/*
+   	@RequestMapping("/insertDiaryReply.do")
+   	public String insertMemo(Diary diary, 
+   							 RedirectAttributes redirectAttr) {
+   		try {
+   			int result = diaryService.insertDiaryReply(diary);
+   			redirectAttr.addFlashAttribute("msg", "댓글 등록 성공!");
+   		} catch(Exception e) {
+   			log.error("댓글 등록 오류!", e);
+   			redirectAttr.addFlashAttribute("msg", "메모 등록 오류!");
+   		}
+   		
+   		return "redirect:/memo/memo.do";
+   	}
+       
+     */  
       
 }

@@ -21,6 +21,8 @@ public interface DiaryDAO {
 
 	void diaryReadCount(int no);
 
+	List<Diary> selectDiaryReplyList();
+
 
 
 

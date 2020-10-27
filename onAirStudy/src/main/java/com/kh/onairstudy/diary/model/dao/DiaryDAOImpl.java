@@ -55,6 +55,12 @@ public class DiaryDAOImpl implements DiaryDAO {
 	}
 
 
+	@Override
+	public List<Diary> selectDiaryReplyList() {
+		return sqlSession.selectList("diary.selectDiaryReplyList");
+	}
+
+
 
 	
 	

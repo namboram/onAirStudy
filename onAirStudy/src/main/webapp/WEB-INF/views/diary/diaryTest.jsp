@@ -12,7 +12,7 @@
     window.onload = function() {
         window.editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'), {
             lang: SUNEDITOR_LANG['ko'],
-            width: '100 %',
+            width: '1',
             height: '500px',
             font: [
                 'Arial', 'Comic Sans MS', 'IMPACT', 'D2Coding'
@@ -41,7 +41,6 @@
         } else {
             var textarea = editor.getContext().element.originElement;
             textarea.value = contents;
-            location href="";
             return true;
         }
 
