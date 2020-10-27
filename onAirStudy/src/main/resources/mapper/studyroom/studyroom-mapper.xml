@@ -301,7 +301,7 @@ from sr_log
   		<result column="sr_title" property="srTitle"/>
   		<result column="sr_goal" property="srGoal"/>
   		<result column="sr_comment" property="srComment"/>
-  		<result column="sr_attendance_cnt" property="attintendanceCnt"/>
+  		<result column="sr_attendance_cnt" property="attendanceCnt"/>
   		<result column="attend_day" property="attendDay"/>
   		<result column="attend_time" property="attendTime"/>
   		<result column="sr_ranking" property="ranking"/>

@@ -17,13 +17,13 @@ public class StudyRoomInfo {
 	private String srTitle;
 	private String srGoal;
 	private String srComment;
-	private int attintendanceCnt;
+	private int attendanceCnt;
 	private String attendDay;
 	private String attendTime;
 	private int ranking;
 	private int forceExitOpt;
-	private char forceExitYN;
-	private char srOpenedYN;
+	private String forceExitYN;
+	private String srOpenedYN;
 	private String category;
 	
 }

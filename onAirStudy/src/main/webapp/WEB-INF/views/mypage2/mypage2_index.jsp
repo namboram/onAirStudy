@@ -20,15 +20,15 @@
 					<div class="col-lg-11">
 						<div class="card">
 							<div class="card-header d-flex align-items-center">
-								<label class="col-sm-12 form-control-label" style="text-align:center">정보처리기사 자격증 합격해요!</label>
+								<label class="col-sm-12 form-control-label" style="text-align:center">${roomInfo.srTitle }</label>
 							</div>
 							<div class="card-body">
-								<p style="color: #888;">온라인으로 정보처리 기사 같이 준비하고 합격해요</p>
+								<p style="color: #888;">${roomInfo.srComment }</p>
 								<form class="form-horizontal">
 									<div class="form-group row">
 										<label class="col-sm-4 form-control-label">우리방 목표</label>
 										<div class="col-sm-8">
-											<p>정보처리기사  4회차 필기 합격</p>
+											<p>${roomInfo.srGoal }</p>
 										</div>
 									</div>
 									<hr />
@@ -42,17 +42,19 @@
 										</div>
 									</div>
 									<hr />
-									<div class="form-group row">
+									<c:if test="${ roomInfo.forceExitYN eq 'Y'}">
+										<div class="form-group row">
 										<label class="col-sm-4 form-control-label">우리방 규칙</label>
 										<div class="col-sm-8">
-											<p>팀장 경고 누적 5회시 자동 탈퇴 처리</p>
+											<p>팀장 경고 누적 ${ roomInfo.forceExitOpt }회시 자동 탈퇴 처리</p>
 										</div>
 									</div>
+									</c:if>
 									<hr />			
 									<div class="form-group row">
 										<label class="col-sm-4 form-control-label">출석현황</label>
 										<div class="col-sm-8">
-											<p>전체 출석 일수  : 23days</p>
+											<p>전체 출석 일수  : ${roomInfo.attendanceCnt}days</p>
 											<p>sinsa  : 27days</p>
 											<p>sejong : 30days</p>
 											<p>qwerty : 23days</p>

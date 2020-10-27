@@ -122,7 +122,7 @@
 						</select> <select class="makeSelB" name="timeOption" id="time2">
 								<option value="후다닥">다닥</option>
 						</select>
-						</label> <input type="hidden" name="timeOpt" val="" /> <br /> <br /> <input
+						</label> <input type="hidden" name="timeOpt" value="" /> <br /> <br /> <input
 							type="checkbox" name="DYN" value=""> <label for="DYN">디데이
 							일정으로 등록하기</label> <input type="hidden" name="scheduleYN" value="Y" /> <br />
 						<br />
