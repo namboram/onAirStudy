@@ -18,9 +18,9 @@ import lombok.ToString;
 @ToString
 public class DiaryReply implements Serializable{
 
-	private int no;
-	private String memeberId;
-	private int diaryNo;
+	private int no; //댓글 번호
+	private String memberId;
+	private int diaryNo; //게시글 번호
 	private String replyContent;
 	private Date replyDate;
 	
