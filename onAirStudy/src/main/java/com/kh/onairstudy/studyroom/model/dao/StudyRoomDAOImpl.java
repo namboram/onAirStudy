@@ -60,21 +60,27 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 //방생성
 	@Override
+	public int insertStudyRoomList(StudyRoomList studyroomList) {
+		return sqlSession.insert("studyroom.insertStudyRoomList", studyroomList);	
+	}
+	
+	@Override
 	public int insertProfileAttachment(ProfileAttachment profile) {
 		return sqlSession.insert("studyroom.insertProfileAttachment", profile);
 	}
 
 	@Override
-	public int insertStudyRoom(StudyRoom studyroom) {
-		return sqlSession.insert("studyroom.insertStudyRoom", studyroom);		
+	public int insertStudyRoom(StudyRoom sRoom) {
+		return sqlSession.insert("studyroom.insertStudyRoom", sRoom);		
 	}
 	
+
 	@Override
-	public int insertStudyRoomList(StudyRoomList srList) {
-		return sqlSession.insert("studyroom.insertStudyRoomList", srList);	
-	}
-
-
+	public int insertStudyRoomLog(StudyRoomLog srLog) {
+		return sqlSession.insert("studyroom.insertStudyRoomLog", srLog);
+	}	
+	
+	
 	
 
 	@Override
@@ -82,10 +88,6 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.selectStudyRoomLog");
 	}
 
-	@Override
-	public int insertStudyRoomLog(StudyRoomLog srLog) {
-		return sqlSession.insert("studyroom.insertStudyRoomLog", srLog);
-	}
 
 
 

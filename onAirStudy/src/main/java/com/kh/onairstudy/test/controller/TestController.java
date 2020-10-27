@@ -76,7 +76,7 @@ public class TestController {
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "문제를 등록하였습니다." :"문제 등록 중 오류가 발생했습니다.");
 		
-		return "redirect:/mypage2/mypage2_question.do";
+		return "redirect:/mypage2/main.do?test=Y";
 	}
 	
 	@RequestMapping("mypage2/pretest.do")
