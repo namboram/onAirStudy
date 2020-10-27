@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -129,9 +128,9 @@
 	<jsp:include page="/WEB-INF/views/mypage2/mypage2_index.jsp"></jsp:include>
 	</div>
 	<div class="col-lg-3 chattingDiv" >
-		<c:if test="${ not empty roomInfo }">
-			<%-- <h1>${ roomInfo.srTitle }</h1> --%>
-		</c:if>
+<%-- 		<c:if test="${ not empty roomInfo }">
+			<h1>${ roomInfo.srTitle }</h1>
+		</c:if> --%>
 	<!-- 채팅 include 들어갈 자리 -->
 	<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
 	</div>

@@ -29,6 +29,7 @@
 }   */
 .chat-containerK {
 	overflow: hidden;
+	max-width : 200px;
 }
 
 .chatcontent {
@@ -41,16 +42,25 @@
 	bottom: 0;
 	width: 100%;
 }
-.fix_btn{
-	/*  display : inline-bolck;*/
-	float : left;
-}
+
 #alertK{
 	display : none;
 }
 #msgi{	
 	resize: none;
 }
+.myChat{
+	background-color : #E0B1D0;
+}
+ul li{
+	list-style-type:none;
+}
+.chatBox{
+	display : inline-block;
+}
+.chatBox dateK{
+vertical-align: text-bottom;
+} 
 </style>
 
 <div id="chat-containerK" class="border border-secondary">
@@ -99,14 +109,34 @@
 <%-- 		<div class="main_tit">
 			<h1>방 이름 [ ${roomNo}번 ] 아이디[${loginMember.memberId}]</h1>
 		</div> --%>
-		<div class="content chatcontent" data-room-no="${roomNo}"
+		<div class="content chatcontent " data-room-no="${roomNo}"
 			data-member="${loginMember}">
-			<ul id="list-guestbook">
+			<ul id="list-guestbook" class="row">
 				<c:forEach items="${firstList}" var="chat">
 					<!-- 내 채팅일 경우 -->
 					<c:if test="${loginMember.memberId eq chat.memberId}">
+				
+					<li data-no="${chat.no}" >
+					<strong>${chat.memberId}</strong>
+					<div class="row">
+					<strong class="align-self-end"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
+					<c:if test="${chat.vaildYN eq 'Y'}">
+					<pre class=" myChat text-muted p-2 m-2" >신고된 채팅입니다.</pre> 
+					</c:if>
+					<c:if test="${chat.vaildYN ne 'Y'}">
+					<div align="right">
+					<pre class=" myChat p-2 m-2" >${chat.chatContent }</pre> 
+					</div>
+					</c:if>
+					</div>
+					</li>
+					
+					</c:if>
+					<!-- 다른사람의 채팅일 경우 -->
+					<c:if test="${loginMember.memberId ne chat.memberId}">
+			
 					<li data-no="${chat.no}">
-					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
+					<strong>${chat.memberId}</strong>
 					<div class="row">
 					<c:if test="${chat.vaildYN eq 'Y'}">
 					<pre class="bg-light text-muted p-2 m-2">신고된 채팅입니다.</pre> 
@@ -114,29 +144,17 @@
 					<c:if test="${chat.vaildYN ne 'Y'}">
 					<pre class="bg-light p-2 m-2">${chat.chatContent }</pre> 
 					</c:if>
-					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" /></strong></div></li>
-					</c:if>
-					<!-- 다른사람의 채팅일 경우 -->
-					<c:if test="${loginMember.memberId ne chat.memberId}">
-					<li data-no="${chat.no}">
-					<strong>${chat.no}</strong> <strong>${chat.memberId}</strong>
-					<div class="row">
-					<c:if test="${chat.vaildYN eq 'Y'}">
-					<pre class="bg-secondary text-muted p-2 m-2">신고된 채팅입니다.</pre> 
-					</c:if>
-					<c:if test="${chat.vaildYN ne 'Y'}">
-					<pre class="bg-secondary p-2 m-2">${chat.chatContent }</pre> 
-					</c:if>
-					<strong><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm:ss" />
+					<strong class="align-self-end"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" />
 					<a href='#' class='reportModalK'>신고</a></strong></div></li>
+					
 					</c:if>
 				</c:forEach>
 			</ul>
-			<div class="box"></div>
+			
 		</div>
 		<div class="chat-fixK">
 			<div id="alertK" onclick="moveDown();" class="alert alert-success" role="alert">
-				<strong>Well done!</strong> You successfully read
+				<strong></strong> 
 			</div>
 			<div class="fix_btn row">
 				<textarea name="msg" id="msgi" rows="2" class="form-control col-sm-8"></textarea>
@@ -156,7 +174,7 @@ function insertChat(){
 		data :
 			{
 				memberId : "${loginMember.memberId}",
-				srNo : "${roomNo}",
+				srNo : "${roomNum}",
 				chatContent : $("#msgi").val()
 						
 			} ,
@@ -275,7 +293,7 @@ $(document).ready(function() {
 	var renderList = function(vo,endNo) {
 		//alert("아뭐냐구");
 		// 리스트 html을 정의
-		var date = moment(vo.sendDate).format('YY/MM/DD HH:mm:ss');
+		var date = moment(vo.sendDate).format('YY/MM/DD HH:mm');
 		var html = "";
 		if(endNo==0) endNo = vo.no;
 		
@@ -284,20 +302,20 @@ $(document).ready(function() {
 			//신고된 채팅일 경우
 			var content ="";
 			if(vo.vaildYN == 'Y'){
-				content = "<pre class='bg-light text-muted p-2 m-2'>신고된 채팅입니다.</pre>";
+				content = "<pre class='myChat text-muted p-2 m-2'>신고된 채팅입니다.</pre>";
 			}
 			if(vo.vaildYN != 'Y'){
-				content = "<pre class='bg-light p-2 m-2'>"+vo.chatContent+"</pre>";
+				content = "<pre class='myChat p-2 m-2'>"+vo.chatContent+"</pre>";
 			}
 		
-		html = "<li class='pull-right' data-no='"+ endNo +"'>"
-				+ "<strong>" + endNo + "</strong>"
+		html = 	"<li class='' data-no='"+ endNo +"'>"
 				+ "<strong>" + vo.memberId + "</strong>"
 				+"<div class='row'>"
+				+ "<strong class='align-self-end'>" + date + "</strong>"
 				+ content
-				+ "<strong>" + date + "</strong>"
 				+"</div>"
 				+ "</li>";
+		
 
 		}
 		//남이 보낸 채팅일 경우
@@ -306,20 +324,19 @@ $(document).ready(function() {
 			var content ="";
 			var report ="";
 			if(vo.vaildYN == 'Y'){
-				content = "<pre class='bg-secondary text-muted p-2 m-2'>신고된 채팅입니다.</pre>";
+				content = "<pre class='bg-light text-muted p-2 m-2'>신고된 채팅입니다.</pre>";
 			}
 			if(vo.vaildYN != 'Y'){
-				content = "<pre class='bg-secondary p-2 m-2'>"+vo.chatContent+"</pre>";
+				content = "<pre class='bg-light p-2 m-2'>"+vo.chatContent+"</pre>";
 				report = "신고";
 			}
 			html = "<li data-no='"+ vo.no +"'>"
-			+ "<strong>" + vo.no + "</strong>"
-			+ "<strong>" + vo.memberId + "</strong>"
-			+"<div class='row'>"
-			+ content
-			+ "<strong>" + date + "<a href='#' class='reportModalK'>"+report+"</a></strong>"
-			+"</div>"
-			+ "</li>";
+				+ "<strong>" + vo.memberId + "</strong>"
+				+"<div class='row'>"
+				+ content
+				+ "<strong class='align-self-end'>" + date + "<a href='#' class='reportModalK'>"+report+"</a></strong>"
+				+"</div>"
+				+ "</li>";
 		
 		}
 		return html;
