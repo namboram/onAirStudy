@@ -13,6 +13,7 @@
 	}
     .bigContainer{
        position: relative;
+	   background-color:#e8f4ff;
 
     }
 	.bigContainer div{
@@ -82,10 +83,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <div class="row">
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp" />
 	</div>
-	<div class="col-lg-10 .adDivB row">
+	<div class="col-lg-10 p-0 .adDivB row">
 		<div class="container-fluid row bigContainer">
 
 			<div class="col-xs-12 col-sm-6 col-md-8" id="dateB">
@@ -136,7 +137,7 @@
 
 			<div class="container-fluid row" id="graphB">
 				<h3>일자별 가입회원 및 결제회원 통계</h3>
-				<div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+			<div id="columnchart_material" style="width: 800px; height: 500px;"></div> 
 			
 			</div>
 

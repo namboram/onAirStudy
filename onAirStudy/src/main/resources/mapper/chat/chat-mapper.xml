@@ -4,26 +4,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat">
  <select id="selectChatList" resultType="chat">
-SELECT  R.no,R.member_id,R.sr_no,R.chat_content,r.send_date,L.vaild_yn
-
-FROM (SELECT rownum r , c.* FROM chatting c ) R
-            left outer join (select * from report_log where content_category='C') L
-            on R.no = L.content_id
-WHERE sr_no = #{roomNo} and R.no BETWEEN #{startNo} AND #{endNo} order by R.no desc
+ <![CDATA[  
+select
+*
+from
+(SELECT 
+    x.*,L.vaild_yn
+FROM 
+( SELECT c.*
+           FROM chatting c 
+ where c.sr_no = #{roomNo}
+       ) x  
+       left outer join 
+ (select *
+ from report_log
+ where content_category='C') L
+            on x.no = L.content_id where x.no <= #{startNo} order by x.no desc)
+where rownum <=10 order by no desc
+    ]]> 
  </select>
  <select id="selectFirstChatList" resultType="chat">
 <![CDATA[  
-SELECT 
-     x.*,L.vaild_yn
+select
+*
+from
+(SELECT 
+    x.*,L.vaild_yn
 FROM 
 ( SELECT c.*
-           FROM chatting c
-           where rownum <=10
-          ORDER BY c.no desc
+           FROM chatting c 
+ where c.sr_no = #{roomNo}
        ) x  
-       left outer join (select * from report_log where content_category='C') L
-            on x.no = L.content_id
-where x.sr_no = #{roomNo} order by x.no 
+       left outer join 
+ (select *
+ from report_log
+ where content_category='C') L
+            on x.no = L.content_id order by x.no desc)
+where rownum <=10 order by no
       ]]> 
  </select>
  <insert id="insertChat">
@@ -33,6 +50,7 @@ where x.sr_no = #{roomNo} order by x.no
  		seq_chatting_no.nextval,
  		#{memberId},
  		#{srNo},
+ 		#{chatContent},
  		default
  	)
  	

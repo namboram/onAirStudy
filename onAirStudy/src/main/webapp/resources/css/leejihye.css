@@ -6,6 +6,7 @@
 * ==========================================================
 */
 
+
 nav.navbar-default{
 	
 	margin-bottom: 0px;
@@ -85,7 +86,6 @@ nav.side-navbar .sidebar-header {
 nav.side-navbar .avatar {
   margin : 0 auto;
   width: 50%;
-  height : 10%;
   text-align: center;
 }
 
