@@ -273,4 +273,10 @@ public class StudyRoomController {
 			
 			return "redirect:/studyroom/main.do";
 		}
+		
+		@RequestMapping("/studyroom/updateInfo.do")
+		public String updateInfo() {
+			return "/mypage2/mypage2_update";
+			
+		}
 }

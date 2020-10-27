@@ -82,7 +82,9 @@
 		
 <script>
 function modifyInfo(){
-	$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/mypage2_question.do");
+	var no = ${roomInfo.srNo};
+	console.log(no);
+	$(".changeDiv").load("${pageContext.request.contextPath}/studyroom/updateInfo.do");
 }
 
 </script>
