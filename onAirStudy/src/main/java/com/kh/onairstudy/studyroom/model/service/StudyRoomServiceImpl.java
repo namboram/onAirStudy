@@ -73,6 +73,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 //		
 		
 			studyroom.setSrNo(srList.getSrNo());
+		
 			result = studyRoomDAO.insertStudyRoom(studyroom);		
 						
 			
