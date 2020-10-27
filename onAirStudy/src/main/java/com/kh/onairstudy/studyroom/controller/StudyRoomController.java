@@ -155,59 +155,72 @@ public class StudyRoomController {
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
 					
 					Member loginMember = (Member)session.getAttribute("loginMember");
+					
+					String msg = "";
+					
+					//방 갯수 조회
+					int countR = studyRoomService.selectParticipatingRoomCnt(loginMember.getMemberId());
+					
+					if(countR >= 3) {
+						 msg= "스터디방의 갯수가 3개를 초과하여 방을 만들 수 없습니다.";
+					}else {
+						
+						//sr_list													
+						studyroomList.setSrCategory(srCategory);						
+						studyroomList.setMemberId(loginMember.getMemberId());										
+														
+						
+						//profile
+						List<ProfileAttachment> proList = new ArrayList<>();
+					
+						String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
+						
+						// 1. 파일명 생성
+						String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
+						// 2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장 tranferTo.
+						File dest = new File(saveDirectory, renamedFilename);
+						upFile.transferTo(dest);
 
-					//sr_list
-													
-					studyroomList.setSrCategory(srCategory);						
-					studyroomList.setMemberId(loginMember.getMemberId());										
-													
-					
-					//profile
-					List<ProfileAttachment> proList = new ArrayList<>();
-				
-					String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
-					
-					// 1. 파일명 생성
-					String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
-					// 2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장 tranferTo.
-					File dest = new File(saveDirectory, renamedFilename);
-					upFile.transferTo(dest);
+						ProfileAttachment profile = new ProfileAttachment();
+						profile.setOriginalFilename(upFile.getOriginalFilename());
+						profile.setRenamedFilename(renamedFilename);
+						profile.setFilePath(saveDirectory);
+						proList.add(profile);
+						
+						
+						//sr_log
+						List <StudyRoomLog> srLog = new ArrayList<>();
+						StudyRoomLog slog = new StudyRoomLog();
+						slog.setMemberId(loginMember.getMemberId());
+						srLog.add(slog);
 
-					ProfileAttachment profile = new ProfileAttachment();
-					profile.setOriginalFilename(upFile.getOriginalFilename());
-					profile.setRenamedFilename(renamedFilename);
-					profile.setFilePath(saveDirectory);
-					proList.add(profile);
-					
-					
-					//sr_log
-					List <StudyRoomLog> srLog = new ArrayList<>();
-					StudyRoomLog slog = new StudyRoomLog();
-					slog.setMemberId(loginMember.getMemberId());
-					srLog.add(slog);
+						//sr_info
+						List <StudyRoom> sRoom = new ArrayList<>();
+						StudyRoom studyroom = new StudyRoom();
+						
+						studyroom.setMemberId(loginMember.getMemberId());
+						studyroom.setSrTitle(srTitle);
+						studyroom.setSrComment(srComment);
+						sRoom.add(studyroom);
+						
+						
+						log.debug("sRoom = {}", sRoom);
+						log.debug("srLog = {}", srLog);
+						log.debug("proList = {}", proList);
 
-					//sr_info
-					List <StudyRoom> sRoom = new ArrayList<>();
-					StudyRoom studyroom = new StudyRoom();
-					
-					studyroom.setMemberId(loginMember.getMemberId());
-					studyroom.setSrTitle(srTitle);
-					studyroom.setSrComment(srComment);
-					sRoom.add(studyroom);
-					
-					
-					log.debug("sRoom = {}", sRoom);
-					log.debug("srLog = {}", srLog);
-					log.debug("proList = {}", proList);
+					//studyroom. profile 객체 DB저장하기
+						studyroomList.setProList(proList);
+						studyroomList.setSrLog(srLog);
+						studyroomList.setSRoom(sRoom);
+						
+						int result = studyRoomService.insertStudyRoomList(studyroomList);
+						
+						 msg= "스터디방이 생성 되었습니다.";
+						
+					}
 
-				//studyroom. profile 객체 DB저장하기
-					studyroomList.setProList(proList);
-					studyroomList.setSrLog(srLog);
-					studyroomList.setSRoom(sRoom);
 					
-					int result = studyRoomService.insertStudyRoomList(studyroomList);
-
-					redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
+					redirectAttr.addFlashAttribute("msg", msg);
 
 					return "redirect:/mypage1/mystudylist.do";
 
