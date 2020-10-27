@@ -10,5 +10,6 @@ public interface TestService {
 
 	List<Test> selectStudyNo();
 
+	List<Test> selectQuestion(int srNo);
 
 }

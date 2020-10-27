@@ -1,6 +1,7 @@
 package com.kh.onairstudy.attendance.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +20,19 @@ public class AttendanceDAOImpl implements AttendanceDAO {
 		return sqlSession.selectList("attendance.selectList", memberId);
 	}
 	
+
+	@Override
+	public int selectAttendYN(Map<String, Object> param) {
+		return sqlSession.selectOne("attendance.selectAttendYN", param);
+	}
+
+	@Override
+	public int getAttendCnt(Map<String, Object> param) {
+		return sqlSession.selectOne("attendance.getAttendCnt", param);
+	}
+
+	@Override
+	public int updateAttendance(Map<String, Object> param) {
+		return sqlSession.update("attendance.updateAttendance", param);
+	}
 }

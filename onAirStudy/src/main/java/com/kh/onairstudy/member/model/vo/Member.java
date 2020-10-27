@@ -1,6 +1,7 @@
 package com.kh.onairstudy.member.model.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Member implements Serializable{
 		   private String withdraw;
 		   private String comment;
 		   private int category;
+		   private Date enrollDate;
 		   
 		   
 		
