@@ -30,9 +30,9 @@ public interface StudyRoomDAO {
 
 	int insertWish(StudyRoomWish srWish);
 	//방생성
+	int insertStudyRoomList(StudyRoomList srList);
 	int insertProfileAttachment(ProfileAttachment profile);
 	int insertStudyRoom(StudyRoom studyroom);
-	int insertStudyRoomList(StudyRoomList srList);
 	int insertStudyRoomLog(StudyRoomLog srLog);
 	
 	

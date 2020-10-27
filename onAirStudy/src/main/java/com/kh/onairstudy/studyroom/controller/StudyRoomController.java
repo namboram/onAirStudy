@@ -140,17 +140,21 @@ public class StudyRoomController {
 
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
-		public String newstudyEnroll(StudyRoom studyroom,
+		public String newstudyEnroll(StudyRoom studyroom, Model model,
 									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
 									@RequestParam("srCategory") int srCategory, 
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
+					
 					Member loginMember = (Member)session.getAttribute("loginMember");
 					
 					StudyRoomList srList = new StudyRoomList();
 					srList.setSrCategory(srCategory);						
 					srList.setMemberId(loginMember.getMemberId());						
 					
-							
+					int rList = studyRoomService.insertStudyRoomList(srList);
+					
+					List<StudyRoomList> list = studyRoomService.selectsrList();
+					model.addAttribute("list", list);
 				
 					
 					List<ProfileAttachment> proList = new ArrayList<>();
@@ -164,7 +168,7 @@ public class StudyRoomController {
 					upFile.transferTo(dest);
 
 					ProfileAttachment profile = new ProfileAttachment();
-					profile.setSrNo();
+//					profile.setSrNo();
 					profile.setOriginalFilename(upFile.getOriginalFilename());
 					profile.setRenamedFilename(renamedFilename);
 					profile.setFilePath(saveDirectory);
@@ -172,7 +176,7 @@ public class StudyRoomController {
 					
 				
 					log.debug("proList = {}", proList);
-					studyroom.setSrNo();
+//					studyroom.setSrNo(srNo);
 					studyroom.setProList(proList);
 					studyroom.setCategory(srCategory);
 					studyroom.setSrNo(srList.getSrNo());
