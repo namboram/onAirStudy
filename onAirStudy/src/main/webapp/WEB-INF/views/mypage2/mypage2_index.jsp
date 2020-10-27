@@ -10,12 +10,6 @@
 	text-align: center;
 }
 </style>
-<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<div class="row">
-	<jsp:include page="/WEB-INF/views/mypage2/studyRoomSideBar.jsp"></jsp:include>
-
-	<div class="col-lg-7 p-0">
-
 		<section class="forms">
 			<div class="container-fluid">
 				<!-- Page Header-->
@@ -80,11 +74,3 @@
 				</div>
 			</div>
 		</section>
-
-
-	</div>
-</div>
-
-
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
