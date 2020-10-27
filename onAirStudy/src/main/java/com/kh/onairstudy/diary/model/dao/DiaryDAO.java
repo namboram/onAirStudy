@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.onairstudy.diary.model.vo.Diary;
 import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
+import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 
 public interface DiaryDAO {
@@ -21,7 +22,9 @@ public interface DiaryDAO {
 
 	void diaryReadCount(int no);
 
-	List<Diary> selectDiaryReplyList();
+	List<DiaryReply> selectDiaryReplyList(int diaryNo);
+
+	int insertDiaryReply(DiaryReply diaryReply);
 
 
 

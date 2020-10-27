@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.onairstudy.diary.model.dao.DiaryDAO;
 import com.kh.onairstudy.diary.model.vo.Diary;
 import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
+import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 @Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -59,9 +60,16 @@ public class DiaryServiceImpl implements DiaryService {
 		return diary;
 	}
 
+
 	@Override
-	public List<Diary> selectDiaryReplyList() {
-		return diaryDAO.selectDiaryReplyList();
+	public int insertDiaryReply(DiaryReply diaryReply) {
+		return diaryDAO.insertDiaryReply(diaryReply);
+	}
+
+
+	@Override
+	public List<DiaryReply> selectDiaryReplyList(int diaryNo) {
+		return diaryDAO.selectDiaryReplyList(diaryNo);
 	}
 	
 

@@ -7,17 +7,8 @@
 <style>
 div#diary-container{width:60%; margin:0 auto;text-align:center;}
 </style>
-<div id="memo-container">
-    <form id="DReplyFrm" 
-    	  action="${pageContext.request.contextPath}/diary/insertDiaryReply.do" 
-    	  class="form-inline" 
-    	  method="post">
-        <input type="text" class="form-control col-sm-6" name="DReply" placeholder="댓글을 적어주세요" required/>&nbsp;
-        <input type="password" class="form-control col-sm-2" name="DRpassword" maxlength="4" placeholder="비밀번호" required/>&nbsp;
-        <button class="btn btn-outline-success" type="submit" >저장</button>
-    </form>
-    <br />
-    <!-- 메모목록 -->
+
+    <!-- 댓글목록 -->
 	<table class="table">
 	    <tr>
 	      <th>아이디</th>
@@ -25,7 +16,7 @@ div#diary-container{width:60%; margin:0 auto;text-align:center;}
 	      <th>날짜</th>
 	 <!--      <th>삭제</th> -->
 	    </tr>
-	    <c:forEach items="${ list }" var="diary">
+	    <c:forEach items="${ list }" var="diaryReply">
 	    <tr>
 	      <td>${ diaryReply.memberId }</td>
 	      <td>${ diaryReply.replyContent }</td>
@@ -39,8 +30,8 @@ div#diary-container{width:60%; margin:0 auto;text-align:center;}
 		</tr>
 	    </c:forEach>
 	</table>
-</div>
 
+<script></script>
 
 <!-- Modal -->
 <!-- 
@@ -70,7 +61,7 @@ div#diary-container{width:60%; margin:0 auto;text-align:center;}
 	    </form>
 	  </div>
   </div>
-</div> -->
+</div> 
 <script>
 
 
@@ -80,4 +71,5 @@ function deleteMemo(no){
 }
 </script>
 
+-->
 

@@ -12,7 +12,7 @@
     window.onload = function() {
         window.editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'), {
             lang: SUNEDITOR_LANG['ko'],
-            width: '1',
+            width: '100%',
             height: '500px',
             font: [
                 'Arial', 'Comic Sans MS', 'IMPACT', 'D2Coding'

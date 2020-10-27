@@ -92,16 +92,7 @@
   			no = #{ no }
   	</update>
   	
-  	<!-- 다이어리리 댓글  -->
-  	<select id="selectDiaryReplyList" resultType="diary">
-  	select 
-  		*
-  	from
-  		diary_reply
-  	order by
-  		diary_no desc
-  	</select>
-  	
+  
   	
   	
   	
