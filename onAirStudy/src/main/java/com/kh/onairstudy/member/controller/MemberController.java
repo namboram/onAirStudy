@@ -1,6 +1,6 @@
 package com.kh.onairstudy.member.controller;
 
-import java.util.HashMap; 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +54,7 @@ public class MemberController {
 	public String memberEnroll(RedirectAttributes redirectAttr,  Member member) {
 		
 		String rawPassword = member.getPassword();
+		
 		String encodedPassword = bcryptPasswordEncoder.encode(rawPassword);
 		member.setPassword(encodedPassword);
 		
@@ -62,8 +63,8 @@ public class MemberController {
 		
 		//업무로직
 		int result = memberService.insertMember(member);
-//		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
-//		redirectAttr.addFlashAttribute("msg", msg);
+		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
+		redirectAttr.addFlashAttribute("msg", msg);
 		
 		return "redirect:/";
 		}

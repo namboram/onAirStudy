@@ -52,14 +52,59 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 
 </div>
 <div id="diary-reply-container">
-	<h5>댓글달기</h5>
-	<hr />
-	
+	  <c:if test="${ loginMember.memberId != null }">
+	  <hr />
+	  <h5>댓글달기</h5>
+	  <input type="text" class="form-control col-sm-6" name="replyContent" id="replyContent" placeholder="댓글을 적어주세요" required/>&nbsp;
+      <!-- <input type="password" class="form-control col-sm-2" name="DRpassword" maxlength="4" placeholder="비밀번호" required/>&nbsp; -->
+      <button class="btn btn-outline-success" id="btnReply" >댓글작성</button>
+	  </c:if>
 </div>
+<!-- 댓글 목록 출력할 위치  -->
+<div class="container">
+        <div class="commentList"></div>
+</div>
+
 <script>
-function fileDownload(no){
-	location.href = "${ pageContext.request.contextPath }/board/fileDownload.do?no=" + no;
-}
+$(document).ready(function(){
+
+	listReply();
+			
+	$("#btnReply").click(function(){
+		var replyContent = $("#replyContent").val();
+		var diaryNo = ${diary.no}
+		var param = "replyContent="+replyContent+"&diaryNo="+diaryNo+"&memberId=${loginMember.memberId}";
+		console.log("diaryNo="+diaryNo);
+		console.log("param="+param);
+		
+		 $.ajax({
+			type: "get",
+			url : "${ pageContext.request.contextPath }/diary/insertDiaryReply.do",
+			data : param,
+			success: function(){
+				alert("댓글이 등록되엇습니다.");
+				window.location.reload();
+			}
+		}); 
+	
+	});
+
+});
+
+function listReply(){
+	$.ajax({
+		type: "get",
+		url: "${ pageContext.request.contextPath }/diary/diaryDetailList.do?diaryNo=${diary.no}",
+		success: function(result){
+			$("#listReply").html(result);
+			location.href="${ pageContext.request.contextPath }/diary/diaryReplyList.do?diaryNo=${diary.no}";
+		}
+
+	})
+} 
+
+
+
 
 
 </script>
