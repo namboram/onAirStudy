@@ -26,6 +26,8 @@ public interface DiaryDAO {
 
 	int insertDiaryReply(DiaryReply diaryReply);
 
+	int deleteDiaryReply(Map<String, String> param);
+
 
 
 

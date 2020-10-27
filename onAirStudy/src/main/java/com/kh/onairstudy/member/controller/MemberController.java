@@ -63,6 +63,7 @@ public class MemberController {
 		
 		//업무로직
 		int result = memberService.insertMember(member);
+		
 		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
 		redirectAttr.addFlashAttribute("msg", msg);
 		

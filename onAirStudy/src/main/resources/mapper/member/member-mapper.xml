@@ -33,6 +33,21 @@
   		member_id = #{ memberId }
   </select>
   
+
+<insert id="insertMemberToSr">
+	insert into 
+		sr_log
+	values(
+		seq_sr_log_no.nextval,
+		#{ srNo },
+		#{ memberId },
+		#{ statusLog },
+		#{ warningCnt },
+		default
+	)
+	
+</insert>  
+  
   
   
   <!-- 성실멤버 List -->
@@ -48,10 +63,6 @@
 	]]>
 	
 	</select>
-  
-  
-
-  
 
 <resultMap type="member" id="memberMap">
     <result column="member_id" property="memberId"/>

@@ -1,27 +1,21 @@
 package com.kh.onairstudy.diary.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.diary.model.service.DiaryService;
 import com.kh.onairstudy.diary.model.vo.Diary;
-import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 import lombok.extern.slf4j.Slf4j;
@@ -173,7 +167,22 @@ public class DiaryController {
    		
    		return "redirect:/diary/diaryDetail.do?no="+diaryNo;
    	}
-       
+    
+   	//댓글삭제
+   	@RequestMapping("/deleteDiaryReply.do")
+   	public String deleteDiaryReply(DiaryReply diaryReply,
+   								   @RequestParam("no") int no) {
+   		
+   		int diaryNo = diaryReply.getDiaryNo();
+   		log.debug("메모 삭제");
+   		Map<String, String> param = new HashMap<>();
+   		param.put("no", String.valueOf(diaryReply.getNo()));
+   		param.put("memberId", diaryReply.getMemberId());
+   		System.out.println("param"+param);
+   		
+   		int result = diaryService.deleteDiaryReply(param);
+   		return "redirect:/diary/diaryDetail.do?no="+diaryNo;
+   	}
    	
      
       

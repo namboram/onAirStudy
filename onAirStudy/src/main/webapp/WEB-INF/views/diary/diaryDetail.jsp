@@ -61,11 +61,10 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 	  </c:if>
 </div>
 <!-- 댓글 목록 출력할 위치  -->
-<div class="container">
-        <div class="commentList"></div>
-</div>
+
 
 <script>
+
 $(document).ready(function(){
 
 	listReply();

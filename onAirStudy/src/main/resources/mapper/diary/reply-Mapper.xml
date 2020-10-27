@@ -27,4 +27,13 @@
 		order by
 			no
   	</select>
+  	
+  	<delete id="deleteDiaryReply">
+  		delete from
+  			diary_reply
+  		where
+  			no = #{no}
+  		 and
+  		   member_id = #{ memberId }
+  	</delete>
 </mapper>

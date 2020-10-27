@@ -1,6 +1,7 @@
 package com.kh.onairstudy.diary.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,13 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public List<DiaryReply> selectDiaryReplyList(int diaryNo) {
 		return diaryDAO.selectDiaryReplyList(diaryNo);
+	}
+
+
+
+	@Override
+	public int deleteDiaryReply(Map<String, String> param) {
+		return diaryDAO.deleteDiaryReply(param);
 	}
 	
 
