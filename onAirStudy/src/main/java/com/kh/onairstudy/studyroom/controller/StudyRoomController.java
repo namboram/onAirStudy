@@ -21,12 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.kh.onairstudy.attendance.model.service.AttendanceService;
+import com.kh.onairstudy.attendance.model.vo.Attendance;
 import com.kh.onairstudy.chat.model.service.ChatService;
 import com.kh.onairstudy.chat.model.vo.Chat;
-
-import com.kh.onairstudy.attendance.model.service.AttendanceService;
-
 import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
@@ -135,6 +133,7 @@ public class StudyRoomController {
 			return mav;
 		}
 
+
 		//스터디방 생성
 			@RequestMapping("mypage1/newstudy.do")
 			public void newstudy(Model model) {
@@ -144,25 +143,24 @@ public class StudyRoomController {
 				model.addAttribute("srList", srList);
 				List<StudyRoomLog> sLog =studyRoomService.selectStudyRoomLog();
 				model.addAttribute("sLog", sLog);
-				List<StudyRoom> studyList = studyRoomService.selectMystudyList();
-				model.addAttribute("studyList", studyList);
-			}
-			
+			}		
+
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
-		public String newstudyEnroll(StudyRoom studyroom,
+		public String newstudyEnroll(StudyRoomList studyroomList, Model model,
 									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
-									@RequestParam("srCategory") int srCategory, @RequestParam("srNo") int srNo, 
+									@RequestParam("srCategory") int srCategory,@RequestParam("srTitle") String srTitle, @RequestParam("srComment") String srComment,
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
+					
 					Member loginMember = (Member)session.getAttribute("loginMember");
+
+					//sr_list
+													
+					studyroomList.setSrCategory(srCategory);						
+					studyroomList.setMemberId(loginMember.getMemberId());										
+													
 					
-					StudyRoomList srList = new StudyRoomList();
-					srList.setSrCategory(srCategory);						
-					srList.setMemberId(loginMember.getMemberId());						
-					int rol =  studyRoomService.insertStudyRoomList(srList);
-							
-				
-					
+					//profile
 					List<ProfileAttachment> proList = new ArrayList<>();
 				
 					String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
@@ -174,23 +172,38 @@ public class StudyRoomController {
 					upFile.transferTo(dest);
 
 					ProfileAttachment profile = new ProfileAttachment();
-					profile.setSrNo(srNo);
 					profile.setOriginalFilename(upFile.getOriginalFilename());
 					profile.setRenamedFilename(renamedFilename);
 					profile.setFilePath(saveDirectory);
 					proList.add(profile);
 					
-				
-					log.debug("proList = {}", proList);
-					studyroom.setSrNo(srNo);
-					studyroom.setProList(proList);
-					studyroom.setCategory(srCategory);
-					studyroom.setSrNo(srList.getSrNo());
 					
+					//sr_log
+					List <StudyRoomLog> srLog = new ArrayList<>();
+					StudyRoomLog slog = new StudyRoomLog();
+					slog.setMemberId(loginMember.getMemberId());
+					srLog.add(slog);
+
+					//sr_info
+					List <StudyRoom> sRoom = new ArrayList<>();
+					StudyRoom studyroom = new StudyRoom();
+					
+					studyroom.setMemberId(loginMember.getMemberId());
+					studyroom.setSrTitle(srTitle);
+					studyroom.setSrComment(srComment);
+					sRoom.add(studyroom);
+					
+					
+					log.debug("sRoom = {}", sRoom);
+					log.debug("srLog = {}", srLog);
+					log.debug("proList = {}", proList);
 
 				//studyroom. profile 객체 DB저장하기
-
-					int result = studyRoomService.insertStudyRoom(studyroom);
+					studyroomList.setProList(proList);
+					studyroomList.setSrLog(srLog);
+					studyroomList.setSRoom(sRoom);
+					
+					int result = studyRoomService.insertStudyRoomList(studyroomList);
 
 					redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
 
@@ -209,9 +222,12 @@ public class StudyRoomController {
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
+		List<Attendance> attendList = attendanceService.selectAttendList(roomNum);
+		
 		model.addAttribute("roomInfo", roomInfo);
 		model.addAttribute("participants", participants);
 		model.addAttribute("applicants", applicants);
+		model.addAttribute("attendList", attendList);
 		/*
 		 * 아래부터 채팅 정보 불러올게요
 		 */
@@ -256,5 +272,11 @@ public class StudyRoomController {
 			redirectAttr.addFlashAttribute("msg", msg);
 			
 			return "redirect:/studyroom/main.do";
+		}
+		
+		@RequestMapping("/studyroom/updateInfo.do")
+		public String updateInfo() {
+			return "/mypage2/mypage2_update";
+			
 		}
 }

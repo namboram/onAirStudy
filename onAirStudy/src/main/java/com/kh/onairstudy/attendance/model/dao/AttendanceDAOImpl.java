@@ -19,7 +19,6 @@ public class AttendanceDAOImpl implements AttendanceDAO {
 	public List<Attendance> selectList(String memberId) {
 		return sqlSession.selectList("attendance.selectList", memberId);
 	}
-	
 
 	@Override
 	public int selectAttendYN(Map<String, Object> param) {
@@ -35,4 +34,11 @@ public class AttendanceDAOImpl implements AttendanceDAO {
 	public int updateAttendance(Map<String, Object> param) {
 		return sqlSession.update("attendance.updateAttendance", param);
 	}
+
+	@Override
+	public List<Attendance> selectAttendList(int roomNum) {
+		return sqlSession.selectList("attendance.selectAttendList", roomNum);
+	}
+	
+	
 }
