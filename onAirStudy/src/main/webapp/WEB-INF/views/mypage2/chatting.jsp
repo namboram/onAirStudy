@@ -5,17 +5,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <fmt:requestEncoding value="utf-8" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
  <!-- moment()함수 -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- modal()함수 --> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+ -->
 <!-- modal / bootstrap -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
 <!-- socket -->
 <script
 	src="${pageContext.request.contextPath }/resources/dist/sockjs.min.js"></script>
@@ -32,7 +32,7 @@
 }
 
 .chatcontent {
-	height: 500px;
+	height: 700px;
 	overflow-y: scroll;
 }
 
@@ -53,7 +53,7 @@
 }
 </style>
 
-<div id="chat-containerK">
+<div id="chat-containerK" class="border border-secondary">
 
 	<div class="chatWrap">
 	<!-- The Report Modal -->
@@ -96,9 +96,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="main_tit">
+<%-- 		<div class="main_tit">
 			<h1>방 이름 [ ${roomNo}번 ] 아이디[${loginMember.memberId}]</h1>
-		</div>
+		</div> --%>
 		<div class="content chatcontent" data-room-no="${roomNo}"
 			data-member="${loginMember}">
 			<ul id="list-guestbook">
@@ -241,10 +241,9 @@ $(document).ready(function() {
 			type : "GET",
 			dataType : "json",
 			success : function(result) {
-				console.log(result[0]);
+				//console.log("가져온거"+result[0]);
 
 				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
-				// 가장 처음 데이터 번호가 1일경우 스크롤 종료
 				var length = result.size;
 				if (length < 10) {
 					//console.log("resultno"+ result[0].no);
@@ -252,10 +251,11 @@ $(document).ready(function() {
 				}
 				$.each(result, function(index, vo) {
 					var html = renderList(vo,0);
+					//console.log(html);
 					$("#list-guestbook").prepend(html);
 
 				})
-				var position = $('[data-no=' + (endNo - 1)+ ']').offset();//위치값
+				var position = $('[data-no='+endNo+']').prev().offset();//위치값
 				console.log(position);
 				//$('#chat-containerK').stop().animate({scrollTop : position.top},600,'easeInQuint');
 				//window.scrollTo({top:position.top, behavior:'auto'});

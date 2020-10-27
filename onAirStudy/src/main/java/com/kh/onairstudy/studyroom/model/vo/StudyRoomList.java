@@ -30,6 +30,7 @@ public class StudyRoomList implements Serializable{
 	private String sTitle;
 	private String srPic;
 	private String mPic;
+	private int srRanking;
 
 	
 

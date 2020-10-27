@@ -143,7 +143,7 @@ select
    (select    renamed_filename
     from   profile_attachment
     where member_id = L.member_id) m_pic
-	from 
+ 	from 
 		sr_list L
 	where
 		L.sr_no>8 and
@@ -164,6 +164,7 @@ select
   		<result column="s_title" property="sTitle"/>
   		<result column="sr_pic" property="srPic"/>
   		<result column="m_pic" property="mPic"/>
+  	
   	</resultMap>
   	
  <select id="StudyRoomWish" resultType="StudyRoomWish">
@@ -294,7 +295,7 @@ from sr_log
   		<result column="sr_title" property="srTitle"/>
   		<result column="sr_goal" property="srGoal"/>
   		<result column="sr_comment" property="srComment"/>
-  		<result column="sr_attendance_cnt" property="attintendanceCnt"/>
+  		<result column="sr_attendance_cnt" property="attendanceCnt"/>
   		<result column="attend_day" property="attendDay"/>
   		<result column="attend_time" property="attendTime"/>
   		<result column="sr_ranking" property="ranking"/>

@@ -17,6 +17,11 @@ public interface DiaryDAO {
 
 	Diary selectOneDiary(int no);
 
+	List<DiaryAttachment> selectAttachList(int no);
+
+	void diaryReadCount(int no);
+
+
 
 
 

@@ -62,29 +62,12 @@ public class MemberController {
 		
 		//업무로직
 		int result = memberService.insertMember(member);
-		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
-		redirectAttr.addFlashAttribute("msg", msg);
+//		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
+//		redirectAttr.addFlashAttribute("msg", msg);
 		
 		return "redirect:/";
 		}
-	
-	/**
-	 * 사용자 요청을 커맨드객체 바인딩시에
-	 * Validator객체, 특정타입별 Editor를 설정
-	 * 
-	 * @param binder
-	 */
-	/*
-	 * @InitBinder public void initBinder(WebDataBinder binder) { SimpleDateFormat
-	 * sdf = new SimpleDateFormat("yyyy-MM-dd");
-	 * 
-	 * PropertyEditor editor = new CustomDateEditor(sdf, true); //java.sql.Date타입의
-	 * 필드에 값을 바인딩시 이 커스텀 에디터를 사용 // "" -> null
-	 * binder.registerCustomEditor(Date.class, editor);
-	 * 
-	 * }
-	 */
-		
+
 		
 	@RequestMapping("member/checkIdDuplicate.do")
 	@ResponseBody
@@ -120,10 +103,10 @@ public class MemberController {
 	}
 	
 	
-	
 	/*휴대폰본인인증
 	*
 	*/
+	/*
 	@RequestMapping(value = "/sendSms.do")
 	  public String sendSms(HttpServletRequest request) throws Exception {
 
@@ -165,7 +148,7 @@ public class MemberController {
 		  return "member/sendSms";
 	  }
 	
-	
+	*/
 	
 	
 	

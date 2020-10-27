@@ -18,6 +18,11 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDAO adminDAO;
 
 	@Override
+	public Map<String, Object> adminMain() {
+		return adminDAO.adminMain();
+	}
+
+	@Override
 	public List<Member> memberList(Map<String, Object> search) {
 		return adminDAO.memberLis(search);
 	}
@@ -94,7 +99,12 @@ public class AdminServiceImpl implements AdminService {
 	public int updateReport(int no) {
 		return adminDAO.updateReport(no);
 	}
-	
+
+	@Override
+	public List<Map<String, Object>> memberAll() {
+		return adminDAO.memberAll();
+	}
+
 	
 	
 }

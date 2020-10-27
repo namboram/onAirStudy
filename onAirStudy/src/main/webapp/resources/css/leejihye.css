@@ -5,6 +5,7 @@
 *     SIDEBAR
 * ==========================================================
 */
+
 nav.navbar-default{
 	
 	margin-bottom: 0px;
@@ -171,18 +172,15 @@ nav.side-navbar .avatar {
 nav.side-navbar .title {
   margin-left: 10px;
 }
-
 nav.side-navbar .title h1 {
   color: #333;
 }
-
 nav.side-navbar .title p {
   font-size: 0.9em;
   font-weight: 200;
   margin-bottom: 0;
   color: #aaa;
 }
-
 */
 nav.side-navbar span.heading {
   text-transform: uppercase;

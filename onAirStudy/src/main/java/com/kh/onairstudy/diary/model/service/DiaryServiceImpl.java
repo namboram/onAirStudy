@@ -43,16 +43,22 @@ public class DiaryServiceImpl implements DiaryService {
 //			}
 //			
 //		}
-		
-		
+
 		return result;
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Diary selectOneDiary(int no) {
-		return diaryDAO.selectOneDiary(no);
+		Diary diary = diaryDAO.selectOneDiary(no); 
+		diaryDAO.diaryReadCount(no);
+		
+		List<DiaryAttachment> attachList = diaryDAO.selectAttachList(no);
+		diary.setAttachList(attachList);
+		
+		return diary;
 	}
-
+	
 
 	
 

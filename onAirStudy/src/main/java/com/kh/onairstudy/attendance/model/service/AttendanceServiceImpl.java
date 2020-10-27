@@ -1,12 +1,10 @@
 package com.kh.onairstudy.attendance.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.onairstudy.attendance.model.dao.AttendanceDAO;
 import com.kh.onairstudy.attendance.model.vo.Attendance;
@@ -26,5 +24,19 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return AttendanceDAO.selectList(memberId);
 	}
 	
+	@Override
+	public int selectAttendYN(Map<String, Object> param) {
+		return AttendanceDAO.selectAttendYN(param);
+	}
+
+	@Override
+	public int getAttendCnt(Map<String, Object> param) {
+		return AttendanceDAO.getAttendCnt(param);
+	}
+
+	@Override
+	public int updateAttendance(Map<String, Object> param) {
+		return AttendanceDAO.updateAttendance(param);
+	}
 	
 }

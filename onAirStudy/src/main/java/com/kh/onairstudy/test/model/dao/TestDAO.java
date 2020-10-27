@@ -10,5 +10,7 @@ public interface TestDAO {
 
 	List<Test> selectStudyNo();
 
+	List<Test> selectQuestion(int srNo);
+
 
 }

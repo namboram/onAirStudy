@@ -13,6 +13,47 @@ function list(page){
     console.log("페이지를 이동합니다.");
     location.href="${pageContext.request.contextPath}/list.do?curPage="+page;
 }
+
+function selectCategory(category) {
+	console.log(category);
+    location.href="${pageContext.request.contextPath}/list.do?category="+category;
+}
+
+function searchClick() {
+	const selectOption = $("#searchOption").val();
+	const keyword = $("#keyword").val();
+	location.href="${pageContext.request.contextPath}/list.do?search_option="+selectOption + "&keyword=" + keyword;
+}
+
+function isLogined() {
+	const memberid = $("#member_id").val();
+	
+	if(memberid != null) {
+		return memberid;
+	} else {
+		alert("로그인을 해주세요!");
+		return false;
+	}
+}
+
+$(document).ready(function() {
+
+	$("#chk").change(function() {
+		if(this.checked) {
+			const memberid = isLogined() ? isLogined() : false;
+			if(memberid) {
+				$("#search_option").val('member_id');
+				$("#keyword").val(memberid);
+				searchClick();
+			} else {
+				return false;
+			}
+			
+		} else {
+			location.href = '${pageContext.request.contextPath}/servicecenter.do'
+		}
+	})
+});
 </script>
     
     
@@ -26,7 +67,7 @@ function list(page){
 		</div>
 	</div>
 
-	
+	<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
 
 	<!--   서비스별 질문 -->
 <div class="row" >
@@ -37,28 +78,27 @@ function list(page){
 			<ul class="row" >
 			<li>
 				<div class="mx-auto d-block">
-				<a href="#">
+				<a href="#" onclick="selectCategory(3)">
 					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
 					<h4 style="margin-top:20%;">결제</h4>	
 				</a>
 				</div>
 			</li>
-			
 			<li>
 				<div class="mx-auto d-block">
-				<a href="#">
+				<a href="#" onclick="selectCategory(2)">
 					<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
-					<h4 style="margin-top:20%;">채팅</h4></a></div>
+					<h4 style="margin-top:20%;">이용</h4></a></div>
 			</li>
 			<li>
 				<div class="mx-auto d-block">
-				<a href="#">	
+				<a href="#" onclick="selectCategory(4)">	
 					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-					<h4 style="margin-top:20%;">탈퇴</h4></a></div>	
+					<h4 style="margin-top:20%;">기타</h4></a></div>	
 			</li>
 			<li>
 				<div class="mx-auto d-block">
-				<a href="#">
+				<a href="#" onclick="selectCategory(1)">
 					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
 					<h4 style="margin-top:20%;">신고</h4>	
 				</a></div></li>
@@ -74,14 +114,14 @@ function list(page){
 	 <div class="bs-example">
 		    <div class="accordion" id="accordionExample">	        
 		       
-		       <c:forEach items="${ serviceContentList }" var="sc">      
+		       <c:forEach items="${ serviceContentList }" var="sc" varStatus="status">      
 			        <div class="card">
 			            <div class="card-header">
 			                <h2 class="mb-0">
-			                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">${ sc.title }</button>									
+			                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne${status.index}">${ sc.title }</button>									
 			                </h2>
 			            </div>
-			            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+			            <div id="collapseOne${status.index}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 			                <div class="card-body">
 			                    <p>${ sc.content } <a href="" target="_blank">Learn more.</a></p>
 			                </div>
@@ -106,29 +146,29 @@ function list(page){
 
 
 <!-- 검색 -->
-	<form name="form1" method="post" action="${pageContext.request.contextPath}/list.do">
+	<form name="form1">
 	 <div class="form-group row justify-content-center">
 				<div class="w100" style="padding-right:10px">
-			 <select name="search_option">
-		        <option value="memberId"
-		<c:if test="${map.search_option == 'memberId'}">selected</c:if>
-		   >작성자</option>
-		
-		        <option value="title" 
-		<c:if test="${map.search_option == 'serviceTitle'}">selected</c:if>
-		        >제목</option>
-		
-		        <option value="content" 
-		<c:if test="${map.search_option == 'serviceContent'}">selected</c:if>
-		        >내용</option>
-		
-		        <option value="all" 
-		<c:if test="${map.search_option == 'all'}">selected</c:if>
-		        >작성자+내용+제목</option>
-		
+			 <select name="search_option" id="searchOption">
+				        <option value="member_id"
+				<c:if test="${map.search_option == 'member_id'}">selected</c:if>
+				   >작성자</option>
+				
+				        <option value="service_title" 
+				<c:if test="${map.search_option == 'service_title'}">selected</c:if>
+				        >제목</option>
+				
+				        <option value="service_content" 
+				<c:if test="${map.search_option == 'service_content'}">selected</c:if>
+				        >내용</option>
+				
+				        <option value="all" 
+				<c:if test="${map.search_option == 'all'}">selected</c:if>
+				        >작성자+내용+제목</option>
+				
 		    </select>
-		    <input name="keyword" placeholder="검색어를 입력하세요" value="${map.keyword}">
-		    <input class="btn btn-sm btn-primary" name="search" type="submit" value="조회">
+		    <input name="keyword" id="keyword" placeholder="검색어를 입력하세요" value="${map.keyword}">
+		    <input class="btn btn-sm btn-primary" name="search" type="button" onclick="searchClick()" value="조회">
 	
 		</div>
 	</div>
@@ -139,10 +179,10 @@ function list(page){
         
      
         <div class="float-right" >
-			<input type="checkbox" id="chk" name="chk" value="">내가 작성한글 보기</input>
+			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
 		</div>
 		
-					<table class="table table-hover">
+					<table class="table table-hover" id="board">
 					    <tr>
 					      <th>번호</th>
 					      <th>답변상태</th>
@@ -154,7 +194,7 @@ function list(page){
 					    <tr>
 					      <td>${ service.no }</td>
 					      <td>${ service.serviceStatus }</td>
-					      <td><a></a>${ service.serviceTitle }</td>
+					      <td>${ service.serviceTitle }</td>
 					      <td>${ service.memberId }</td>
 					      <td><fmt:formatDate value="${ service.serviceDate }" pattern="yy/MM/dd"/></td>
 						</tr>
@@ -166,24 +206,26 @@ function list(page){
 				
 				<!-- 페이징처리 -->			
 				<div class="container">
+					<div id="paging">
+						<c:if test="${paging.prev }">
+							<a href="${paging.startPage -1 }"> [이전] </a>
+						</c:if>
+						
+						<c:forEach var="num" begin="${paging.startPage }" end="${paging.endPage }">
+							&nbsp; <a href="${pageContext.request.contextPath}/servicecenter.do?pageNum=${num }">${num }</a> &nbsp;
+						</c:forEach>
+						
+						<c:if test="${paging.next }">
+							<a id="next" href="${paging.endPage + 1 }"> [다음] </a>
+						</c:if>
+						
+					</div>
 					
-					  <ul class="pagination">
-					    <li>
-					      <a href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li><a href="#">1</a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li>
-					      <a href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
+					
+					<form id="pagingForm" name="pagingForm" action="list.do" method="post">
+						<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }" >
+						<input type="hidden" id="amount" name="amount" value="${paging.cri.amount }" >
+					</form>
 				</div>
 				
 				
@@ -196,7 +238,16 @@ function list(page){
 
 
 
-
+<script>/* 
+	$(document).ready(function() {
+		$("paging a").click(function(e) {
+			e.preventdefault();
+			$("#pageNum").val($(this).attr("href"));
+			pagingForm.submit();
+		})		
+	})
+ */
+</script>
 
 
 

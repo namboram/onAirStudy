@@ -16,9 +16,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+import com.kh.onairstudy.chat.model.service.ChatService;
+import com.kh.onairstudy.chat.model.vo.Chat;
+
+import com.kh.onairstudy.attendance.model.service.AttendanceService;
 
 import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.member.model.vo.Member;
@@ -37,11 +44,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
-//@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
+@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
 public class StudyRoomController {
 
 	@Autowired
 	private StudyRoomService studyRoomService;
+	
+	@Autowired
+	private ChatService chatService;
+
+	@Autowired
+	private AttendanceService attendanceService;
+
 
 	//메인 페이지 스터디룸 리스트
 		@RequestMapping("/studyroom/studyroomlist.do")
@@ -130,13 +144,15 @@ public class StudyRoomController {
 				model.addAttribute("srList", srList);
 				List<StudyRoomLog> sLog =studyRoomService.selectStudyRoomLog();
 				model.addAttribute("sLog", sLog);
+				List<StudyRoom> studyList = studyRoomService.selectMystudyList();
+				model.addAttribute("studyList", studyList);
 			}
 			
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
 		public String newstudyEnroll(StudyRoom studyroom,
 									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
-									@RequestParam("srCategory") int srCategory, Model model,
+									@RequestParam("srCategory") int srCategory, @RequestParam("srNo") int srNo, 
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
 					Member loginMember = (Member)session.getAttribute("loginMember");
 					
@@ -158,6 +174,7 @@ public class StudyRoomController {
 					upFile.transferTo(dest);
 
 					ProfileAttachment profile = new ProfileAttachment();
+					profile.setSrNo(srNo);
 					profile.setOriginalFilename(upFile.getOriginalFilename());
 					profile.setRenamedFilename(renamedFilename);
 					profile.setFilePath(saveDirectory);
@@ -165,10 +182,11 @@ public class StudyRoomController {
 					
 				
 					log.debug("proList = {}", proList);
+					studyroom.setSrNo(srNo);
 					studyroom.setProList(proList);
 					studyroom.setCategory(srCategory);
 					studyroom.setSrNo(srList.getSrNo());
-					System.out.println("srList.getSrNo()" + srList.getSrNo());
+					
 
 				//studyroom. profile 객체 DB저장하기
 
@@ -180,9 +198,10 @@ public class StudyRoomController {
 
 			}
 
-	//스터디방 입장 - 인덱스 페이지
-	@RequestMapping("/studyroom/main.do")
-	public String main( @RequestParam("roomNum") int roomNum, Model model) {
+		//스터디방 입장 - 인덱스 페이지
+		@RequestMapping("/studyroom/main.do")
+		public String main( @RequestParam("roomNum") int roomNum, Model model, HttpSession session) {
+
 
 		log.debug("roomNum = {}", roomNum);
 		
@@ -193,40 +212,49 @@ public class StudyRoomController {
 		model.addAttribute("roomInfo", roomInfo);
 		model.addAttribute("participants", participants);
 		model.addAttribute("applicants", applicants);
+		/*
+		 * 아래부터 채팅 정보 불러올게요
+		 */
+		//String memberId = (String)session.getAttribute("memberId");
+		List<Chat> firstList = chatService.selectFirstChatList(roomNum);
+		model.addAttribute("roomNo",roomNum);
+		model.addAttribute("firstList",firstList);
 
 		return "mypage2/mypage2";
 	}
 	
-	//참여신청 수락
-	@RequestMapping(value = "/studyroom/accept.do", 
-					method = RequestMethod.POST)
-	public String acceptMember(RedirectAttributes redirectAttr, 
-							  @RequestParam("id") String memberId,
-							  @RequestParam("roomNum") int roomNum) {
-			
-		String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
-		
-		int count = studyRoomService.selectParticipatingRoomCnt(memberId);
-		log.debug("count = {}", count);
-		int result = 0;
-		
-		Map<String, Object> param = new HashMap<>();
-		param.put("memberId", memberId);
-		param.put("roomNum", roomNum);
-		
-		log.debug("param = {}",param);
 	
 		
-		if(count >= 3) {
-		    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
-		}else {
-			result = studyRoomService.insertStudyLog(param);
-			msg = result == 1 ? memberId + "님이 " + "스터디방에 참여하게 되었습니다" : "참여신청 수락에 실패하였습니다";
+		//참여신청 수락
+		@RequestMapping(value = "/studyroom/accept.do", 
+						method = RequestMethod.POST)
+		public String acceptMember(RedirectAttributes redirectAttr, 
+								  @RequestParam("id") String memberId,
+								  @RequestParam("roomNum") int roomNum) {
+				
+			String msg = memberId + "님이 " + "스터디방에 참여하게 되었습니다";
+			
+			int count = studyRoomService.selectParticipatingRoomCnt(memberId);
+			log.debug("count = {}", count);
+			int result = 0;
+			
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberId", memberId);
+			param.put("roomNum", roomNum);
+			
+			log.debug("param = {}",param);
+		
+			
+			if(count >= 3) {
+			    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
+			}else {
+				result = studyRoomService.insertStudyLog(param);
+				msg = result == 1 ? memberId + "님이 " + "스터디방에 참여하게 되었습니다" : "참여신청 수락에 실패하였습니다";
+			}
+			
+			redirectAttr.addAttribute("roomNum"	, roomNum);
+			redirectAttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/studyroom/main.do";
 		}
-		
-		redirectAttr.addAttribute("roomNum"	, roomNum);
-		redirectAttr.addFlashAttribute("msg", msg);
-		
-		return "redirect:/studyroom/main.do";
-	}
 }

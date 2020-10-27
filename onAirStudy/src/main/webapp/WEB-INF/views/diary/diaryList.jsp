@@ -85,55 +85,8 @@ function goDiaryForm(){
 
 </div>
 
-<!-- call diaryForm.jsp ! -->
 <script>
-/*  */
 
-/* 글쓰기모달_ 폼제출 및 유효성검사*/
-/* $(document).ready(function(){
-	$('#add-btn').click(function(){
-		var dTitle = $("#diary-title").val();
-		var dFileup = $("#diary-fileup").val(); 
-		var dContent = $("#diary-content").val(); 
-		
-		if(dTitle == ""){
-			alert("제목을 입력하세요!");
-			$("#diary-title").focus(); //입력포커스이동
-			return;
-		}
-		if(dContent == ""){
-			alert("내용을 입력하세요!");
-			$("#diary-content").focus(); //입력포커스이동
-			return;
-		}
-		//폼 내부의 데이터를 전송할 주소
-		document.diaryEnrollFrm.action = "location.href='${ pageContext.request.contextPath }/diary/diaryDetail.do?diary-title='+dTitle+''"
-		
-		//폼제출
-		document.diaryEnrollFrm.submit();
-
-});
- */
-
-
-
-
-/* 
-$(function(){
-	//파일 선택/취소 파일라벨명을 변경한다.
-	$("#diary-content").on("change", function(){
-		var file = $(this).prop('files')[0];
-		var $label = $(this).next(".custom-file-label");
-
-		if(file == undefined)
-			$label.html("파일을 선택하세요");
-		else
-			$label.html(file.name);
-	}); 
-	
-	
-});
-	*/
 	
 </script>
 
