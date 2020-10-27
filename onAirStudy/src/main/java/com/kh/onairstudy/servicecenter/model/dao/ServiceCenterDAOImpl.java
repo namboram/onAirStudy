@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.onairstudy.common.PagingCriteria;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
@@ -19,8 +20,8 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	
 
 	@Override
-	public List<ServiceCenter> selectServiceList() {
-		return sqlSession.selectList("service.selectServiceList");
+	public List<ServiceCenter> selectServiceList(PagingCriteria cri) {
+		return sqlSession.selectList("service.selectServiceList", cri);
 	}
 
 	@Override
@@ -34,16 +35,33 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	}
 
 	@Override
-	public List<ServiceCenter> listAll(String search_option, String keyword, int start, int end) {		
+	public List<ServiceCenter> listAll(String search_option, String keyword, int category) {		
 		//맵에 자료 저장
 		Map<String,Object> map = new HashMap<>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
-		map.put("start", start); 
-		map.put("end", end);
+		map.put("category", category);
+//		map.put("start", start); 
+//		map.put("end", end);
 		
 		//매개변수는 시작 레코드의 번호, 끝 번호, 옵션과 키워드가 들어간다.
-		return sqlSession.selectList("service.lstAll" , map);
+		return sqlSession.selectList("service.listAll" , map);
+	}
+
+	@Override
+	public int totalCount(String search_option, String keyword, int category) {
+		
+		//맵에 자료 저장
+		Map<String,Object> map = new HashMap<>();
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
+		map.put("category", category);
+//		map.put("start", start); 
+//		map.put("end", end);
+				
+		//매개변수는 시작 레코드의 번호, 끝 번호, 옵션과 키워드가 들어간다.
+		return sqlSession.selectOne("service.totalCount", map);
+				
 	}
 
 	

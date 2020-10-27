@@ -55,6 +55,8 @@ public class StudytimeController {
 		List<Scheduler> scheduleList = schedulerService.mainScheduler(map);
 		
 		log.info("studytimeList= {}", studytimeList);
+		log.info("attendList= {}" , attendList );
+		log.info("todoList ={}" , scheduleList);
 		
 		model.addAttribute("studytimeList",studytimeList);
 		model.addAttribute("attendList" , attendList );
@@ -64,6 +66,8 @@ public class StudytimeController {
 		return "mypage1/mypage1_index";
 		
 	}
+	
+	
 	
 	@RequestMapping(value = "/mypage1_studyTime.do", method = RequestMethod.POST) 
 	public String registerStudyTime(@RequestParam("studyTime") int studyTime ,

@@ -57,7 +57,7 @@
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
 		<ul class="list-unstyled">
-			<li><a onclick="goToIndex()">우리 스터디방</a></li>
+			<li><a onclick="goToIndex(${roomInfo.srNo})">우리 스터디방</a></li>
 			<li>
 				<a href="#participantsDropdown" aria-expanded="false" data-toggle="collapse">참여인원</a>
 				<ul id="participantsDropdown" class="collapse list-unstyled">
@@ -94,12 +94,15 @@
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
-	<div class="col-lg-7 changeDiv"></div>
+	<div class="col-lg-7 changeDiv">
+	<jsp:include page="/WEB-INF/views/mypage2/mypage2_index.jsp"></jsp:include>
+	</div>
 	<div class="col-lg-3 chattingDiv" >
 		<c:if test="${ not empty roomInfo }">
-			<h1>${ roomInfo.srTitle }</h1>
+			<%-- <h1>${ roomInfo.srTitle }</h1> --%>
 		</c:if>
 	<!-- 채팅 include 들어갈 자리 -->
+	<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
 	</div>
 </div>
 
@@ -126,7 +129,8 @@ $(function(){
 			}
 		}
 	} */
-	 $('#myModal').modal('show'); 
+//	 $('#myModal').modal('show'); 
+
 
 });
 
@@ -198,8 +202,8 @@ function post_to_url(path, params, method) {
 		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
 	}
 	
-	function goToIndex(){
-		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+	function goToIndex(roomNum){
+		location.href = "${ pageContext.request.contextPath}/studyroom/main.do?roomNum=" + roomNum;
 	}
 
 	function goToAttendCheck(roomNum){
@@ -209,7 +213,7 @@ function post_to_url(path, params, method) {
 		//console.log(memberId);
 		post_to_url("${pageContext.request.contextPath}/attend/check.do", {"id" : memberId, "roomNum" : roomNum});
 	}
-	
+
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

@@ -12,55 +12,44 @@
 </select>
 
 
-<select id="listAll" >
-        <include refid="paging_header" />  <!-- 밑에 있는 sql문을 include 한다 -->
-        
-        <!-- ref는 다른테이블을 의미한다. -->
-        <!-- 번호, 제목, 작성자, 이름, 날짜 검색 -->
-            select no, category, serviceStatus , serviceTitle, serviceContent,reply_no, memberId,serviceDate,read_yn, serviceLevel        
-            from service
-
-            <!-- where절은 (조건)은 include 태그를 이용했음 -->
-
-        <include refid="search" />
-            order by no desc
-        <include refid="paging_footer" />        
+<select id="listAll" resultMap="serviceListMap">
+	select * 
+	from service
+	<include refid="search" />
+	order by no desc 
 </select>
 
 
+<select id="totalCount" resultType="int">
+	select count(*)
+	from service
+<!--  	<include refid="search" /> -->
 
-<sql id="paging_header">
-<!-- 게시물을 한페이지에 10개씩 볼 수 있게하는 쿼리 윗부분-->
-        select *
-        from (
-            select rownum as rn, A.*
-            from (    
-</sql>
+ </select>
 
-<sql id="paging_footer">
-<!-- 게시물을 한페이지에 10개씩 볼 수 있게하는 쿼리  아랫 부분-->
-    <!-- 새로 매겨진 일련번호 1~10번 글까지 1페이지 -->
-    <!-- 11~20번 글까지 2페이지.. -->
-            ) A
-        ) where rn between #{start} and #{end}    
-</sql>
+
+ 
+
 
 <sql id="search">
 <choose>
+	
           <!-- 작성자 , 내용, 제목으로 각각 검색할 수 있게끔 한다. -->
-            <when test="search_option == 'all' ">
-                where  
-                      memberId like '%'||#{keyword}||'%'
+            <when test="search_option == 'all' ">	
+            	where member_id like '%'||#{keyword}||'%'
                       or category like '%' || #{keyword}||'%'
-                      or serviceTitle like '%'||#{keyword}||'%'   
+                      or serviceTitle like '%'||#{keyword}||'%'  
+            </when>
+            <when test="category != 0">
+            	where category = #{category}
             </when>
             <otherwise>
              
-             <!-- 작성자 + 내용 + 제목을 포함한 항목을 검색할 수 있게끔 한다. -->
+          <!--    작성자 + 내용 + 제목을 포함한 항목을 검색할 수 있게끔 한다. -->
                 where ${search_option} like '%'||#{keyword}||'%'
             </otherwise>
 </choose>
-</sql>
+</sql> 
 
 
 
@@ -77,11 +66,18 @@
 </resultMap>
 
 
+ 
  <select id="selectServiceList" resultMap="serviceListMap">
- 	select *
- 	from service
+ 	<![CDATA[
+ 		select * 
+ 		from (select /* + INDEX_DESC(service) */ 
+ 			  rownum rn, no, category, service_title, service_content, member_id
+ 			  from service where rownum <= #{pageNum} * #{amount})
+ 		where rn > (#{pageNum} - 1) * #{amount}
+ 		order by no desc
+ 	]]>
 </select>
-
+ 
 <insert id="insertService">
 
 	insert into 
@@ -100,24 +96,7 @@
 	)
 </insert>
 
-<!-- <select id="categoryServiceList" >
-		SELECT *
 
-		FROM service
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchType=='serviceTitle' and keyword != null and keyword != '' ">
-				AND ServiceTitle like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType=='category' and keyword != null and keyword != '' ">
-				AND category like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType=='memberId' and keyword != null and keyword != '' ">
-				AND memberId like CONCAT('%', #{keyword}, '%')
-			</if>	
-		</trim>
-	
-	</select>  -->
-	
 	
 
 
