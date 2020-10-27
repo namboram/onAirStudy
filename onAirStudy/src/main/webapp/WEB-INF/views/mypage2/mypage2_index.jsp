@@ -30,6 +30,7 @@
 										<div class="col-sm-8">
 											<p>${roomInfo.srGoal }</p>
 										</div>
+										<input type="hidden" name="hiddenAttend" value="${attendList }" />
 									</div>
 									<hr />
 									<div class="form-group row">
@@ -55,10 +56,9 @@
 											<label class="col-sm-4 form-control-label">출석현황</label>
 											<div class="col-sm-8">
 												<p>전체 출석 일수  : ${roomInfo.attendanceCnt}days</p>
-												<p>sinsa  : 27days</p>
-												<p>sejong : 30days</p>
-												<p>qwerty : 23days</p>
-												<p>honggd : 25days</p>
+												<c:forEach var="attend" items="${attendList }">
+													<p>${attend.memberId } : ${attend.attendCnt }</p>
+												</c:forEach>
 											</div>
 										</div>
 									<hr />								

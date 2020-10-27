@@ -127,7 +127,6 @@ $(function(){
 			var startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), attendTime[i*2] , attendTime[(i*2)+1] );
 			var endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(),  startTime.getHours(), startTime.getMinutes()+10 );
 			if(startTime.getTime() <= d.getTime() && d.getTime() <=endTime.getTime() ){
-				console.log("모달띄워요");
 				 $('#myModal').modal('show'); 
 			}
 		}
