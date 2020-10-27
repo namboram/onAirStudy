@@ -30,7 +30,6 @@
 										<div class="col-sm-8">
 											<p>${roomInfo.srGoal }</p>
 										</div>
-										<input type="hidden" name="hiddenAttend" value="${attendList }" />
 									</div>
 									<hr />
 									<div class="form-group row">
@@ -57,7 +56,7 @@
 											<div class="col-sm-8">
 												<p>전체 출석 일수  : ${roomInfo.attendanceCnt}days</p>
 												<c:forEach var="attend" items="${attendList }">
-													<p>${attend.memberId } : ${attend.attendCnt }</p>
+													<p>${attend.memberId } : ${attend.attendCnt }days</p>
 												</c:forEach>
 											</div>
 										</div>

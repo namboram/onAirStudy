@@ -64,7 +64,7 @@
 			</div>
 		</div>
 <div class="row">	
-	<nav class="side-navbar col-lg-2">
+	<nav class="side-navbar col-lg-2 p-0">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -128,10 +128,10 @@
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
-	<div class="col-lg-7 changeDiv">
+	<div class="col-lg-7 changeDiv p-0">
 	<jsp:include page="/WEB-INF/views/mypage2/mypage2_index.jsp"></jsp:include>
 	</div>
-	<div class="col-lg-3 chattingDiv" >
+	<div class="col-lg-3 chattingDiv p-0" >
 		<c:if test="${ not empty roomInfo }">
 			<%-- <h1>${ roomInfo.srTitle }</h1> --%>
 		</c:if>
