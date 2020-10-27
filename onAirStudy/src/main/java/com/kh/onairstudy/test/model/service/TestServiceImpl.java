@@ -28,4 +28,9 @@ public class TestServiceImpl implements TestService {
 		return testDAO.selectStudyNo();
 	}
 
+	@Override
+	public List<Test> selectQuestion(int srNo) {
+		return testDAO.selectQuestion(srNo);
+	}
+
 }

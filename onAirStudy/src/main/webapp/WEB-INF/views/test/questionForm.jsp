@@ -26,11 +26,6 @@ $(function(){
 		});
 });
 
-/* $("custom-file-input").on("change", function () {
-    var fileName = $(this).val().split("\\").pop;
-    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-}); */
-
 </script>
 
 
@@ -93,18 +88,21 @@ $(function(){
                         <br><br>
                         <div align = "right"> 
                             <div class="col-md-4" style="background-color: #FFF0F0; border-radius: 15px; padding: 10px; text-align: left;">
-                                <h4>정답:</h4><h4 id="testAnswer" name="testAnswer"></h4>
+                             <label for="testAnswer">정답:</label>
+                             <input type="text" id="testAnswer" name="testAnswer" />
                             </div>
                         </div>
                     </div>
                     <br><br>
                     <div align="center">
                         <button type="submit" value="저장 " class="btn btn-outline-primary" style="margin-right: 30px;">등록 </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-danger"><a href="">취소</a></button>
                     </div>
                     <br>
                 </div>              
-
+            </div>
+            </div>
+</form>
             </div>
             
  
@@ -120,9 +118,10 @@ $(function(){
         });
     $("#choice4").click(function(){
 		return $("#choice4").val();
-        });
+        }); 
     
     $("#choice1, #choice2, #choice3, #choice4").click(function(event){
-		$("#testAnswer").html(event.result);
+		$("#testAnswer").val(event.result);
+		
         });
     </script>
