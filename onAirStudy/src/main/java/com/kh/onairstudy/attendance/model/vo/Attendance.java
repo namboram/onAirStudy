@@ -12,8 +12,8 @@ import lombok.ToString;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 
 public class Attendance implements Serializable{
@@ -23,6 +23,5 @@ public class Attendance implements Serializable{
 	private String memberId;
 	private int attendCnt;
 	private Date attendDate;
-	private int maximumCnt;
 	
 }

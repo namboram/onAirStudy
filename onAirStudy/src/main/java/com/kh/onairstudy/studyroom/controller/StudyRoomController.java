@@ -21,12 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.kh.onairstudy.attendance.model.service.AttendanceService;
+import com.kh.onairstudy.attendance.model.vo.Attendance;
 import com.kh.onairstudy.chat.model.service.ChatService;
 import com.kh.onairstudy.chat.model.vo.Chat;
-
-import com.kh.onairstudy.attendance.model.service.AttendanceService;
-
 import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
@@ -237,9 +235,12 @@ public class StudyRoomController {
 		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
 		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
+		List<Attendance> attendList = attendanceService.selectAttendList(roomNum);
+		
 		model.addAttribute("roomInfo", roomInfo);
 		model.addAttribute("participants", participants);
 		model.addAttribute("applicants", applicants);
+		model.addAttribute("attendList", attendList);
 		/*
 		 * 아래부터 채팅 정보 불러올게요
 		 */
@@ -284,5 +285,11 @@ public class StudyRoomController {
 			redirectAttr.addFlashAttribute("msg", msg);
 			
 			return "redirect:/studyroom/main.do";
+		}
+		
+		@RequestMapping("/studyroom/updateInfo.do")
+		public String updateInfo() {
+			return "/mypage2/mypage2_update";
+			
 		}
 }
