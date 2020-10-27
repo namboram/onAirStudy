@@ -39,51 +39,68 @@
 							
 								</div>
 								<br> <br> 
-								<input type="button" class="btn btn-outline-dark btn-sm" id="choice1" value="1"
+								<input type="button" class="btn btn-outline-dark btn-sm choice1" id="choice1" value="1"
 									style="margin-right: 10px; border-radius: 50%;">
 								<input
 									type="text" class="col-lg-10" style="border-radius: 15px;"
-									value="${t.testChoice_1}" readonly> <br> 
+									value="${t.testChoice_1}" readonly> <br>
 									
-								<input type="button" class="btn btn-outline-dark btn-sm" id="choice1"
+								<input type="button" class="btn btn-outline-dark btn-sm choice2" id="choice2"
 									value="2" style="margin-right: 10px; border-radius: 50%;">
 								<input type="text" class="col-md-10"
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${t.testChoice_2}" readonly> <br> 
 									
 								<input
-									type="button" class="btn btn-outline-dark btn-sm" id="choice1"
+									type="button" class="btn btn-outline-dark btn-sm choice3" id="choice3"
 									value="3" style="margin-right: 10px; border-radius: 50%;">
 								<input type="text" class="col-lg-10"
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${t.testChoice_3}" readonly> <br> 
 									
 								<input
-									type="button" class="btn btn-outline-dark btn-sm" id="choice1"
+									type="button" class="btn btn-outline-dark btn-sm choice4" id="choice4"
 									value="4" style="margin-right: 10px; border-radius: 50%;">
 								<input type="text" class="col-lg-10"
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${t.testChoice_4}" readonly>
+									
+								<input type="text" id="testAnswer" value="${t.testAnswer}" />
+								<input type="text" id="userAnswer" class="userAnswer" />
 							</div>
-							<br>
-
-
-
-		
+							<br>		
 
 					</c:forEach>
 				</div>
 
 				<div align="center">
 					<button type="submit" class="btn btn-outline-primary"
-						style="margin-right: 30px;" data-toggle="modal"
-						data-target="#myModal_sub_G">제출하기</button>
+						style="margin-right: 30px;" onclick="submit('${roomInfo.srNo}')">제출하기</button>
 				</div>
 				<br>
 			</div>
-
-
 		</div>
+		
+		<script>
+		   $(".choice1").click(function(){
+				return $(".choice1").val();
+		        });
+		    $(".choice2").click(function(){
+				return $(".choice2").val();
+		        });
+		    $(".choice3").click(function(){
+				return $(".choice3").val();
+		        });
+		    $(".choice4").click(function(){
+				return $(".choice4").val();
+		        }); 
+		    
+		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
+				$(".userAnswer").val(event.result);				
+		        });
+	
+		</script>
+		
 		<!-- The Modal -->
 		<div class="modal fade" id="myModal_sub_G">
 			<div class="modal-dialog">
