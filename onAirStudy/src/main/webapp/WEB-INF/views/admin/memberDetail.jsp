@@ -13,11 +13,12 @@
 
 <div class="row">
 
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp"/>
 	</div>
 
-	<div class="col-lg-10 adDivB">
+	<div class="col-lg-10 adDivB p-0">
+	<div style="padding:5%">
 	
 		<h3>회원 상세보기</h3>
 		<table class="table tableB">
@@ -66,9 +67,8 @@
 				</tr>
 		
 		</table>
-		
+		</div>
 	</div>
-</div>
 
 
 
