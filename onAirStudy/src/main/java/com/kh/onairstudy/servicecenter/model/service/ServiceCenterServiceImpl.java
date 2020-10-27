@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.onairstudy.common.PagingCriteria;
 import com.kh.onairstudy.servicecenter.model.dao.ServiceCenterDAO;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
@@ -19,8 +20,8 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	private ServiceCenterDAO serviceCenterDAO;
 
 	@Override
-	public List<ServiceCenter> selectServiceList() {
-		return serviceCenterDAO.selectServiceList();
+	public List<ServiceCenter> selectServiceList(PagingCriteria cri) {
+		return serviceCenterDAO.selectServiceList(cri);
 	}
 
 	@Override
@@ -34,11 +35,13 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	}
 
 	@Override
-	public List<ServiceCenter> listAll(String search_option, String keyword, int start, int end) {
-		 return serviceCenterDAO.listAll(search_option, keyword, start, end);
+	public List<ServiceCenter> listAll(String search_option, String keyword, int category) {
+		 return serviceCenterDAO.listAll(search_option, keyword, category);
 	}
 
-
-	
+	@Override
+	public int totalCount(String search_option, String keyword, int category) {
+		return serviceCenterDAO.totalCount(search_option, keyword, category);
+	}
 
 }

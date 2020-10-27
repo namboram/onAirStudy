@@ -5,19 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-<style>
-.modal-dialog{
-width: 150px;
-    margin: 10% auto;
-}
-.modal-content{
-background-color: transparent; 
-   border: 0;
-    border-radius: 0;
-    outline: 0;
-    box-shadow: none;
-}
-</style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
@@ -25,15 +12,24 @@ background-color: transparent;
 <!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-<div class="modal fade" data-backdrop="static" id="myModal" role="dialog">
-	<div class="modal-dialog">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-body">
-				<button class="btn btn btn-outline-primary" onclick="goToAttendCheck(${roomInfo.srNo})">출석체크</button>
-			</div>
-		</div>
-	</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Attendance Check</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	출석체크를 위해 check버튼을 눌러주세요
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="goToAttendCheck(${roomInfo.srNo})">check</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row">	
@@ -61,7 +57,7 @@ background-color: transparent;
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
 		<ul class="list-unstyled">
-			<li><a onclick="goToIndex()">우리 스터디방</a></li>
+			<li><a onclick="goToIndex(${roomInfo.srNo})">우리 스터디방</a></li>
 			<li>
 				<a href="#participantsDropdown" aria-expanded="false" data-toggle="collapse">참여인원</a>
 				<ul id="participantsDropdown" class="collapse list-unstyled">
@@ -98,7 +94,9 @@ background-color: transparent;
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
-	<div class="col-lg-7 changeDiv"></div>
+	<div class="col-lg-7 changeDiv">
+	<jsp:include page="/WEB-INF/views/mypage2/mypage2_index.jsp"></jsp:include>
+	</div>
 	<div class="col-lg-3 chattingDiv" >
 		<c:if test="${ not empty roomInfo }">
 			<h1>${ roomInfo.srTitle }</h1>
@@ -109,7 +107,7 @@ background-color: transparent;
 
 <script>
 $(function(){
-	var d = new Date();
+	/* var d = new Date();
 	var week = new Array('일','월','화','수','목','금','토');
 	
 	var day = week[d.getDay()];  //오늘 요일
@@ -129,7 +127,9 @@ $(function(){
 				 $('#myModal').modal('show'); 
 			}
 		}
-	}
+	} */
+//	 $('#myModal').modal('show'); 
+
 
 });
 
@@ -201,15 +201,18 @@ function post_to_url(path, params, method) {
 		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
 	}
 	
-	function goToIndex(){
-		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+	function goToIndex(roomNum){
+		location.href = "${ pageContext.request.contextPath}/studyroom/main.do?roomNum=" + roomNum;
 	}
 
 	function goToAttendCheck(roomNum){
 		var memberId = $(".userName").html();
+
+		//console.log(roomNum);
+		//console.log(memberId);
 		post_to_url("${pageContext.request.contextPath}/attend/check.do", {"id" : memberId, "roomNum" : roomNum});
 	}
-	
+
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

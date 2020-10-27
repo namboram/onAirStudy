@@ -21,52 +21,54 @@
 
 		<h1>My page</h1>
 		<hr>
+		
+		
 		<div class="row">
+		
+	
 			<h3>이번달 스터디방별 출석 그래프</h3>
-			---
-				<table>
+				<div class="col-md-5">
+					<canvas id="myChart1"></canvas>
+				</div>	
+							
+			<%-- 	<table>
 						<tr>
 							<th>출석횟수</th>
-							<th>최대출석횟수</th>
+						
 						</tr>
 			<c:forEach items="${ attendList }" var="attend">
 						<tr>
 							<td>${ attend.attendCnt }</td>
-							<td>${ attend.maximumCnt }</td>
+						
 						</tr>
 			</c:forEach>
-					</table>
-			---
+					</table> --%>
 			
+			
+			
+		<div>
 			<h3>
 				오늘의 To Do List
 				<button type="button" class="btn btn-light"
 					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더
 					보기</button>
-					
-				
 			</h3>
-		</div>
-
-		<div class="row">
-			<div class="col-md-5">
-				<canvas id="myChart1"></canvas>
-			</div>
-
+			
 			<div>
 			
+							<h4>TO DO LIST</h4>
 					<c:forEach items="${ todoList }" var="td">
-					<table>
-						<tr>
-							<th>TO DO LIST</th>
-						</tr>
-						<tr>
-							<td>${ td.scheduleYN }</td>
-							<td>${ td.content }</td>
-						</tr>
-					</table>
+						<h5> ${ td.scheduleYN } : ${ td.content } </h5>	
 					</c:forEach>
 			</div>
+		</div>
+
+
+
+
+		<div class="row">
+			
+		</div>
 
 		</div>
 
@@ -141,14 +143,6 @@
 
 <script>
 
-/* modal 등록버튼 */
-/* $('#submit').click(function(){
-	 $('#studyDate').text($('#studyDate').val());
-     $('#studyTime').text($('#studyTime').val());
-    
-}); */
-
-
 
 /* 막대 차트 */
 
@@ -160,7 +154,7 @@
 
 			<c:forEach items="${ attendList }" var="attend" >
 				var json = new Object();
-				labels.push("${attend.attendCnt}");
+				labels.push( "출석률");
 				data.push("${attend.attendCnt}");
 			</c:forEach>
 
@@ -226,7 +220,7 @@
 				type: 'line',
 				data: {
 /* 				labels: ["January", "February", "March", "April", "May", "June", "July"], */
-				labels:labels,
+				labels: labels,
 				datasets: [{
 				label: labels,
 				data: data,

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
-//@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
+@SessionAttributes({"roomInfo"})  //방정보 세션에 등록
 public class StudyRoomController {
 
 	@Autowired
@@ -134,13 +135,15 @@ public class StudyRoomController {
 				model.addAttribute("srList", srList);
 				List<StudyRoomLog> sLog =studyRoomService.selectStudyRoomLog();
 				model.addAttribute("sLog", sLog);
+				List<StudyRoom> studyList = studyRoomService.selectMystudyList();
+				model.addAttribute("studyList", studyList);
 			}
 			
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
 		public String newstudyEnroll(StudyRoom studyroom,
 									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
-									@RequestParam("srCategory") int srCategory, Model model,
+									@RequestParam("srCategory") int srCategory, @RequestParam("srNo") int srNo, 
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
 					Member loginMember = (Member)session.getAttribute("loginMember");
 					
@@ -162,6 +165,7 @@ public class StudyRoomController {
 					upFile.transferTo(dest);
 
 					ProfileAttachment profile = new ProfileAttachment();
+					profile.setSrNo(srNo);
 					profile.setOriginalFilename(upFile.getOriginalFilename());
 					profile.setRenamedFilename(renamedFilename);
 					profile.setFilePath(saveDirectory);
@@ -169,10 +173,11 @@ public class StudyRoomController {
 					
 				
 					log.debug("proList = {}", proList);
+					studyroom.setSrNo(srNo);
 					studyroom.setProList(proList);
 					studyroom.setCategory(srCategory);
 					studyroom.setSrNo(srList.getSrNo());
-					System.out.println("srList.getSrNo()" + srList.getSrNo());
+					
 
 				//studyroom. profile 객체 DB저장하기
 
