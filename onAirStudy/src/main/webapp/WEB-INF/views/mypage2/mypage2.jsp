@@ -134,26 +134,6 @@ $(function(){
 	}
 });
 
-function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
-	var url = "popup.html";
-	var name = "출석체크";
-	var option = "width = 500, height = 500, top = 100, left = 200, location = no";
-	popupObj = window.open(url, name, option);
-	/*
-		if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
-		   clearTimeout(stopTimeCheck);   
-	*/                     
-	   
-	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
-}
-
-function closePopup() {
-	if (popupObj != undefined) {
-		popupObj.close(); //팝업 종료
-		popupObj = undefined;
-	}
-}
-
 function exitRoom() {
 	if(confirm("방을 나가시겠습니까?") == true){
 		location.href = "${pageContext.request.contextPath}/mypage1/mypage1_index.do";
