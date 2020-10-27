@@ -31,7 +31,7 @@
 			<li><a href="${ pageContext.request.contextPath}/mypage1/invitationlist.do">초대내역</a></li>
 			<li><a href="${ pageContext.request.contextPath }/premium.do">프리미엄</a></li>
 			<li><a href="${ pageContext.request.contextPath}/mypage1/mystudylist.do">내 스터디방</a></li>
-			<li><a href="${ pageContext.request.contextPath }/scheduler/main.do">스케줄러</a></li>
+			<li><a href="${ pageContext.request.contextPath }/mypage1/scheduler.do">스케줄러</a></li>
 			<li><a href="#">내 정보</a></li>
 		</ul>
 	</nav>
