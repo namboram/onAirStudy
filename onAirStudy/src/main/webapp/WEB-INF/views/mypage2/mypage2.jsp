@@ -31,7 +31,38 @@
     </div>
   </div>
 </div>
+<!-- 쪽지 보내기 모달 -->
+		<div class="modal" id="replyMyModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">쪽지 보내기</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
 
+					<!-- Modal body -->
+					<div class="modal-body">
+						<div class="form-group">
+							받는 사람 : <strong id="receivedIdK"></strong>
+							<hr />
+
+							<h5>내용</h5>
+							<textarea id="replyContents" cols="63" rows="5"></textarea>
+						</div>
+
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal"
+							onclick="doSend();">보내기</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 <div class="row">	
 	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
@@ -65,7 +96,7 @@
 						<li><div class="participantsJH">
 							<div class="status"></div>
 							<span>${part.memberId }</span>
-							<div class="icon icon-mail message" onclick="alert('쪽지를 보내봅시다~')"></div>
+							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>
 					</c:forEach>
 				</ul>
@@ -107,6 +138,39 @@
 </div>
 
 <script>
+//쪽지모양 클릭시 모달창 열기
+function msgSend(receiverId) {
+	$("#replyMyModal").modal('show');
+	//console.log("${message.senderId}");
+	$("#receivedIdK").html(receiverId);
+};
+//보내기 버튼 클릭시
+	function doSend() {
+		if (confirm("쪽지를 보내시겠습니까?")) {
+			$.ajax({
+						url : "${pageContext.request.contextPath}/message/insertMessage.do",
+						type : "POST",
+						data : {
+							senderId : "${loginMember.memberId}",
+							receiverId : $("#receivedIdK").text(),
+							msgContent : $("#replyContents").val()
+
+						},
+						dataType : "json",
+						success : function(result) {
+							if (result > 0)
+								alert("쪽지 전송이 완료되었습니다.");
+						},
+						error : function(xhr, status, err) {
+							console.log("처리실패!");
+							console.log(xhr);
+							console.log(status);
+							console.log(err);
+						}
+					});
+
+		}
+	}
 $(function(){
 	/* var d = new Date();
 	var week = new Array('일','월','화','수','목','금','토');
