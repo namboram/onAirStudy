@@ -49,6 +49,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomList> selectStudyRoomList() {
 		return studyRoomDAO.selectStudyRoomList();
 	}
+	
+	@Override
+	public List<StudyRoomWish> selectMywish() {
+		return studyRoomDAO.selectMywish();
+	}
+
 
 	@Override
 	public List<StudyCategory> selectCategoryList() {
@@ -60,23 +66,51 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		
 		int result = 0;
 		
-		result = studyRoomDAO.insertStudyRoomList(studyroom);
+		StudyRoomList srList = new StudyRoomList();
+//		srList.setSrCategory(studyroom.getCategory());
+//		srList.setMemberId(studyroom.getMemberId());
+//		result = studyRoomDAO.insertStudyRoomList(srList);			
+//		
 		
-		if(studyroom.getProList() != null) {
-			for(ProfileAttachment profile : studyroom.getProList()) {
-				
-				profile.setSrNo(studyroom.getSrNo());
+			studyroom.setSrNo(srList.getSrNo());
+			result = studyRoomDAO.insertStudyRoom(studyroom);		
+						
+			
+			ProfileAttachment profile = new ProfileAttachment();
+			if(studyroom.getProList() != null) {
+//				for(ProfileAttachment profile : studyroom.getProList()) {
+//					
+//					profile.setSrNo(srList.getSrNo());
+//					result = studyRoomDAO.insertProfileAttachment(profile);
+//				}
+				profile.setMemberId(studyroom.getMemberId());
+				profile.setSrNo(srList.getSrNo());
 				result = studyRoomDAO.insertProfileAttachment(profile);
+					
 			}
-		}
+			
+			StudyRoomLog srLog = new StudyRoomLog();
+			srLog.setMemberId(studyroom.getMemberId());
+			srLog.setSrNo(srList.getSrNo());
+			result = studyRoomDAO.insertStudyRoomLog(srLog);			
 		
 		return result;
 	}
 	
 	@Override
-	public int insertStudyRoom(Map<String, Object> param) {
-		return studyRoomDAO.insertStudyRoom(param);
+	public int insertStudyRoomList(StudyRoomList srList) {
+		return studyRoomDAO.insertStudyRoomList(srList);
 	}
+
+	
+	@Override
+	public List<StudyRoomLog> selectStudyRoomLog() {
+		// TODO Auto-generated method stub
+		return studyRoomDAO.selectStudyRoomLog();
+	}
+
+	
+
 	
 //검색
 	@Override
@@ -89,7 +123,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.countArticle(search_option,keyword);
 	}
 
-	
 	
 //성실스터디방 List
 	@Override
@@ -131,6 +164,11 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		result = studyRoomDAO.insertStudyLog(param);
 		result = studyRoomDAO.insertAttendance(param);
 		return result;
+	}
+
+	@Override
+	public List<StudyRoomList> selectsrList() {
+		return studyRoomDAO.selectsrList();
 	}
 
 

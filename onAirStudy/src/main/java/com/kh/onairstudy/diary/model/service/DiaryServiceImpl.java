@@ -34,20 +34,31 @@ public class DiaryServiceImpl implements DiaryService {
 		result = diaryDAO.insertDiary(diary);
 		
 		//2. attachment insert
-		if(diary.getAttachList() != null) {
-			
-			for(DiaryAttachment attach : diary.getAttachList()) {
-				//생성된 boardNo값 대입하기
-				attach.setDiaryNo(diary.getNo());
-				result = diaryDAO.insertAttachment(attach);
-			}
-			
-		}
-		
-		
+//		if(diary.getAttachList() != null) {
+//			
+//			for(DiaryAttachment attach : diary.getAttachList()) {
+//				//생성된 boardNo값 대입하기
+//				attach.setDiaryNo(diary.getNo());
+//				result = diaryDAO.insertAttachment(attach);
+//			}
+//			
+//		}
+
 		return result;
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public Diary selectOneDiary(int no) {
+		Diary diary = diaryDAO.selectOneDiary(no); 
+		diaryDAO.diaryReadCount(no);
+		
+		List<DiaryAttachment> attachList = diaryDAO.selectAttachList(no);
+		diary.setAttachList(attachList);
+		
+		return diary;
+	}
+	
 
 	
 

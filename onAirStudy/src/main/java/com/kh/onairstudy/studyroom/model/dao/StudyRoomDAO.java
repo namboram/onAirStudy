@@ -24,13 +24,17 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomList> selectStudyRoomList();
 
+	List<StudyRoomWish> selectMywish();
+
 	List<StudyCategory> selectCategoryList();
 
 	int insertWish(StudyRoomWish srWish);
 	//방생성
 	int insertProfileAttachment(ProfileAttachment profile);
-	int insertStudyRoomList(StudyRoom studyroom);
-	int insertStudyRoom(Map<String, Object> param);
+	int insertStudyRoom(StudyRoom studyroom);
+	int insertStudyRoomList(StudyRoomList srList);
+	int insertStudyRoomLog(StudyRoomLog srLog);
+	
 	
 	//검색
 	List<StudyRoomList> listAll(String search_option, String keyword);
@@ -56,6 +60,11 @@ public interface StudyRoomDAO {
 	int insertAttendance(Map<String, Object> param);
 
 
+
+	
+	List<StudyRoomList> selectsrList();
+
+	List<StudyRoomLog> selectStudyRoomLog();
 
 
 

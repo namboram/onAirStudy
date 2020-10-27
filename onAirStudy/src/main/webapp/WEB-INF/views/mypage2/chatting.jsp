@@ -141,13 +141,37 @@
 			<div class="fix_btn row">
 				<textarea name="msg" id="msgi" rows="2" class="form-control col-sm-8"></textarea>
 				<!-- <input type="text" id="msgi" name="msg" placeholder="메세지를 입력하세요" /> -->
-				<button type="button" class="send col-sm-4 btn btn-secondary">보내기</button>
+				<button type="button" onclick="insertChat();" class="send col-sm-4 btn btn-secondary">보내기</button>
 			</div>
 		</div>
 
 	</div>
 </div>
 <script>
+//채팅 저장
+function insertChat(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/chat/insertChat.do",
+		type : "POST",
+		data :
+			{
+				memberId : "${loginMember.memberId}",
+				srNo : "${roomNo}",
+				chatContent : $("#msgi").val()
+						
+			} ,
+		dataType : "json",
+		success : function(result) {
+		
+		},
+		error : function(xhr, status, err) {
+			console.log("처리실패!");
+			console.log(xhr);
+			console.log(status);
+			console.log(err);
+		}
+	});
+}
 //생성된 메시지로 가기//맨 아래로 가기
 function moveDown(){
 	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
@@ -222,7 +246,7 @@ $(document).ready(function() {
 				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
 				// 가장 처음 데이터 번호가 1일경우 스크롤 종료
 				var length = result.size;
-				if (result[0].no == 1) {
+				if (length < 10) {
 					//console.log("resultno"+ result[0].no);
 					isEnd = true;
 				}
@@ -356,7 +380,11 @@ $(document).ready(function() {
 			// 여기는 입장시
 			//	           일반메세지 들어오는곳         
 			client.subscribe('/subscribe/chat/'+ roomNo,function(chat) {
-				var endNo = $("#list-guestbook li").last().data("no") + 1;
+				var endNo = $("#list-guestbook li").last().data("no");
+				if(isNaN(endNo))
+					endNo = 1;
+				else
+					endNo = endNo+1;
 				//받은 데이터
 				var content = JSON.parse(chat.body);
 				var html = renderList(content,endNo);

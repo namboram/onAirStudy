@@ -60,4 +60,15 @@ values(
 	seq_sr_log_no.nextval, #{srNo}, #{memberId}, '참여', 0, 'N')
 
  </insert>
+ 
+ 	<select id="selectParticipatingRoomCnt" resultType="_int">
+		select 
+			count(*) 
+		from 
+			sr_log 
+		where 
+			member_id = #{memberId} 
+		and 
+			status_log = '참여'
+	</select>
 </mapper>

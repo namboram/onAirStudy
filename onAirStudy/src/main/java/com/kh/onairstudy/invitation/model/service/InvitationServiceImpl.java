@@ -33,18 +33,18 @@ public class InvitationServiceImpl implements InvitationService {
 		
 		result = invitationDAO.updateInvitation(invi);
 		
-//		StudyRoomLog sLog = new StudyRoomLog();
-		if(invi.getSLog() != null) {
-			
-			for(StudyRoomLog sLog : invi.getSLog()) {
-				
-				sLog.setSrNo(invi.getSrNo());				
-				result = invitationDAO.insertStudyRoomLog(sLog);
+		StudyRoomLog sLog = new StudyRoomLog();
+		if(invi.getSLog() != null) {			
+//			for(StudyRoomLog sLog : invi.getSLog()) {
+//				
+//				sLog.setSrNo(invi.getSrNo());				
+//				result = invitationDAO.insertStudyRoomLog(sLog);
+//			}
+			sLog.setMemberId(invi.getInvitedId());
+			sLog.setSrNo(invi.getSrNo());	
+			result = invitationDAO.insertStudyRoomLog(sLog);
 			}
-//			sLog.setSrNo(invi.getSrNo());	
-//			result = invitationDAO.insertStudyRoomLog(sLog);
-			}
-		
+							
 		return result;
 	}
 
@@ -52,6 +52,13 @@ public class InvitationServiceImpl implements InvitationService {
 	@Override
 	public int deleteInvitation(int no) {
 		return invitationDAO.deleteInvitation(no);
+	}
+
+
+
+	@Override
+	public int selectParticipatingRoomCnt(StudyRoomLog srLog) {
+		return invitationDAO.selectParticipatingRoomCnt(srLog);
 	}
 
 

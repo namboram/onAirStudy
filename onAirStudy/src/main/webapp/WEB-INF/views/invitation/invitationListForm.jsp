@@ -10,19 +10,19 @@
 
 
 
-<div id="invitation" style="margin-bottom: 0;">
+<div id="invitation" style="margin-bottom: 0px;">
 
 	<div class="col-lg" style="background-color: #FBF7FD; padding: 20px;">
 		<h2 class="text-gray">Invitation List</h2>
 		<hr>
 		<div class="container">
 			<div class="col-sm"
-				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; padding: 20px;">
+				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; margin-left:7%; padding: 20px; height:86.5%; width:85%;">
 				<h3>나를 초대한 스터디 그룹</h3>
-
 				<table class="table">
 					<thead class="thead-rounded">
 						<tr>
+							<th></th>
 							<th>그룹 이름</th>
 							<th>그룹 소개</th>
 							<th>초대자</th>
@@ -33,17 +33,23 @@
 						<%-- 	<input type="text" value="${member.memberId}" name="memberId" hidden/> --%>
 						<c:forEach items="${ inList }" var="invitation">
 							<c:if test="${invitation.invitedId eq loginMember.memberId }">
-								<tr>									
-									<td>${invitation.sTitle}</td>
-									<td>${invitation.sGoal}</td>
-									<td>${invitation.hostingId}</td>
+							<input type="text" name="srNo" id="srNo" value="${invitation.srNo}" hidden/>
+							<input type="text" name="mId" id="mId" value="${loginMember.memberId}" hidden/>
+							
+								<tr>
+								<c:if test="${invitation.invitationYN =='N'}">
+									<td ></td>														
+									<td >${invitation.sTitle}</td>
+									<td >${invitation.sGoal}</td>
+									<td >${invitation.hostingId}</td>
 
-									<td>
+									<td >
 										<button type="submit" class="btn btn-outline-primary"
 											onclick="updateInvi('${ invitation.no }')">수락</button>
 										<button type="button" class="btn btn-primary"
 											onclick="deleteInvi('${ invitation.no }')">거절</button>
 									</td>
+										</c:if>
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -77,6 +83,7 @@
 				<input type="hidden" name="no" />
 				<!-- Modal body -->
 				<div class="modal-body">초대를 수락 하시겠습니까?</div>
+				<input type="text" name="memberId" value="${loginMember.memberId}" />
 
 				<!-- Modal footer -->
 				<div class="modal-footer">

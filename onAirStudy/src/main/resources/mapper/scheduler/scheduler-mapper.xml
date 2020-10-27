@@ -67,18 +67,6 @@ order by
 update 
 	scheduler
 set
-	<if test="memberId != null">
-	member_id = #{memberId},
-	</if>
-	<if test="memberId == null">
-	member_id = null,
-	</if>
-	<if test="srNo != 0">
-	sr_no = #{srNo},
-	</if>
-	<if test="srNo == 0">
-	sr_no = null,
-	</if>
 	start_date = #{startDate},
 	end_date = #{endDate},
 	content = #{content},
@@ -120,10 +108,10 @@ values(
 		<if test="memberId == null">
 		null,
 		</if>
-		<if test="srNo != null">
+		<if test="srNo != 0">
 		#{srNo},
 		</if>
-		<if test="srNo == null">
+		<if test="srNo == 0">
 		null,
 		</if>
 		#{startDate},

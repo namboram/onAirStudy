@@ -42,4 +42,10 @@ public class InvitationDAOImpl implements InvitationDAO {
 	public int deleteInvitation(int no) {
 		return sqlSession.delete("invitation.deleteInvitation", no);
 	}
+
+
+	@Override
+	public int selectParticipatingRoomCnt(StudyRoomLog srLog) {
+		return sqlSession.selectOne("invitation.selectParticipatingRoomCnt", srLog);
+	}
 }
