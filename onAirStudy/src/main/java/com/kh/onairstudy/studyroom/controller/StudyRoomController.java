@@ -21,7 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import com.kh.onairstudy.chat.model.service.ChatService;
+import com.kh.onairstudy.chat.model.vo.Chat;
+
 import com.kh.onairstudy.attendance.model.service.AttendanceService;
+
 import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
@@ -46,7 +51,11 @@ public class StudyRoomController {
 	private StudyRoomService studyRoomService;
 	
 	@Autowired
+	private ChatService chatService;
+
+	@Autowired
 	private AttendanceService attendanceService;
+
 
 	//메인 페이지 스터디룸 리스트
 		@RequestMapping("/studyroom/studyroomlist.do")
@@ -193,28 +202,28 @@ public class StudyRoomController {
 		@RequestMapping("/studyroom/main.do")
 		public String main( @RequestParam("roomNum") int roomNum, Model model, HttpSession session) {
 
-			log.debug("roomNum = {}", roomNum);
-			
-			StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
-			List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
-			List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
-			Member loginMember = (Member) session.getAttribute("loginUser");
-			
-			Map<String, Object> param = new HashMap<>();
-			param.put("memberId", loginMember.getMemberId());
-			param.put("roomNum", roomNum);
-			
-			int attendCheck = attendanceService.selectAttendYN(param);
-			
-			
-			model.addAttribute("attendCheck", attendCheck);
-			model.addAttribute("roomInfo", roomInfo);
-			model.addAttribute("participants", participants);
-			model.addAttribute("applicants", applicants);
+		log.debug("roomNum = {}", roomNum);
+		
+		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
+		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
+		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
 
-			return "mypage2/mypage2";
-		}
+		model.addAttribute("roomInfo", roomInfo);
+		model.addAttribute("participants", participants);
+		model.addAttribute("applicants", applicants);
+		/*
+		 * 아래부터 채팅 정보 불러올게요
+		 */
+		//String memberId = (String)session.getAttribute("memberId");
+		List<Chat> firstList = chatService.selectFirstChatList(roomNum);
+		model.addAttribute("roomNo",roomNum);
+		model.addAttribute("firstList",firstList);
+
+		return "mypage2/mypage2";
+	}
+	
+	
 		
 		//참여신청 수락
 		@RequestMapping(value = "/studyroom/accept.do", 
