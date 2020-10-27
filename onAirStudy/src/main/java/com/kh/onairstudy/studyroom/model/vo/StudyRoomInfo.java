@@ -22,8 +22,8 @@ public class StudyRoomInfo {
 	private String attendTime;
 	private int ranking;
 	private int forceExitOpt;
-	private char forceExitYN;
-	private char srOpenedYN;
+	private String forceExitYN;
+	private String srOpenedYN;
 	private String category;
 	
 }
