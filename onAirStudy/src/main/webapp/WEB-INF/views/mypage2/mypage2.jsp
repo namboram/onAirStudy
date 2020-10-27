@@ -79,9 +79,10 @@
 	<div class="col-lg-7 changeDiv"></div>
 	<div class="col-lg-3 chattingDiv" >
 		<c:if test="${ not empty roomInfo }">
-			<h1>${ roomInfo.srTitle }</h1>
+			<%-- <h1>${ roomInfo.srTitle }</h1> --%>
 		</c:if>
 	<!-- 채팅 include 들어갈 자리 -->
+	<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
 	</div>
 </div>
 

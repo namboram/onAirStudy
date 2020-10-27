@@ -54,8 +54,8 @@ public class ChatController {
 			
 		Map<String,Object> map = new HashMap<>();
 		map.put("roomNo", roomNo);
-		map.put("startNo",startNo);
-		map.put("endNo", endNo-1);
+		map.put("startNo",endNo-1);
+//		map.put("endNo", endNo-1);
 		List<Chat> list = chatService.selectChatList(map);
 		log.info("list= {}", list);
 //		mav.addObject("list", list);
