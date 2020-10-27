@@ -140,23 +140,20 @@ public class StudyRoomController {
 
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
-		public String newstudyEnroll(StudyRoom studyroom, Model model,
+		public String newstudyEnroll(StudyRoomList studyroomList, Model model,
 									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
-									@RequestParam("srCategory") int srCategory, 
+									@RequestParam("srCategory") int srCategory,@RequestParam("srTitle") String srTitle, @RequestParam("srComment") String srComment,
 									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
 					
 					Member loginMember = (Member)session.getAttribute("loginMember");
+
+					//sr_list
+													
+					studyroomList.setSrCategory(srCategory);						
+					studyroomList.setMemberId(loginMember.getMemberId());										
+													
 					
-					StudyRoomList srList = new StudyRoomList();
-					srList.setSrCategory(srCategory);						
-					srList.setMemberId(loginMember.getMemberId());						
-					
-					int rList = studyRoomService.insertStudyRoomList(srList);
-					
-					List<StudyRoomList> list = studyRoomService.selectsrList();
-					model.addAttribute("list", list);
-				
-					
+					//profile
 					List<ProfileAttachment> proList = new ArrayList<>();
 				
 					String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
@@ -168,23 +165,38 @@ public class StudyRoomController {
 					upFile.transferTo(dest);
 
 					ProfileAttachment profile = new ProfileAttachment();
-//					profile.setSrNo();
 					profile.setOriginalFilename(upFile.getOriginalFilename());
 					profile.setRenamedFilename(renamedFilename);
 					profile.setFilePath(saveDirectory);
 					proList.add(profile);
 					
-				
-					log.debug("proList = {}", proList);
-//					studyroom.setSrNo(srNo);
-					studyroom.setProList(proList);
-					studyroom.setCategory(srCategory);
-					studyroom.setSrNo(srList.getSrNo());
 					
+					//sr_log
+					List <StudyRoomLog> srLog = new ArrayList<>();
+					StudyRoomLog slog = new StudyRoomLog();
+					slog.setMemberId(loginMember.getMemberId());
+					srLog.add(slog);
+
+					//sr_info
+					List <StudyRoom> sRoom = new ArrayList<>();
+					StudyRoom studyroom = new StudyRoom();
+					
+					studyroom.setMemberId(loginMember.getMemberId());
+					studyroom.setSrTitle(srTitle);
+					studyroom.setSrComment(srComment);
+					sRoom.add(studyroom);
+					
+					
+					log.debug("sRoom = {}", sRoom);
+					log.debug("srLog = {}", srLog);
+					log.debug("proList = {}", proList);
 
 				//studyroom. profile 객체 DB저장하기
-
-					int result = studyRoomService.insertStudyRoom(studyroom);
+					studyroomList.setProList(proList);
+					studyroomList.setSrLog(srLog);
+					studyroomList.setSRoom(sRoom);
+					
+					int result = studyRoomService.insertStudyRoomList(studyroomList);
 
 					redirectAttr.addFlashAttribute("msg", "스터디방이 생성 되었습니다.");
 

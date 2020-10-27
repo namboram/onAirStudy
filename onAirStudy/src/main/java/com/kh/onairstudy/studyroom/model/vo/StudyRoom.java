@@ -33,5 +33,7 @@ public class StudyRoom implements Serializable{
 	private char sleader;
 	
 	private List <ProfileAttachment> proList;
+	private List <StudyRoomList> srList;
+	private List <StudyRoomLog> srLog;
 
 }

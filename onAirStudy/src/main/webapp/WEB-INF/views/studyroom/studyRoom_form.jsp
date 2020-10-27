@@ -53,12 +53,12 @@
 							<label for="gruopName"><h4>그룹이름</h4></label> <input type="text"
 								class="col-lg-10" name="srTitle" id="srTitle" style="border-radius: 15px;">
 								
-								<c:forEach var="s" items="${srList}" varStatus="status">
-								 <c:set var="r" value="${(sLog[status.index])}" />
-								<c:if test="${ r.srNo == null && s.memberId eq loginMember.memberId }">
-								<input type="text" id="srNo" name=srNo value="${s.srNo}" hidden/>
-								</c:if>
-								</c:forEach>
+							 <c:forEach var="s" items="${studyroomList.sRoom}">
+								 
+								
+								<input type="text" id="srNo" name=srNo value="${s.srNo}" />
+								
+								</c:forEach>  
 								
  							<input type="text" class="form-control" id = "memberId" name="memberId" value="${ loginMember.memberId }" hidden>
 							<br /> <br /> 
@@ -69,6 +69,8 @@
 									<option id="srCategory" value="${cate.no}">${cate.category}</option>
 								</c:forEach>
 							</select>
+						
+							 
 						</div>
 						<br />
 						<div class="col-sm p-3 list-inline">
