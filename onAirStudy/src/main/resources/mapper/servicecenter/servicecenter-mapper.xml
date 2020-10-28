@@ -43,8 +43,8 @@ where
 	update 
 			service
 	set 
-			service_title = #{service_title}, 
-			service_content = #{service_content}
+			service_title = #{serviceTitle}, 
+			service_content = #{serviceContent}
 	where 
 			no = #{no}
 </update>
