@@ -43,6 +43,15 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> selectDiligentMember() {
 		return memberDAO.selectDiligentMember();
 	}
+	//회원정보수정
+	@Override
+	public int updateMember(Member member) {
+		return memberDAO.updateMember(member);
+	}
+	@Override
+	public Member selectOneMemberDetail(String memberId) {
+		return memberDAO.selectOneMemberDetail(memberId);
+	}
 
 	
 	

@@ -33,23 +33,6 @@
   		member_id = #{ memberId }
   </select>
   
-
-<!-- <insert id="insertMemberToSr">
-	insert into 
-		sr_log
-	values(
-		seq_sr_log_no.nextval,
-		#{ srNo },
-		#{ memberId },
-		#{ statusLog },
-		#{ warningCnt },
-		default
-	) 
-	
-</insert>  
-	-->
-  
-  
   
   <!-- 성실멤버 List -->
   <select id="selectDiligentMember" resultMap="memberMap" >
@@ -73,6 +56,26 @@
 		where member_id = #{reportedMember}
 	</update>
   
+<!--   	<select id="selectOneMemberDetail" resultMap="memberMap">
+  		select
+		  	*
+		from 
+		  	member
+	    where 
+		  	member_id = #{ memberId }
+  	</select>  -->
+
+	<update id="updateMember">
+		update
+			member
+		set
+			password = #{ password },
+			phone = #{ phone },
+			member_comment = #{ comment }
+			
+		where
+			member_id = #{ memberId }
+	</update>	
 
 <resultMap type="member" id="memberMap">
     <result column="member_id" property="memberId"/>
@@ -88,7 +91,7 @@
   </resultMap>
 
 
-	
+
 
   
   

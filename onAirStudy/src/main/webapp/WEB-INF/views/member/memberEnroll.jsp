@@ -157,6 +157,7 @@ $("#memberEnrollFrm").submit(function(){
        var getCheck = /^[a-zA-Z0-9]{4,12}$/ // 아이디가 적합한지
        var getName= RegExp(/^[가-힣]+$/); //이름
        var getPhoneCheck =/^[0-9]{11}$/ //폰번호
+       var getcommentCheck=/^[가-힣]{20}$/ //자기소개
        
 
      //아이디 공백 확인
@@ -200,6 +201,7 @@ $("#memberEnrollFrm").submit(function(){
        alert("비밀번호가 ID와 똑같으면 놉!");
        $("#password_").val("");
        $("#password_").focus();
+       return false;
      }
   
        //비밀번호 똑같은지
@@ -220,11 +222,19 @@ $("#memberEnrollFrm").submit(function(){
          return false;
        }
 
-		//비밀번호
+		//휴대폰번호
 		if(!getPhoneCheck.test($("#phone").val())) {
 		alert("휴대폰번호 11자리수를 입력해주세요");
 		$("#phone").val("");
 		$("#phone").focus();
+		return false;
+		}
+		
+		//자기소개
+		if(!getcommentCheck.test($("#comment").val())) {
+		alert("자기소개는 20글자 이내로 작성해주세요");
+		$("#comment").val("");
+		$("#comment").focus();
 		return false;
 		}
 		

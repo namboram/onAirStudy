@@ -1,13 +1,10 @@
 package com.kh.onairstudy.member.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -243,16 +241,41 @@ public class MemberController {
 		return "redirect:/";
 	}
 		
-		
+		//등록한 폼 내용 가져오기
 		@RequestMapping("/mypage1/memberDetail.do")
 		public ModelAndView memberDetail(@ModelAttribute("loginMember") Member loginMember,
-											 String name,
 											 ModelAndView mav) {
-			log.debug("name = {}", name);
+
 			log.debug("loginMember = {}", loginMember);
 				
 			mav.setViewName("member/memberDetail");
 			return mav;
+		}
+		
+		//수정폼 저장하기
+		@RequestMapping(value="/mypage1/memberUpdate.do", method = RequestMethod.POST)
+	
+		public String memberUpdate(Member member,
+									RedirectAttributes redirectAttributes) {
+			
+			 log.debug("member@update = {}", member);
+
+			
+	         int result = memberService.updateMember(member);
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "정보 수정성공" : "정보 수정실패");
+			
+			return "redirect:/mypage1/memberDetail.do";
+		}
+		
+		//프로필사진 업로드
+		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
+		public String mProfileInsert(@RequestParam(value = "upFile",required = false) MultipartFile upFile,
+									RedirectAttributes redirectAttr) {
+			log.debug("upfile.name = {}", upFile.getOriginalFilename());
+	        log.debug("upfile.size = {}", upFile.getSize());
+			
+	        
+	        return "redirect:/mypage1/memberDetail.do";
 		}
 		
 }

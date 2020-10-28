@@ -15,6 +15,10 @@ public interface MemberDAO {
 
 	int updateBlack(String reportedMember);
 
+	int updateMember(Member member);
+
+	Member selectOneMemberDetail(String memberId);
+
 
 
 
