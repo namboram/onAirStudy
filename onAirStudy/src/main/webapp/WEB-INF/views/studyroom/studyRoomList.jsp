@@ -59,7 +59,7 @@
 		<div class="row" id="srlistG">
 		
 			<c:forEach items="${ srList }" var="roomList" varStatus="status">
-			 <c:set var="w" value="${(selectW[status.index])}" />
+			
 				 
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
@@ -71,15 +71,16 @@
 					</div>
 		
 					<div class="hBtn" >
-						<form
-							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
-							id="favRoom" method="POST">
+						<form id="favRoom" 
+								action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
+								method="POST">
 				
-							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }"  hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.wishNo }" hidden> 
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
-							<input type="text" class="form-control" name="wNo"	value="${w.srNo}" hidden >
+							
 														
-							<button type="submit" class="heartBtn" style="<c:if test="${roomList.srNo == w.srNo}">background-color:gray;</c:if>">
+							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
@@ -112,6 +113,7 @@
 		</div>
 	</div>
 </div>
+
 
 <!-- <script>
 $(':checkbox[name="srCategory"]').on({

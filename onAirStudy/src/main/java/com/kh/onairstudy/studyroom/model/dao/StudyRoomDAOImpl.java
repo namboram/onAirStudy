@@ -67,8 +67,8 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 	
 	@Override
-	public List<String> selectCheckWish(StudyRoomWish srWish) {
-		return sqlSession.selectList("studyroom.selectCheckWish", srWish);
+	public int selectCheckWish(StudyRoomWish srWish) {
+		return sqlSession.selectOne("studyroom.selectCheckWish", srWish);
 	}
 
 	//방생성

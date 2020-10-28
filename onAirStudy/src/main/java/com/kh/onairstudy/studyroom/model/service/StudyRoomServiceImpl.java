@@ -70,7 +70,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 	@Override
-	public List<String> selectCheckWish(StudyRoomWish srWish) {
+	public int selectCheckWish(StudyRoomWish srWish) {
 		return studyRoomDAO.selectCheckWish(srWish);
 	}
 //	방생성
