@@ -363,7 +363,7 @@ public class StudyRoomController {
 		}
 		
 		@RequestMapping(value="/studyroom/updateOpened.do", method=RequestMethod.POST)
-		public String insertMessage(@RequestParam("roomNum") String srNo,
+		public String updateOpened(@RequestParam("roomNum") String srNo,
 								 @RequestParam("openedYN") String openedYN,
 								 RedirectAttributes redirectAttr) {
 			
