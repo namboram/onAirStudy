@@ -29,8 +29,6 @@
 
 				<div class="tq_G">
 					<c:forEach items="${testList}" var="t">
-						<%-- <c:if test="${t.srNo == roomInfo.srNo }"> --%>
-
 							<div class="col-lg"
 								style="background-color: #FFF0F0; border-radius: 15px; padding: 15px;">
 								<div class="questionBox" style="background-color: white; border-radius:15px; height:250px; padding:3%">		
