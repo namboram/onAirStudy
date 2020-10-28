@@ -1,13 +1,14 @@
 package com.kh.onairstudy.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.member.model.dao.MemberDAO;
 import com.kh.onairstudy.member.model.vo.Member;
-import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -42,6 +43,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> selectDiligentMember() {
 		return memberDAO.selectDiligentMember();
+	}
+	@Override
+	public Map<String, Object> selectMemberInfo(String memberId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("profile", memberDAO.getMemberImage(memberId));
+		map.put("paymentDay", memberDAO.selectNextPaymentDay(memberId));
+		map.put("dDay", memberDAO.selectdDayInfo(memberId));
+		
+		return map;
 	}
 
 	
