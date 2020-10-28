@@ -31,7 +31,7 @@ from(select rownum rnum,
         from member M 
     )
 where 
-rnum between 1 and 10
+rnum > 0
 <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
  	<if test="searchType == 'memberId'">
 		 and member_id like '%' || #{ searchKeyword } || '%'
@@ -143,7 +143,7 @@ where
 	#{ serviceTitle },
 	#{ serviceContent },
 	#{ reply_no },
-	#{ memberId },
+	'admin',
 	sysdate,
 	'N',
 	#{ serviceLevel }
@@ -227,6 +227,7 @@ join
  	sr_category C 
  on 
  	L.sr_category = C.no
+
  <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
  	<if test="searchType == 'memberId'">
 		 and member_id like '%' || #{ searchKeyword } || '%'
@@ -238,6 +239,7 @@ join
 		 and sr_sort = #{ searchKeyword }
  	</if>
 </if>
+ order by 1 desc
  </select>
  
  <select id="studyDetail" resultType="map">
@@ -308,7 +310,31 @@ order by 1
  ]]>
  </select>
  
+ <insert id="sendMessage">
+ insert into
+ 	message
+ values(
+ 	seq_message_no.nextval,
+ 	'admin',
+ 	#{ memberId },
+ 	#{ content },
+ 	default,
+ 	default,
+ 	default,
+ 	default
+ )
+ </insert>
  
+ <select id="messageCnt" resultType="int">
+ select
+ 	count(*)
+ from
+ 	message
+ where
+ 	receiver_id = 'admin'
+ and
+	read_yn = 'N'
+ </select>
  
  
  

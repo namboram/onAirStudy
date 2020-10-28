@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.diary.model.service.DiaryService;
 import com.kh.onairstudy.diary.model.vo.Diary;
 import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
+import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +43,7 @@ public class DiaryController {
       //Map   
 //      List<Map<String, Object>> list = diaryService.selectDiaryMapList();
       
-      log.debug("list = {}", list);
+//      log.debug("list = {}", list);
       mav.addObject("list", list);
       
       mav.setViewName("diary/diaryList");
@@ -65,6 +68,14 @@ public class DiaryController {
       redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
       return "redirect:/diary/diaryList.do";
    }
+   
+   @RequestMapping("/deleteDiary.do")
+   public String deleteDiary(@RequestParam int no,RedirectAttributes redirectAttr) {
+	   int result = diaryService.deleteDiary(no);
+	   redirectAttr.addFlashAttribute("msg","게시글 삭제 완료");
+	   return "redirect:/diary/diaryList.do";
+   }
+   /*
    @RequestMapping(value = "/diaryEnroll.do", method = RequestMethod.POST)
    public String diaryEnroll(Diary diary,
                        @RequestParam(value = "upFile",
@@ -113,23 +124,64 @@ public class DiaryController {
          
          //3. 처리결과 msg 전달
          redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
-      
-      
-      
+  
       return "redirect:/diary/diaryList.do";
    }
+   */
+      
    
-      
-      
+   
+   
        @RequestMapping("/diaryDetail.do") 
-       public ModelAndView diaryDetail(@RequestParam("no") int no,
-                                ModelAndView mav) { 
+       public String diaryDetail(@RequestParam("no") int no,
+    		   					 Model model) { 
          //1. 각 테이블별 쿼리로처리 
-         Diary diary = diaryService.selectOneDiary(no); 
-         //2. mybatis collection을 이용해서 join된 쿼리 전송 
-         mav.addObject("diary", diary);
-          return mav; 
+         Diary diary = diaryService.selectOneDiary(no);
+         List<DiaryReply> list = diaryService.selectDiaryReplyList(no);
+         
+         System.out.println(no);
+         
+         log.debug("diary = {}", diary);
+         log.debug("list = {}", list);
+         
+         model.addAttribute("diary", diary);
+         model.addAttribute("list", list);
+
+          return "diary/diaryDetail"; 
        }
+      
+    //다이어리 댓글-------------------------------------
+    //댓글 입력
+   	@RequestMapping("/insertDiaryReply.do")
+   	public String insertDiaryReply(@RequestParam("replyContent") String replyContent,
+   								   @RequestParam("diaryNo") int diaryNo,
+   								   @RequestParam("memberId") String memberId,
+   									HttpServletRequest request,
+   									RedirectAttributes redirectAttr) {
+   		
+   		memberId = request.getParameter("memberId"); 
+		System.out.println(memberId);
+   		System.out.println(replyContent);
+   		System.out.println(diaryNo);
+   		
+   		DiaryReply diaryReply = new DiaryReply();
+   		diaryReply.setMemberId(memberId);
+   		diaryReply.setDiaryNo(diaryNo);
+   		diaryReply.setReplyContent(replyContent);
+   		
+   		
+   		try {
+   			int result = diaryService.insertDiaryReply(diaryReply);
+   			redirectAttr.addFlashAttribute("msg", "댓글 등록 성공!");
+   		} catch(Exception e) {
+   			log.error("댓글 등록 오류!", e);
+   			redirectAttr.addFlashAttribute("msg", "댓글 등록 오류!");
+   		}
+   		
+   		return "redirect:/diary/diaryDetail.do?no="+diaryNo;
+   	}
        
+   	
+     
       
 }

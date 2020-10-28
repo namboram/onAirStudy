@@ -38,18 +38,19 @@ public class TestController {
 		return "test/questionForm";
 	}
 	
+	//문제 등록
 	@RequestMapping(value = "mypage2/testquestion.do", method = RequestMethod.POST)
 	public String testQuestion( Test test, 	@RequestParam(value = "upFile", required = false) MultipartFile upFile,
 								@RequestParam Map<String, String> param, @RequestParam("testAnswer") int answer, RedirectAttributes redirectAttr, 
 								HttpServletRequest request) throws IllegalStateException, IOException{
-		
+		//문제
 		String question = request.getParameter("testQeustion");
 		String c1 = request.getParameter("testChoice_1");
 		String c2 = request.getParameter("testChoice_2");
 		String c3 = request.getParameter("testChoice_3");
 		String c4 = request.getParameter("testChoice_4");
 		
-		
+		//파일경로
 		String saveDirectory = request.getServletContext().getRealPath("/resources/testPic");
 
 		
@@ -76,9 +77,10 @@ public class TestController {
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "문제를 등록하였습니다." :"문제 등록 중 오류가 발생했습니다.");
 		
-		return "redirect:/mypage2/mypage2_question.do";
+		return "redirect:/mypage2/main.do?test=Y";
 	}
 	
+	//시험 문제 추출
 	@RequestMapping("mypage2/pretest.do")
 	public ModelAndView pretest(ModelAndView mav, HttpSession session) {	
 		StudyRoomInfo info = (StudyRoomInfo) session.getAttribute("roomInfo");

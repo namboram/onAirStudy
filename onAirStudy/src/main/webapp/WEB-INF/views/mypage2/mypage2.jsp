@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -64,7 +63,7 @@
 			</div>
 		</div>
 <div class="row">	
-	<nav class="side-navbar col-lg-2">
+	<nav class="side-navbar col-lg-2 p-0">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -81,9 +80,9 @@
 				<span>D - 37</span></br> <span>2020.11.02</span></br> <span>토익시험</span></br>
 				<hr>
 			</div>
-			<input type="hidden" name="day" id="attendDay" value="${roomInfo.attendDay}"/>
-			<input type="hidden" name="time" id="attendTime" value="${roomInfo.attendTime }"/>
-			<input type="hidden" name="check" id="attendCheck" value="${attendCheck }"/>
+			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
+			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
+			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
 		</div>
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
@@ -96,6 +95,9 @@
 						<li><div class="participantsJH">
 							<div class="status"></div>
 							<span>${part.memberId }</span>
+							<c:if test="${part.leaderYN eq 'Y'}">
+								<span>팀장</span>
+							</c:if>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>
 					</c:forEach>
@@ -109,7 +111,7 @@
 				</ul>
 			</li>
 			<li><a onclick="goToInvitation()">초대하기</a></li>
-			<li><a onclick="goToSchduler()">스케줄러</a></li>
+			<li><a onclick="goToSchduler(${roomInfo.srNo})">스케줄러</a></li>
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
 				<ul id="applicantsDropdown" class="collapse list-unstyled ">
@@ -125,13 +127,12 @@
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
-	<div class="col-lg-7 changeDiv">
+	<div class="col-lg-7 changeDiv p-0">
 	<jsp:include page="/WEB-INF/views/mypage2/mypage2_index.jsp"></jsp:include>
 	</div>
+
 	<div class="col-lg-3 chattingDiv" >
-		<c:if test="${ not empty roomInfo }">
-			<%-- <h1>${ roomInfo.srTitle }</h1> --%>
-		</c:if>
+
 	<!-- 채팅 include 들어갈 자리 -->
 	<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
 	</div>
@@ -172,7 +173,7 @@ function msgSend(receiverId) {
 		}
 	}
 $(function(){
-	/* var d = new Date();
+	var d = new Date();
 	var week = new Array('일','월','화','수','목','금','토');
 	
 	var day = week[d.getDay()];  //오늘 요일
@@ -188,35 +189,11 @@ $(function(){
 			var startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), attendTime[i*2] , attendTime[(i*2)+1] );
 			var endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(),  startTime.getHours(), startTime.getMinutes()+10 );
 			if(startTime.getTime() <= d.getTime() && d.getTime() <=endTime.getTime() ){
-				console.log("모달띄워요");
 				 $('#myModal').modal('show'); 
 			}
 		}
-	} */
-//	 $('#myModal').modal('show'); 
-
-
-});
-
-function popupOpen() { //이 메서드를 통해 팝업을 오픈 시킨다.
-	var url = "popup.html";
-	var name = "출석체크";
-	var option = "width = 500, height = 500, top = 100, left = 200, location = no";
-	popupObj = window.open(url, name, option);
-	/*
-		if(stopTimeCheck != "")                                        //팝업을 다시 열 경우 기존 타이머를 초기화한다. 단 
-		   clearTimeout(stopTimeCheck);   
-	*/                     
-	   
-	stopTimeCheck = setTimeout(closePopup, 3000); //10초 후에 closePopup 메서드를 실행시킨다.
-}
-
-function closePopup() {
-	if (popupObj != undefined) {
-		popupObj.close(); //팝업 종료
-		popupObj = undefined;
 	}
-}
+});
 
 function exitRoom() {
 	if(confirm("방을 나가시겠습니까?") == true){
@@ -250,8 +227,8 @@ function post_to_url(path, params, method) {
 </script>
 
 <script>
-	function goToSchduler(){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/studyroom/scheduler.do");
+	function goToSchduler(roomNum){
+		 $(".changeDiv").load("${pageContext.request.contextPath}/mypage1/scheduler.do?no="+roomNum);
 	}
 	
 	function goToQuestion(){

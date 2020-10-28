@@ -24,6 +24,13 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
+<script>
+$(document).ready(function(){
+	console.log($("#serviceLiB"));
+	$("#serviceLiB a").css("background-color", "#C9C7D1").css("font-weight", "bold").css("color", "white");
+})
+</script>
+
 
 <div class="row">
 
@@ -70,7 +77,7 @@
 				<input type="hidden" name="serviceTitle" value="답변" />
 				<input type="hidden" name="replyNo" value="${ sv.NO }" />
 				<input type="hidden" name="serviceLevel" value="2" />
-				<input type="hidden" name="memberId" value="admin" />
+				<input type="hidden" name="memberId" value="${ sv.MEMBER_ID }" />
 				<br />
 				<button type="button" class="btn btn-info">등록하기</button>
 			</c:if>

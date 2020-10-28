@@ -105,6 +105,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.memberAll();
 	}
 
+	@Override
+	public int sendMessage(Map<String, Object> map) {
+		return adminDAO.sendMessage(map);
+	}
+
+	@Override
+	public int messageCnt() {
+		return adminDAO.messageCnt();
+	}
+
 	
 	
 }
