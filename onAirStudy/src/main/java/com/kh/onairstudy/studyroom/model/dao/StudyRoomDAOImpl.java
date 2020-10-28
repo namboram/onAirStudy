@@ -175,6 +175,12 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyRoomList> selectsrList() {
 		return sqlSession.selectList("studyroom.selectsrList");
 	}
+	
+	//회원가입시 sr_log에 회원 추가 
+	@Override
+	public int insertMemberToSr(Map<String, Object> param) {
+		return sqlSession.insert("studyroom.insertMemberToSr", param);
+	}
 
 
 	@Override

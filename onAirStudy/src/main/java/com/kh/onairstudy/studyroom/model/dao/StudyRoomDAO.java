@@ -75,6 +75,9 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
+
+	int insertMemberToSr(Map<String, Object> param);
+
 	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
 
 	int updateRoomOpenedYN(HashMap<String, String> param);
@@ -82,6 +85,7 @@ public interface StudyRoomDAO {
 	int updateLeader(String memberId);
 
 	int withdraw(String memberId);
+
 
 
 
