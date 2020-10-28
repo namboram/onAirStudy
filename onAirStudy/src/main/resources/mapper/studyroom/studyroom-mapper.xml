@@ -387,4 +387,20 @@ from sr_log
 		and 
 			status_log = '참여'
 	</select>
+	
+	<update id="updateRoomInfo">
+		update 
+			sr_info 
+		set 
+			sr_title = #{srTitle} , 
+			sr_goal = #{srGoal} , 
+			sr_comment = #{srComment} , 
+			attend_day = #{ attendDay} , 
+			attend_time = #{attendTime} , 
+			forced_exit_opt = #{ forceExitOpt} , 
+			forced_exit_yn = #{ forceExitYN }
+		where 
+			sr_no = #{srNo}
+	
+	</update>
 </mapper>
