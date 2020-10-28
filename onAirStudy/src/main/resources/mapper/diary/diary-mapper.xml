@@ -89,7 +89,12 @@
   			no = #{ no }
   	</update>
   	
-  
+  <delete id="deleteDiary">
+  	delete
+  	from
+  		diary
+  	where no = #{no}
+  </delete>
   	
   	
   	

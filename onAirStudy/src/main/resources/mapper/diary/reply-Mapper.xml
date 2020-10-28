@@ -27,4 +27,11 @@
 		order by
 			no
   	</select>
+  	
+  	<delete id="deleteDiaryReply">
+  		delete from
+  			diary_reply
+  		where
+  			no = #{no}
+  	</delete>
 </mapper>

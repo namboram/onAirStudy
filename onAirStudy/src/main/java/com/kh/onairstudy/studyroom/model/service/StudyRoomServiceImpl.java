@@ -70,7 +70,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 	@Override
-	public List<String> selectCheckWish(StudyRoomWish srWish) {
+	public int selectCheckWish(StudyRoomWish srWish) {
 		return studyRoomDAO.selectCheckWish(srWish);
 	}
 //	방생성
@@ -177,6 +177,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	@Override
 	public List<StudyRoomList> selectsrList() {
 		return studyRoomDAO.selectsrList();
+	}
+	
+	//회원가입시 sr_log에 회원 추가 
+	@Override
+	public int insertMemberToSr(Map<String, Object> param) {
+		return studyRoomDAO.insertMemberToSr(param);
 	}
 
 	@Override

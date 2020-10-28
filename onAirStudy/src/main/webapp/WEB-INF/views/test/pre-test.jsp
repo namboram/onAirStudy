@@ -97,7 +97,16 @@
 		        }); 
 		    
 		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
-				$(".userAnswer").val(event.result);				
+				$(".userAnswer:eq(0)").val(event.result);				
+			/* 	$(".userAnswer:eq(1)").val(event.result);				
+				$(".userAnswer:eq(2)").val(event.result);				
+				$(".userAnswer:eq(3)").val(event.result);				
+				$(".userAnswer:eq(4)").val(event.result);				
+				$(".userAnswer:eq(5)").val(event.result);				
+				$(".userAnswer:eq(6)").val(event.result);				
+				$(".userAnswer:eq(7)").val(event.result);				
+				$(".userAnswer:eq(8)").val(event.result);				
+				$(".userAnswer:eq(9)").val(event.result);	 */			
 		        });
 	
 		</script>

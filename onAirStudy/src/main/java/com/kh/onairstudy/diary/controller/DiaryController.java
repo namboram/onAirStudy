@@ -1,27 +1,20 @@
 package com.kh.onairstudy.diary.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.diary.model.service.DiaryService;
 import com.kh.onairstudy.diary.model.vo.Diary;
-import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,6 +60,13 @@ public class DiaryController {
       log.info("diary={}",diary);
       redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
       return "redirect:/diary/diaryList.do";
+   }
+   
+   @RequestMapping("/deleteDiary.do")
+   public String deleteDiary(@RequestParam int no,RedirectAttributes redirectAttr) {
+	   int result = diaryService.deleteDiary(no);
+	   redirectAttr.addFlashAttribute("msg","게시글 삭제 완료");
+	   return "redirect:/diary/diaryList.do";
    }
    /*
    @RequestMapping(value = "/diaryEnroll.do", method = RequestMethod.POST)
@@ -173,7 +173,25 @@ public class DiaryController {
    		
    		return "redirect:/diary/diaryDetail.do?no="+diaryNo;
    	}
-       
+    
+   	//댓글삭제
+   	@RequestMapping("/deleteReply.do")
+   	public String deleteDiaryReply(@RequestParam("no") int no,
+   								   @RequestParam("diaryNo") int diaryNo,
+   								   HttpServletRequest request,
+   								   RedirectAttributes redirectAttributes) {
+
+   		
+   		diaryNo = Integer.valueOf(request.getParameter("diaryNo"));
+   		DiaryReply diaryReply = new DiaryReply();   		
+   		diaryReply.setNo(no);
+   		diaryReply.setDiaryNo(diaryNo);
+   		
+   		int result = diaryService.deleteDiaryReply(diaryReply);
+   		redirectAttributes.addFlashAttribute("msg", result>0 ? "댓글 삭제성공" : "댓글 삭제실패");
+   		return "redirect:/diary/diaryDetail.do?no="+diaryNo;
+   				
+   	}
    	
      
       
