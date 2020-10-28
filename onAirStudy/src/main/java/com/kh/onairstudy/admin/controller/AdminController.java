@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,56 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+
 	
+	//페이징 메소드
+	public static String getPageBarHtml(int cPage, int numPerPage, int totalContents, String url) {
+		StringBuilder pageBar = new StringBuilder();
+
+		// cPage앞에 붙을 구분자를 지정
+		char delim = url.indexOf("?") > -1 ? '&' : '?';
+		url = url + delim;
+
+		int pageBarSize = 5; // 페이지바에 나열될 페이지번호의 개수
+		// 115 / 10 => 12
+		int totalPage = (int) Math.ceil((double) totalContents / numPerPage);
+
+		// x * pageBarSize + 1
+		// 1 2 3 4 5 -> 1
+		// 6 7 8 9 10 -> 6
+		// 11 12 13 14 15 -> 11
+		int pageStart = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
+		int pageEnd = pageStart + pageBarSize - 1;
+		int pageNo = pageStart;
+
+		// 이전
+		if (pageNo == 1) {
+
+		} else {
+			pageBar.append("<a href='" + url + "cPage=" + (pageNo - 1) + "'>이전</a>\n");
+		}
+
+		// PageNo
+		while (pageNo <= pageEnd && pageNo <= totalPage) {
+			// 현재페이지인 경우
+			if (pageNo == cPage) {
+				pageBar.append("<span class='cPage'>" + pageNo + "</span>\n");
+			}
+			// 현재페이지가 아닌 경우
+			else {
+				pageBar.append("<a href='" + url + "cPage=" + pageNo + "'>" + pageNo + "</a>\n");
+			}
+			pageNo++;
+		}
+		// 다음
+		if (pageNo > totalPage) {
+
+		} else {
+			pageBar.append("<a href='" + url + "cPage=" + pageNo + "'>다음</a>\n");
+		}
+
+		return pageBar.toString();
+	}
 
 	//메인
 	@RequestMapping("/admin/main.do")
@@ -72,12 +122,22 @@ public class AdminController {
 	public Model adminMemberList(Model model,
 								@RequestParam(value="searchType",
 								required=false)String searchType,
-								@RequestParam(value="searchContent",
-								required=false)String[] searchKeyword) {
-		
+								@RequestParam(value="searchKeyword",
+								required=false)String[] searchKeyword,
+								HttpServletRequest request, HttpServletResponse response) {
+		// 1. 파라미터값 변수에 담기
+		int numPerPage = 15;// 한페이지당 수
+		int cPage = 1;// 요청페이지
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+
+		}
+
 		Map<String, Object> search = new HashMap<>();
-		
-		log.debug("ss={}", searchKeyword);
+
+		//리퀘온 주소
+		String url = request.getRequestURI();
 		
 		if(searchType!=null && searchKeyword !=null) {
 
@@ -86,9 +146,24 @@ public class AdminController {
 			
 			if(searchKeyword.length > 1)
 				search.replace("searchKeyword", searchKeyword[1]);
+			
+		url += "?searchType="+search.get("searchType")+"&searchKeyword="+search.get("searchKeyword");
 				
 		}
+		
+		//전체수, 전체페이지수 구하기
+		int totalContents = adminService.totalMember(search);
 
+		String pageBar = getPageBarHtml(cPage, numPerPage, totalContents, url);
+		
+		log.debug("pageBar={}", pageBar);
+		
+		log.debug("totalContents ={}", totalContents);
+		
+		//rnum 넣어주기
+		search.put("start", (cPage-1)*numPerPage+1);
+		search.put("end", cPage*numPerPage);
+		
 		log.debug("search={}", search);
 		
 		List<Member> list = adminService.memberList(search);
@@ -96,6 +171,7 @@ public class AdminController {
 
 		model.addAttribute("search", search);
 		model.addAttribute("list", list);
+		model.addAttribute("pageBar", pageBar);
 		
 		return model;
 	}
@@ -116,25 +192,54 @@ public class AdminController {
 	
 	//문의사항
 	@RequestMapping("/admin/serviceList.do")
-	public ModelAndView serviceList(ModelAndView mav, HttpServletRequest request) {
-		
-		String searchType = (String)request.getParameter("searchType");
-		String searchKeyword = (String)request.getParameter("searchContent");
-		
+	public ModelAndView serviceList(ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
+
+		// 1. 파라미터값 변수에 담기
+		int numPerPage = 10;// 한페이지당 수
+		int cPage = 1;// 요청페이지
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+
+		String searchType = (String) request.getParameter("searchType");
+		String searchKeyword = (String) request.getParameter("searchKeyword");
+
+		// 리퀘온 주소
+		String url = request.getRequestURI();
+
 		Map<String, Object> search = new HashMap<>();
-		
-		if(searchType != null && searchKeyword != null) {
+
+		if (searchType != null && searchKeyword != null) {
 			search.put("searchType", searchType);
 			search.put("searchKeyword", searchKeyword);
+
+			url += "?searchType=" + search.get("searchType") + "&searchKeyword=" + search.get("searchKeyword");
+
 		}
-		
-		log.debug("search = {}",search);
+
+		// 전체수, 전체페이지수 구하기
+		int totalContents = adminService.totalService(search);
+
+		String pageBar = getPageBarHtml(cPage, numPerPage, totalContents, url);
+
+		log.debug("pageBar={}", pageBar);
+
+		log.debug("totalContents ={}", totalContents);
+
+		// rnum 넣어주기
+		search.put("start", (cPage - 1) * numPerPage + 1);
+		search.put("end", cPage * numPerPage);
+
+		log.debug("search={}", search);
+
 		List<Map<String, Object>> map = adminService.serviceList(search);
-		log.debug("map={}",map);
-		
+		log.debug("map={}", map);
+
 		mav.addObject("search", search);
 		mav.addObject("list", map);
-		
+		mav.addObject("pageBar", pageBar);
+
 		return mav;
 	}
 	
@@ -182,25 +287,52 @@ public class AdminController {
 	//신고내역
 	@RequestMapping(value="/admin/reportList.do")
 	public ModelAndView reportList(ModelAndView mav,
-									@RequestParam(value="searchContent", required=false) String searchContent) {
+									@RequestParam(value="searchKeyword", required=false) String searchKeyword,
+									HttpServletRequest request, HttpServletResponse response) {
+		
+		// 1. 파라미터값 변수에 담기
+		int numPerPage = 10;// 한페이지당 수
+		int cPage = 1;// 요청페이지
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
 		
 		//mepper에서 if test문 작성하기 위해 map에 넣어서 전송
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> search = new HashMap<>();
 		
-		if(searchContent != null)
-			map.put("searchContent", searchContent);
-		else
-			map.clear();
+		// 리퀘온 주소
+		String url = request.getRequestURI();
+
+		if(searchKeyword != null) {
+			search.put("searchKeyword", searchKeyword);
+			
+			url += "?searchType=" + search.get("searchType") + "&searchKeyword=" + search.get("searchKeyword");
+		}
 		
-		log.debug("map ={}", map);
+		// rnum 넣어주기
+		search.put("start", (cPage - 1) * numPerPage + 1);
+		search.put("end", cPage * numPerPage);
+
+		log.debug("search={}", search);
 		
-		List<Map<String, Object>> list = adminService.reportList(map);
+		// 전체수, 전체페이지수 구하기
+		int totalContents = adminService.totalReport(search);
+
+		String pageBar = getPageBarHtml(cPage, numPerPage, totalContents, url);
+
+		log.debug("pageBar={}", pageBar);
+
+		log.debug("totalContents ={}", totalContents);
+		
+		List<Map<String, Object>> list = adminService.reportList(search);
 		log.debug("list = {}",list);
 		
 		mav.addObject("list", list);
+		mav.addObject("pageBar", pageBar);
 		
-		if(searchContent != null)
-			mav.addObject("searchContent", searchContent);
+		if(searchKeyword != null)
+			mav.addObject("searchContent", searchKeyword);
 		
 		return mav;
 	}
@@ -228,30 +360,58 @@ public class AdminController {
 	public ModelAndView studyList(ModelAndView mav,
 								@RequestParam(value="searchType",
 								required=false)String searchType,
-								@RequestParam(value="searchContent",
-								required=false)String[] searchKeyword) {
+								@RequestParam(value="searchKeyword",
+								required=false)String[] searchKeyword,
+								HttpServletRequest request, HttpServletResponse response) {
 		
-		Map<String, Object> search = new HashMap<>();
-		
-		log.debug("ss={}", searchKeyword);
-		
-		if(searchType!=null && searchKeyword !=null) {
-				
-			search.put("searchType", searchType);
-			search.put("searchKeyword", searchKeyword[0]);
-			
-			if(searchKeyword.length > 1)
-				search.replace("searchKeyword", searchKeyword[1]);
+		// 1. 파라미터값 변수에 담기
+		int numPerPage = 10;// 한페이지당 수
+		int cPage = 1;// 요청페이지
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
 		}
 
-		log.debug("search={}", search);
+		Map<String, Object> search = new HashMap<>();
 		
+		log.debug("searchType={}", searchType);
+		log.debug("searchKeyword={}", searchKeyword);
+
+		// 리퀘온 주소
+		String url = request.getRequestURI();
+
+		if (searchType != null && searchKeyword != null) {
+
+			search.put("searchType", searchType);
+			search.put("searchKeyword", searchKeyword[0]);
+
+			if (searchKeyword.length > 1)
+				search.replace("searchKeyword", searchKeyword[1]);
+
+			url += "?searchType=" + search.get("searchType") + "&searchKeyword=" + search.get("searchKeyword");
+		}
+
+		// rnum 넣어주기
+		search.put("start", (cPage - 1) * numPerPage + 1);
+		search.put("end", cPage * numPerPage);
+
+		log.debug("search={}", search);
+
+		// 전체수, 전체페이지수 구하기
+		int totalContents = adminService.totalStudy(search);
+
+		String pageBar = getPageBarHtml(cPage, numPerPage, totalContents, url);
+
+		log.debug("pageBar={}", pageBar);
+
+		log.debug("totalContents ={}", totalContents);
+
 		List<Map<String, Object>> list = adminService.studyList(search);
 		log.debug("list={}", list);
-		
+
 		mav.addObject("search", search);
 		mav.addObject("list", list);
-		
+		mav.addObject("pageBar", pageBar);
 		
 		return mav;
 	}

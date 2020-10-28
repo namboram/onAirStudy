@@ -23,7 +23,7 @@
 		<ul class="list-unstyled">
 			<li id="serviceLiB"><a href="${ pageContext.request.contextPath }/admin/serviceList.do">문의사항 <div class="countingAlarm" id="serviceCnt">6</div></a></li>
 			<li id="reportLiB"><a href="${ pageContext.request.contextPath }/admin/reportList.do">신고내역</a></li>
-			<li id="memberLiB"><a href="${ pageContext.request.contextPath }/admin/memberList.do">회원관리</a></li>
+			<li id="memberLiB"><a href="${ pageContext.request.contextPath }/admin/memberList.do?">회원관리</a></li>
 			<li id="studyLiB"><a href="${ pageContext.request.contextPath }/admin/studyList.do">그룹관리</a></li>
 		</ul>
 	</nav>

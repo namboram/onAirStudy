@@ -36,11 +36,11 @@ $(document).ready(function(){
 				<option value="status" >답변상태</option>
 			</select>
 			<div id="hide1B" style="display:inline-block">
-				<input type="text" name="searchContent"  value=""/>
+				<input type="text" name="searchKeyword"  value=""/>
 				<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
 			</div>
 			<div id="hide2B" style="display:none;">
-				<select class="custom-select" name="searchContent">
+				<select class="custom-select" name="searchKeyword">
 					<option value="none" selected disabled>선택</option>
 					<option value="1">신고</option>
 					<option value="2">이용</option>
@@ -49,8 +49,8 @@ $(document).ready(function(){
 				</select>
 			</div>
 			<div id="hide3B" style="display:none;">
-				<input type="radio" name="searchContent" value="답변대기" />답변대기
-				<input type="radio" name="searchContent" value="답변완료"/>답변완료
+				<input type="radio" name="searchKeyword" value="답변대기" />답변대기
+				<input type="radio" name="searchKeyword" value="답변완료"/>답변완료
 			</div>
 			</form>
 		</div>
@@ -83,20 +83,11 @@ $(document).ready(function(){
 	
 		
 		</table>
-
-		<nav aria-label="Page navigation example" style="display:inline-block;">
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</ul>
-		</nav>
+		
+		<div id='pageBar'>
+			${ pageBar }
+		</div>
+		
 	</div>
 	
 </div>	
@@ -142,41 +133,35 @@ $(document).ready(function(){
 
 	$(document).ready(function() {
 		$("#hide2B select").change(function() {
-			$("[name=searchContent]").val($("#hide2B option:selected").val());
+			$("[name=searchKeyword]").val($("#hide2B option:selected").val());
 			searchNow();
 		});
 	});
 
 	$(document).ready(function() {
 		$("#hide3B input").change(function() {
-			$("[name=searchContent]").val($("#hide3B input:checked").val());
+			$("[name=searchKeyword]").val($("#hide3B input:checked").val());
 			searchNow();
 		});
 	});
 
 	var searchType = "<c:out value="${search['searchType']}"/>";
-	var searchContent = "<c:out value="${search['searchKeyword']}"/>";
+	var searchKeyword = "<c:out value="${search['searchKeyword']}"/>";
 
 	//검색유지
 	$(document).ready(
 			function() {
-				if (searchType != "" && searchContent != "") {
+				if (searchType != "" && searchKeyword != "") {
 					if (searchType == 'memberId') {
-						$("#hide1B input").val(searchContent);
+						$("#hide1B input").val(searchKeyword);
 					} else if (searchType == 'category') {
 						a.css("display", "none");
 						b.css("display", "inline-block");
-						$(
-								'#hide2B [name=searchContent] option:eq('
-										+ searchContent + ')').prop('selected',
-								true);
+						$('#hide2B ption:eq()').prop('selected', true);
 					} else if (searchType == 'status') {
 						a.css("display", "none");
 						c.css("display", "inline-block");
-						$(
-								'#hide3B [name=searchContent]:radio[value='
-										+ searchContent + ']').prop('checked',
-								true);
+						$('#hide3B [name=searchKeyword]:radio[value='+ searchKeyword + ']').prop('checked', true);
 					}
 					$('[name=searchType]').val(searchType).prop('selected',
 							true);
