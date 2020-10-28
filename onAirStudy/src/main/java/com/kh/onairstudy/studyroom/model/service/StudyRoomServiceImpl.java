@@ -209,6 +209,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.updateLeader(memberId);
 	}
 
+
+	@Override
+	public int withdraw(String memberId) {
+		return studyRoomDAO.withdraw(memberId);
+	}
+
 	
 	
 }

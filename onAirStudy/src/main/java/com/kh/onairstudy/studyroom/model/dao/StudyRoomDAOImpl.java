@@ -204,6 +204,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.update("studyroom.updateLeader", memberId);
 	}
 
+	@Override
+	public int withdraw(String memberId) {
+		return sqlSession.update("studyroom.withdraw", memberId);
+	}
+
 	
 	
 	

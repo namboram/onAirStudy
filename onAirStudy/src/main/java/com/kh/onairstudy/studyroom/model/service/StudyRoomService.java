@@ -70,6 +70,8 @@ public interface StudyRoomService {
 
 	int updateLeader(String memberId);
 
+	int withdraw(String memberId);
+
 
 
 

@@ -81,6 +81,8 @@ public interface StudyRoomDAO {
 
 	int updateLeader(String memberId);
 
+	int withdraw(String memberId);
+
 
 
 	

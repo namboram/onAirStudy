@@ -103,7 +103,9 @@ function secession(myId){
 
 	var teamLeader = $("#leaderId").val();
 	if(myId == teamLeader){
-		console.log("팀장이네여!");
+		post_to_url("${pageContext.request.contextPath}/studyroom/updateLeader.do", {"roomNum" : ${roomInfo.srNo});
+	}else{
+		post_to_url("${pageContext.request.contextPath}/studyroom/withdraw.do", {"roomNum" : ${roomInfo.srNo});
 	}
 	
 }
