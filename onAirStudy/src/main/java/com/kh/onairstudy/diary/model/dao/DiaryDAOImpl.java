@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.diary.model.vo.Diary;
 import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
+import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 @Repository
 public class DiaryDAOImpl implements DiaryDAO {
@@ -52,6 +53,19 @@ public class DiaryDAOImpl implements DiaryDAO {
 	public void diaryReadCount(int no) {
 		sqlSession.update("diary.diaryReadCount", no);
 		
+	}
+
+
+
+	@Override
+	public int insertDiaryReply(DiaryReply diaryReply) {
+		return sqlSession.insert("diaryReply.insertDiaryReply", diaryReply);
+	}
+
+
+	@Override
+	public List<DiaryReply> selectDiaryReplyList(int diaryNo) {
+		return sqlSession.selectList("diaryReply.selectDiaryReplyList", diaryNo);
 	}
 
 

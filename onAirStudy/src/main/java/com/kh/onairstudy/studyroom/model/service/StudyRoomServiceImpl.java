@@ -105,7 +105,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 
-
 	
 	@Override
 	public List<StudyRoomLog> selectStudyRoomLog() {

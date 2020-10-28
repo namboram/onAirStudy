@@ -19,7 +19,7 @@
             <p>Let's start studying at OnAirStudy</p>
         </div>
         <div id="enroll-bottom-container" class="mx-auto text-center">
-            <form id="memberEnrollFrm" action="memberEnroll.do" method="post" onsubmit="return validate();">
+            <form id="memberEnrollFrm" action="memberEnroll.do" method="post"  >
                 
                 <div class="mx-auto" id="member-enroll-table">
                     <h2>Sign up</h2>
@@ -152,45 +152,84 @@ $(document).ready(function(){
 
 
 /* 회원가입-유효성검사 */
-function validate() {
-       var re = /^[a-zA-Z0-9]{4,12}$/ // 아이디가 적합한지 검사할 정규식
-
-       // 이메일이 적합한지 검사할 정규식
-
-       var id = document.getElementById("memberId_");
-       var pw = document.getElementById("password_");
-
-       if(!check(re,id,"아이디는 4~12자의 영문 대소문자와 숫자로만 입력")) {
-           return false;
-       }
-
-       if(join.pw.value != join.passwordCheck_.value) {
-           alert("비밀번호가 다릅니다. 다시 확인해 주세요.");
-           join.checkpw.value = "";
-           join.checkpw.focus();
-           return false;
-       }
-
-
-       if(join.memberName.value=="") {
-           alert("이름을 입력해 주세요");
-           join.name.focus();
-           return false;
-       }
-
+$("#memberEnrollFrm").submit(function(){
+	
+       var getCheck = /^[a-zA-Z0-9]{4,12}$/ // 아이디가 적합한지
+       var getName= RegExp(/^[가-힣]+$/); //이름
+       var getPhoneCheck =/^[0-9]{11}$/ //폰번호
        
-       alert("회원가입이 완료되었습니다.");
-   }
 
-   function check(re, what, message) {
-       if(re.test(what.value)) {
-           return true;
+     //아이디 공백 확인
+       if($("#memberId_").val() == ""){
+         alert("아이디 입력바람");
+         $("#memberId_").focus();
+         return false;
        }
-       alert(message);
-       what.value = "";
-       what.focus();
-       //return false;
-   }
+  
+       //이름의 유효성 검사
+       if(!getCheck.test($("#memberId_").val())){
+         alert("아이디를 4~12자리 영문,숫자만 가능해요");
+         $("#memberId_").val("");
+         $("#memberId_").focus();
+         return false;
+       }
+  
+       //비밀번호
+       if(!getCheck.test($("#password_").val())) {
+       alert("비밀번호는 4~12자리 영문,숫자만  가능해요");
+       $("#password_").val("");
+       $("#password_").focus();
+       return false;
+       }
+
+       //비밀번호 공백 확인
+       if($("#password_").val() == ""){
+         alert("비밀번호 입력바람");
+         $("#password_").focus();
+         return false;
+       }
+     //비밀번호체크 공백 확인
+       if($("#passwordCheck_").val() == ""){
+         alert("비밀번호 입력바람");
+         $("#passwordCheck_").focus();
+         return false;
+       }
+  
+       //아이디랑 비밀번호랑 같은지
+       if ($("#memberId_").val()==($("#password_").val())) {
+       alert("비밀번호가 ID와 똑같으면 놉!");
+       $("#password_").val("");
+       $("#password_").focus();
+     }
+  
+       //비밀번호 똑같은지
+       if($("#password_").val() != ($("#passwordCheck_").val())){ 
+       alert("비밀번호가 틀렸네용.");
+       $("#password_").val("");
+       $("#passwordCheck_").val("");
+       $("#password_").focus();
+       return false;
+      }
+       
+  
+       //이름 유효성
+       if (!getName.test($("#memberName").val())) {
+         alert("이름 똑띠 쓰세용");
+         $("#memberName").val("");
+         $("#memberName").focus();
+         return false;
+       }
+
+		//비밀번호
+		if(!getPhoneCheck.test($("#phone").val())) {
+		alert("휴대폰번호 11자리수를 입력해주세요");
+		$("#phone").val("");
+		$("#phone").focus();
+		return false;
+		}
+		
+     return true;
+
 });
 
 </script> 
