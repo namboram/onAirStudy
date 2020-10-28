@@ -74,6 +74,7 @@ public class ServiceCenterController {
 	        
 	        //map에 담기위해 리스트에 검색옵션, 키워드를 저장
 	        List<ServiceCenter> list = serviceCenterService.listAll(search_option, keyword, category);
+	        List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
 	        
 	        ModelAndView mav = new ModelAndView();
 	        Map<String,Object> map = new HashMap<>();    //넘길 데이터가 많기 때문에 해쉬맵에 저장한 후에 modelandview로 값을 넣고 페이지를 지정
@@ -81,9 +82,9 @@ public class ServiceCenterController {
 	        map.put("list", list);                         //map에 list(게시글 목록)을 list라는 이름의 변수로 자료를 저장함.
 	        map.put("search_option", search_option);
 	        map.put("keyword", keyword);
-	        mav.addObject("map", map);                    //modelandview에 map를 저장
-	        
+	        mav.addObject("map", map);                    //modelandview에 map를 저장	        
 	        mav. addObject("serviceList", list);	        
+	        mav. addObject("serviceContentList", serviceContentList);
 	        mav.setViewName("service/servicecenter");    
 	            
 	        
@@ -107,7 +108,7 @@ public class ServiceCenterController {
 	 
 	 
 
-	 
+	 //수정 폼
 	 @RequestMapping(value="serviceUpdate.do", method = RequestMethod.GET)
 		public String serviceUpdate(@RequestParam int no, Model model){
 		
@@ -117,12 +118,13 @@ public class ServiceCenterController {
 
 	 
 	 //수정		
-		@RequestMapping(value="serviceUpdate.do", method = RequestMethod.POST)
+		@RequestMapping(value="serviceUpdate.do")
 		public String serviceUpdate(ServiceCenter service, RedirectAttributes redirectAttributes) {
 			
-			System.out.println("serviceUpdate="+ service);
+			log.debug("serviceUpdate={}"+ service);
 			
 			int result = serviceCenterService.serviceUpdate(service);
+			
 			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 수정성공" : "Dev 수정실패");
 			return "redirect:/servicecenter.do";
 		}

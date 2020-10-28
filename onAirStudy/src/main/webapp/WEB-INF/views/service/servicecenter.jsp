@@ -64,60 +64,62 @@ $(document).ready(function() {
 
 
 	<!--   서비스별 질문 -->
-	<div class="row" >
-		<div class="m-5">
+	<div class="row" style="margin-left:15%;" >
+		<div class="m-5" >
 		
-			<h3>서비스별 질문</h3>
-			<hr>
-				<ul class="row" >
+			<h3 class="text-center">서비스별 질문</h3>
+			<hr style="border:2px solid rgb(247, 235, 229);">
+				<ul class="row" style="list-style:none; ">
 				<li>
-					<div class="mx-auto d-block">
-					<a href="#" onclick="selectCategory(3)">
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-						<h4 style="margin-top:20%;">결제</h4>	
-					</a>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(1)">
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
+						</a><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(1)">신고</h4>	
+					</div></li>
+				<li>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(2)">
+						<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
+						</a><br><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(2)">이용</h4>
 					</div>
 				</li>
 				<li>
-					<div class="mx-auto d-block">
-					<a href="#" onclick="selectCategory(2)">
-						<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
-						<h4 style="margin-top:20%;">이용</h4></a></div>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(3)">
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px"></a>
+						<br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(3)">결제</h4>	
+					
+					</div>
 				</li>
 				<li>
-					<div class="mx-auto d-block">
+					<div class="mx-auto d-block p-5">
 					<a href="#" onclick="selectCategory(4)">	
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-						<h4 style="margin-top:20%;">기타</h4></a></div>	
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/etc.png" width="60px"></a>
+						<br><h4 class="text-center" style="margin-top:20%;  color=black; cursor:pointer;" onclick="selectCategory(4)">기타</h4></div>	
 				</li>
-				<li>
-					<div class="mx-auto d-block">
-					<a href="#" onclick="selectCategory(1)">
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
-						<h4 style="margin-top:20%;">신고</h4>	
-					</a></div></li>
+				
 				</ul>
-				<hr>
+				<hr style="border:2px solid rgb(247, 235, 229);">
 		</div>
 			
 				
 	<!-- 자주묻는 질문 -->
 	<div class="m-5">
-		<h3>자주하는 질문</h3>
+		<h3 class="text-center">자주하는 질문</h3>
 		
-	 <div class="bs-example">
+	 <div class="bs-example" >
 		    <div class="accordion" id="accordionExample">	        
 		       
 		       <c:forEach items="${ serviceContentList }" var="sc" varStatus="status">      
 			        <div class="card">
 			            <div class="card-header">
-			                <h2 class="mb-0">
+			                <h2 class="mb-2 text-center" style="width:300px; ">
 			                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne${status.index}">${ sc.title }</button>									
 			                </h2>
 			            </div>
 			            <div id="collapseOne${status.index}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 			                <div class="card-body">
-			                    <p>${ sc.content } <a href="" target="_blank">Learn more.</a></p>
+			                    <p>${ sc.content }</p>
 			                </div>
 			            </div>
 			        </div>

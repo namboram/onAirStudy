@@ -71,10 +71,15 @@ public class DiaryServiceImpl implements DiaryService {
 	public List<DiaryReply> selectDiaryReplyList(int diaryNo) {
 		return diaryDAO.selectDiaryReplyList(diaryNo);
 	}
+
+	@Override
+	public int deleteDiary(int no) {
+		return diaryDAO.deleteDiary(no);
+	}
 	
 
 	
-
+	
 
 
 	

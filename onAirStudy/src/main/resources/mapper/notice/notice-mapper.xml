@@ -9,9 +9,11 @@ select
 	*
 from
 	notice
+order by
+	notice_date
 </select>
 
-<insert id="insertNotice">
+<insert id="noticeInsert">
 insert into
 	notice
 values(
@@ -32,7 +34,7 @@ where
 	no = #{ no }
 </select>
 
-<update id="updateNotice">
+<update id="noticeUpdate">
 update
 	notice
 set
@@ -48,5 +50,15 @@ delete
 where
 	no = #{ no }
 </delete>
+
+<update id="updateCnt">
+update
+	notice
+set
+	read_cnt = read_cnt+1
+where
+	no = #{ no }
+</update>
+
  
 </mapper>

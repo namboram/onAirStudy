@@ -12,9 +12,7 @@ $(document).ready(function(){
     $("#list").on("click",function(){
     	location.href = '${pageContext.request.contextPath}/servicecenter.do'
     })
-    $("#modify").on("click",function(){
-    	location.href = '${ pageContext.request.contextPath }/serviceUpdate.do'
-    })
+    
 });
 
 
@@ -34,7 +32,11 @@ $(document).ready(function(){
 	
 	<div>
 	<h2 class="text-center">고객센터 수정하기</h2>
-	<form name="serviceUpdateFrm" action="${pageContext.request.contextPath}/serviceUpdate.do" method="post">
+<%-- <c:if test="${ not empty service }"> --%>
+	<form name="serviceUpdateFrm" 
+		 action="${pageContext.request.contextPath}/serviceUpdate.do"
+		 method="post">
+		 <input type="hidden" name="no" value="${ Service.NO }" />
 		<table class="board_view">
 		
 		<div class="form-group row">
@@ -47,7 +49,7 @@ $(document).ready(function(){
 		<div class="form-group row">
 		  <label for="MEMBER_ID" class="col-sm-2 col-form-label">작성자</label>
 		  <div class="col-sm-10">
-		    <input type="MEMBER_ID" class="form-control" id="MEMBER_IDl" name="MEMBER_ID" value="${ service.MEMBER_ID }"  readonly>
+		    <input type="MEMBER_ID" class="form-control" id="MEMBER_ID" name="MEMBER_ID" value="${ service.MEMBER_ID }"  readonly>
 		  </div>
 		</div>
 		<div class="form-group row">
@@ -62,13 +64,11 @@ $(document).ready(function(){
    
    <div class="text-center"> 
 		<a href="#this" id="list" class="btn">목록으로</a>
-		<input type="hidden" name="no" value="${ service.NO }">
 		
-		<button type="submit" class="btn" id="modify">수정하기</button>
+		<button type="submit" class="btn">수정하기</button>
 		</div>
 	
-	
-
+<%-- </c:if> --%>
 
 </div>
 

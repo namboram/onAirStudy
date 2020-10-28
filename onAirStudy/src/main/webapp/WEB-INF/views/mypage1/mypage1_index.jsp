@@ -24,31 +24,32 @@
 		<hr>
 		
 		
+			<c:if test="${ loginMember.memberRole == 'P'}">
 			<h3>이번달 스터디방별 출석 그래프</h3>
-			
 		<div class="row">
+					<div class="col-md-5">
+						<canvas id="myChart1"></canvas>
+						<input type="hidden" name="hiddenAttend" value="${ attendList }" />
+					</div>	
+			</c:if>
+		
 			
-				<%-- <c:if> member_role 이 'M'이면 안보이게, 'p'면 보이게 하기--%>
-				<div class="col-md-5">
-					<canvas id="myChart1"></canvas>
-					<input type="hidden" name="hiddenAttend" value="${attendList }" />
-				</div>	
-			<%-- </c:if> --%>	
 			
-			-------------옮기자----->
 			<!-- To Do List-->
             <div class="col-lg-3 col-md-6">
               <div class="card to-do">
                 <h2 class="display h4">To do List<button type="button" class="btn btn-light float-right"
 					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더
 					보기</button></h2>
-                
-                <p>To Do List로 계획을 짜봅시다~.</p>
-					
+                <c:if test="${ empty todoList }">
+                	<p>캘린더에서 to do list를 등록해보세요~~~</p>
+				</c:if>					
                 <ul class="check-lists list-unstyled">
 	                <c:forEach items="${ todoList }" var="td" varStatus="status">
 	                  <li class="d-flex align-items-center"> 
-	                    <input type="checkbox" id="list-1${status.index}" name="list-1" class="form-control-custom">
+	                    <input type="checkbox" id="list-1${status.index}" name="list-1" class="form-control-custom"
+	                      <%-- ${ todoList.scheduleYN eq 'Y' ? 'checked' : '' }  --%>
+	                     >
 	                    <label for="list-1">${ td.content }</label>
 	                  </li>
 	               </c:forEach>
@@ -72,27 +73,12 @@
 				등록하기</button>
 		</h3>
 	
-	<%-- <c:if test=""> --%>
+	<c:if test="${ empty studytimeList }">
 		<h4 class="text-center">공부한 날짜와 시간을 등록해보세요.</h4>
 		<br>
-	<%-- </c:if> --%>
+	</c:if>
 		
 		<div class="col-md-7">
-			<%-- <div>
-					<table>
-						<tr>
-							<th>날짜</th>
-							<th>시간</th>
-						</tr>
-				<c:forEach items="${studytimeList}" var="st">
-						<tr>
-							<td><fmt:formatDate pattern="yyyy.MM.dd" value="${ st.studyDate }"/></td>
-							<td>${ st.studyTime }</td>
-						</tr>
-				</c:forEach>
-					</table>
-			</div> --%>
-			
 			<canvas id="lineChart" style="margin-left:30%;"></canvas>
 		</div>
 	</div>
@@ -196,12 +182,6 @@
 			});
 
 	
-
-	
-							
-
-			
-			
 
 
 

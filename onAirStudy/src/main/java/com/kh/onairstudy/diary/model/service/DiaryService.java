@@ -24,6 +24,9 @@ public interface DiaryService {
 	int insertDiaryReply(DiaryReply diaryReply);
 
 
+	int deleteDiary(int no);
+
+
 
 
 
