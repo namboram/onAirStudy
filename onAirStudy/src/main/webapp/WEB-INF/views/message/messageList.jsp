@@ -72,10 +72,10 @@
 							
 							<c:choose>
 								<c:when test="${fn:length(message.msgContent) gt 15}">
-									<td><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}"><c:out value="${fn:substring(message.msgContent, 0, 15)}"></c:out>...</a></td>
+									<td ><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}" ><c:out value="${fn:substring(message.msgContent, 0, 15)}"></c:out>...</a></td>
 								</c:when>
 								<c:otherwise>
-									<td><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}">${message.msgContent}</a></td>
+									<td ><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}" >${message.msgContent}</a></td>
 								</c:otherwise>
 							</c:choose>
 							<td><fmt:formatDate value="${message.sendDate }"
@@ -100,6 +100,21 @@
 </div>
 
 <script>
+$(document).on("click",".msgDetail",function(){
+	/*${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}  */
+
+/*      var j = $(".msgDetail").index(this); 
+     console.log(j);
+	 var thisIdx = $(".msgDetail").eq(j).closest("td").data("no");
+	 var next = $(".msgDetail").eq(j+1).closest("td").data("no");
+	 console.log(next);
+	 if(next==null)
+		 next = 0; */
+	 //console.log(next.html());
+	 //console.log(next.closest("td").data("no"));
+     //window.location = "${pageContext.request.contextPath}/message/messageDetail.do?no="+thisIdx+"&nNo="+next;
+	
+});
 function receivedMsg(){
 
 	window.location = "${pageContext.request.contextPath}/message/sendReceiveFilter.do?type=receive";
