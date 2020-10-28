@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,8 +128,8 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	
 //검색
 	@Override
-	public List<StudyRoomList> listAll(String search_option, String keyword) {
-		return studyRoomDAO.listAll(search_option,keyword);
+	public List<StudyRoomList> listAll(String search_option, String keyword, int category) {
+		return studyRoomDAO.listAll(search_option,keyword, category);
 	}
 
 	@Override
@@ -202,5 +203,47 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.selectApplyRoom(srWating);
 	}
 
+
+	@Override
+	public int updateRoomOpenedYN(HashMap<String, String> param) {
+		return studyRoomDAO.updateRoomOpenedYN(param);
+	}
+
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public int withdraw(HashMap<String, String> param) {
+		int result =  studyRoomDAO.withdraw(param);
+		
+		result = studyRoomDAO.deleteMemberAttend(param);
+		
+		return result;
+	}
+
+
+	@Override
+	public int deleteMemberAttend(HashMap<String, String> param) {
+		return studyRoomDAO.deleteMemberAttend(param);
+	}
+
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public int updateLog(HashMap<String, String> param) {
+		int result = studyRoomDAO.updateLog(param);  //원래 팀장은 나가고 팀장이 아닌걸로 업데이트
+		
+		result = studyRoomDAO.deleteMemberAttend(param);
+		
+		String newLeaderId = studyRoomDAO.selectNextLeader(param.get("srNo")); //남은 멤버중 첫번째로 들어온 사람 아이디
+	
+		param.put("memberId", newLeaderId);
+		System.out.println("");
+		
+		result = studyRoomDAO.updateLeader(param); // 그 사람을 팀장으로 업데이트
+		
+		return result;
+	}
+
+	
 	
 }

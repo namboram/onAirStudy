@@ -75,6 +75,10 @@ public class TestController {
 		test.setTestChoice_4(c4);		
 		int result = testService.insertQuestion(test);
 		
+		if(result>0) {
+			 int pointUpdate = testService.updatePoint(test.getMemberId());
+		}
+		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "문제를 등록하였습니다." :"문제 등록 중 오류가 발생했습니다.");
 		
 		return "redirect:/mypage2/main.do?test=Y";

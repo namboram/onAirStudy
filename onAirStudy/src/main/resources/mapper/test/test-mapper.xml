@@ -50,4 +50,14 @@ SELECT * FROM
 <result column="renamed_filename" property="renamedFilename"/>
 </resultMap>
 
+<update id="updatePoint">
+update 
+	member
+set
+	diligent_point = diligent_point+1
+where 
+	member_id = #{memberId}
+
+</update>
+
 </mapper>

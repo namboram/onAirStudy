@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public interface StudyRoomService {
 	int insertStudyRoomList(StudyRoomList studyroomList);
 	
 //검색
-	List<StudyRoomList> listAll(String search_option, String keyword);
+	List<StudyRoomList> listAll(String search_option, String keyword, int category);
 
 	int countArticle(String search_option, String keyword);	
 
@@ -68,7 +69,13 @@ public interface StudyRoomService {
 
 	int selectApplyRoom(StudyRoomWaiting srWating);
 
+	int updateRoomOpenedYN(HashMap<String, String> param);
 
+	int withdraw(HashMap<String, String> param);
+
+	int deleteMemberAttend(HashMap<String, String> param);
+
+	int updateLog(HashMap<String, String> param);
 
 
 }

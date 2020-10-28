@@ -46,7 +46,7 @@ $(function(){
                         <p>문제는 객관식으로 등록해 주세요.</p>
                     </div>
                     <div class="form-group-row">
-                        <fieldset class="col-lg" style="border: unset; background-color: #FFF0F0; border-radius: 15px;">
+                        <fieldset class="col-lg" style="border: unset; background-color: #FFF0F0; border-radius: 15px;  overflow:auto;">
                             <legend>Question</legend>
                        	<input type="text" class="form-control" name="memberId" value="${ loginMember.memberId }" hidden>
  						<input type="number" class="form-control" name="srNo" value="${ roomInfo.srNo }" hidden/>

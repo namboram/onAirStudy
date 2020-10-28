@@ -103,16 +103,16 @@ where
 <select id="listAll" resultMap="studyMap">
 select
     *
-	from 
-		sr_list L left join sr_info F on l.sr_no = F.sr_no 
+from 
+	sr_list L left join sr_info F on l.sr_no = F.sr_no
 	<include refid="search"/>
 </select>
 
 <select id="countArticle" resultType="int">
 select
     count(*)
-	from 
-		sr_list L left join sr_info F on l.sr_no = F.sr_no
+from 
+	sr_list L left join sr_info F on l.sr_no = F.sr_no
 <include refid="search"/> 
 </select>
 
@@ -123,12 +123,16 @@ select
 		member_id like '%' ||#{keyword}|| '%'
 	 or	sr_title like '%' ||#{keyword}|| '%'
 </when>
+<when test="category != 0">
+     where sr_category = #{category}
+</when>
 <otherwise>
 	where
 	 ${search_option} like '%' ||#{keyword}|| '%'
 </otherwise>
 </choose>
 </sql>
+
 
 <!-- 메인 스터디룸 리스트  -->
 
@@ -420,7 +424,72 @@ from sr_log
 			forced_exit_yn = #{ forceExitYN }
 		where 
 			sr_no = #{srNo}
+	</update>
 	
+	<update id="updateRoomOpenedYN">
+		update
+			sr_list
+		set
+			sr_opened_yn = #{srOpenedYN}
+		where
+			sr_no = ${srNo}
+	</update>
+	
+	<update id="updateLog">
+		update 
+			sr_log
+		set 
+			status_log = '나가기',
+			leader_yn = 'N' 
+		where 
+			member_id = #{memberId} 
+		and 
+			sr_no = #{srNo}
+	</update>
+
+	<update id="withdraw">
+		update 
+			sr_log 
+		set 
+			status_log = '나가기' 
+		where 
+			member_id = #{memberId} 
+		and 
+			sr_no = #{srNo}
+	</update>
+
+
+	<delete id="deleteMemberAttend">
+		delete from 
+			attendance 
+		where 
+			member_id = #{memberId} 
+		and 
+			sr_no = #{srNo}
+	</delete>
+
+	<select id="selectNextLeader" resultType="string">
+		select 
+			member_id 
+		from (
+		    select rownum, sr_log.*
+		    from sr_log
+		    where sr_no = #{srNo} 
+		    and sr_log.status_log = '참여'
+		    order by no
+		) 
+		where rownum = 1
+	</select>
+
+	<update id="updateLeader">
+		update 
+			sr_log 
+		set  
+			leader_yn = 'Y' 
+		where 
+			member_id = '${memberId}' 
+		and 
+			sr_no = #{srNo}
 	</update>
 
 </mapper>
