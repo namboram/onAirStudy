@@ -52,7 +52,8 @@
 }
 .myChat{
 	background-color : #E0B1D0;
-	max-width : 200px;
+	/* max-width : 200px;  */
+	/* width : 100%; */
 }
 li{
 	list-style-type:none;
@@ -121,18 +122,20 @@ vertical-align: text-bottom;
 					<!-- 내 채팅일 경우 -->
 					<c:if test="${loginMember.memberId eq chat.memberId}">
 				
-					<li data-no="${chat.no}" class="">
-					<strong class="me">${chat.memberId}</strong>
-					<div class="chatBox">
+					<li data-no="${chat.no}" class="me">
+					<strong class="">${chat.memberId}</strong>
+					<div class="me p-2 m-2">
 					
-					<strong class="align-self-end me"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
+					<strong style="display : inline" class="align-self-end"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
 					<c:if test="${chat.vaildYN eq 'Y'}">
-					<p class="me myChat text-muted p-2 m-2" >신고된 채팅입니다.</p> 
+					<div style="display : inline" class="pl-10">
+					<p style="display : inline-bolck" class=" myChat text-muted p-2 m-2" >신고된 채팅입니다.</p> 
+					</div>
 					</c:if>
 					<c:if test="${chat.vaildYN ne 'Y'}">
-				
-					<p class="me myChat p-2 m-2" >${chat.chatContent }</p> 
-					
+					<div style="display : inline" class="pl-10 text-left">
+					<p style="display : inline-bolck" class="myChat p-2 m-2" >${chat.chatContent }</p> 
+					</div>
 					</c:if>
 					</div>
 					</li>
@@ -143,7 +146,7 @@ vertical-align: text-bottom;
 			
 					<li data-no="${chat.no}">
 					<strong>${chat.memberId}</strong>
-					<div class="row">
+					<div class="row p-2 m-2">
 					<c:if test="${chat.vaildYN eq 'Y'}">
 					<p class="bg-light text-muted p-2 m-2">신고된 채팅입니다.</p> 
 					</c:if>
@@ -308,15 +311,15 @@ $(document).ready(function() {
 			//신고된 채팅일 경우
 			var content ="";
 			if(vo.vaildYN == 'Y'){
-				content = "<p class='myChat text-muted p-2 m-2'>신고된 채팅입니다.</p>";
+				content = "<p style='display : inline' class='myChat text-muted p-2 m-2'>신고된 채팅입니다.</p>";
 			}
 			if(vo.vaildYN != 'Y'){
-				content = "<p class='myChat p-2 m-2'>"+vo.chatContent+"</p>";
+				content = "<p style='display : inline' class='myChat p-2 m-2'>"+vo.chatContent+"</p>";
 			}
 		
 		html = 	"<li class='me' data-no='"+ endNo +"'>"
 				+ "<strong>" + vo.memberId + "</strong>"
-				+"<div class='me'>"
+				+"<div class='me p-2 m-2'>"
 				+ "<strong class='align-self-end'>" + date + "</strong>"
 				+ content
 				+"</div>"
@@ -338,7 +341,7 @@ $(document).ready(function() {
 			}
 			html = "<li data-no='"+ vo.no +"'>"
 				+ "<strong>" + vo.memberId + "</strong>"
-				+"<div class='row'>"
+				+"<div class='row p-2 m-2'>"
 				+ content
 				+ "<strong class='align-self-end'>" + date + "<a href='#' class='reportModalK'>"+report+"</a></strong>"
 				+"</div>"
