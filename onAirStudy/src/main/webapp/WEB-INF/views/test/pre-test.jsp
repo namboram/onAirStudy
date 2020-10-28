@@ -11,16 +11,19 @@
 <div class="pre_test" style="margin-bottom: 0;">
 	<div class="row">
 
-		<div class="col-sm" style="background-color: white;">
+		<div class="col-sm" style="background-color: white; padding:3%">
 			<div>
 				<div>
+					
 					<h2>Pre-test</h2>
+					<hr />
 				</div>
 				<div align="center">
 					<div class="col-lg-4"
 						style="background-color: #F6E5FE; border-radius: 15px;">
-						<h4 style="text-align: center;">오늘의 Test</h4>
+						<h4 style="text-align: center;">오늘의 Test</h4>				
 					</div>
+					<hr />
 				</div>
 				<input type="hidden" name="srNo" value="${roomInfo.srNo }" />
 
