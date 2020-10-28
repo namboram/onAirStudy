@@ -17,7 +17,7 @@ import lombok.ToString;
 
 public class Scheduler implements Serializable{
 	
-	private int no;
+	private String no;
 	private String memberId;
 	private String srNo;
 	private Date startDate;

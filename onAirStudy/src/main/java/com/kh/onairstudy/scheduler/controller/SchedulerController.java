@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +34,7 @@ public class SchedulerController {
 	private SchedulerService schedulerService;
 	
 	//스케줄러 메인
-	@RequestMapping("/mypage1/scheduler.do")
+	@RequestMapping(value="/mypage1/scheduler.do", method=RequestMethod.GET )
 	public ModelAndView mainScheduler(ModelAndView mav, 
 										@SessionAttribute("loginMember") Member member,
 										@RequestParam(value="no", required=false) String roomNum) {
@@ -47,7 +48,8 @@ public class SchedulerController {
 //		}
 		
 		mav.addObject("list", addList);
-		mav.addObject("roomNum", roomNum);
+		if(roomNum != null)
+			mav.addObject("roomNum", roomNum);
 		
 		log.debug("memberId = {}", member.getMemberId());
 		log.debug("roomNum ={}", roomNum);
@@ -57,7 +59,6 @@ public class SchedulerController {
 			mav.setViewName("/mypage1/mypage1_scheduler");
 		else
 			mav.setViewName("/scheduler/scheduler");
-			
 		
 		return mav;
 		
@@ -69,17 +70,16 @@ public class SchedulerController {
 				
 				//로그인된 아이디 가져오기
 				String memberId = member.getMemberId();
-				String srNo = null;
 				
+				Map<String, Object> map = new HashMap<>();
+
 				//방번호유무 갈림
 				if(roomNum != null) {
-					memberId = null;
-					srNo = roomNum;
+					map.put("srNo", roomNum);
 				}
-		
-				Map<String, Object> map = new HashMap<>();
-				map.put("memberId", memberId);
-				map.put("srNo", srNo);
+				else {
+					map.put("memberId", memberId);
+				}
 					
 				List<Scheduler> list = schedulerService.mainScheduler(map);
 				
@@ -134,7 +134,6 @@ public class SchedulerController {
 			sch.setDYN("N");
 		
 		sch.setEnabledYN("N");
-		
 		
 		log.debug("sch={}", sch);
 		
