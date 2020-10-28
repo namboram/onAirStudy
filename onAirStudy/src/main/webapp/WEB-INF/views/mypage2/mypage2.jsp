@@ -112,7 +112,7 @@
 				</ul>
 			</li>
 			<li><a onclick="goToInvitation()">초대하기</a></li>
-			<li><a onclick="goToSchduler()">스케줄러</a></li>
+			<li><a onclick="goToSchduler(${roomInfo.srNo})">스케줄러</a></li>
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
 				<ul id="applicantsDropdown" class="collapse list-unstyled ">
@@ -229,8 +229,8 @@ function post_to_url(path, params, method) {
 </script>
 
 <script>
-	function goToSchduler(){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/studyroom/scheduler.do");
+	function goToSchduler(roomNum){
+		 $(".changeDiv").load("${pageContext.request.contextPath}/mypage1/scheduler.do?no="+roomNum);
 	}
 	
 	function goToQuestion(){

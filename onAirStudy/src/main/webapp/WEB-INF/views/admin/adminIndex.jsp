@@ -6,170 +6,207 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 
-
-<style>
-	.adDivB{
-		margin-bottom:100px;
-	}
-    .bigContainer{
-       position: relative;
-	   background-color:#e8f4ff;
-
-    }
-	.bigContainer div{
-		text-align:center;
-	}
-	#dateB{
-		width :30%;
-		height: 8%;
-		background-color:skyblue;
-		margin-left:6%;
-	}
-	#numberContainerB{
-		width:50%;
-		height:30%;
-		float:left;
-		margin-left:15%;
-	}
-	#rightB div{
-		display:inline-block;
-		width:100%;
-		text-align:left;
-		margin-bottom:2%;
-		padding-left:20%;
-	
-	}
-	#leftB p{
-		display:inline;
-		margin-left:30%;
-	}
-	#rightB p{
-		display:inline;
-	}
-	#rightB, #leftB{
-		display:inline-block;
-		width:100%;
-        height: 100%;
-		border:1px solid gray;
-		padding:2%;
-	}
-	#rightB{
-		padding-top:3%;
-		margin-left:2%;
-	}
-	#graphB{
-		width:70%;
-        height:40%;
-        margin-left:5%;
-		background-color:skyblue;
-	}
-	#graphB, #numberContainerB, #dateB{
-		margin-top:2%;
-		margin-bottom:2%;
-	}
-	#numberContainerB img{
-		width:20%;
-	}
-	.marginB{
-		margin-left:30%;
-	}
-	.colorB{
-		color:orange;
-	}
-</style>
+<!-- Fontastic Custom icon font-->
+<link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/resources/css/fontastic.css">
+<!-- theme stylesheet-->
+<link rel="stylesheet"
+	href="${ pageContext.request.contextPath }/resources/css/style.default.css"
+	id="theme-stylesheet">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/bootstrap.bundle.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/jquery.cookie.js"> </script>
+<script src="${ pageContext.request.contextPath }/resources/js/Chart.min.js"></script>
 
 <!-- #e8f4ff -->
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
+<style>
+.adDivB{
+		display:inline-block;
+		background-color:#e8f4ff;
+		padding:100px;
+		text-align:center;
+	}
+</style>
 
 <div class="row">
 	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/admin/adminSideBar.jsp" />
 	</div>
-	<div class="col-lg-10 p-0 .adDivB row">
-		<div class="container-fluid row bigContainer">
-
-			<div class="col-xs-12 col-sm-6 col-md-8" id="dateB">
-				<h3>Today ${ map["today"] }</h3>
-			</div>
-			<div class="container-fluid row" id="numberContainerB">
-				<div class="col-xs-6 col-md-6 row" id="leftB">
-					<div class="col-md-12">
-						<img
-							src="${ pageContext.request.contextPath }/resources/images/B1.png" />
-						<p class="h5">${ map["member_all"] }</p>
-					</div>
-					<div class="col-md-12">
-						<img
-							src="${ pageContext.request.contextPath }/resources/images/B2.png" />
-						<p class="h5">${ map["msg_all"] }</p>
-					</div>
-					<div class="col-md-12">
-						<img
-							src="${ pageContext.request.contextPath }/resources/images/B3.png" />
-						<p class="h5">${ map["report_all"] }</p>
-					</div>
-				</div>
-
-				<div class="col-xs-6 col-md-6 row" id="rightB">
-					<div class="col-md-12">
-						방갯수
-						<p class="marginB">${ map["sr_all"] }</p>
-						<p class="colorB">(+${ map["sr_today"] })</p>
-					</div>
-					<div class="col-md-12">
-						게시글
-						<p class="marginB">${ map["diary_all"] }</p>
-						<p class="colorB">(+${ map["diary_today"] })</p>
-					</div>
-					<div class="col-md-12">
-						댓글
-						<p class="marginB">&nbsp;&nbsp;&nbsp;&nbsp;${ map["reply_all"] }</p>
-						<p class="colorB">(+${ map["reply_today"] })</p>
-					</div>
-					<div class="col-md-12">
-						첨부파일
-						<p class="marginB" style="margin-left: 22%;">${ map["attach_all"] }</p>
-						<p class="colorB">(+${ map["attach_today"] })</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="container-fluid row" id="graphB">
-				<h3>일자별 가입회원 및 결제회원 통계</h3>
-			<div id="columnchart_material" style="width: 800px; height: 500px;"></div> 
-			
-			</div>
-
+	<div class="col-lg-10 p-0 adDivB" style="text-align:center;">
+	
+	 <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+			<h3>Today ${ map["today"] }</h3>        
+        </div>
+     </section>
+        
+	  <!-- Counts Section -->
+      <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-user"></i></div>
+                <div class="name"><strong class="text-uppercase">회원수</strong><span>Since 2020.10.01</span>
+                  <div class="count-number">${ map["member_all"] }</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-padnote"></i></div>
+                <div class="name"><strong class="text-uppercase">개설된 방</strong><span>${ map["sr_all"] }</span>
+                  <div class="count-number">+${ map["sr_today"] != null ? map["sr_today"] : '0' }</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-check"></i></div>
+                <div class="name"><strong class="text-uppercase">신고내역</strong><span>${ map["report_all"] }</span>
+                  <div class="count-number">+${ map["report_today"] != null ? map["report_today"] : '0'  }</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-bill"></i></div>
+                <div class="name"><strong class="text-uppercase">게시글</strong><span>${ map["diary_all"] }</span>
+                  <div class="count-number">+${ map["diary_today"] != null ? map["diary_today"] : '0'  }</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-list"></i></div>
+                <div class="name"><strong class="text-uppercase">댓글</strong><span>${ map["reply_all"] }</span>
+                  <div class="count-number">+${ map["reply_today"] != null ?map["reply_today"] : '0'  }</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="icon-list-1"></i></div>
+                <div class="name"><strong class="text-uppercase">첨부파일</strong><span>${ map["attach_all"] }</span>
+                  <div class="count-number">+${ map["attach_today"] != null ? map["attach_today"] : '0'  }</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Header Section-->
+      
+      	<div class="row">
+            <div class="col-lg-10 col-md-12 flex-lg-last flex-md-first align-self-baseline" style="margin-left:10%;">
+              <div class="card sales-report" id="realGraph">
+                <h2 class="display h4">일자별 가입회원 및 유료회원 통계</h2>
+                <p>2020.10.20 ~ 2020.10.24까지의 통계</p>
+                <div class="line-chart">
+                  <canvas id="barChartExample"></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+	
+	
+	
+	
+	
+	
 	</div>
-</div>
 <!-- 구글차트 -->
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
-	google.charts.load('current', {
-		'packages' : [ 'bar' ]
+	$(document).ready(function(){
+
+		var brandPrimary = 'rgba(51, 179, 90, 1)';
+		var BARCHARTEXMPLE = $('#barChartExample');
+
+		var barChartExample = new Chart(BARCHARTEXMPLE, {
+	        type: 'bar',
+	        data: {
+	            labels: [
+	            	<c:forEach items="${ memberAll }" var="m">
+						'${ m.en_date }',
+					</c:forEach>
+	            	],
+	            datasets: [
+	                {
+	                    label: "가입회원",
+	                    backgroundColor: [
+	                        'rgba(51, 179, 90, 0.6)',
+	                        'rgba(51, 179, 90, 0.6)',
+	                        'rgba(51, 179, 90, 0.6)',
+	                        'rgba(51, 179, 90, 0.6)',
+	                        'rgba(51, 179, 90, 0.6)'
+	                    ],
+	                    borderColor: [
+	                        'rgba(51, 179, 90, 1)',
+	                        'rgba(51, 179, 90, 1)',
+	                        'rgba(51, 179, 90, 1)',
+	                        'rgba(51, 179, 90, 1)',
+	                        'rgba(51, 179, 90, 1)'
+	                    ],
+	                    borderWidth: 1,
+	                    data: [
+	                    	<c:forEach items="${ memberAll }" var="m">
+								${ m.all_cnt },
+							</c:forEach>
+			
+	                    	],
+	                },
+	                {
+	                    label: "유료회원",
+	                    backgroundColor: [
+	                        'rgba(203, 203, 203, 0.6)',
+	                        'rgba(203, 203, 203, 0.6)',
+	                        'rgba(203, 203, 203, 0.6)',
+	                        'rgba(203, 203, 203, 0.6)',
+	                        'rgba(203, 203, 203, 0.6)'
+	                    ],
+	                    borderColor: [
+	                        'rgba(203, 203, 203, 1)',
+	                        'rgba(203, 203, 203, 1)',
+	                        'rgba(203, 203, 203, 1)',
+	                        'rgba(203, 203, 203, 1)',
+	                        'rgba(203, 203, 203, 1)'
+	                    ],
+	                    borderWidth: 1,
+	                    data: [
+	                    	<c:forEach items="${ memberAll }" var="m">
+							${ m.p_cnt },
+							</c:forEach>
+
+	                    	],
+	                    	options: {
+	                			responsive: false,
+	                			scales: {
+	                				yAxes: [{
+	                					ticks: {
+	                						beginAtZero: true,
+	                						min: 0
+	                					}
+	                				}]
+	                			}
+	                		}
+	                }
+	            ]
+	        }
+	    });
+
+		
 	});
-	google.charts.setOnLoadCallback(drawChart);
-
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-				[ '일자', '가입회원', '유료회원' ], 
-			<c:forEach items="${ memberAll }" var="m">
-				[ '${ m.en_date }', ${ m.all_cnt }, ${ m.p_cnt } ],
-			</c:forEach>
-			]);
-
-		var option = {
-				vAxis: {maxValue:10,minValue:0}, 
-				};
-
-		var chart = new google.charts.Bar(document
-				.getElementById('columnchart_material'));
-
-		chart.draw(data);
-	}
 </script>
 
 
