@@ -29,13 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class SchedulerController {
+public class Scheduler_Controller {
 
 	@Autowired
 	private SchedulerService schedulerService;
 	
 	//스케줄러 메인
-	@RequestMapping(value="/mypage1/scheduler.do", method=RequestMethod.GET )
 	public ModelAndView mainScheduler(ModelAndView mav, 
 										@SessionAttribute("loginMember") Member member,
 										@RequestParam(value="no", required=false) String roomNum) {
@@ -127,7 +126,6 @@ public class SchedulerController {
 	}
 	
 	//일정 넣어주기
-	@RequestMapping("/scheduler/insert.do")
 	public String insertSchedule(Scheduler sch, 
 								RedirectAttributes redirectAttr) throws Exception {
 		//jsp에서 처리못한 값들 처리해주기
@@ -156,7 +154,6 @@ public class SchedulerController {
 	}
 
 	//일정 수정
-	@RequestMapping("/scheduler/update.do")
 	public String updateSchedule(Scheduler sch, 
 									RedirectAttributes redirectAttr) throws Exception {
 		
@@ -208,7 +205,6 @@ public class SchedulerController {
 	}
 	
 	//일정 삭제
-	@RequestMapping("/scheduler/delete.do")
 	public String deleteSchedule(@RequestParam("dNo") int dNo,
 								RedirectAttributes redirectAttr) throws Exception {
 		
@@ -239,7 +235,6 @@ public class SchedulerController {
 	}
 	
 	//투두리스트 입력 (삭제 + 입력)
-	@RequestMapping("/scheduler/todo.do")
 	public String insertTodo(@RequestParam("content") String[] contents,
 							@RequestParam("checked") boolean[] yn,
 							@RequestParam("startDate") Date startDate,
@@ -303,44 +298,134 @@ public class SchedulerController {
 	}
 	
 	//투두리스트 전체삭제
-	@RequestMapping("/scheduler/delTodo.do")
-	public String deleteTodo(@RequestParam("startDate") Date startDate,
-							@SessionAttribute("loginMember") Member member,
+	@RequestMapping("/scheduler/delTodo_.do")
+	@ResponseBody
+	public void deleteTodo(@RequestParam("startDate") Date startDate,
 							@RequestParam(value="roomNum", required=false) String roomNum,
-							RedirectAttributes redirectAttr) {
+							HttpServletResponse response) throws Exception {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		//방번호유무
-		if(roomNum != null)
-			map.put("srNo", roomNum);
-		else
-			map.put("memberId", member.getMemberId());
-
+		map.put("srNo", roomNum);
 		map.put("startDate", startDate);
 		
 		//삭제
 		int result = schedulerService.deleteTodo(map);
 		
 		//해당날짜로 날짜잡아주기
-		Scheduler sch = new Scheduler();
-		sch.setStartDate(startDate);
+//		Scheduler sch = new Scheduler();
+//		sch.setStartDate(startDate);
+//		
+//		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
+//		SimpleDateFormat fm2 = new SimpleDateFormat("MM");
+//		SimpleDateFormat fm3 = new SimpleDateFormat("dd");
+//		
+//		String a = fm1.format(sch.getStartDate());
+//		int b = Integer.parseInt(fm2.format(sch.getStartDate()))-1;
+//		String c = fm3.format(sch.getStartDate());
 		
-		redirectAttr = makeYearMonths(sch, redirectAttr);
-		redirectAttr.addFlashAttribute("todo", "good");
+		response.setContentType("text/plain; charset=utf-8");
 		
 		if(result>0)
-			redirectAttr.addFlashAttribute("msg", "리스트 삭제 성공");
+			response.getWriter().append("리스트를 삭제하였습니다.");
 		else
-			redirectAttr.addFlashAttribute("msg", "리스트 삭제 성공");
-		
-		if(roomNum != null)
-			return "redirect:/mypage1/scheduler.do?no="+roomNum;
-		else
-			return "redirect:/mypage1/scheduler.do";
+			response.getWriter().append("리스트 삭제를 실패했습니다.");
 			
+		
 	}
 
+	@RequestMapping("/scheduler/scheduler_.do")
+	public ModelAndView mainScheduler_main(@RequestParam(value = "no", required = false) String roomNum,
+													ModelAndView mav) {
+
+		//가짜멤버
+		Member member = new Member();
+		
+		//내역가져오기
+		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
+
+		mav.addObject("list", addList);
+		mav.setViewName("scheduler/scheduler_");
+
+		log.debug("roomNum ={}", roomNum);
+
+		return mav;
+}
+	
+	@RequestMapping("/scheduler/scheduler.do")
+	@ResponseBody
+	public Object mainScheduler_(@RequestParam(value = "no", required = false) String roomNum) {
+		
+		//가짜멤버
+		Member member = new Member();
+		
+		//내역가져오기
+		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", addList);
+		map.put("code", "OK");
+		
+		log.debug("roomNum ={}", roomNum);
+		
+		return map;
+	}
+	
+	@RequestMapping("/scheduler/todo_.do")
+	@ResponseBody
+	public void insertTodo_(@RequestParam("content") String[] contents,
+							@RequestParam("checked") boolean[] yn,
+							@RequestParam("startDate") Date startDate,
+							@RequestParam("roomNum") String roomNum,
+							HttpServletResponse response) throws Exception{
+		
+		Scheduler sch = null;
+		List<Scheduler> list = new ArrayList<>();
+		
+		//객체화 및 list 넣기
+		for(int i = 0 ; i<contents.length;i++) {
+
+			sch = new Scheduler();
+			
+			sch.setSrNo(roomNum);
+			
+			sch.setStartDate(startDate);
+			sch.setEndDate(startDate);
+			sch.setContent(contents[i]);
+			//체크박스 여부에 따라 입력
+			String tempYn = yn[i] == true ? "Y" : "N";
+			sch.setEnabledYN(tempYn);
+
+			log.debug("sch={}", sch);
+			list.add(sch);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("srNo", roomNum);
+		
+		map.put("startDate", startDate);
+		
+		//이전내역삭제
+		int result = schedulerService.deleteTodo(map); 
+		
+		//새로등록
+		result = schedulerService.insertTodo(list);
+		
+		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
+		SimpleDateFormat fm2 = new SimpleDateFormat("MM");
+		SimpleDateFormat fm3 = new SimpleDateFormat("dd");
+		
+		String a = fm1.format(sch.getStartDate());
+		int b = Integer.parseInt(fm2.format(sch.getStartDate()))-1;
+		String c = fm3.format(sch.getStartDate());
+		
+
+		
+		response.setContentType("text/plain; charset=utf-8");
+		response.getWriter()
+				.append("리스트를 저장하였습니다.");
+	}
 	
 	
 }
