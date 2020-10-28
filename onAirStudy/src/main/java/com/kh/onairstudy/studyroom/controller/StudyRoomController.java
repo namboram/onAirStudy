@@ -292,4 +292,19 @@ public class StudyRoomController {
 			return "/mypage2/mypage2_update";
 			
 		}
+		
+		@RequestMapping("/studyroom/update.do")
+		public void updateRoomInfo(@RequestParam(value ="day[]", required = true) String[] day,
+				/* @RequestParam(value ="dayday", required = true) String[] dayday, */
+									@RequestParam(value ="time", required = true) String[] times,
+									StudyRoomInfo studyRoomInfo) {
+			
+			
+				log.debug("studyRoomInfo = {}", studyRoomInfo);
+				log.debug("day = {}", day);
+				/* log.debug("dayday = {}", dayday); */
+				log.debug("times = {}", times);
+			
+//				@RequestParam(value = "time", required = false) St
+		}
 }

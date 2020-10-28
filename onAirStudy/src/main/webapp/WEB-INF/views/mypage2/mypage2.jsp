@@ -81,9 +81,9 @@
 				<span>D - 37</span></br> <span>2020.11.02</span></br> <span>토익시험</span></br>
 				<hr>
 			</div>
-			<input type="hidden" name="day" id="attendDay" value="${roomInfo.attendDay}"/>
-			<input type="hidden" name="time" id="attendTime" value="${roomInfo.attendTime }"/>
-			<input type="hidden" name="check" id="attendCheck" value="${attendCheck }"/>
+			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
+			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
+			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
 		</div>
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
