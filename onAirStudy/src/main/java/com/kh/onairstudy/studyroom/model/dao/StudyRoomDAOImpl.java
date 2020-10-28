@@ -200,4 +200,37 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectOne("studyroom.selectApplyRoom",srWating);
 	}
 
+	@Override
+	public int updateRoomOpenedYN(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateRoomOpenedYN", param);
+	}
+
+	@Override
+	public int updateLeader(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateLeader", param);
+	}
+
+	@Override
+	public int withdraw(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.withdraw", param);
+	}
+
+	@Override
+	public int deleteMemberAttend(HashMap<String, String> param) {
+		return sqlSession.delete("studyroom.deleteMemberAttend",param);
+	}
+
+	@Override
+	public String selectNextLeader(String srNo) {
+		return sqlSession.selectOne("studyroom.selectNextLeader", srNo);
+	}
+
+	@Override
+	public int updateLog(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateLog", param);
+	}
+
+	
+	
+	
 }

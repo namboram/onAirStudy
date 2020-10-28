@@ -420,7 +420,72 @@ from sr_log
 			forced_exit_yn = #{ forceExitYN }
 		where 
 			sr_no = #{srNo}
+	</update>
 	
+	<update id="updateRoomOpenedYN">
+		update
+			sr_list
+		set
+			sr_opened_yn = #{srOpenedYN}
+		where
+			sr_no = ${srNo}
+	</update>
+	
+	<update id="updateLog">
+		update 
+			sr_log
+		set 
+			status_log = '나가기',
+			leader_yn = 'N' 
+		where 
+			member_id = #{memberId} 
+		and 
+			sr_no = #{srNo}
+	</update>
+
+	<update id="withdraw">
+		update 
+			sr_log 
+		set 
+			status_log = '나가기' 
+		where 
+			member_id = #{memberId} 
+		and 
+			sr_no = #{srNo}
+	</update>
+
+
+	<delete id="deleteMemberAttend">
+		delete from 
+			attendance 
+		where 
+			member_id = #{memberId} 
+		and 
+			sr_no = #{srNo}
+	</delete>
+
+	<select id="selectNextLeader" resultType="string">
+		select 
+			member_id 
+		from (
+		    select rownum, sr_log.*
+		    from sr_log
+		    where sr_no = #{srNo} 
+		    and sr_log.status_log = '참여'
+		    order by no
+		) 
+		where rownum = 1
+	</select>
+
+	<update id="updateLeader">
+		update 
+			sr_log 
+		set  
+			leader_yn = 'Y' 
+		where 
+			member_id = '${memberId}' 
+		and 
+			sr_no = #{srNo}
 	</update>
 
 </mapper>

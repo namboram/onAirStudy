@@ -97,6 +97,7 @@
 							<span>${part.memberId }</span>
 							<c:if test="${part.leaderYN eq 'Y'}">
 								<span>팀장</span>
+								<input type="hidden" id="leaderId" value="${part.memberId }" />
 							</c:if>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>
