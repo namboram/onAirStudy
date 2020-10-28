@@ -8,9 +8,9 @@
 	<nav class="side-navbar admin-sideBar" style="padding:5%; height:100%;"  >
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
-			<div class="message-icon-line">
-				<div class="icon icon-mail message"  onclick="" style=""></div>
-				<div class="messageAlarm"  >1</div>
+			<div class="message-icon-line" >
+				<div class="icon icon-mail message" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath}/message/messageList.do'" style=""></div>
+				<div class="messageAlarm" id="serviceCnt" style="opacity:0;">1</div>
 			</div>
 			<div class="avatar">
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
@@ -45,6 +45,25 @@
 				console.log("실패");
 			}
 		});
+
+	});
+
+	$(document).ready(function(){
+
+		$.ajax({
+			url:"${ pageContext.request.contextPath }/admin/messageCnt.do",
+			success:function(num){
+				console.log(num);
+
+				if(num!=0)
+					$("#serviceCnt").css("opacity", "1").html(num);
+			},
+			error:function(xhr){
+				console.log("실패");
+				console.log(xhr);
+			}
+		});
+
 	});
 	</script>
 	

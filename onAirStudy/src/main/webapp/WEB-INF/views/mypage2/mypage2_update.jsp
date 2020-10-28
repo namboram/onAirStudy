@@ -19,65 +19,75 @@
 					<label class="col-sm-12 form-control-label" style="text-align:center">${roomInfo.srTitle }</label>
 				</div>
                 <div class="card-body">
-                  <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST">
+                  <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST" id="updateFrm">
+                    <input type="hidden" name="srOpenedYN" value="${roomInfo.srOpenedYN}" />
+                    <input type="hidden" name="category" value="${roomInfo.category}" />
+                    <input type="hidden" name="srNo" value="${roomInfo.srNo}" />
+                    <input type="hidden" name="attendDay" value=""/>
+                    <input type="hidden" name="attendTime" value=""/>
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">스터디 방제</label>
                       <div class="col-sm-10">
                        <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" value="${roomInfo.srTitle }">
+                          <input type="text" class="form-control" name="srTitle" value="${roomInfo.srTitle }">
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
+					<hr />
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">스터디 한줄 소개</label>
                       <div class="col-sm-10">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" value="${roomInfo.srComment }">
+                          <input type="text" class="form-control" name="srComment"  value="${roomInfo.srComment }">
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
+                    <hr />
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">우리방 목표</label>
                       <div class="col-sm-10">
                        <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" value="${roomInfo.srGoal }">
+                          <input type="text" class="form-control" name="srGoal" value="${roomInfo.srGoal }">
                         </div>
                       </div>
                     </div>
-					<div class="line"></div>
+					<hr />
 					<div class="form-group row">
 						<label class="col-sm-2 form-control-label">출석체크</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 attendDiv">
 							<div class="form-group">
 								<label class="col-sm-3 form-control-label">요일</label>
 								<label class="col-sm-2 form-control-label">시간</label>
-								<button type="button" class="btn">+</button>
+								<button type="button" class="btn" id="btnAdd" onclick="addInput()">+</button>
 							</div>
-							<div class="form-group">
-									<select name="days1" id="days1" class="col-sm-2">
-										<option value="월">월요일</option>
-										<option value="화">화요일</option>
-										<option value="수">수요일</option>
-										<option value="목">목요일</option>
-										<option value="금">금요일</option>
-										<option value="토">토요일</option>
-										<option value="일">일요일</option>
+							<c:set var="arrDay" value="${fn:split(roomInfo.attendDay, ',') }"/>
+							<c:set var="arrTime" value="${fn:split(roomInfo.attendTime, ',') }"/>
+							<c:forEach var="i" begin="0" end="${fn:length(arrDay)-1}">
+								<div class="input-group" style="margin-top: 10px;" name="안녕">
+									<select name="day" id="days${ i }" class="col-sm-2" class="dayAttend">
+										<option value="월" <c:if test="${ arrDay[i] eq '월' }">selected</c:if>>월요일</option>
+										<option value="화" <c:if test="${ arrDay[i] eq '화' }">selected</c:if>>화요일</option>
+										<option value="수" <c:if test="${ arrDay[i] eq '수' }">selected</c:if>>수요일</option>
+										<option value="목" <c:if test="${ arrDay[i] eq '목' }">selected</c:if>>목요일</option>
+										<option value="금" <c:if test="${ arrDay[i] eq '금' }">selected</c:if>>금요일</option>
+										<option value="토" <c:if test="${ arrDay[i] eq '토' }">selected</c:if>>토요일</option>
+										<option value="일" <c:if test="${ arrDay[i] eq '일' }">selected</c:if>>일요일</option>
 									</select>
-								<input type="time" name="attendTime1" id="attendTime1" class="offset-sm-1" value="17:00"/>
-								<button type="button" class="btn offset-sm-1">-</button>
-							</div>
+									<input type="time" name="time" id="time${ i }" class="offset-sm-1" value="${ arrTime[i] }"/>
+									<button type="button" class="btn offset-sm-1" onclick="deleteInput()">-</button>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
+					<hr />
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">우리방 규칙</label>
                       <div class="col-sm-10">
                         <div class="form-group">
                           <span>팀장 경고 누적   </span>
-                          <input type="number" name="" id="" min="1" max="10" value="${ roomInfo.forceExitOpt }"/>
+                          <input type="number" id="" min="1" max="10" name="forceExitOpt" value="${ roomInfo.forceExitOpt }"/>
                           <span>  회시 자동탈퇴처리  </span>  
-                          <input id="inlineCheckbox1" type="checkbox" value="Y" <c:if test="${ roomInfo.forceExitYN eq 'Y' }">checked</c:if> > 
+                          <input id="inlineCheckbox1" type="checkbox" name="forceExitYN" value="Y" <c:if test="${ roomInfo.forceExitYN eq 'Y' }">checked</c:if> > 
                         </div>
                       </div>
                     </div>
@@ -97,14 +107,13 @@
                     </div> -->
                     <div class="form-group row">
 						<div class="col-sm-5 offset-sm-7">
-							<button type="button" class="btn btn-primary">
-								<c:choose>
-									<c:when test="${roomInfo.srOpenedYN eq 'Y'}"> 방 닫기</c:when>
-									<c:when test="${roomInfo.srOpenedYN eq 'N'}"> 방 열기</c:when>
-								</c:choose>
-							</button>
-							<button type="button" class="btn btn-danger">팀장 변경</button>
-							<button type="submit" class="btn btn-primary">수정완료</button>
+							<c:if test="${roomInfo.srOpenedYN eq 'Y'}">
+								<button type="button" class="btn btn-primary" onclick="roomOpened('N')">방 닫기</button>	
+							</c:if>
+							<c:if test="${roomInfo.srOpenedYN eq 'N'}">
+								<button type="button" class="btn btn-primary" onclick="roomOpened('Y')">방 열기</button>	
+							</c:if>
+							<button type="button" class="btn btn-primary" onclick="beforeSubmit()">수정완료</button>
 						</div>
 					</div>
                   </form>
@@ -113,6 +122,58 @@
             </div>
         </div>
    <script>
-	
+	var i = 1+1;
 
+	function addInput(){
+		var html = "<div class='input-group' style='margin-top:10px;'><select name='day' id='days"+ i +"' class='col-sm-2'>"
+				+ "<option value='월'>월요일</option>"
+				+ "<option value='화'>화요일</option>" 
+				+ "<option value='수'>수요일</option>" 
+				+ "<option value='목'>목요일</option>" 
+				+ "<option value='금'>금요일</option>" 
+				+ "<option value='토'>토요일</option>" 
+				+ "<option value='일'>일요일</option>" 
+				+ "</select>" 
+				+ "<input type='time' name='time' id='time" + i +"' class='offset-sm-1' value='17:00'/>" 
+				+ "<button type='button' class='btn offset-sm-1'>-</button>" 
+				+ "</div>" ; 
+		i++;
+		$(".attendDiv").append(html); 
+	}
+
+	function roomOpened(yn){
+		var msg = yn == 'Y' ? "방을 여시겠습니까?" : "방을 닫으시겠습니까?";  
+		if (confirm(msg)) {
+			post_to_url("${pageContext.request.contextPath}/studyroom/updateOpened.do", { "roomNum": ${roomInfo.srNo}, "openedYN" : yn });
+		}
+	}
+
+
+	function beforeSubmit(){
+		var dayStr = "";
+		var timeStr = "";
+		
+		var arrayDay = $("select[name='day']");
+		var arrayTime = $("input[name='time']");
+		var length = arrayDay.length;
+		
+		for(var x=0; x<length; x++){
+			if(x == length-1){
+				dayStr += arrayDay[x].value;
+				timeStr += arrayTime[x].value;
+			}else{
+				dayStr += arrayDay[x].value + ",";
+				timeStr += arrayTime[x].value + ","; 
+			}
+		}		
+
+		$("input[name='attendDay']").val(dayStr);
+		$("input[name='attendTime']").val(timeStr);
+
+		$("#updateFrm").submit();
+				
+	}
+
+
+	
    </script>

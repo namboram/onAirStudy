@@ -49,26 +49,37 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 	<div class="border border-secondary">
 		${diary.diaryContent}
 	</div>
-
+	<c:if test="${loginMember.memberId eq diary.memberId }">
+	<form action="${ pageContext.request.contextPath }/diary/deleteDiary.do" method="post" onsubmit="return deleteSubmit();">
+	<input type="hidden" value="${diary.no }" name="no"/>
+	<button type="submit" class="btn btn-danger">삭제</button>
+	</form>
+	</c:if>
 </div>
 <div id="diary-reply-container">
 	  <c:if test="${ loginMember.memberId != null }">
 	  <hr />
-	  <h5>댓글달기</h5>
 	  <input type="text" class="form-control col-sm-6" name="replyContent" id="replyContent" placeholder="댓글을 적어주세요" required/>&nbsp;
       <!-- <input type="password" class="form-control col-sm-2" name="DRpassword" maxlength="4" placeholder="비밀번호" required/>&nbsp; -->
       <button class="btn btn-outline-success" id="btnReply" >댓글작성</button>
 	  </c:if>
 </div>
 <!-- 댓글 목록 출력할 위치  -->
-<div class="container">
-        <div class="commentList"></div>
-</div>
+
 
 <script>
+
+//삭제
+function deleteSubmit(){
+	if(confirm("삭제 하시겠습니까?")){
+		return true;
+	}else
+		return false;
+}
+
 $(document).ready(function(){
 
-	listReply();
+	/* listReply(); */
 			
 	$("#btnReply").click(function(){
 		var replyContent = $("#replyContent").val();
@@ -91,17 +102,16 @@ $(document).ready(function(){
 
 });
 
-function listReply(){
+/* function listReply(){
 	$.ajax({
 		type: "get",
 		url: "${ pageContext.request.contextPath }/diary/diaryDetailList.do?diaryNo=${diary.no}",
 		success: function(result){
 			$("#listReply").html(result);
-			location.href="${ pageContext.request.contextPath }/diary/diaryReplyList.do?diaryNo=${diary.no}";
 		}
 
 	})
-} 
+}  */
 
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.member.model.dao.MemberDAO;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -29,6 +30,9 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member member) {
 		return memberDAO.insertMember(member);
 	}
+	
+	
+	
 	//신고 후 회원 블랙리스트 업데이트
 	@Override
 	public int updateBlack(String reportedMember) {

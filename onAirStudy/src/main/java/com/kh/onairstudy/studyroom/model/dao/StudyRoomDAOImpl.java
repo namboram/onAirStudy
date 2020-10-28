@@ -176,6 +176,18 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	public List<StudyRoomList> selectsrList() {
 		return sqlSession.selectList("studyroom.selectsrList");
 	}
+	
+	//회원가입시 sr_log에 회원 추가 
+	@Override
+	public int insertMemberToSr(Map<String, Object> param) {
+		return sqlSession.insert("studyroom.insertMemberToSr", param);
+	}
+
+
+	@Override
+	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
+		return sqlSession.update("studyroom.updateRoomInfo", studyRoomInfo);
+	}
 
 	//방 신청
 	@Override
@@ -183,9 +195,43 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.insert("studyroom.insertWating",srWating);
 	}
 
+
 	@Override
 	public int selectApplyRoom(StudyRoomWaiting srWating) {
 		return sqlSession.selectOne("studyroom.selectApplyRoom",srWating);
 	}
 
+	@Override
+	public int updateRoomOpenedYN(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateRoomOpenedYN", param);
+	}
+
+	@Override
+	public int updateLeader(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateLeader", param);
+	}
+
+	@Override
+	public int withdraw(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.withdraw", param);
+	}
+
+	@Override
+	public int deleteMemberAttend(HashMap<String, String> param) {
+		return sqlSession.delete("studyroom.deleteMemberAttend",param);
+	}
+
+	@Override
+	public String selectNextLeader(String srNo) {
+		return sqlSession.selectOne("studyroom.selectNextLeader", srNo);
+	}
+
+	@Override
+	public int updateLog(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateLog", param);
+	}
+
+	
+	
+	
 }

@@ -33,6 +33,22 @@
   		member_id = #{ memberId }
   </select>
   
+
+<!-- <insert id="insertMemberToSr">
+	insert into 
+		sr_log
+	values(
+		seq_sr_log_no.nextval,
+		#{ srNo },
+		#{ memberId },
+		#{ statusLog },
+		#{ warningCnt },
+		default
+	) 
+	
+</insert>  
+	-->
+  
   
   
   <!-- 성실멤버 List -->
@@ -50,7 +66,12 @@
 	</select>
   
   
-
+<update id="updateBlack">
+	
+		update member
+		set blacklist_yn = 'Y'
+		where member_id = #{reportedMember}
+	</update>
   
 
 <resultMap type="member" id="memberMap">

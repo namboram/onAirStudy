@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -26,6 +27,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public int insertMember(Member member) {
 		return sqlSession.insert("member.insertMember", member);
 	}
+	//03.회원가입시 sr_logt삽입
+
+
 
 	//신고 후 블랙리스트 등록
 	@Override
@@ -38,6 +42,8 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<Member> selectDiligentMember() {
 		return sqlSession.selectList("member.selectDiligentMember");
 	}
+
+	
 
 
 

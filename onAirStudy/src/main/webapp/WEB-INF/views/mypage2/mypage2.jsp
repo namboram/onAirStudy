@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -81,9 +80,9 @@
 				<span>D - 37</span></br> <span>2020.11.02</span></br> <span>토익시험</span></br>
 				<hr>
 			</div>
-			<input type="hidden" name="day" id="attendDay" value="${roomInfo.attendDay}"/>
-			<input type="hidden" name="time" id="attendTime" value="${roomInfo.attendTime }"/>
-			<input type="hidden" name="check" id="attendCheck" value="${attendCheck }"/>
+			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
+			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
+			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
 		</div>
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
@@ -98,6 +97,7 @@
 							<span>${part.memberId }</span>
 							<c:if test="${part.leaderYN eq 'Y'}">
 								<span>팀장</span>
+								<input type="hidden" id="leaderId" value="${part.memberId }" />
 							</c:if>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>
@@ -131,10 +131,9 @@
 	<div class="col-lg-7 changeDiv p-0">
 	<jsp:include page="/WEB-INF/views/mypage2/mypage2_index.jsp"></jsp:include>
 	</div>
-	<div class="col-lg-3 chattingDiv p-0" >
-		<c:if test="${ not empty roomInfo }">
-			<%-- <h1>${ roomInfo.srTitle }</h1> --%>
-		</c:if>
+
+	<div class="col-lg-3 chattingDiv" >
+
 	<!-- 채팅 include 들어갈 자리 -->
 	<jsp:include page="/WEB-INF/views/mypage2/chatting.jsp"></jsp:include>
 	</div>
