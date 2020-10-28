@@ -21,8 +21,12 @@
 			width="120px" height="120px" />
 	</div>
 
+	<c:if test="${ loginMember.memberRole == 'A' }">
+		<div style="text-align: right; margin: 3%;">
+			<button class="btn btn-light" type="button" onclick="">글쓰기</button>
+		</div>
+	</c:if>
 
-	<!-- 공부다이어리 목록 -->
 	<table class="table">
 		<tr class="header">
 			<th>번호</th>

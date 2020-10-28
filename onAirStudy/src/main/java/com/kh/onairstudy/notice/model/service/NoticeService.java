@@ -9,4 +9,6 @@ public interface NoticeService {
 
 	Map<String, Object> noticeDetail(int no);
 
+	int updateCnt(int no);
+
 }

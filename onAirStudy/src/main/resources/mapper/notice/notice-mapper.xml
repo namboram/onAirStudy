@@ -48,5 +48,15 @@ delete
 where
 	no = #{ no }
 </delete>
+
+<update id="updateCnt">
+update
+	notice
+set
+	read_cnt = read_cnt+1
+where
+	no = #{ no }
+</update>
+
  
 </mapper>

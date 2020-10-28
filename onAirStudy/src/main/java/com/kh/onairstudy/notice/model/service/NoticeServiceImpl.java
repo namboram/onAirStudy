@@ -26,6 +26,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public Map<String, Object> noticeDetail(int no) {
 		return noticeDAO.noticeDetail(no);
 	}
+
+	@Override
+	public int updateCnt(int no) {
+		return noticeDAO.updateCnt(no);
+	}
 	
 	
 }

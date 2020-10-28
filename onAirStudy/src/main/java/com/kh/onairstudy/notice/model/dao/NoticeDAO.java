@@ -9,4 +9,6 @@ public interface NoticeDAO {
 
 	Map<String, Object> noticeDetail(int no);
 
+	int updateCnt(int no);
+
 }

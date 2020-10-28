@@ -5,19 +5,16 @@
 <mapper namespace="diary">
  
  	<select id="selectDiaryList" resultType="diary">
-	 	select
-		   D.*,
-		   (select
-		        count(*)
-		    from 
-		        diary_attachment
-		    where
-		        diary_no = D.no) file_count
-		from
-		    diary D
-		order by 
-		    no desc
- 	
+       select
+         no,
+         member_id,
+         diary_title,
+         read_cnt,
+         diary_date
+      from
+          diary
+      order by 
+          no desc
  	</select>
  	
  	<resultMap type="map" id="diaryMap">

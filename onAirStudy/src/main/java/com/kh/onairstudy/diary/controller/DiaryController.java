@@ -43,7 +43,7 @@ public class DiaryController {
       //Map   
 //      List<Map<String, Object>> list = diaryService.selectDiaryMapList();
       
-      log.debug("list = {}", list);
+//      log.debug("list = {}", list);
       mav.addObject("list", list);
       
       mav.setViewName("diary/diaryList");

@@ -22,6 +22,11 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public Map<String, Object> noticeDetail(int no) {
 		return sqlSession.selectOne("notice.noticeDetail", no);
 	}
+
+	@Override
+	public int updateCnt(int no) {
+		return sqlSession.update("notice.updateCnt", no);
+	}
 	
 	
 }
