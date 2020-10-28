@@ -104,41 +104,29 @@ public class ServiceCenterController {
 			return "service/serviceDetail";
 		}
 
-	 
-	 
-	 
-
-	 //수정 폼
-	 @RequestMapping(value="serviceUpdate.do", method = RequestMethod.GET)
-		public String serviceUpdate(@RequestParam int no, Model model){
-		
-			model.addAttribute("service", serviceCenterService.selectService(no));
-			return "service/serviceUpdateForm";
-		}
-
+	
 	 
 	 //수정		
-		@RequestMapping(value="serviceUpdate.do")
+		@RequestMapping("/serviceUpdate.do")
 		public String serviceUpdate(ServiceCenter service, RedirectAttributes redirectAttributes) {
 			
-			log.debug("serviceUpdate={}"+ service);
+			log.debug("serviceUpdate={}" ,  service);
 			
 			int result = serviceCenterService.serviceUpdate(service);
 			
-			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 수정성공" : "Dev 수정실패");
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "게시글이 수정되었습니다." : "수정에 실패하셨습니다.");
 			return "redirect:/servicecenter.do";
 		}
 	
 		
-//	//삭제		
-//		@RequestMapping(value = "serviceDelete.do",
-//						method = RequestMethod.POST)
-//		public String serviceDelete(@RequestParam("no") int no, RedirectAttributes redirectAttributes){
-//			int result =serviceCenterService.serviceDelete(no);
-//			
-//			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 삭제성공" : "Dev 삭제실패");
-//			return "redirect:/servicecenter.do";
-//		}
+	//삭제		
+		@RequestMapping("/serviceDelete.do")
+		public String serviceDelete(@RequestParam("no") int no, RedirectAttributes redirectAttributes){
+			int result = serviceCenterService.serviceDelete(no);
+			
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 삭제성공" : "Dev 삭제실패");
+			return "redirect:/servicecenter.do";
+		}
 	 
 	 
 	 

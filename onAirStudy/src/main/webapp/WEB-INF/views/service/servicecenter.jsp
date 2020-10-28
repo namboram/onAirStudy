@@ -132,7 +132,7 @@ $(document).ready(function() {
 
 
 <!-- 문의게시판 목록 -->
-<div class="m-5">
+<div class="m-5" >
 	<h3 class="text-center">문의게시판</h3>
 			
 			<button id="createBtn" type="button" class="btn btn-info btn-sm float-right" 
@@ -172,7 +172,7 @@ $(document).ready(function() {
 			
 
         
-     
+     <div class="container1" style="padding-left:5%;padding-right:5%;">
         <div class="float-right" >
 			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
 			<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
@@ -203,13 +203,14 @@ $(document).ready(function() {
 							</tr>
 						    </c:forEach>
 					    </c:if>
-				</table>	
+				</table>
+			</div>	
 				
 				
 				
 				
 				<!-- 페이징처리 -->			
-				<div class="container">
+				<div class="container2 text-center">
 					<div id="paging">
 						<c:if test="${paging.prev }">
 							<a href="${paging.startPage -1 }"> [이전] </a>

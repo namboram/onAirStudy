@@ -6,29 +6,26 @@
 
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<script>
-
-$(document).ready(function(){
-	 $("#list").on("click",function(){
-	    	location.href = '${pageContext.request.contextPath}/servicecenter.do'
-	    })
-
-    $("#modify").on("click",function(){
-    	location.href = '${ pageContext.request.contextPath }/serviceUpdate.do?no=${ map.NO }'
-    })
-});
 
 
- /* function delete(no){
-	if(confirm("정말 삭제하시겠습니까?") == false)
-		return;
-	var $frm = $("#DeleteFrm");
-	$frm.find("[name=no]").val(${ map.NO });
-	$frm.submit();
-};
- */
+<style>
+.box {
+	width: 90%; 
+	margin-left:10%;
+	padding-right:10%;
+}
+.tableB {
+	border-bottom: 1px solid gray;
+}
+.tableB th {
+	width: 10%;
+}
+#contentB {
+	height: 100%;
+	padding: 5%;
+}
+</style>
 
-</script> 
 
 <!-- 맨위 배너 -->
 	<div class="container-fluid" style="height: 20vh; background-color: rgb(247, 235, 229);">
@@ -41,19 +38,12 @@ $(document).ready(function(){
 	</div>
 
 
+	<h2 class="text-center p-3 ">고객센터 상세보기</h2>
 	
-	<div>
-	<h2 class="text-center">고객센터 상세보기</h2>
-		<table class="board_view">
-        <colgroup>
-            <col width="25%">
-            <col width="45%">
-            <col width="25%">
-            <col width="*">
-        </colgroup>
-         
-        <tbody>
-          
+	<c:if test="${map.MEMBER_ID ne loginMember.memberId }">
+		<div class="box">
+		<table class="table tableB" >
+        
             <tr>
                 <th>제목</th>
                 <td>${map.SERVICE_TITLE}</td>
@@ -64,34 +54,71 @@ $(document).ready(function(){
                 <th>작성자</th>
                 <td>${map.MEMBER_ID}</td>
                 <th>작성시간</th>
-                <td><fmt:formatDate value="${ map.SERVICE_DATE}" pattern="yy/MM/dd" /></td>
+                <td><fmt:formatDate value="${ map.SERVICE_DATE}" 
+                		pattern="yy/MM/dd" /></td>
             </tr>
             <tr>
                 <th>내용</th>
-                <td colspan="3">
+                <td  id="contentB" colspan=4 class="text-center">
                     ${map.SERVICE_CONTENT }
                 </td>
             </tr>
-        </tbody>
-        
     </table>
-
-	<div class="text-center">
-		<a href="" id="list" class="btn" onclick="location.href='${pageContext.request.contextPath}/servicecenter.do'">목록으로</a>
-		
-		 <c:if test="${map.MEMBER_ID eq loginMember.memberId }"> 		
-			<button type="button" class="m_btn" id="modify" onclick="">수정하기</button>
-			<button type="button" class="d_btn" id="delete" onclick="">삭제하기</button>
-		</c:if> 
-	</div>
+    <div class="text-center">
+		<button class="btn btn-light"
+			onclick="location.href='${pageContext.request.contextPath}/servicecenter.do'">목록으로</button> 
+    </div>
+    </c:if>
+ </div> 
+    
+    
+    
+    <!-- 본인이 작성한글 수정하기 -->
+    <c:if test="${map.MEMBER_ID eq loginMember.memberId }">
+ 	<div class="box">   	
+	    <form name="serviceUpdateFrm" 
+			 action="${pageContext.request.contextPath}/serviceUpdate.do"
+			 method="post">
+			 <input type="hidden" name="no" value="${ map.NO }" />
+			<table class="board_view">
+			
+			<div class="form-group row">
+			  <label for="title" class="col-sm-2 col-form-label">제목</label>
+			  <div class="col-sm-10">
+			    <input type="text" class="form-control" id="serviceTitle" name="serviceTitle" value="${ map.SERVICE_TITLE }" required>
+			  </div>
+			</div>
+			
+			<div class="form-group row">
+			  <label for="MEMBER_ID" class="col-sm-2 col-form-label">작성자</label>
+			  <div class="col-sm-10">
+			    <input type="MEMBER_ID" class="form-control" id="memberId" name="memberId" value="${ map.MEMBER_ID }"  readonly>
+			  </div>
+			</div>
+			<div class="form-group row">
+			  <label for="content" class="col-sm-2 col-form-label">내용</label>
+			  <div class="col-sm-10">
+			  <textarea class="form-control" name="serviceContent" rows="5" value="${ map.SERVICE_CONTENT}">${ map.SERVICE_CONTENT}</textarea>
+			  </div>
+			</div>
+	        
+	    </table>
+    
+	    	<div class="text-center">
+	    		<button class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/servicecenter.do'">목록으로</button>
+				<button type="submit" class="btn btn-light">수정하기</button>
+				<button type="button" class="btn btn-light" id="delete"
+						onclick="location.href='${pageContext.request.contextPath}/serviceDelete.do?no=${map.NO}'">삭제하기</button>		
 	
-	<form action="${ pageContext.request.contextPath }/serviceDelete.do" 
-		  id="DeleteFrm" 
-		  method="POST">
-		<input type="hidden" name="no" />
-	</form>
-
-
-
+			</div>
+	   </form>
+    </c:if>
+    
 </div>
+
+	
+	
+
+
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
