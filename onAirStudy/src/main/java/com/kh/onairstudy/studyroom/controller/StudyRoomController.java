@@ -112,33 +112,36 @@ public class StudyRoomController {
 		//찜
 		@RequestMapping("/studyroom/favStudyroom.do")
 		public String favR(StudyRoomWish srWish, Model model,
-							@RequestParam("srNo") int srNo, 
-							@RequestParam("wNo") int wNo, 
+							@RequestParam("srNo") int srNo, 						 
 							@RequestParam("memberId") String loginM, 
 							RedirectAttributes redirectAttr) {	
 			
 			
-			String msg = "";
-			int result = 0;		
-			// 찜 조회
 //			List<String> ApplyW = studyRoomService.selectCheckWish(srWish);
 //			model.addAttribute("ApplyW",ApplyW);
-			String id = srWish.getMemberId();
 			
-			if( wNo == srNo && id == loginM) {								
-				
-				result = studyRoomService.deleteWish(srWish);
-				msg = "관심 목록에서 해제 되었습니다.";
-				
-			}else{
-				//찜 등록
-				result = studyRoomService.insertWish(srWish);
-				msg =  "관심 목록에 추가 하였습니다.";
-				
-			}									
+			String msg = "";
+			int result = 0;	
+						
+			// 찜 등록
+															
+			int wishR = studyRoomService.selectCheckWish(srWish);
+			
+			if( wishR > 0 ) {			
+								result = studyRoomService.deleteWish(srWish);
+								msg = "관심 목록에서 해제 되었습니다.";
+		
+							}else {
+			 
+								result = studyRoomService.insertWish(srWish);
+								msg =  "관심 목록에 추가 하였습니다.";
+							}
+
 
 			redirectAttr.addFlashAttribute("msg", msg);
-			return "redirect:/studyroom/studyroomlist.do";			
+			
+			return "redirect:/studyroom/studyroomlist.do";
+			
 		}
 		
 		//찾기

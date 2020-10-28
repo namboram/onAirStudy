@@ -31,6 +31,7 @@ public class StudyRoomList implements Serializable{
 	private String srPic;
 	private String mPic;
 	private int srRanking;
+	private int wishNo;
 
 	private List <ProfileAttachment> proList;
 	private List <StudyRoom> sRoom;

@@ -67,8 +67,8 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 	
 	@Override
-	public List<String> selectCheckWish(StudyRoomWish srWish) {
-		return sqlSession.selectList("studyroom.selectCheckWish", srWish);
+	public int selectCheckWish(StudyRoomWish srWish) {
+		return sqlSession.selectOne("studyroom.selectCheckWish", srWish);
 	}
 
 	//방생성
@@ -174,6 +174,12 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	@Override
 	public List<StudyRoomList> selectsrList() {
 		return sqlSession.selectList("studyroom.selectsrList");
+	}
+	
+	//회원가입시 sr_log에 회원 추가 
+	@Override
+	public int insertMemberToSr(Map<String, Object> param) {
+		return sqlSession.insert("studyroom.insertMemberToSr", param);
 	}
 
 
