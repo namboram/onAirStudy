@@ -178,13 +178,22 @@ public class AdminController {
 		
 		//mepper에서 if test문 작성하기 위해 map에 넣어서 전송
 		Map<String, Object> map = new HashMap<>();
-		map.put("searchContent", searchContent);
+		
+		if(searchContent != null)
+			map.put("searchContent", searchContent);
+		else
+			map.clear();
+		
+		log.debug("map ={}", map);
 		
 		List<Map<String, Object>> list = adminService.reportList(map);
 		log.debug("list = {}",list);
 		
 		mav.addObject("list", list);
-		mav.addObject("searchContent", searchContent);
+		
+		if(searchContent != null)
+			mav.addObject("searchContent", searchContent);
+		
 		return mav;
 	}
 	
@@ -286,7 +295,7 @@ public class AdminController {
 		else
 			redirectAttr.addFlashAttribute("msg", "신고 무효처리 실패");
 		
-		if(searchContent != "" || searchContent != null)
+		if(searchContent != null)
 			return "redirect:/admin/reportList.do?searchContent="+searchContent;
 		
 		return "redirect:/admin/reportList.do";
