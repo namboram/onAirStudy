@@ -44,7 +44,6 @@ where
 			service
 	set 
 			service_title = #{service_title}, 
-			category = #{category}
 			service_content = #{service_content}
 	where 
 			no = #{no}

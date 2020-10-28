@@ -66,6 +66,7 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 		return sqlSession.selectOne("service.serviceDetail",no);
 	}
 
+
 	@Override
 	public Object selectService(int no) {
 		return sqlSession.selectOne("service.serviceDetail", no);
@@ -80,6 +81,7 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	public int serviceDelete(int no) {
 		return sqlSession.delete("service.serviceDelete" , no);
 	}
+
 
 	
 	

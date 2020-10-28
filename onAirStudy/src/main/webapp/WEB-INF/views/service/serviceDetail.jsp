@@ -9,26 +9,26 @@
 <script>
 
 $(document).ready(function(){
-    $("#list").on("click",function(){
-    	location.href = '${pageContext.request.contextPath}/servicecenter.do'
+	 $("#list").on("click",function(){
+	    	location.href = '${pageContext.request.contextPath}/servicecenter.do'
+	    })
+
+    $("#modify").on("click",function(){
+    	location.href = '${ pageContext.request.contextPath }/serviceUpdate.do?no=${ map.NO }'
     })
- 
-})
+});
 
-function update(no){
-	location.href = "${ pageContext.request.contextPath }/serviceUpdate.do?no=${ map.NO }";    
-};
 
-function delete(no){
+ /* function delete(no){
 	if(confirm("정말 삭제하시겠습니까?") == false)
 		return;
 	var $frm = $("#DeleteFrm");
 	$frm.find("[name=no]").val(${ map.NO });
 	$frm.submit();
 };
+ */
 
-
-</script>
+</script> 
 
 <!-- 맨위 배너 -->
 	<div class="container-fluid" style="height: 20vh; background-color: rgb(247, 235, 229);">
@@ -77,11 +77,11 @@ function delete(no){
     </table>
 
 	<div class="text-center">
-		<a href="" id="list" class="btn">목록으로</a>
+		<a href="" id="list" class="btn" onclick="location.href='${pageContext.request.contextPath}/servicecenter.do'">목록으로</a>
 		
 		 <c:if test="${map.MEMBER_ID eq loginMember.memberId }"> 		
-			<button type="button" class="btn" id="modify" onclick="update()">수정하기</button>
-			<button type="button" class="btn" id="delete" onclick="delete()">삭제하기</button>
+			<button type="button" class="m_btn" id="modify" onclick="">수정하기</button>
+			<button type="button" class="d_btn" id="delete" onclick="">삭제하기</button>
 		</c:if> 
 	</div>
 	

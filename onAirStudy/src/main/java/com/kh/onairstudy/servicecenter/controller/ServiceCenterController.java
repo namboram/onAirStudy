@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +106,8 @@ public class ServiceCenterController {
 	 
 	 
 	 
+
+	 
 	 @RequestMapping(value="serviceUpdate.do", method = RequestMethod.GET)
 		public String serviceUpdate(@RequestParam int no, Model model){
 		
@@ -115,22 +118,25 @@ public class ServiceCenterController {
 	 
 	 //수정		
 		@RequestMapping(value="serviceUpdate.do", method = RequestMethod.POST)
-		public String serviceUpdate(ServiceCenter service, RedirectAttributes redirectAttributes){
+		public String serviceUpdate(ServiceCenter service, RedirectAttributes redirectAttributes) {
+			
 			System.out.println("serviceUpdate="+ service);
+			
 			int result = serviceCenterService.serviceUpdate(service);
 			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 수정성공" : "Dev 수정실패");
 			return "redirect:/servicecenter.do";
 		}
 	
 		
-	//삭제		
-		@RequestMapping(value = "serviceDelete.do",
-						method = RequestMethod.POST)
-		public String serviceDelete(@RequestParam("no") int no, RedirectAttributes redirectAttributes){
-			int result =serviceCenterService.serviceDelete(no);
-			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 삭제성공" : "Dev 삭제실패");
-			return "redirect:/servicecenter.do";
-		}
+//	//삭제		
+//		@RequestMapping(value = "serviceDelete.do",
+//						method = RequestMethod.POST)
+//		public String serviceDelete(@RequestParam("no") int no, RedirectAttributes redirectAttributes){
+//			int result =serviceCenterService.serviceDelete(no);
+//			
+//			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 삭제성공" : "Dev 삭제실패");
+//			return "redirect:/servicecenter.do";
+//		}
 	 
 	 
 	 

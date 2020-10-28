@@ -13,7 +13,7 @@ $(document).ready(function(){
     	location.href = '${pageContext.request.contextPath}/servicecenter.do'
     })
     $("#modify").on("click",function(){
-    	location.href = '${pageContext.request.contextPath}/serviceUpdate.do'
+    	location.href = '${ pageContext.request.contextPath }/serviceUpdate.do'
     })
 });
 
@@ -40,31 +40,20 @@ $(document).ready(function(){
 		<div class="form-group row">
 		  <label for="title" class="col-sm-2 col-form-label">제목</label>
 		  <div class="col-sm-10">
-		    <input type="text" class="form-control" id="name" name="title" value="${ map.SERVICE_TITLE }" required>
+		    <input type="text" class="form-control" id="service_title" name="service_title" value="${ service.SERVICE_TITLE }" required>
 		  </div>
 		</div>
-		<div class="form-group row">
-		  <label for="category" class="col-sm-2 col-form-label">카테고리</label>
-		  <div class="form-group">
-                     <select class="form-control" id="category" name="category">
-                        <option value="1">선택</option>
-                        <option value="1">신고</option>
-                        <option value="2">이용</option>
-                        <option value="3">결제</option>
-                        <option value="4">기타</option>
-                     </select>
-                  </div>
-		</div>
+		
 		<div class="form-group row">
 		  <label for="MEMBER_ID" class="col-sm-2 col-form-label">작성자</label>
 		  <div class="col-sm-10">
-		    <input type="MEMBER_ID" class="form-control" id="MEMBER_IDl" name="MEMBER_ID" value="${ map.MEMBER_ID }" readonly>
+		    <input type="MEMBER_ID" class="form-control" id="MEMBER_IDl" name="MEMBER_ID" value="${ service.MEMBER_ID }"  readonly>
 		  </div>
 		</div>
 		<div class="form-group row">
 		  <label for="content" class="col-sm-2 col-form-label">내용</label>
 		  <div class="col-sm-10">
-		    <input type="text" class="form-control" id="content" name="content" value="${ map.SERVICE_CONTENT}" required>
+		  <textarea class="form-control" name="content" rows="5">${ service.SERVICE_CONTENT}</textarea>
 		  </div>
 		</div>
         
@@ -73,7 +62,8 @@ $(document).ready(function(){
    
    <div class="text-center"> 
 		<a href="#this" id="list" class="btn">목록으로</a>
-		<input type="hidden" name="no" value="${ map.NO }">
+		<input type="hidden" name="no" value="${ service.NO }">
+		
 		<button type="submit" class="btn" id="modify">수정하기</button>
 		</div>
 	
