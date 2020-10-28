@@ -30,8 +30,14 @@ public interface StudyRoomService {
 	List<StudyRoomList> listAll(String search_option, String keyword);
 
 	int countArticle(String search_option, String keyword);	
+
+//찜 목록
+	int insertWish(StudyRoomWish srWish);
+
+	int deleteWish(StudyRoomWish srWish);
 	
-	
+	List<String> selectCheckWish(StudyRoomWish srWish);
+		
 //
 	List<StudyRoomList> selectDiligentStudyroom();
 
@@ -41,9 +47,6 @@ public interface StudyRoomService {
 
 	StudyRoomInfo selectRoomInfo(int roomNum);
 
-	int insertWating(StudyRoomWaiting srWating);
-
-	int insertWish(StudyRoomWish srWish);
 
 	int selectParticipatingRoomCnt(String memberId);
 
@@ -53,6 +56,19 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
+
+	// 스터디 신청
+	int insertWating(StudyRoomWaiting srWating);
+
+	int selectApplyRoom(StudyRoomWaiting srWating);
+
+
+	
+
+	
+
+	
+
 
 
 
