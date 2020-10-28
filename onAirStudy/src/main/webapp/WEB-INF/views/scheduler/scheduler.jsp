@@ -178,6 +178,7 @@
 				<div class="modal-body">
 					<h5>To do List</h5>
 					<form id="storeTodoFrm" method="POST">
+						<input type="hidden" name="roomNum" value="${ roomNum }" />
 						<table class="table" id="todoTable">
 
 
@@ -201,20 +202,6 @@
 
 
 <script>
-
-	var srNo = "${ roomInfo.srNo }";
-
-	//방번호 유무에 따라 히든태그 생성
-	/* $(document).ready(function(){
-		console.log($("#iuscheduleFrm"));
-		if(srNo != ""){
-			var inputH = $("#iuscheduleFrm").createElement("input");
-				inputH.setAttribute("type", "hidden");
-				inputH.setAttribute("name", "srNo");
-				inputH.setAttribute("value", srNo);
-			}
-		});
-	 */
 
     function deleteTodoBtn(){
 		var thisDate = $("#todoDateB").html();
@@ -437,27 +424,8 @@
 	
 		//일정 삭제 delete
 		 	function deleteB(no, day){
-				location.replace("${ pageContext.request.contextPath }/scheduler/delete.do?no="+no);
-
-			 	
-		 /* 	$.ajax({
-				type:"GET",
-				url: "${ pageContext.request.contextPath }/scheduler/delete.do?no="+no,
-				error:function(){
-					alert("일정 삭제 실패");
-					},
-				dataType:"text",
-				success : function(data){
-					alert("일정 삭제 성공");
-					console.log(data);
-
-					viewSchedule();
-	
-				}
-
-			}); */
-				
-
+				var loc = "${ pageContext.request.contextPath }/scheduler/delete.do?dNo="+no;
+				location.replace(loc);
 		}
 
 

@@ -31,6 +31,7 @@ public class AdminController {
 	private AdminService adminService;
 	
 
+	//메인
 	@RequestMapping("/admin/main.do")
 	public ModelAndView adminMain(ModelAndView mav, HttpServletRequest request) {
 			
@@ -56,7 +57,7 @@ public class AdminController {
 		return mav; 
 	}
 	
-	//관리자 마이페이지 문의사항 카운트
+	//관리자 마이페이지 문의사항 갯수
 	@RequestMapping("/admin/serviceCnt.do")
 	@ResponseBody
 	public int serviceCnt() {
@@ -66,6 +67,7 @@ public class AdminController {
 		return result;
 	}
 	
+	//회원관리
 	@RequestMapping("/admin/memberList.do")
 	public Model adminMemberList(Model model,
 								@RequestParam(value="searchType",
@@ -98,6 +100,7 @@ public class AdminController {
 		return model;
 	}
 	
+	//회원상세
 	@RequestMapping("/admin/memberDetail.do")
 	public ModelAndView memberDetail(@RequestParam("mid") String memberId, ModelAndView mav) {
 		
@@ -110,6 +113,8 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	//문의사항
 	@RequestMapping("/admin/serviceList.do")
 	public ModelAndView serviceList(ModelAndView mav, HttpServletRequest request) {
 		
@@ -133,6 +138,7 @@ public class AdminController {
 		return mav;
 	}
 	
+	//문의상세
 	@RequestMapping("/admin/serviceDetail.do")
 	public ModelAndView serviceDetail(ModelAndView mav,
 									@RequestParam("no")int no) {
@@ -149,6 +155,7 @@ public class AdminController {
 		return mav;
 	}
 	
+	//문의답변
 	@RequestMapping("/admin/insertService.do")
 	public String insertService(ServiceCenter sc, 
 								@RequestParam("replyNo") int replyNo) {
@@ -172,6 +179,7 @@ public class AdminController {
 		return "redirect:/admin/serviceDetail.do?no="+replyNo;
 	}
 	
+	//신고내역
 	@RequestMapping(value="/admin/reportList.do")
 	public ModelAndView reportList(ModelAndView mav,
 									@RequestParam(value="searchContent", required=false) String searchContent) {
@@ -197,6 +205,7 @@ public class AdminController {
 		return mav;
 	}
 	
+	//신고 내용 모달
 	@RequestMapping("/admin/showModal.do")
 	@ResponseBody
 	public Map<String, Object> showModal(@RequestParam("category") String category,
@@ -214,6 +223,7 @@ public class AdminController {
 		return cont;
 	}
 	
+	//그룹관리
 	@RequestMapping("/admin/studyList.do")
 	public ModelAndView studyList(ModelAndView mav,
 								@RequestParam(value="searchType",
@@ -246,6 +256,7 @@ public class AdminController {
 		return mav;
 	}
 	
+	//그룹상세
 	@RequestMapping("/admin/studyDetail.do")
 	public Model studyDetail(Model model,
 							@RequestParam("no") int no) {
@@ -264,6 +275,7 @@ public class AdminController {
 		return model;
 	}
 	
+	//그룹삭제
 	@RequestMapping("/admin/studyDelete.do")
 	public String studyDelete(@RequestParam("no") int no,
 								RedirectAttributes redirectAttr) {
@@ -279,6 +291,7 @@ public class AdminController {
 		return "redirect:/admin/studyDetail.do?no="+no;
 	}
 	
+	//신고무효처리
 	@RequestMapping("/admin/updateReport.do")
 	public String updateReport(@RequestParam("no")int no,
 								@RequestParam(value="searchContent",
@@ -301,6 +314,7 @@ public class AdminController {
 		return "redirect:/admin/reportList.do";
 	}
 	
+	//관리자 마이페이지 쪽지갯수
 	@RequestMapping("/admin/messageCnt.do")
 	@ResponseBody
 	public int messageCnt() {

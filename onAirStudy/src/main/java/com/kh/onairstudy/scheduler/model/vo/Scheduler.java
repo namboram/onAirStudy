@@ -19,7 +19,7 @@ public class Scheduler implements Serializable{
 	
 	private int no;
 	private String memberId;
-	private int srNo;
+	private String srNo;
 	private Date startDate;
 	private Date endDate;
 	private String content;

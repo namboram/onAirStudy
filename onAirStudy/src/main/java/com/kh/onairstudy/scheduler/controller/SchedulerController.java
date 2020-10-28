@@ -32,6 +32,7 @@ public class SchedulerController {
 	@Autowired
 	private SchedulerService schedulerService;
 	
+	//스케줄러 메인
 	@RequestMapping("/mypage1/scheduler.do")
 	public ModelAndView mainScheduler(ModelAndView mav, 
 										@SessionAttribute("loginMember") Member member,
@@ -63,6 +64,7 @@ public class SchedulerController {
 		
 	}
 	
+	//일정 시작~끝 날짜의 중간 날짜들 찾아주기
 	public List<Scheduler> makeScheduleArrays(Member member, String roomNum){
 				
 				//로그인된 아이디 가져오기
@@ -87,6 +89,7 @@ public class SchedulerController {
 				Calendar c2 = Calendar.getInstance();
 				
 				for(Scheduler sch : list) {
+					//시작날짜와 끝날짜
 					Date start = sch.getStartDate();
 					Date end = sch.getEndDate();
 					
@@ -95,16 +98,16 @@ public class SchedulerController {
 					
 					//시작날짜가 끝날짜보다 작을때만!
 					if(start.compareTo(end) < 0) {
-						//원객체
+						
 						addList.add(sch);
 						
-						//하루씩 더한 객체
+						//두 날짜가 같이 않으면
 						while(c1.compareTo(c2)!=0) {
 							
+							//하루씩 추가해줌
 							c1.add(Calendar.DATE, 1);
 							//temp에 담기
 							Date temp = new Date(c1.getTimeInMillis());
-							
 							//하루씩 더한 날짜를 새 객체에 담아주기
 							Scheduler ssch = new Scheduler(sch.getNo(), sch.getMemberId(), sch.getSrNo(), 
 															temp, sch.getEndDate(), sch.getContent(), sch.getColorCode(), 
@@ -122,17 +125,20 @@ public class SchedulerController {
 		return addList;
 	}
 	
+	//일정 넣어주기
 	@RequestMapping("/scheduler/insert.do")
 	public String insertSchedule(Scheduler sch, 
 								RedirectAttributes redirectAttr) throws Exception {
+		//jsp에서 처리못한 값들 처리해주기
 		if(sch.getDYN()==null)
 			sch.setDYN("N");
 		
 		sch.setEnabledYN("N");
 		
-		log.debug("sch={}", sch);
-		System.out.println("sch="+sch);
 		
+		log.debug("sch={}", sch);
+		
+		//jsp의 날짜형식에 맞게 바꿔주기
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		
 		int result = schedulerService.insertSchedule(sch);
@@ -142,21 +148,29 @@ public class SchedulerController {
 		}else {
 			redirectAttr.addFlashAttribute("msg", "일정 등록 실패");
 		}
-			
-		return "redirect:/mypage1/scheduler.do";
+		
+		if(sch.getSrNo() != null)
+			return "redirect:/mypage1/scheduler.do?no="+sch.getSrNo();
+		else
+			return "redirect:/mypage1/scheduler.do";
 	}
 
+	//일정 수정
 	@RequestMapping("/scheduler/update.do")
 	public String updateSchedule(Scheduler sch, 
-			RedirectAttributes redirectAttr) throws Exception {
+									RedirectAttributes redirectAttr) throws Exception {
+		
+		//jsp에서 처리못한 값들 처리해주기
 		if(sch.getDYN()==null)
 			sch.setDYN("N");
 		
 		sch.setEnabledYN("N");
 		
-		System.out.println("sch="+sch);
+		log.debug("sch={}", sch);
 		
+		//jsp의 날짜형식에 맞게 바꿔주기
 		redirectAttr = makeYearMonths(sch, redirectAttr);
+		//c:if를 위한 내용없는 키
 		redirectAttr.addFlashAttribute("sche", "good");
 		
 		int result = schedulerService.updateSchedule(sch);
@@ -167,9 +181,13 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "일정 수정 실패");
 		}
 //		
-		return "redirect:/mypage1/scheduler.do";
+		if(sch.getSrNo() != null)
+			return "redirect:/mypage1/scheduler.do?no="+sch.getSrNo();
+		else
+			return "redirect:/mypage1/scheduler.do";
 	}
 	
+	//jsp의 날짜형식에 맞게 바꿔서 보내주는 메소드
 	public RedirectAttributes makeYearMonths(Scheduler sch, RedirectAttributes redirectAttr){
 		
 		SimpleDateFormat fm1 = new SimpleDateFormat("YYYY");
@@ -189,33 +207,38 @@ public class SchedulerController {
 		return redirectAttr;
 	}
 	
-	
+	//일정 삭제
 	@RequestMapping("/scheduler/delete.do")
-	public String deleteSchedule(@RequestParam("no") int no,
+	public String deleteSchedule(@RequestParam("dNo") int dNo,
 								RedirectAttributes redirectAttr) throws Exception {
-		System.out.println("no="+no);
 		
-		Scheduler sch = schedulerService.selectOne(no);
-		System.out.println("sch="+sch);
+		log.debug("dNo = {}", dNo);
 		
-		//방예시
-		sch.setMemberId(null);
-		sch.setSrNo(15);
+		//날짜고정해주기 위해 내역불러오기
+		Scheduler sch = schedulerService.selectOne(dNo);
 		
+		log.debug("sch={}", sch);
+		
+		//날짜고정
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		redirectAttr.addFlashAttribute("sche", "good");
 		
-		int result = schedulerService.deleteSchedule(no);
+		//이후에 삭제
+		int result = schedulerService.deleteSchedule(dNo);
 		
 		if(result>0)
 			redirectAttr.addFlashAttribute("msg", "일정 삭제 성공");
 		else
 			redirectAttr.addFlashAttribute("msg", "일정 삭제 실패");
 			
-		return "redirect:/mypage1/scheduler.do";
+		//방번호유무
+		if(sch.getSrNo() != null)
+			return "redirect:/mypage1/scheduler.do?no="+sch.getSrNo();
+		else	
+			return "redirect:/mypage1/scheduler.do";
 	}
 	
-	
+	//투두리스트 입력 (삭제 + 입력)
 	@RequestMapping("/scheduler/todo.do")
 	public String insertTodo(@RequestParam("content") String[] contents,
 							@RequestParam("checked") boolean[] yn,
@@ -226,33 +249,37 @@ public class SchedulerController {
 		
 		Scheduler sch = null;
 		List<Scheduler> list = new ArrayList<>();
-		//객체화
+		
+		//객체화 및 list 넣기
 		for(int i = 0 ; i<contents.length;i++) {
 
 			sch = new Scheduler();
-			
 
-			sch.setMemberId(member.getMemberId());
-			sch.setSrNo(0);
 			//방번호유무
-			if(roomNum != null) {
-				sch.setSrNo(Integer.parseInt(roomNum));
-				sch.setMemberId(null);
-			}
+			if(roomNum != null)
+				sch.setSrNo(roomNum);
+			else
+				sch.setMemberId(member.getMemberId());
+			
 			sch.setStartDate(startDate);
 			sch.setEndDate(startDate);
 			sch.setContent(contents[i]);
+			//체크박스 여부에 따라 입력
 			String tempYn = yn[i] == true ? "Y" : "N";
 			sch.setEnabledYN(tempYn);
 
-			System.out.println(sch);
+			log.debug("sch={}", sch);
 			list.add(sch);
 		}
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("memberId", member.getMemberId());
+		
+		//방번호유무
 		if(roomNum != null)
 			map.put("srNo", roomNum);
+		else
+			map.put("memberId", member.getMemberId());
+		
 		map.put("startDate", startDate);
 		
 		//이전내역삭제
@@ -260,7 +287,6 @@ public class SchedulerController {
 		
 		//새로등록
 		result = schedulerService.insertTodo(list);
-		
 		
 		redirectAttr = makeYearMonths(sch, redirectAttr);
 		redirectAttr.addFlashAttribute("todo", "good");
@@ -270,10 +296,13 @@ public class SchedulerController {
 		else
 			redirectAttr.addFlashAttribute("msg", "리스트 저장 실패");
 		
-		
-		return "redirect:/mypage1/scheduler.do";
+		if(roomNum != null)
+			return "redirect:/mypage1/scheduler.do?no="+roomNum;
+		else
+			return "redirect:/mypage1/scheduler.do";
 	}
 	
+	//투두리스트 전체삭제
 	@RequestMapping("/scheduler/delTodo.do")
 	public String deleteTodo(@RequestParam("startDate") Date startDate,
 							@SessionAttribute("loginMember") Member member,
@@ -282,19 +311,18 @@ public class SchedulerController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		
-		map.put("memberId", member.getMemberId());
-		map.put("srNo", null);
-
 		//방번호유무
-		if(roomNum != null) {
-			map.put("memberId", null);
-			map.put("srNo", Integer.parseInt(roomNum));
-		}
-		
-		map.put("startDate", startDate);
+		if(roomNum != null)
+			map.put("srNo", roomNum);
+		else
+			map.put("memberId", member.getMemberId());
 
+		map.put("startDate", startDate);
+		
+		//삭제
 		int result = schedulerService.deleteTodo(map);
+		
+		//해당날짜로 날짜잡아주기
 		Scheduler sch = new Scheduler();
 		sch.setStartDate(startDate);
 		
@@ -306,8 +334,11 @@ public class SchedulerController {
 		else
 			redirectAttr.addFlashAttribute("msg", "리스트 삭제 성공");
 		
-		
-		return "redirect:/mypage1/scheduler.do";
+		if(roomNum != null)
+			return "redirect:/mypage1/scheduler.do?no="+roomNum;
+		else
+			return "redirect:/mypage1/scheduler.do";
+			
 	}
 	
 	
