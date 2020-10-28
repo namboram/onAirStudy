@@ -68,6 +68,13 @@ public class DiaryController {
       redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
       return "redirect:/diary/diaryList.do";
    }
+   
+   @RequestMapping("/deleteDiary.do")
+   public String deleteDiary(@RequestParam int no,RedirectAttributes redirectAttr) {
+	   int result = diaryService.deleteDiary(no);
+	   redirectAttr.addFlashAttribute("msg","게시글 삭제 완료");
+	   return "redirect:/diary/diaryList.do";
+   }
    /*
    @RequestMapping(value = "/diaryEnroll.do", method = RequestMethod.POST)
    public String diaryEnroll(Diary diary,
