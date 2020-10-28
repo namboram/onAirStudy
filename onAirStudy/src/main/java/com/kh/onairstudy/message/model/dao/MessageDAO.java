@@ -19,4 +19,6 @@ public interface MessageDAO {
 
 	List<Message> searchMessageList(Map<String, Object> map);
 
+	Message selectMessageNextOne(Map<String, Object> map);
+
 }

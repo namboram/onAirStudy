@@ -58,7 +58,12 @@
 						<th scope="col">받는사람</th>
 						<th scope="col">내용</th>
 						<th scope="col">날짜</th>
-						<th scope="col">읽음여부</th>
+						<c:if test="${title eq '수신함'}">
+							<th scope="col">읽음여부</th>
+						</c:if>
+						<c:if test="${title eq '발신함'}">
+							<th scope="col">수신여부</th>
+						</c:if>
 					</tr>
 				</thead>
 				<tbody>
@@ -72,19 +77,21 @@
 							
 							<c:choose>
 								<c:when test="${fn:length(message.msgContent) gt 15}">
-									<td><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}"><c:out value="${fn:substring(message.msgContent, 0, 15)}"></c:out>...</a></td>
+									<td ><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}" ><c:out value="${fn:substring(message.msgContent, 0, 15)}"></c:out>...</a></td>
 								</c:when>
 								<c:otherwise>
-									<td><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}">${message.msgContent}</a></td>
+									<td ><a href="${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}" >${message.msgContent}</a></td>
 								</c:otherwise>
 							</c:choose>
 							<td><fmt:formatDate value="${message.sendDate }"
 									pattern="yy/MM/dd HH:mm:ss" /></td>
+							<c:if test="${title ne '전체 쪽지함'}">
 							<c:if test="${message.readYN eq 'Y'}">
 								<td class="text-grey">읽음</td>
 							</c:if>
 							<c:if test="${message.readYN eq 'N'}">
 								<td>안읽음</td>
+							</c:if>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -100,6 +107,21 @@
 </div>
 
 <script>
+$(document).on("click",".msgDetail",function(){
+	/*${pageContext.request.contextPath}/message/messageDetail.do?no=${message.no}  */
+
+/*      var j = $(".msgDetail").index(this); 
+     console.log(j);
+	 var thisIdx = $(".msgDetail").eq(j).closest("td").data("no");
+	 var next = $(".msgDetail").eq(j+1).closest("td").data("no");
+	 console.log(next);
+	 if(next==null)
+		 next = 0; */
+	 //console.log(next.html());
+	 //console.log(next.closest("td").data("no"));
+     //window.location = "${pageContext.request.contextPath}/message/messageDetail.do?no="+thisIdx+"&nNo="+next;
+	
+});
 function receivedMsg(){
 
 	window.location = "${pageContext.request.contextPath}/message/sendReceiveFilter.do?type=receive";
