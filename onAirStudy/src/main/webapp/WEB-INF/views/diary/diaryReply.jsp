@@ -22,27 +22,37 @@ div#diary-container{width:60%; margin:0 auto;text-align:center;}
 	      <td>${ diaryReply.replyContent }</td>
 	      <td><fmt:formatDate value="${ diaryReply.replyDate }" pattern="yy/MM/dd HH:mm:ss"/></td>
 	     <td>
+	     	  <c:if test="${ loginMember.memberId != null }">
 	      	<button 
 	      		type="button" 
 	      		class="btn btn-outline-danger"
-	      		onclick="btnReplyDel('${ diaryReply.no }')">삭제</button>
+	      		onclick="btnReplyDel('${ diaryReply.no}')">삭제
+	      	</button>
+	     	</c:if>
 	      </td> 
 		</tr>
 	    </c:forEach>
 	</table>
-
+<form action="${ pageContext.request.contextPath }/diary/deleteReply.do" 
+	  id="replyDeleteFrm" 
+	  method="POST">
+	<input type="hidden" name="no" />
+	<input type="hidden" name="diaryNo" />
+</form>
 
 <script>
+
 function btnReplyDel(no){
-	/* if( ${ loginMember.memberId } != ${ diaryReply.memberId }) 
-			alert("작성하신 게시글만 삭제 가능합니다.");
+		if( confirm("정말 삭제하시겠습니까?") == false)
+			return;
+		var $frm = $("#replyDeleteFrm");
+
 		
-	else( */
-		var Rcheck = confirm("정말 삭제하시겠습니까?");
-			if(Rcheck){
-				location.href="deleteDiaryReply?no="+no;
-			}
-	
+		var diaryNo = ${ param.no };
+		
+		$frm.find("[name=no]").val(no);
+		$frm.find("[name=diaryNo]").val(diaryNo);
+		$frm.submit();
 	
 }
 

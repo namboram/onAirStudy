@@ -4,21 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="diary">
  
- 	<select id="selectDiaryList" resultType="diary">
+	<select id="selectDiaryList" resultType="diary">
 	 	select
-		   D.*,
-		   (select
-		        count(*)
-		    from 
-		        diary_attachment
-		    where
-		        diary_no = D.no) file_count
+		     no,
+	         member_id,
+	         diary_title,
+	         read_cnt,
+	         diary_date
+		   
 		from
-		    diary D
+		    diary
 		order by 
 		    no desc
  	
- 	</select>
+ 	</select> 
  	
  	<resultMap type="map" id="diaryMap">
  		<id column="no" property="no"/>

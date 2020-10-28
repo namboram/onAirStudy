@@ -74,10 +74,9 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 
-
 	@Override
-	public int deleteDiaryReply(Map<String, String> param) {
-		return diaryDAO.deleteDiaryReply(param);
+	public int deleteDiaryReply(DiaryReply diaryReply) {
+		return diaryDAO.deleteDiaryReply(diaryReply);
 	}
 	
 

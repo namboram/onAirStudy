@@ -1,11 +1,10 @@
 package com.kh.onairstudy.diary.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -169,19 +168,22 @@ public class DiaryController {
    	}
     
    	//댓글삭제
-   	@RequestMapping("/deleteDiaryReply.do")
-   	public String deleteDiaryReply(DiaryReply diaryReply,
-   								   @RequestParam("no") int no) {
+   	@RequestMapping("/deleteReply.do")
+   	public String deleteDiaryReply(@RequestParam("no") int no,
+   								   @RequestParam("diaryNo") int diaryNo,
+   								   HttpServletRequest request,
+   								   RedirectAttributes redirectAttributes) {
+
    		
-   		int diaryNo = diaryReply.getDiaryNo();
-   		log.debug("메모 삭제");
-   		Map<String, String> param = new HashMap<>();
-   		param.put("no", String.valueOf(diaryReply.getNo()));
-   		param.put("memberId", diaryReply.getMemberId());
-   		System.out.println("param"+param);
+   		diaryNo = Integer.valueOf(request.getParameter("diaryNo"));
+   		DiaryReply diaryReply = new DiaryReply();   		
+   		diaryReply.setNo(no);
+   		diaryReply.setDiaryNo(diaryNo);
    		
-   		int result = diaryService.deleteDiaryReply(param);
+   		int result = diaryService.deleteDiaryReply(diaryReply);
+   		redirectAttributes.addFlashAttribute("msg", result>0 ? "댓글 삭제성공" : "댓글 삭제실패");
    		return "redirect:/diary/diaryDetail.do?no="+diaryNo;
+   				
    	}
    	
      

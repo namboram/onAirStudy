@@ -28,18 +28,10 @@ public class MemberServiceImpl implements MemberService {
 	// 02. 회원등록
 	@Override
 	public int insertMember(Member member) {
-		int result =0;
-		//1.member insert
-		result = memberDAO.insertMember(member);
-		
-		//2.스터디방에 member insert
-		StudyRoomLog srlog = null;
-		int category = member.getCategory();
-		srlog.setSrNo(category);
-		result = memberDAO.insertMemberToSr(srlog);
-		System.out.println("category="+category);
-		return result;
+		return memberDAO.insertMember(member);
 	}
+	
+	
 	
 	//신고 후 회원 블랙리스트 업데이트
 	@Override

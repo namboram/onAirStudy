@@ -34,7 +34,7 @@
   </select>
   
 
-<insert id="insertMemberToSr">
+<!-- <insert id="insertMemberToSr">
 	insert into 
 		sr_log
 	values(
@@ -44,9 +44,10 @@
 		#{ statusLog },
 		#{ warningCnt },
 		default
-	)
+	) 
 	
 </insert>  
+	-->
   
   
   

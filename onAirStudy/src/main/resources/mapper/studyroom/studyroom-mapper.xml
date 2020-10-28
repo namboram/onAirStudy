@@ -356,4 +356,19 @@ from sr_log
 		and 
 			status_log = '참여'
 	</select>
+	
+	<insert id="insertMemberToSr">
+	insert into 
+		sr_log
+	values(
+		seq_sr_log_no.nextval,
+		#{ srNo },
+		#{ memberId },
+		'미참여',
+		0,
+		default
+	)
+	
+</insert>  
+	
 </mapper>

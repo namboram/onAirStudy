@@ -33,7 +33,5 @@
   			diary_reply
   		where
   			no = #{no}
-  		 and
-  		   member_id = #{ memberId }
   	</delete>
 </mapper>

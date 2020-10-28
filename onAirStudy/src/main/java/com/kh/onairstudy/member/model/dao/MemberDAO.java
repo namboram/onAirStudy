@@ -15,7 +15,8 @@ public interface MemberDAO {
 
 	int updateBlack(String reportedMember);
 
-	int insertMemberToSr(StudyRoomLog srlog);
+
+
 
 
 

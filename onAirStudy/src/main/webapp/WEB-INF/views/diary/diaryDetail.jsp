@@ -54,7 +54,6 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 <div id="diary-reply-container">
 	  <c:if test="${ loginMember.memberId != null }">
 	  <hr />
-	  <h5>댓글달기</h5>
 	  <input type="text" class="form-control col-sm-6" name="replyContent" id="replyContent" placeholder="댓글을 적어주세요" required/>&nbsp;
       <!-- <input type="password" class="form-control col-sm-2" name="DRpassword" maxlength="4" placeholder="비밀번호" required/>&nbsp; -->
       <button class="btn btn-outline-success" id="btnReply" >댓글작성</button>
@@ -67,7 +66,7 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 
 $(document).ready(function(){
 
-	listReply();
+	/* listReply(); */
 			
 	$("#btnReply").click(function(){
 		var replyContent = $("#replyContent").val();
@@ -90,17 +89,16 @@ $(document).ready(function(){
 
 });
 
-function listReply(){
+/* function listReply(){
 	$.ajax({
 		type: "get",
 		url: "${ pageContext.request.contextPath }/diary/diaryDetailList.do?diaryNo=${diary.no}",
 		success: function(result){
 			$("#listReply").html(result);
-			location.href="${ pageContext.request.contextPath }/diary/diaryReplyList.do?diaryNo=${diary.no}";
 		}
 
 	})
-} 
+}  */
 
 
 

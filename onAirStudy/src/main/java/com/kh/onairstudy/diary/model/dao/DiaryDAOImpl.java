@@ -69,9 +69,11 @@ public class DiaryDAOImpl implements DiaryDAO {
 	}
 
 
+
 	@Override
-	public int deleteDiaryReply(Map<String, String> param) {
-		return sqlSession.delete("diaryReply.deleteDiaryReply", param);
+	public int deleteDiaryReply(DiaryReply diaryReply) {
+		return sqlSession.delete("diaryReply.deleteDiaryReply", diaryReply);
+
 	}
 
 

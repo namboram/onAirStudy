@@ -3,6 +3,7 @@ package com.kh.onairstudy.studyroom.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoom;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
@@ -56,6 +57,8 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
+
+	int insertMemberToSr(Map<String, Object> param);
 
 
 	

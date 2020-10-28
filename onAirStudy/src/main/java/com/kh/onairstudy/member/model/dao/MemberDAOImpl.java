@@ -28,11 +28,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.insert("member.insertMember", member);
 	}
 	//03.회원가입시 sr_logt삽입
-	
-	@Override
-	public int insertMemberToSr(StudyRoomLog srlog) {
-		return  sqlSession.insert("member.insertMemberToSr", srlog);
-	}
+
 
 
 	//신고 후 블랙리스트 등록
@@ -47,6 +43,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("member.selectDiligentMember");
 	}
 
+	
 
 
 
