@@ -128,8 +128,8 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	
 //검색
 	@Override
-	public List<StudyRoomList> listAll(String search_option, String keyword) {
-		return studyRoomDAO.listAll(search_option,keyword);
+	public List<StudyRoomList> listAll(String search_option, String keyword, int category) {
+		return studyRoomDAO.listAll(search_option,keyword, category);
 	}
 
 	@Override

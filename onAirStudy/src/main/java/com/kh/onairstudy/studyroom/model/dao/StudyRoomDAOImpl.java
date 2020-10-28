@@ -106,10 +106,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 
 //검색
 	@Override
-	public List<StudyRoomList> listAll(String search_option, String keyword) {
-		Map<String,String> map = new HashMap<String, String>();
+	public List<StudyRoomList> listAll(String search_option, String keyword, int category) {
+		Map<String,Object> map = new HashMap<>();
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
+		map.put("category", category);
 		return sqlSession.selectList("studyroom.listAll", map);
 	}
 

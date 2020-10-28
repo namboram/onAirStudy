@@ -12,4 +12,6 @@ public interface TestService {
 
 	List<Test> selectQuestion(int srNo);
 
+	int updatePoint(String memberId);
+
 }
