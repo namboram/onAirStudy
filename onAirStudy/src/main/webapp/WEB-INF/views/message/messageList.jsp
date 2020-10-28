@@ -58,7 +58,12 @@
 						<th scope="col">받는사람</th>
 						<th scope="col">내용</th>
 						<th scope="col">날짜</th>
-						<th scope="col">읽음여부</th>
+						<c:if test="${title eq '수신함'}">
+							<th scope="col">읽음여부</th>
+						</c:if>
+						<c:if test="${title eq '발신함'}">
+							<th scope="col">수신여부</th>
+						</c:if>
 					</tr>
 				</thead>
 				<tbody>
@@ -80,11 +85,13 @@
 							</c:choose>
 							<td><fmt:formatDate value="${message.sendDate }"
 									pattern="yy/MM/dd HH:mm:ss" /></td>
+							<c:if test="${title ne '전체 쪽지함'}">
 							<c:if test="${message.readYN eq 'Y'}">
 								<td class="text-grey">읽음</td>
 							</c:if>
 							<c:if test="${message.readYN eq 'N'}">
 								<td>안읽음</td>
+							</c:if>
 							</c:if>
 						</tr>
 					</c:forEach>
