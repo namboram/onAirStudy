@@ -77,7 +77,7 @@ $(document).ready(function(){
 				<input type="hidden" name="serviceTitle" value="답변" />
 				<input type="hidden" name="replyNo" value="${ sv.NO }" />
 				<input type="hidden" name="serviceLevel" value="2" />
-				<input type="hidden" name="memberId" value="admin" />
+				<input type="hidden" name="memberId" value="${ sv.MEMBER_ID }" />
 				<br />
 				<button type="button" class="btn btn-info">등록하기</button>
 			</c:if>
