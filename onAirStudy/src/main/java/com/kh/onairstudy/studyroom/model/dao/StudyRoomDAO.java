@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +76,8 @@ public interface StudyRoomDAO {
 	List<StudyRoomLog> selectStudyRoomLog();
 
 	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
+
+	int updateRoomOpenedYN(HashMap<String, String> param);
 
 
 

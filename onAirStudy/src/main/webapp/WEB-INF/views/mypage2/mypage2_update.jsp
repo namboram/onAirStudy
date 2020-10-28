@@ -29,7 +29,7 @@
                       <label class="col-sm-2 form-control-label">스터디 방제</label>
                       <div class="col-sm-10">
                        <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" name="srTitle" value="${roomInfo.srTitle }">
+                          <input type="text" class="form-control" name="srTitle" value="${roomInfo.srTitle }">
                         </div>
                       </div>
                     </div>
@@ -38,7 +38,7 @@
                       <label class="col-sm-2 form-control-label">스터디 한줄 소개</label>
                       <div class="col-sm-10">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" name="srComment"  value="${roomInfo.srComment }">
+                          <input type="text" class="form-control" name="srComment"  value="${roomInfo.srComment }">
                         </div>
                       </div>
                     </div>
@@ -47,7 +47,7 @@
                       <label class="col-sm-2 form-control-label">우리방 목표</label>
                       <div class="col-sm-10">
                        <div class="form-group">
-                          <input type="text" class="form-control form-control-lg" name="srGoal" value="${roomInfo.srGoal }">
+                          <input type="text" class="form-control" name="srGoal" value="${roomInfo.srGoal }">
                         </div>
                       </div>
                     </div>
@@ -105,15 +105,14 @@
                         <input type="text" class="form-control is-invalid">
                       </div>
                     </div> -->
-                    <hr />
                     <div class="form-group row">
 						<div class="col-sm-5 offset-sm-7">
-							<button type="button" class="btn btn-primary">
-								<c:choose>
-									<c:when test="${roomInfo.srOpenedYN eq 'Y'}"> 방 닫기</c:when>
-									<c:when test="${roomInfo.srOpenedYN eq 'N'}"> 방 열기</c:when>
-								</c:choose>
-							</button>
+							<c:if test="${roomInfo.srOpenedYN eq 'Y'}">
+								<button type="button" class="btn btn-primary" onclick="roomOpened('N')">방 닫기</button>	
+							</c:if>
+							<c:if test="${roomInfo.srOpenedYN eq 'N'}">
+								<button type="button" class="btn btn-primary" onclick="roomOpened('Y')">방 열기</button>	
+							</c:if>
 							<button type="button" class="btn btn-danger">팀장 변경</button>
 							<button type="button" class="btn btn-primary" onclick="beforeSubmit()">수정완료</button>
 						</div>
@@ -141,12 +140,18 @@
 				+ "</div>" ; 
 		i++;
 		$(".attendDiv").append(html); 
-	};
+	}
 
-	function deleteInput(){
-		
-	};
-   	
+	function roomOpened(yn){
+		var msg = yn == 'Y' ? "방을 여시겠습니까?" : "방을 닫으시겠습니까?";  
+		if (confirm(msg)) {
+			post_to_url("${pageContext.request.contextPath}/studyroom/updateOpened.do", { "roomNum": ${roomInfo.srNo}, "openedYN" : yn });
+		}
+	}
+
+
+
+	
 	function beforeSubmit(){
 		var dayStr = "";
 		var timeStr = "";
@@ -170,6 +175,8 @@
 
 		$("#updateFrm").submit();
 				
-	};
+	}
 
+
+	
    </script>

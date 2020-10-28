@@ -401,6 +401,14 @@ from sr_log
 			forced_exit_yn = #{ forceExitYN }
 		where 
 			sr_no = #{srNo}
+	</update>
 	
+	<update id="updateRoomOpenedYN">
+		update
+			sr_list
+		set
+			sr_opened_yn = #{srOpenedYN}
+		where
+			sr_no = ${srNo}
 	</update>
 </mapper>

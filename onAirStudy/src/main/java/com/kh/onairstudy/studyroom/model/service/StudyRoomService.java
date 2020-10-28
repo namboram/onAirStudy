@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,8 @@ public interface StudyRoomService {
 	int insertWating(StudyRoomWaiting srWating);
 
 	int selectApplyRoom(StudyRoomWaiting srWating);
+
+	int updateRoomOpenedYN(HashMap<String, String> param);
 
 
 

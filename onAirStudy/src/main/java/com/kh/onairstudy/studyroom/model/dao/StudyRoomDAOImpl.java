@@ -194,4 +194,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectOne("studyroom.selectApplyRoom",srWating);
 	}
 
+	@Override
+	public int updateRoomOpenedYN(HashMap<String, String> param) {
+		return sqlSession.update("studyroom.updateRoomOpenedYN", param);
+	}
+
+	
+	
 }
