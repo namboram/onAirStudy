@@ -49,7 +49,12 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 	<div class="border border-secondary">
 		${diary.diaryContent}
 	</div>
-
+	<c:if test="${loginMember.memberId eq diary.memberId }">
+	<form action="${ pageContext.request.contextPath }/diary/deleteDiary.do" method="post" onsubmit="return deleteSubmit();">
+	<input type="hidden" value="${diary.no }" name="no"/>
+	<button type="submit" class="btn btn-danger">삭제</button>
+	</form>
+	</c:if>
 </div>
 <div id="diary-reply-container">
 	  <c:if test="${ loginMember.memberId != null }">
@@ -66,6 +71,13 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 </div>
 
 <script>
+//삭제
+function deleteSubmit(){
+	if(confirm("삭제 하시겠습니까?")){
+		return true;
+	}else
+		return false;
+}
 $(document).ready(function(){
 
 	listReply();
