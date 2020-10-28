@@ -214,7 +214,7 @@ select
 from 
 	sr_wish_list 
 where
-	member_id = #{memberId}
+	member_id = #{memberId} and sr_no = #{srNo}
 </select>
 
 <insert id="insertWish">

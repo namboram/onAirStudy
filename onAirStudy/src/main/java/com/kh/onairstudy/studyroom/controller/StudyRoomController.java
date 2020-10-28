@@ -122,29 +122,26 @@ public class StudyRoomController {
 			
 			String msg = "";
 			int result = 0;	
-			
-			String id = srWish.getMemberId();
-			int wNo = srWish.getSrNo();
-			
-			result = studyRoomService.insertWish(srWish);
-			msg =  "관심 목록에 추가 하였습니다.";
-			
+						
 			// 찜 등록
+															
+			int wishR = studyRoomService.selectCheckWish(srWish);
 			
-												
-//			 result = studyRoomService.selectCheckWish(srWish);
-			
-//			if( wNo == srNo && id == loginM) {				
-//				
-//				result = studyRoomService.deleteWish(srWish);
-//				msg = "관심 목록에서 해제 되었습니다.";
-//		
-//			}	else {
-//				
-//			}
+			if( wishR > 0 ) {			
+								result = studyRoomService.deleteWish(srWish);
+								msg = "관심 목록에서 해제 되었습니다.";
+		
+							}else {
+			 
+								result = studyRoomService.insertWish(srWish);
+								msg =  "관심 목록에 추가 하였습니다.";
+							}
+
 
 			redirectAttr.addFlashAttribute("msg", msg);
-			return "redirect:/studyroom/studyroomlist.do";			
+			
+			return "redirect:/studyroom/studyroomlist.do";
+			
 		}
 		
 		//찾기
