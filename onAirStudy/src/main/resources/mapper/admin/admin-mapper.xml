@@ -176,7 +176,7 @@ where
  	report_category C
  on
  	L.category = C.no
- <if test=" searchContent != null">
+ <if test="searchContent != null">
  where
  	reported_member like '%'||#{ searchContent }||'%'
  </if>
