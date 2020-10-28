@@ -49,13 +49,13 @@
 					<div class="line"></div>
 					<div class="form-group row">
 						<label class="col-sm-2 form-control-label">출석체크</label>
-						<div class="col-sm-10">
+						<div class="col-sm-10 attendDiv">
 							<div class="form-group">
 								<label class="col-sm-3 form-control-label">요일</label>
 								<label class="col-sm-2 form-control-label">시간</label>
-								<button type="button" class="btn">+</button>
+								<button type="button" class="btn" id="btnAdd" onclick="addInput()">+</button>
 							</div>
-							<div class="form-group">
+							<div class="input-group" >
 									<select name="days1" id="days1" class="col-sm-2">
 										<option value="월">월요일</option>
 										<option value="화">화요일</option>
@@ -65,8 +65,8 @@
 										<option value="토">토요일</option>
 										<option value="일">일요일</option>
 									</select>
-								<input type="time" name="attendTime1" id="attendTime1" class="offset-sm-1" value="17:00"/>
-								<button type="button" class="btn offset-sm-1">-</button>
+									<input type="time" name="attendTime1" id="attendTime1" class="offset-sm-1" value="17:00"/>
+									<button type="button" class="btn offset-sm-1">-</button>
 							</div>
 						</div>
 					</div>
@@ -113,6 +113,25 @@
             </div>
         </div>
    <script>
+	var i = 1+1;
+
+	function addInput(){
+		var html = "<div class='input-group' style='margin-top:10px;'><select name='days" + i +"' id='days"+ i +"' class='col-sm-2'>"
+		+ "<option value='월'>월요일</option>"
+		+ "<option value='화'>화요일</option>" 
+		+ "<option value='수'>수요일</option>" 
+		+ "<option value='목'>목요일</option>" 
+		+ "<option value='금'>금요일</option>" 
+		+ "<option value='토'>토요일</option>" 
+		+ "<option value='일'>일요일</option>" 
+		+ "</select>" 
+		+ "<input type='time' name='attendTime" + i +"' id='attendTime" + i +"' class='offset-sm-1' value='17:00'/>" 
+		+ "<button type='button' class='btn offset-sm-1'>-</button>" 
+		+ "</div>" ; 
+
+		$(".attendDiv").append(html); 
+	};
+   	
 	
 
    </script>
