@@ -388,6 +388,20 @@ from sr_log
 			status_log = '참여'
 	</select>
 	
+	<insert id="insertMemberToSr">
+	insert into 
+		sr_log
+	values(
+		seq_sr_log_no.nextval,
+		#{ srNo },
+		#{ memberId },
+		'미참여',
+		0,
+		default
+	)
+	
+	</insert>  
+	
 	<update id="updateRoomInfo">
 		update 
 			sr_info 
@@ -403,4 +417,5 @@ from sr_log
 			sr_no = #{srNo}
 	
 	</update>
+
 </mapper>

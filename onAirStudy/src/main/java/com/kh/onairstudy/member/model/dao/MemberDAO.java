@@ -3,6 +3,7 @@ package com.kh.onairstudy.member.model.dao;
 import java.util.List;
 
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 public interface MemberDAO {
 
@@ -13,6 +14,9 @@ public interface MemberDAO {
 	List<Member> selectDiligentMember();
 
 	int updateBlack(String reportedMember);
+
+
+
 
 
 

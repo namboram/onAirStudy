@@ -178,6 +178,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomList> selectsrList() {
 		return studyRoomDAO.selectsrList();
 	}
+	
+	//회원가입시 sr_log에 회원 추가 
+	@Override
+	public int insertMemberToSr(Map<String, Object> param) {
+		return studyRoomDAO.insertMemberToSr(param);
+	}
 
 	@Override
 	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
