@@ -9,18 +9,30 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/studyRoomList.css">
 
+<script>
 
+function selectCategory(category) {
+	console.log(category);
+    location.href="${pageContext.request.contextPath}/studyroom/searchStudyroom.do?category="+category;
+}
+
+function searchRoom() {
+	const selectOption = $("#searchOption").val();
+	const keyword = $("#keyword").val();
+	location.href="${pageContext.request.contextPath}/studyroom/searchStudyroom.do?search_option="+selectOption + "&keyword=" + keyword;
+	
+}
+
+</script>
 <div class="studyRoomList" style="margin-bottom: 0;">
 	<div class="col-lg-12 p-4 text-center">
 	
-		<form
-			action="${ pageContext.request.contextPath }/studyroom/searchStudyroom.do"
-			id="searchRoom" method="POST">
+		<form name="search_option" method="POST">
 			<div class="row">
 			
-			<select class="optionFrm" name="search_option " >
-			<option value="memberId"
-			<c:if test="${map.search_option == 'memberId'}">selected</c:if>
+			<select class="optionFrm" name="search_option" style="width:7%">
+			<option value="member_id"
+			<c:if test="${map.search_option == 'member_id'}">selected</c:if>
   			 >그룹 리더</option>
 
         	<option value="sr_title" 
@@ -32,17 +44,21 @@
 					name="keyword" value="${ map.Keyword }"
 					placeholder="어떤 스터디 그룹을 찾으시나요?" required />
 
-				<button type="submit" class="btn btn-light btn-sm" style="margin-top:1%;">검색</button>
+				<button type="button" class="btn btn-light btn-sm" style="margin-top:1%; margin-left:1%" onclick="searchRoom()" value= "조회">검색</button>
 			</div>
 		</form>
 		
 		
 		<br>
+		
+		<div class="container" style="padding-left:18%">
+		<div class="row" >
 		<c:forEach items="${ sCategory }" var="sCategory">
-			<input type="checkbox" name="srCategory" id="srCategory"
-				value="${ sCategory.no }" />
-			<label for="srCategory">${ sCategory.category }</label>
-		</c:forEach>
+			<button type="button" class="btn btn-outline" onclick="selectCategory('${sCategory.no}')">
+			${ sCategory.category }</button>
+		</c:forEach> 
+				</div>
+			</div>
 	</div>
 
 	
@@ -112,110 +128,12 @@
 			</c:forEach>
 		</div>
 	</div>
+	</div>
 	
 				
 				
 
-	<!-- 페이징처리 -->
-	<div id="pagingDiv">
-		<c:if test="${paging.prev}">
-			<a href="${paging.startPage - 1 }">이전</a>
-		</c:if>
-		<c:forEach var="num" begin="${paging.startPage}"
-			end="${paging.endPage }">
-				&nbsp;<a href="${num }">${num }</a>&nbsp;
-			</c:forEach>
-		<c:if test="${paging.next}">
-			<a id="next" href="${paging.endPage + 1 }">다음</a>
-		</c:if>
-	</div>
 
-	<form id="pagingFrm" name="pagingForm" action="getBoardList.do"
-		method="get">
-		<input type="hidden" id="pageNum" name="pageNum"
-			value="${paging.cri.pageNum }"> <input type="hidden"
-			id="amount" name="amount" value="${paging.cri.amount }">
-	</form>
-
-
-
-
-
-</div>
-
-<script type="text/javascript">
-var $setRows = $('#setRows');
-
-$setRows.submit(function (e) {
-    e.preventDefault();
-    var rowPerPage = $('[name="rowPerPage"]').val() * 1;// 1 을  곱하여 문자열을 숫자형로 변환
-
-//      console.log(typeof rowPerPage);
-
-    var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
-    if (!rowPerPage) {
-        alert(zeroWarning);
-        return;
-    }
-    $('#nav').remove();
-    var $products = $('#srlistG');
-
-    $products.after('<div id="nav">');
-
-
-    var $tr = $($products).find('tbody tr');
-    var rowTotals = $tr.length;
-//  console.log(rowTotals);
-
-    var pageTotal = Math.ceil(rowTotals/ rowPerPage);
-    var i = 0;
-
-    for (; i < pageTotal; i++) {
-        $('<a href="#"></a>')
-                .attr('rel', i)
-                .html(i + 1)
-                .appendTo('#nav');
-    }
-
-    $tr.addClass('off-screen')
-            .slice(0, rowPerPage)
-            .removeClass('off-screen');
-
-    var $pagingLink = $('#nav a');
-    $pagingLink.on('click', function (evt) {
-        evt.preventDefault();
-        var $this = $(this);
-        if ($this.hasClass('active')) {
-            return;
-        }
-        $pagingLink.removeClass('active');
-        $this.addClass('active');
-
-        // 0 => 0(0*4), 4(0*4+4)
-        // 1 => 4(1*4), 8(1*4+4)
-        // 2 => 8(2*4), 12(2*4+4)
-        // 시작 행 = 페이지 번호 * 페이지당 행수
-        // 끝 행 = 시작 행 + 페이지당 행수
-
-        var currPage = $this.attr('rel');
-        var startItem = currPage * rowPerPage;
-        var endItem = startItem + rowPerPage;
-
-        $tr.css('opacity', '0.0')
-                .addClass('off-screen')
-                .slice(startItem, endItem)
-                .removeClass('off-screen')
-                .animate({opacity: 1}, 300);
-
-    });
-
-    $pagingLink.filter(':first').addClass('active');
-
-});
-
-
-$setRows.submit();
-</script>
 
 <!-- <script>
 $(':checkbox[name="srCategory"]').on({

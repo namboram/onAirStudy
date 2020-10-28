@@ -113,7 +113,7 @@ public class StudyRoomController {
 		@RequestMapping("/studyroom/favStudyroom.do")
 		public String favR(StudyRoomWish srWish, Model model,
 							@RequestParam("srNo") int srNo, 						 
-							@RequestParam("memberId") String loginM, 
+							@RequestParam("memberId") String loginM, 							
 							RedirectAttributes redirectAttr) {	
 			
 			
@@ -145,13 +145,14 @@ public class StudyRoomController {
 		}
 		
 		//찾기
-		@RequestMapping(value = "/studyroom/searchStudyroom.do", method = RequestMethod.POST)
+		@RequestMapping(value = "/studyroom/searchStudyroom.do")
 		public ModelAndView searchRoom(@RequestParam(defaultValue="") String keyword, 
-									@RequestParam(defaultValue="sr_title") String search_option, 
+									@RequestParam(defaultValue="srTitle") String search_option, 
+									@RequestParam(defaultValue="0") int category,
 									ModelAndView mav) throws Exception {
 			//1. map에 저장
-			List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword);
-			
+			List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword, category);
+			List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
 			int count = studyRoomService.countArticle(search_option, keyword);
 			//mav에 값을 넣고 페이지 지정, map에 자료 저장
 			Map<String,Object> map = new HashMap<String, Object>(); 
@@ -161,6 +162,11 @@ public class StudyRoomController {
 			map.put("search_option", search_option);
 			map.put("keyword", keyword);
 			mav.addObject("map",map);
+			
+			mav.addObject("srList", sList);		
+			
+			mav.addObject("sCategory", sCategory);
+		
 			mav.setViewName("studyroom/studyRoomList");
 			return mav;
 		}

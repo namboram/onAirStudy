@@ -27,7 +27,7 @@ public interface StudyRoomService {
 	int insertStudyRoomList(StudyRoomList studyroomList);
 	
 //검색
-	List<StudyRoomList> listAll(String search_option, String keyword);
+	List<StudyRoomList> listAll(String search_option, String keyword, int category);
 
 	int countArticle(String search_option, String keyword);	
 
