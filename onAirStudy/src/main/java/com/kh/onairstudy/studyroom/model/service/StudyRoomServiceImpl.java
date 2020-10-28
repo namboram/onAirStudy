@@ -174,7 +174,13 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.selectsrList();
 	}
 
+	@Override
+	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
+		return studyRoomDAO.updateRoomInfo(studyRoomInfo);
+	}
 
+
+	
 
 
 	

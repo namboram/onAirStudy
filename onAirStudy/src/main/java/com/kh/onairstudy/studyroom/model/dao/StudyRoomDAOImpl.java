@@ -168,8 +168,13 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.selectsrList");
 	}
 
+	@Override
+	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
+		return sqlSession.update("studyroom.updateRoomInfo", studyRoomInfo);
+	}
 
 
+	
 	
 
 

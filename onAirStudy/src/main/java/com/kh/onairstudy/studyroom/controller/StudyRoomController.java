@@ -294,11 +294,13 @@ public class StudyRoomController {
 		}
 		
 		@RequestMapping("/studyroom/update.do")
-		public void updateRoomInfo( StudyRoomInfo studyRoomInfo) {
+		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr ) {
 			
 			log.debug("studyRoomInfo = {}", studyRoomInfo);
 			
-				
+			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
 			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			return "redirect:/studyroom/main.do";
 		}
 }

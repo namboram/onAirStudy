@@ -66,6 +66,8 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
+	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
+
 
 
 

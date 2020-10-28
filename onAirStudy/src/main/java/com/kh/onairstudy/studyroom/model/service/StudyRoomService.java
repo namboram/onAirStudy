@@ -54,6 +54,8 @@ public interface StudyRoomService {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
+	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
+
 
 
 
