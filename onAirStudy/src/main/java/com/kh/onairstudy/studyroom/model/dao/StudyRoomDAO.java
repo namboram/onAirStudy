@@ -69,12 +69,12 @@ public interface StudyRoomDAO {
 
 	int insertAttendance(Map<String, Object> param);
 
-
-
 	
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
+
+	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
 
 
 

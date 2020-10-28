@@ -80,7 +80,6 @@
 <script>
 function modifyInfo(){
 	var no = ${roomInfo.srNo};
-	console.log(no);
 	$(".changeDiv").load("${pageContext.request.contextPath}/studyroom/updateInfo.do");
 }
 

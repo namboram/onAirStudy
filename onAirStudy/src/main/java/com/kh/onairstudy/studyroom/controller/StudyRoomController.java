@@ -341,4 +341,17 @@ public class StudyRoomController {
 			return "/mypage2/mypage2_update";
 			
 		}
+		
+		@RequestMapping("/studyroom/update.do")
+		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr, HttpSession session) {
+			
+			log.debug("studyRoomInfo = {}", studyRoomInfo);
+			
+	
+			
+			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			return "redirect:/studyroom/main.do";
+		}
 }

@@ -176,11 +176,18 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.selectsrList");
 	}
 
+
+	@Override
+	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
+		return sqlSession.update("studyroom.updateRoomInfo", studyRoomInfo);
+	}
+
 	//방 신청
 	@Override
 	public int insertWating(StudyRoomWaiting srWating) {
 		return sqlSession.insert("studyroom.insertWating",srWating);
 	}
+
 
 	@Override
 	public int selectApplyRoom(StudyRoomWaiting srWating) {

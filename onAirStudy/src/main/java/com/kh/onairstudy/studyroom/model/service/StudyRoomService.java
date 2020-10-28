@@ -57,28 +57,15 @@ public interface StudyRoomService {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
+
+	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
+
 	// 스터디 신청
 	int insertWating(StudyRoomWaiting srWating);
 
 	int selectApplyRoom(StudyRoomWaiting srWating);
 
 
-	
-
-	
-
-	
-
-
-
-
-
-
-	
-
-
-
-	
 
 
 }
