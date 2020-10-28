@@ -294,9 +294,11 @@ public class StudyRoomController {
 		}
 		
 		@RequestMapping("/studyroom/update.do")
-		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr ) {
+		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr, HttpSession session) {
 			
 			log.debug("studyRoomInfo = {}", studyRoomInfo);
+			
+	
 			
 			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
 			

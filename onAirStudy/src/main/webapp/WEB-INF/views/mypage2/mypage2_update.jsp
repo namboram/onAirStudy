@@ -22,6 +22,7 @@
                   <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST" id="updateFrm">
                     <input type="hidden" name="srOpenedYN" value="${roomInfo.srOpenedYN}" />
                     <input type="hidden" name="category" value="${roomInfo.category}" />
+                    <input type="hidden" name="srNo" value="${roomInfo.srNo}" />
                     <input type="hidden" name="attendDay" value=""/>
                     <input type="hidden" name="attendTime" value=""/>
                     <div class="form-group row">
@@ -59,19 +60,23 @@
 								<label class="col-sm-2 form-control-label">시간</label>
 								<button type="button" class="btn" id="btnAdd" onclick="addInput()">+</button>
 							</div>
-							<div class="input-group" >
-									<select name="day" id="days1" class="col-sm-2" class="dayAttend">
-										<option value="월">월요일</option>
-										<option value="화">화요일</option>
-										<option value="수">수요일</option>
-										<option value="목">목요일</option>
-										<option value="금">금요일</option>
-										<option value="토">토요일</option>
-										<option value="일">일요일</option>
-									</select>
-									<input type="time" name="time" id="time1" class="offset-sm-1" value="17:00"/>
-									<button type="button" class="btn offset-sm-1">-</button>
+							<c:set var="arrDay" value="${fn:split(roomInfo.attendDay, ',') }"/>
+							<c:set var="arrTime" value="${fn:split(roomInfo.attendTime, ',') }"/>
+							<c:forEach var="i" begin="0" end="${fn:length(arrDay)-1}">
+								<div class="input-group" style="margin-top: 10px;">
+								<select name="day" id="days${ i }" class="col-sm-2" class="dayAttend">
+									<option value="월" <c:if test="${ arrDay[i] eq '월' }">selected</c:if>>월요일</option>
+									<option value="화" <c:if test="${ arrDay[i] eq '화' }">selected</c:if>>화요일</option>
+									<option value="수" <c:if test="${ arrDay[i] eq '수' }">selected</c:if>>수요일</option>
+									<option value="목" <c:if test="${ arrDay[i] eq '목' }">selected</c:if>>목요일</option>
+									<option value="금" <c:if test="${ arrDay[i] eq '금' }">selected</c:if>>금요일</option>
+									<option value="토" <c:if test="${ arrDay[i] eq '토' }">selected</c:if>>토요일</option>
+									<option value="일" <c:if test="${ arrDay[i] eq '일' }">selected</c:if>>일요일</option>
+								</select>
+								<input type="time" name="time" id="time${ i }" class="offset-sm-1" value="${ arrTime[i] }"/>
+								<button type="button" class="btn offset-sm-1">-</button>
 							</div>
+							</c:forEach>
 						</div>
 					</div>
                     <div class="form-group row">
