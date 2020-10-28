@@ -227,6 +227,7 @@ join
  	sr_category C 
  on 
  	L.sr_category = C.no
+ order by 1 desc
  <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
  	<if test="searchType == 'memberId'">
 		 and member_id like '%' || #{ searchKeyword } || '%'
