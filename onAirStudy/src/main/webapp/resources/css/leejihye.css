@@ -32,7 +32,7 @@ nav.admin-sideBar {
 }
 
 nav.mypage-sideBar {
-	background: #AD8686;
+	background: #d6c8e6;
 	height: 100%;
 }
 
@@ -200,7 +200,7 @@ nav.admin-sideBar ul li a {
 }
 
 nav.mypage-sideBar ul li a {
-	 background: #AD8686;
+	 background: #d6c8e6;
 	
 }
 
@@ -216,7 +216,13 @@ nav.mypage-sideBar ul li a {
 }
 
 nav.side-navbar ul li a:hover {
-  background: #c9c7d1;
+  background: #d09bcc;
+  border-left: 4px solid #8f8f90;
+  color: #fff;
+}
+
+nav.mypage-sideBar ul li a:hover {
+  background: #cca1e6;
   border-left: 4px solid #8f8f90;
   color: #fff;
 }
