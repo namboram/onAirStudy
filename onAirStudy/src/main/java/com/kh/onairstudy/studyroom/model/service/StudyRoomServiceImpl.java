@@ -61,46 +61,49 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.selectCategoryList();
 	}
 //	방생성
+		
 	@Override
-	public int insertStudyRoom(StudyRoom studyroom) {
+	public int insertStudyRoomList(StudyRoomList studyroomList) {
 		
-		int result = 0;
-		
-		StudyRoomList srList = new StudyRoomList();
-//		srList.setSrCategory(studyroom.getCategory());
-//		srList.setMemberId(studyroom.getMemberId());
-//		result = studyRoomDAO.insertStudyRoomList(srList);			
-//		
-		
-			studyroom.setSrNo(srList.getSrNo());
-			result = studyRoomDAO.insertStudyRoom(studyroom);		
-						
 			
-			ProfileAttachment profile = new ProfileAttachment();
-			if(studyroom.getProList() != null) {
-//				for(ProfileAttachment profile : studyroom.getProList()) {
-//					
-//					profile.setSrNo(srList.getSrNo());
-//					result = studyRoomDAO.insertProfileAttachment(profile);
-//				}
-				profile.setMemberId(studyroom.getMemberId());
-				profile.setSrNo(srList.getSrNo());
-				result = studyRoomDAO.insertProfileAttachment(profile);
+			int result = 0;
+			result = studyRoomDAO.insertStudyRoomList(studyroomList);			
 					
+
+			if(studyroomList.getProList() != null) {
+				
+				for(ProfileAttachment profile : studyroomList.getProList()) {
+					
+					profile.setSrNo(studyroomList.getSrNo());
+					result = studyRoomDAO.insertProfileAttachment(profile);
+				}
+			
 			}
 			
-			StudyRoomLog srLog = new StudyRoomLog();
-			srLog.setMemberId(studyroom.getMemberId());
-			srLog.setSrNo(srList.getSrNo());
-			result = studyRoomDAO.insertStudyRoomLog(srLog);			
-		
-		return result;
+			if(studyroomList.getSrLog() != null) {
+				
+				for(StudyRoomLog srLog: studyroomList.getSrLog()) {
+					
+					srLog.setSrNo(studyroomList.getSrNo());
+					result = studyRoomDAO.insertStudyRoomLog(srLog);
+				}
+			
+			}
+			
+			
+			if(studyroomList.getSRoom() != null) {
+				
+				for(StudyRoom sRoom: studyroomList.getSRoom()) {
+					
+					sRoom.setSrNo(studyroomList.getSrNo());
+					result = studyRoomDAO.insertStudyRoom(sRoom);
+				}
+			
+			}
+
+			return result;
 	}
 	
-	@Override
-	public int insertStudyRoomList(StudyRoomList srList) {
-		return studyRoomDAO.insertStudyRoomList(srList);
-	}
 
 	
 	@Override
@@ -170,6 +173,7 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public List<StudyRoomList> selectsrList() {
 		return studyRoomDAO.selectsrList();
 	}
+
 
 
 

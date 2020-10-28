@@ -23,7 +23,6 @@
  	<result column="member_id" property="memberId"/>
  	<result column="attend_cnt" property="attendCnt"/>
  	<result column="recent_attend_date" property="attendDate"/>
- 
  </resultMap>
  
  <select id="selectAttendYN" resultType="_int">
@@ -62,4 +61,14 @@
  	and 
  		sr_no = #{roomNum}
  </update>
+ 
+ <select id="selectAttendList" resultMap="attendanceMap">
+ 	select 
+ 		* 
+ 	from 
+ 		attendance 
+ 	where 
+ 		sr_no = #{roomNum}
+ </select>
+ 
 </mapper>

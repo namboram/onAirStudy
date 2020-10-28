@@ -208,6 +208,12 @@ insert into
 	sr_list 
 values (
 	seq_sr_list_no.nextval, #{memberId}, default, #{srCategory}, default, default, 'P')
+<selectKey order="AFTER" resultType="_int" keyProperty="srNo">
+			select
+				seq_sr_list_no.currval
+			from 
+				dual
+</selectKey>
 
 </insert>
 
@@ -241,6 +247,7 @@ values(
 select*
 from sr_log
 </select>
+
 <!-- 생성   -->
 
 

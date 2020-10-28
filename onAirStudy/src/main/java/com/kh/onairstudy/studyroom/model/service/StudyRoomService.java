@@ -24,10 +24,8 @@ public interface StudyRoomService {
 	
 	List<StudyRoomWish> selectMywish();
 //방생성
-	int insertStudyRoom(StudyRoom studyroom);
-
-	int insertStudyRoomList(StudyRoomList srList);
-
+	int insertStudyRoomList(StudyRoomList studyroomList);
+	
 //검색
 	List<StudyRoomList> listAll(String search_option, String keyword);
 
@@ -55,6 +53,13 @@ public interface StudyRoomService {
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
+
+
+
+
+
+	
+
 
 
 	
