@@ -23,7 +23,7 @@
 
 	<c:if test="${ loginMember.memberRole == 'A' }">
 		<div style="text-align: right; margin: 3%;">
-			<button class="btn btn-light" type="button" onclick="">글쓰기</button>
+			<button class="btn btn-light" type="button" onclick="location.href='${ pageContext.request.contextPath }/notice/noticeDetail.do'">글쓰기</button>
 		</div>
 	</c:if>
 

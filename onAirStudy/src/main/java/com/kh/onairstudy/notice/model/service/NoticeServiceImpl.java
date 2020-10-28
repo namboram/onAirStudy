@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.notice.model.dao.NoticeDAO;
+import com.kh.onairstudy.notice.model.vo.Notice;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -30,6 +31,16 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int updateCnt(int no) {
 		return noticeDAO.updateCnt(no);
+	}
+
+	@Override
+	public int noticeInsert(Map<String, Object> map) {
+		return noticeDAO.noticeInsert(map);
+	}
+
+	@Override
+	public int noticeUpdate(Notice notice) {
+		return noticeDAO.noticeUptate(notice);
 	}
 	
 	

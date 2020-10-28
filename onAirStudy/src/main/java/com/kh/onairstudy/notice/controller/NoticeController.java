@@ -1,5 +1,6 @@
 package com.kh.onairstudy.notice.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.notice.model.service.NoticeService;
+import com.kh.onairstudy.notice.model.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,9 +41,20 @@ public class NoticeController {
 	
 	@RequestMapping("/noticeDetail.do")
 	public String noticeDetail(Model model,
-								@RequestParam("no") int no,
+								@RequestParam(value="no",
+								required=false) String no,
 								HttpServletRequest request, 
 								HttpServletResponse response) {
+		
+		log.debug("no={}", no);
+		
+		int nNo = 0;
+		
+		if(no == null)
+			return "notice/noticeDetail";
+		else
+			nNo = Integer.parseInt(no);
+			
 		//조회수 관련 처리
 		Cookie[] cookies = request.getCookies();
 		String cookieVal = "";
@@ -56,7 +70,7 @@ public class NoticeController {
 //					System.out.println(name + " = " + value);
 					
 					//이번 게시글 읽음 여부
-					if(value.contains("[" + no + "]")) {
+					if(value.contains("[" + nNo + "]")) {
 						hasRead = true;
 						log.debug("hasRead={}", hasRead);
 						break;
@@ -71,21 +85,58 @@ public class NoticeController {
 		//게시글을 읽지 않은 경우
 		if(hasRead == false) {
 			Cookie cookie = new Cookie("cookie",
-											cookieVal + "[" + no + "]");
+											cookieVal + "[" + nNo + "]");
 			cookie.setMaxAge(365*24*60*60);//영속쿠키
 			// /mvc/board/view
 			response.addCookie(cookie);
 			
-			int result = noticeService.updateCnt(no);
+			int result = noticeService.updateCnt(nNo);
 			log.debug("result={}", result);
 		}
 		
 		
-		Map<String, Object> map = noticeService.noticeDetail(no);
+		Map<String, Object> map = noticeService.noticeDetail(nNo);
 		
 		model.addAttribute("map", map);
 		
 		return "notice/noticeDetail";
+	}
+	
+	@RequestMapping("/noticeInsert.do")
+	public String noticeInsert(@RequestParam("title") String title,
+								@RequestParam("content") String content,
+								RedirectAttributes re) {
+		
+		log.debug("title={}", title);
+		log.debug("content={}", content);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("title", title);
+		map.put("content", content);
+		
+		int result = noticeService.noticeInsert(map);
+		
+		if(result>0)
+			re.addFlashAttribute("msg", "공지 등록 성공");
+		else
+			re.addFlashAttribute("msg", "공지 등록 실패");
+		
+		return "redirect:/notice/noticeList.do";
+	}
+	
+	@RequestMapping("/noticeUpdate.do")
+	public String noticeUpdate(Notice notice, RedirectAttributes re) {
+		
+		log.debug("notice={}", notice);
+		
+		int result = noticeService.noticeUpdate(notice);
+		
+		if(result>0)
+			re.addFlashAttribute("msg", "공지 수정 성공");
+		else
+			re.addFlashAttribute("msg", "공지 수정 실패");
+		
+		return "redirect:/notice/noticeList.do";
 	}
 	
 }
