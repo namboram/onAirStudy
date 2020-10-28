@@ -7,7 +7,7 @@ import com.kh.onairstudy.notice.model.vo.Notice;
 
 public interface NoticeDAO {
 
-	List<Map<String, Object>> noticeList();
+	List<Map<String, Object>> noticeList(Map<String, Object> search);
 
 	Map<String, Object> noticeDetail(int no);
 
@@ -16,5 +16,7 @@ public interface NoticeDAO {
 	int noticeInsert(Map<String, Object> map);
 
 	int noticeUptate(Notice notice);
+
+	int totalNotice();
 
 }

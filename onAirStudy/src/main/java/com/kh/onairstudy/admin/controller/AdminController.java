@@ -332,7 +332,7 @@ public class AdminController {
 		mav.addObject("pageBar", pageBar);
 		
 		if(searchKeyword != null)
-			mav.addObject("searchContent", searchKeyword);
+			mav.addObject("searchKeyword", searchKeyword);
 		
 		return mav;
 	}
