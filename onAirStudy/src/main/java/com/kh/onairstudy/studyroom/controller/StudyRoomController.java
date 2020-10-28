@@ -352,6 +352,7 @@ public class StudyRoomController {
 			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
 			
 			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, studyRoomInfo.getSrNo());
 			return "redirect:/studyroom/main.do";
 		}
 }
