@@ -106,7 +106,17 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectList("admin.memberAll");
 	}
 
+	@Override
+	public int sendMessage(Map<String, Object> map) {
+		return sqlSession.insert("admin.sendMessage", map);
+	}
 
+	@Override
+	public int messageCnt() {
+		return sqlSession.selectOne("admin.messageCnt");
+	}
+
+	
 	
 	
 }
