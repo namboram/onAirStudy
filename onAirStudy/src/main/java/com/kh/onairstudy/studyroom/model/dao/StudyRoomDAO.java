@@ -82,9 +82,15 @@ public interface StudyRoomDAO {
 
 	int updateRoomOpenedYN(HashMap<String, String> param);
 
-	int updateLeader(String memberId);
+	int updateLeader(HashMap<String, String> param);
 
-	int withdraw(String memberId);
+	int withdraw(HashMap<String, String> param);
+
+	int deleteMemberAttend(HashMap<String, String> param);
+
+	String selectNextLeader(String memberId);
+
+	int updateLog(HashMap<String, String> param);
 
 
 

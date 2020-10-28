@@ -382,9 +382,13 @@ public class StudyRoomController {
 			Member loginMember = (Member)session.getAttribute("loginMember");
 			log.debug("memberId = {}", loginMember.getMemberId());
 			
-			int result = studyRoomService.updateLeader(loginMember.getMemberId());
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("memberId", loginMember.getMemberId());
 			
-			redirectAttr.addFlashAttribute("msg", result == 1 ? "스터디방 탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
+			int result = studyRoomService.updateLog(param);
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
 			redirectAttr.addAttribute("roomNum"	, srNo);
 			
 			return "redirect:/mypage1_index.do";
@@ -401,7 +405,7 @@ public class StudyRoomController {
 			param.put("srNo", srNo);
 			param.put("memberId", loginMember.getMemberId());
 			
-			int result = studyRoomService.withdraw(loginMember.getMemberId());
+			int result = studyRoomService.withdraw(param);
 			
 			redirectAttr.addFlashAttribute("msg", result == 1 ? "스터디방 탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
 			

@@ -71,11 +71,11 @@ public interface StudyRoomService {
 
 	int updateRoomOpenedYN(HashMap<String, String> param);
 
-	int updateLeader(String memberId);
+	int withdraw(HashMap<String, String> param);
 
-	int withdraw(String memberId);
+	int deleteMemberAttend(HashMap<String, String> param);
 
-
+	int updateLog(HashMap<String, String> param);
 
 
 }

@@ -211,14 +211,39 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 
 
 	@Override
-	public int updateLeader(String memberId) {
-		return studyRoomDAO.updateLeader(memberId);
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public int withdraw(HashMap<String, String> param) {
+		int result =  studyRoomDAO.withdraw(param);
+		
+		result = studyRoomDAO.deleteMemberAttend(param);
+		
+		return result;
 	}
 
 
 	@Override
-	public int withdraw(String memberId) {
-		return studyRoomDAO.withdraw(memberId);
+	public int deleteMemberAttend(HashMap<String, String> param) {
+		return studyRoomDAO.deleteMemberAttend(param);
+	}
+
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public int updateLog(HashMap<String, String> param) {
+		int result = studyRoomDAO.updateLog(param);  //원래 팀장은 나가고 팀장이 아닌걸로 업데이트
+		
+		result = studyRoomDAO.deleteMemberAttend(param);
+		
+		String newLeaderId = studyRoomDAO.selectNextLeader(param.get("srNo")); //남은 멤버중 첫번째로 들어온 사람 아이디
+	
+		HashMap<String, String> nParam = new HashMap<String, String>();
+		nParam.put("memberId", newLeaderId);
+		nParam.put("srNo", param.get("srNo"));
+		
+		
+		result = studyRoomDAO.updateLeader(nParam); // 그 사람을 팀장으로 업데이트
+		
+		return result;
 	}
 
 	
