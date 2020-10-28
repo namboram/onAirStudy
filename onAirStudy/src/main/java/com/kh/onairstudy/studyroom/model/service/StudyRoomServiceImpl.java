@@ -236,12 +236,10 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		
 		String newLeaderId = studyRoomDAO.selectNextLeader(param.get("srNo")); //남은 멤버중 첫번째로 들어온 사람 아이디
 	
-		HashMap<String, String> nParam = new HashMap<String, String>();
-		nParam.put("memberId", newLeaderId);
-		nParam.put("srNo", param.get("srNo"));
+		param.put("memberId", newLeaderId);
+		System.out.println("");
 		
-		
-		result = studyRoomDAO.updateLeader(nParam); // 그 사람을 팀장으로 업데이트
+		result = studyRoomDAO.updateLeader(param); // 그 사람을 팀장으로 업데이트
 		
 		return result;
 	}

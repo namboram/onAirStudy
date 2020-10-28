@@ -80,7 +80,7 @@
 										onclick="modifyInfo()">방 정보 수정</button>
 								</c:if>
 							</c:forEach>
-							<button type="button" class="btn btn-danger" onclick="secession('${loginMember.memberId}')">스터디 탈퇴</button>
+							<button type="button" class="btn btn-danger" onclick="withdraw('${loginMember.memberId}', '${roomInfo.srNo }')">스터디 탈퇴</button>
 						</div>
 					</div>
 				</form>
@@ -98,16 +98,20 @@ function modifyInfo(){
 }
 
 
-function secession(myId){
-	console.log(myId);
+function withdraw(myId, srNo){
 
 	var teamLeader = $("#leaderId").val();
-	if(myId == teamLeader){
-		post_to_url("${pageContext.request.contextPath}/studyroom/updateLeader.do", {"roomNum" : ${roomInfo.srNo});
-	}else{
-		post_to_url("${pageContext.request.contextPath}/studyroom/withdraw.do", {"roomNum" : ${roomInfo.srNo});
-	}
+
+	alert(myId , srNo);
+	if(confirm("스터디방을 탈퇴하시겠습니까?")){
+		if(myId == teamLeader){
+			location.href = "${pageContext.request.contextPath}/studyroom/updateLeader.do?roomNum="+srNo;
+		}else{
+			location.href = "${pageContext.request.contextPath}/studyroom/withdraw.do?roomNum="+srNo;
+		}
+	} 
 	
 }
+
 
 </script>

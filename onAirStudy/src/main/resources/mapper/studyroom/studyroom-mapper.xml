@@ -467,6 +467,7 @@ from sr_log
 		    from sr_log
 		    where sr_no = #{srNo} 
 		    and sr_log.status_log = '참여'
+		    order by no
 		) 
 		where rownum = 1
 	</select>
@@ -477,7 +478,7 @@ from sr_log
 		set  
 			leader_yn = 'Y' 
 		where 
-			member_id = ${memberId} 
+			member_id = '${memberId}' 
 		and 
 			sr_no = #{srNo}
 	</update>
