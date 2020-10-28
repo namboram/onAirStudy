@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-	<nav class="side-navbar admin-sideBar" style="padding:5%;"  >
+	<nav class="side-navbar admin-sideBar" style="padding:5%; height:100%;"  >
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -14,7 +14,7 @@
 			</div>
 			<div class="avatar">
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
-				<h3>Admin</h3>
+				<h3 style="cursor:pointer;" onclick="location.replace('${ pageContext.request.contextPath }/admin/main.do')">Admin</h3>
 				<h5>관리자</h5>
 			</div>
 		</div>

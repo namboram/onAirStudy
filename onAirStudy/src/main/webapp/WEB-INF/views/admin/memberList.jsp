@@ -24,6 +24,13 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<script>
+$(document).ready(function(){
+	console.log($("#memberLiB"));
+	$("#memberLiB a").css("background-color", "#C9C7D1").css("font-weight", "bold").css("color", "white");
+})
+</script>
+
 
 <div class="row">
 
