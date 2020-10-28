@@ -1,6 +1,9 @@
 package com.kh.onairstudy.servicecenter.model.service;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +46,28 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	public int totalCount(String search_option, String keyword, int category) {
 		return serviceCenterDAO.totalCount(search_option, keyword, category);
 	}
+
+
+	@Override
+	public Map<String, Object> serviceDetail(int no) {
+	return serviceCenterDAO.serviceDetail(no);
+	}
+
+	@Override
+	public Object selectService(int no) {
+		return serviceCenterDAO.selectService(no);
+	}
+
+	@Override
+	public int serviceUpdate(ServiceCenter service) {
+		return serviceCenterDAO.serviceUpdate(service);
+	}
+
+	@Override
+	public int serviceDelete(int no) {
+		return serviceCenterDAO.serviceDelete(no);
+	}
+
+
 
 }

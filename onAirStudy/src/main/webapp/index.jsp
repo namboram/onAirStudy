@@ -128,21 +128,23 @@
 
 
 <!-- 이달의 성실멤버 -->
-	<div class="container-fluid" style="background-color: #F2EDEA; height:900px; " >
+	<div class="container-fluid" style="background-color: #F2EDEA; height:800px; " >
+		<br>
 		<h3 class="text-center">
 			이달의 성실 멤버
 			</h3>
-		
-			<div class="container-sm-5 p-5">
+		<br>
+			<div class="container">
 			<div class="row" id="srlistG">
 				
-				<c:forEach items="${ dm_List }" var="dm">
-					<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+				<c:forEach items="${ dm_List }" var="dm" end="9">
+					
+					<div class="m-2 p-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 300px;">
 						<div class="">
 						
 						<%-- <img class="mPic"
 							src="${pageContext.request.contextPath }/resources/upload/${ dm.mPic }"	width="150px"> 						
-							<a href="${pageContext.request.contextPath }/"></a>  --%>
+							<a href="${pageContext.request.contextPath }/"></a>   --%>
 						
 						<h5 class="text-center">
 							${ dm.memberId }
@@ -177,16 +179,15 @@
 
 <!-- 이달의 성실 스터디방 -->
 	<div class="container-fluid" style="background-color: #E3DBD6;  height:550px;">
-		<h3 class="text-center">
-			이달의 성실 스터디방
-			</h3>
-					<div class="container-sm-5 p-5">
+	<br>
+		<h3 class="text-center">이달의 성실 스터디방</h3>
+			
+		<div class="container-sm-5 p-5">
 			<div class="row" id="srlistG">
-				<c:forEach items="${ ds_List }" var="ds">
+				<c:forEach items="${ ds_List }" var="ds" end="4">
 				
 				
-				
-					<div class="" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+					<div class="m-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
 						<div class="">
 						
 						<%-- <img class="mPic"
@@ -220,60 +221,237 @@
 
 <!-- 스터디방 리스트 -->
 	<div class="container-fluid"
-		style="background-color: rgb(209, 203, 200); height:900px;">
-		<h3 class="text-left">
+		style="background-color: rgb(209, 203, 200); height:1150px;">
+		<br>
+		<h3 class="text-center">
 			현재 모집중인 스터디
 			<button type="button" class="btn btn-light" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">더 보기</button>
 			</h2>
+			<br>
 			
 			<div class="container-sm">
 			<div class="row" id="srlistG">
 				<c:forEach items="${ srList }" var="roomList" end="5">
 				
 				
-					<div class="col-sm-3" id="srProfile">
+					<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
+						<input type="hidden" name="category" vlaue="${roomList.category}" />
 						<div class="sr_pic">
-						<img class="roomPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }"	width="150px"> 
+							<img class="roomPic"
+								src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }"> 
+							<img class="memPic"
+								src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"> 						
 						</div>
-						<img class="memPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"	width="150px"> 						
-							<a href="${pageContext.request.contextPath }/">
-							<img src="${pageContext.request.contextPath }/resources/images/heart.png"
-								 width="20px"></a> <br>
-						<h5 class="text-center">
-							${ roomList.sTitle }
-						</h5>
-						<h5 class="text-center">
-							그룹 리더 : ${ roomList.memberId }
-							</h5>
+						
+						<form
+							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
+							id="favRoom" method="POST">
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
+														
+							<button type="submit" class="heartBtn" style="<c:if test="${ loginMember.memberId eq w.memberId }">background-color:gray;</c:if>"
+							<c:if test="${ loginMember.memberId eq w.memberId }"> disabled </c:if>>
+								<img class="heartP"
+									src="${pageContext.request.contextPath }/resources/images/heart.png" >
+							</button>
 							
-							<h5 class="text-center">
-							${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
-							</h5>
+						</form>
 							
 							<br>
-					
-				
 							
-								<button type="button" class="btn btn-light btn-sm">둘러보기</button>
-								<button type="submit" class="btn btn-light btn-sm">신청하기</button>
-								<button type="button" class="btn btn-danger btn-sm">신고하기</button>
+						<div class="contentR">
+							<br>
+								<h5 class="text-center">${ roomList.sTitle }</h5>
+								<h5 class="text-center">그룹 리더 : ${ roomList.memberId }</h5>
+		
+								<h5 id="searchT" class="text-center">${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
+								</h5>
+		
+								<c:if test="${ roomList.srOpenedYN == 'Y'}">
+								<button type="button" class="btn btn-light btn-sm"
+									onclick="previewR('${ roomList.srNo }','${roomList.memberId }','${roomList.sTitle }')">둘러보기</button>
+								<button type="button" class="btn btn-light btn-sm"
+									onclick="applyR('${ roomList.srNo }')">신청하기</button>	
+								<button type="button" class="btn btn-danger btn-sm"
+									onclick="reportR('${ roomList.srNo }','${roomList.memberId }','${roomList.sTitle }')">신고하기</button>						
+								</c:if>
 							
+						</div>
+	
 					</div>
-			
-					
-					
-					
-					<br />
 				</c:forEach>
 			</div>
 		</div>
+</div>
+
+
+<script>
+<!-- 둘러보기 -->
+<div class="modal fade" id="previewFrm" role="dialog"
+	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header" style="color: #E2A182;">
+				<h4 class="modal-title">그룹 둘러보기</h4>
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<!-- Modal body -->
+				<div class="modal-body">
+				<div id="intro"></div>
+				<div id="leader"></div>
+					
+				</div>
+
+			<form
+				action="${ pageContext.request.contextPath }/studyroom/applystudyroom.do"
+				id="applyS" method="POST">
+					<input type="text" class="form-control" name="srNo" hidden>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-outline">신청하기</button>
+				</div>
+			</form>
+
+		</div>
 	</div>
+</div>
+
+<script>
+	function previewR(srNo,leader,title) {
+		$("#previewFrm").modal().find("[name=srNo]").val(srNo);
+
+		var content = title+"의 미리 보기 입니다.";
+		$("#intro").html(content);
+		$("#leader").html(leader);
+	}
+</script>
+
+<!-- 신청 -->
+<div class="modal fade" id="applyRFrm" role="dialog"
+	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">스터디 룸 가입 신청</h4>
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+
+			<!-- Modal body -->
+			<form
+				action="${ pageContext.request.contextPath }/studyroom/applystudyroom.do"
+				name="applyFrm" method="POST">
+				<input type="text" class="form-control" name="srNo" id="srNo" hidden>
+				<input type="text" class="form-control" name="memberId"
+					id="memberId" value="${ loginMember.memberId }" hidden>
+				<div class="modal-body">스터디 룸 가입을 신청 하시겠습니까?</div>
+				<!-- Modal footer -->
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-outline">확인</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				</div>
+			</form>
 
 
+		</div>
+	</div>
+</div>
+
+<script>
+	function applyR(srNo) {
+		$("#applyRFrm").modal().find("[name=srNo]").val(srNo);
+	}
+</script>
+<!-- 신고 모달 -->
+		<div class="modal" id="reportMyModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">신고하기</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<input type="hidden" id="contentIdK" value="" />
+						<div class="form-group">
+							<label for="reportCategK">신고 카테고리</label> <select
+								class="form-control" id="reportCategK" name="reportCategK">
+								<option value="1">음담패설</option>
+								<option value="2">부적절한 홍보</option>
+								<option value="3">비방 또는 욕설</option>
+							</select>
+						</div>
+						<hr />
+						<h5>
+							신고 대상 : <strong id="reportIdK"></strong>
+						</h5>
+
+						<h5>신고 내용</h5>
+						<div id="reportContents"></div>
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal"
+							onclick="doReport();">신고하기</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<script>
+		
+		//신고 클릭시 모달창 열기
+		 function reportR(no,leader,title) {
+			$("#reportMyModal").modal('show');
+			var content = title+"방의 방장"+leader+"를 신고합니다.";
+			$("#reportContents").html(content);
+			$("#contentIdK").val(no);
+			$("#reportIdK").html(leader);
+		};
+		//모달 안에 신고하기 버튼
+		function doReport() {
+			if (confirm("신고 하시겠습니까?")) {
+				$.ajax({
+							url : "${pageContext.request.contextPath}/report/insertReport.do",
+							type : "POST",
+							data : {
+								contentCategory : "R",
+								contentId : $("#contentIdK").val(),
+								reporter : "${loginMember.memberId}",
+								reportedMember : $("#reportIdK").text(),
+								category : $("#reportCategK").val()
+							},
+							dataType : "json",
+							success : function(result) {
+								if (result > 0)
+									alert("신고가 완료되었습니다.");
+							},
+							error : function(xhr, status, err) {
+								console.log("처리실패!");
+								console.log(xhr);
+								console.log(status);
+								console.log(err);
+							}
+						});
+			}
+		}
+
+</script>
 
 
+<div class="col-lg p-0 m-0">
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+</div>
 
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />

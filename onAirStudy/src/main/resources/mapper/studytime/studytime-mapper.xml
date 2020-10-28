@@ -14,6 +14,20 @@ where member_id = #{memberId}
 
 </select>
 
+
+<select id="selectsrList" resultMap="studytimeMap">
+	select 
+	    sr_title
+	from 
+	    sr_log L left join sr_info I on L.sr_no = I.sr_no 
+	where member_id = #{memberId}
+		and L.sr_no > 8
+
+</select>
+
+
+
+
 <insert id="insertStudyTime">
 
 insert into
@@ -35,5 +49,7 @@ values(
 	<result column="study_date" property="studyDate"/>
 
 </resultMap>
+
+
 
 </mapper>
