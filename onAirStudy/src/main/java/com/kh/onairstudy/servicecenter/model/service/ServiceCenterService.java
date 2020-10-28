@@ -1,6 +1,9 @@
 package com.kh.onairstudy.servicecenter.model.service;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.kh.onairstudy.common.PagingCriteria;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
@@ -19,5 +22,14 @@ public interface ServiceCenterService {
 	List<ServiceCenter> listAll(String search_option, String keyword, int category);
 
 	int totalCount(String search_option, String keyword, int category);
-	
+
+
+	Map<String, Object> serviceDetail(int no);
+
+	Object selectService(int no);
+
+	int serviceUpdate(ServiceCenter service);
+
+	int serviceDelete(int no);
+
 }

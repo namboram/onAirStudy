@@ -8,11 +8,6 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <script>
-//아래쪽에서 이 함수를 호출해서 페이지값을 컨트롤러에 맵핑시킨다
-function list(page){
-    console.log("페이지를 이동합니다.");
-    location.href="${pageContext.request.contextPath}/list.do?curPage="+page;
-}
 
 function selectCategory(category) {
 	console.log(category);
@@ -20,14 +15,13 @@ function selectCategory(category) {
 }
 
 function searchClick() {
-	const selectOption = $("#searchOption").val();
-	const keyword = $("#keyword").val();
+	var selectOption = $("#searchOption").val();
+	var keyword = $("#keyword").val();
 	location.href="${pageContext.request.contextPath}/list.do?search_option="+selectOption + "&keyword=" + keyword;
 }
 
 function isLogined() {
-	const memberid = $("#member_id").val();
-	
+	var memberid = $("#member_id").val();
 	if(memberid != null) {
 		return memberid;
 	} else {
@@ -56,6 +50,7 @@ $(document).ready(function() {
 });
 </script>
     
+
     
     <!-- 맨위 배너 -->
 	<div class="container-fluid" style="height: 20vh; background-color: rgb(247, 235, 229);">
@@ -67,68 +62,68 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-	<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
 
 	<!--   서비스별 질문 -->
-<div class="row" >
-	<div class="m-5">
-	
-		<h3>서비스별 질문</h3>
-		<hr>
-			<ul class="row" >
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(3)">
-					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-					<h4 style="margin-top:20%;">결제</h4>	
-				</a>
-				</div>
-			</li>
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(2)">
-					<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
-					<h4 style="margin-top:20%;">이용</h4></a></div>
-			</li>
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(4)">	
-					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-					<h4 style="margin-top:20%;">기타</h4></a></div>	
-			</li>
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(1)">
-					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
-					<h4 style="margin-top:20%;">신고</h4>	
-				</a></div></li>
-			</ul>
-			<hr>
+	<div class="row" style="margin-left:15%;" >
+		<div class="m-5" >
+		
+			<h3 class="text-center">서비스별 질문</h3>
+			<hr style="border:2px solid rgb(247, 235, 229);">
+				<ul class="row" style="list-style:none; ">
+				<li>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(1)">
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
+						</a><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(1)">신고</h4>	
+					</div></li>
+				<li>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(2)">
+						<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
+						</a><br><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(2)">이용</h4>
+					</div>
+				</li>
+				<li>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(3)">
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px"></a>
+						<br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(3)">결제</h4>	
+					
+					</div>
+				</li>
+				<li>
+					<div class="mx-auto d-block p-5">
+					<a href="#" onclick="selectCategory(4)">	
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/etc.png" width="60px"></a>
+						<br><h4 class="text-center" style="margin-top:20%;  color=black; cursor:pointer;" onclick="selectCategory(4)">기타</h4></div>	
+				</li>
+				
+				</ul>
+				<hr style="border:2px solid rgb(247, 235, 229);">
 		</div>
 			
 				
 	<!-- 자주묻는 질문 -->
 	<div class="m-5">
-		<h3>자주하는 질문</h3>
+		<h3 class="text-center">자주하는 질문</h3>
 		
-	 <div class="bs-example">
+	 <div class="bs-example" >
 		    <div class="accordion" id="accordionExample">	        
 		       
 		       <c:forEach items="${ serviceContentList }" var="sc" varStatus="status">      
 			        <div class="card">
 			            <div class="card-header">
-			                <h2 class="mb-0">
+			                <h2 class="mb-2 text-center" style="width:300px; ">
 			                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne${status.index}">${ sc.title }</button>									
 			                </h2>
 			            </div>
 			            <div id="collapseOne${status.index}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 			                <div class="card-body">
-			                    <p>${ sc.content } <a href="" target="_blank">Learn more.</a></p>
+			                    <p>${ sc.content }</p>
 			                </div>
 			            </div>
 			        </div>
 		        </c:forEach>
-		        
 		    </div>
 		</div>			
 	</div> 
@@ -148,11 +143,11 @@ $(document).ready(function() {
 <!-- 검색 -->
 	<form name="form1">
 	 <div class="form-group row justify-content-center">
-				<div class="w100" style="padding-right:10px">
+		<div class="w100" style="padding-right:10px">
 			 <select name="search_option" id="searchOption">
 				        <option value="member_id"
 				<c:if test="${map.search_option == 'member_id'}">selected</c:if>
-				   >작성자</option>
+					   >작성자</option>
 				
 				        <option value="service_title" 
 				<c:if test="${map.search_option == 'service_title'}">selected</c:if>
@@ -180,25 +175,34 @@ $(document).ready(function() {
      
         <div class="float-right" >
 			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
+			<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
 		</div>
 		
+		
+					  
 					<table class="table table-hover" id="board">
 					    <tr>
 					      <th>번호</th>
 					      <th>답변상태</th>
+					      <th>카테고리</th>
 					      <th>제목</th>
 					      <th>작성자</th>
 					      <th>작성날짜</th>
 					    </tr>
-					    <c:forEach items="${ serviceList }" var="service">
-					    <tr>
-					      <td>${ service.no }</td>
-					      <td>${ service.serviceStatus }</td>
-					      <td>${ service.serviceTitle }</td>
-					      <td>${ service.memberId }</td>
-					      <td><fmt:formatDate value="${ service.serviceDate }" pattern="yy/MM/dd"/></td>
-						</tr>
-					    </c:forEach>
+					    
+					      <c:if test="${ serviceList != null }">
+						    <c:forEach items="${ serviceList }" var="s" >
+						    <tr>
+							      <td>${ s.no }</td>
+							      <td>${ s.serviceStatus }</td>
+							      <td>${ s.category }</td>
+							      <td>
+							      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=${ s.no }">${ s.serviceTitle }</a></td>
+							      <td>${ s.memberId }</td>
+							      <td><fmt:formatDate value="${ s.serviceDate }" pattern="yy/MM/dd"/></td>
+							</tr>
+						    </c:forEach>
+					    </c:if>
 				</table>	
 				
 				

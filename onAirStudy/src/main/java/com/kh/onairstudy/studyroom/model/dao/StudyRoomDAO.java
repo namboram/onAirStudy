@@ -38,7 +38,7 @@ public interface StudyRoomDAO {
 	//찜목록
 	int insertWish(StudyRoomWish srWish);
 	int deleteWish(StudyRoomWish srWish);
-	List<String> selectCheckWish(StudyRoomWish srWish);
+	int selectCheckWish(StudyRoomWish srWish);
 	
 	//방생성
 	int insertStudyRoomList(StudyRoomList studyroomList);

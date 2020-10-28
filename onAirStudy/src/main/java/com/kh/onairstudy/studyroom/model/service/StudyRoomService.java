@@ -38,7 +38,7 @@ public interface StudyRoomService {
 
 	int deleteWish(StudyRoomWish srWish);
 	
-	List<String> selectCheckWish(StudyRoomWish srWish);
+	int selectCheckWish(StudyRoomWish srWish);
 		
 //
 	List<StudyRoomList> selectDiligentStudyroom();

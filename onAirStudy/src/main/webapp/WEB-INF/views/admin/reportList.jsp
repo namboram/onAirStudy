@@ -211,7 +211,7 @@ $(document).ready(function(){
 		var content = $("[name=searchContent]");	
 
 		//검색어저장
-		if(content.val() != "")
+		if(content.val() != "" && content.val()!=null)
 			loc += "&searchContent="+content.val();
 				
 		
