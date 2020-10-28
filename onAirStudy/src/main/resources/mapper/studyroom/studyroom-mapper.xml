@@ -167,7 +167,7 @@ select
   	
   	</resultMap>
   	
- <select id="StudyRoomWish" resultType="StudyRoomWish">
+ <select id="selectMywish" resultType="StudyRoomWish">
  select
  	*
  from
@@ -183,12 +183,34 @@ select
 		no != 100
 </select>
 
+<!-- 방신청 -->
+
 <insert id="insertWating">
 insert 
 	into sr_waiting_list 
 values(
 	seq_waiting_no.nextval, #{memberId}, #{srNo})
 </insert>
+
+<select id="selectApplyRoom" resultType="_int">
+select
+	count(*)
+from 
+	sr_waiting_list
+where
+	member_id = #{memberId} and sr_no = #{srNo}
+
+</select>
+
+<!-- 찜 목록  -->
+<select id="selectCheckWish" resultType="StudyRoomWish">
+select
+	*
+from 
+	sr_wish_list 
+where
+	member_id = #{memberId}
+</select>
 
 <insert id="insertWish">
 insert 
@@ -199,6 +221,14 @@ values(
 <!--  where not exists
  (select sr_no from sr_wish_list where sr_no == #{srNo}) -->
 </insert>
+
+<delete id="deleteWish">
+delete from
+	sr_wish_list 
+where
+	sr_no = #{srNo} and member_id = #{memberId}
+
+</delete>
 
 <!-- 방생성  -->
 
@@ -247,6 +277,7 @@ values(
 select*
 from sr_log
 </select>
+
 <!-- 생성   -->
 
 
@@ -356,4 +387,20 @@ from sr_log
 		and 
 			status_log = '참여'
 	</select>
+	
+	<update id="updateRoomInfo">
+		update 
+			sr_info 
+		set 
+			sr_title = #{srTitle} , 
+			sr_goal = #{srGoal} , 
+			sr_comment = #{srComment} , 
+			attend_day = #{ attendDay} , 
+			attend_time = #{attendTime} , 
+			forced_exit_opt = #{ forceExitOpt} , 
+			forced_exit_yn = #{ forceExitYN }
+		where 
+			sr_no = #{srNo}
+	
+	</update>
 </mapper>

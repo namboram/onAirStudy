@@ -163,6 +163,12 @@ public class AdminController {
 		
 		result = adminService.updateService(replyNo);
 		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberId", sc.getMemberId());
+		map.put("content", "문의하신 게시글에 관리자의 답변이 올라왔습니다.");
+		
+		result = adminService.sendMessage(map);
+		
 		return "redirect:/admin/serviceDetail.do?no="+replyNo;
 	}
 	
@@ -284,5 +290,15 @@ public class AdminController {
 			return "redirect:/admin/reportList.do?searchContent="+searchContent;
 		
 		return "redirect:/admin/reportList.do";
+	}
+	
+	@RequestMapping("/admin/messageCnt.do")
+	@ResponseBody
+	public int messageCnt() {
+		
+		int result = adminService.messageCnt();
+		log.debug("result={}", result);
+		
+		return result;
 	}
 }

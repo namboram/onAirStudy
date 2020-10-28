@@ -4,147 +4,93 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
-
- <section class="forms">
-        <div class="container-fluid">
-          <!-- Page Header-->
+<style>
+.roomInfo h1{
+	text-align: center;
+}
+</style>
+		<div class="roomInfo">
           <header> 
-            <h1 class="h3 display">Forms</h1>
+            <h1 class="h3 display">우리 스터디방                     </h1>
           </header>
-          <div class="row">
-            <div class="col-lg-11">
+         	<div class="col-lg-11 p-0"  style="margin: 0 auto; margin-top: 2.5em">
               <div class="card">
                 <div class="card-header d-flex align-items-center">
-                  <h4>All form elements</h4>
-                </div>
+					<label class="col-sm-12 form-control-label" style="text-align:center">${roomInfo.srTitle }</label>
+				</div>
                 <div class="card-body">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST" id="updateFrm">
+                    <input type="hidden" name="srOpenedYN" value="${roomInfo.srOpenedYN}" />
+                    <input type="hidden" name="category" value="${roomInfo.category}" />
+                    <input type="hidden" name="srNo" value="${roomInfo.srNo}" />
+                    <input type="hidden" name="attendDay" value=""/>
+                    <input type="hidden" name="attendTime" value=""/>
                     <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Normal</label>
+                      <label class="col-sm-2 form-control-label">스터디 방제</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                       <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" name="srTitle" value="${roomInfo.srTitle }">
+                        </div>
                       </div>
                     </div>
                     <div class="line"></div>
                     <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Help text</label>
+                      <label class="col-sm-2 form-control-label">스터디 한줄 소개</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control"><span class="text-small text-gray help-block-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                        <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" name="srComment"  value="${roomInfo.srComment }">
+                        </div>
                       </div>
                     </div>
                     <div class="line"></div>
                     <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Password</label>
+                      <label class="col-sm-2 form-control-label">우리방 목표</label>
                       <div class="col-sm-10">
-                        <input type="password" name="password" class="form-control">
+                       <div class="form-group">
+                          <input type="text" class="form-control form-control-lg" name="srGoal" value="${roomInfo.srGoal }">
+                        </div>
                       </div>
                     </div>
-                    <div class="line"></div>
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">출석체크</label>
+						<div class="col-sm-10 attendDiv">
+							<div class="form-group">
+								<label class="col-sm-3 form-control-label">요일</label>
+								<label class="col-sm-2 form-control-label">시간</label>
+								<button type="button" class="btn" id="btnAdd" onclick="addInput()">+</button>
+							</div>
+							<c:set var="arrDay" value="${fn:split(roomInfo.attendDay, ',') }"/>
+							<c:set var="arrTime" value="${fn:split(roomInfo.attendTime, ',') }"/>
+							<c:forEach var="i" begin="0" end="${fn:length(arrDay)-1}">
+								<div class="input-group" style="margin-top: 10px;">
+								<select name="day" id="days${ i }" class="col-sm-2" class="dayAttend">
+									<option value="월" <c:if test="${ arrDay[i] eq '월' }">selected</c:if>>월요일</option>
+									<option value="화" <c:if test="${ arrDay[i] eq '화' }">selected</c:if>>화요일</option>
+									<option value="수" <c:if test="${ arrDay[i] eq '수' }">selected</c:if>>수요일</option>
+									<option value="목" <c:if test="${ arrDay[i] eq '목' }">selected</c:if>>목요일</option>
+									<option value="금" <c:if test="${ arrDay[i] eq '금' }">selected</c:if>>금요일</option>
+									<option value="토" <c:if test="${ arrDay[i] eq '토' }">selected</c:if>>토요일</option>
+									<option value="일" <c:if test="${ arrDay[i] eq '일' }">selected</c:if>>일요일</option>
+								</select>
+								<input type="time" name="time" id="time${ i }" class="offset-sm-1" value="${ arrTime[i] }"/>
+								<button type="button" class="btn offset-sm-1">-</button>
+							</div>
+							</c:forEach>
+						</div>
+					</div>
                     <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Placeholder</label>
+                      <label class="col-sm-2 form-control-label">우리방 규칙</label>
                       <div class="col-sm-10">
-                        <input type="text" placeholder="placeholder" class="form-control">
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-lg-2 form-control-label">Disabled</label>
-                      <div class="col-lg-10">
-                        <input type="text" disabled="" placeholder="Disabled input here..." class="form-control">
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Checkboxes and radios <br><small class="text-primary">Normal Bootstrap elements</small></label>
-                      <div class="col-sm-10">
-                        <div>
-                          <input id="option" type="checkbox" value="">
-                          <label for="option">Option one is this and that—be sure to include why it's great</label>
-                        </div>
-                        <div>
-                          <input id="optionsRadios1" type="radio" checked="" value="option1" name="optionsRadios">
-                          <label for="optionsRadios1">Option one is this and that be sure to include why it's great</label>
-                        </div>
-                        <div>
-                          <input id="optionsRadios2" type="radio" value="option2" name="optionsRadios">
-                          <label for="optionsRadios2">Option two can be something else and selecting it will deselect option one</label>
+                        <div class="form-group">
+                          <span>팀장 경고 누적   </span>
+                          <input type="number" id="" min="1" max="10" name="forceExitOpt" value="${ roomInfo.forceExitOpt }"/>
+                          <span>  회시 자동탈퇴처리  </span>  
+                          <input id="inlineCheckbox1" type="checkbox" name="forceExitYN" value="Y" <c:if test="${ roomInfo.forceExitYN eq 'Y' }">checked</c:if> > 
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Inline checkboxes</label>
-                      <div class="col-sm-10">
-                        <label class="checkbox-inline">
-                          <input id="inlineCheckbox1" type="checkbox" value="option1"> a
-                        </label>
-                        <label class="checkbox-inline">
-                          <input id="inlineCheckbox2" type="checkbox" value="option2"> b
-                        </label>
-                        <label class="checkbox-inline">
-                          <input id="inlineCheckbox3" type="checkbox" value="option3"> c
-                        </label>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Checkboxes &amp; radios <br><small class="text-primary">Custom elements</small></label>
-                      <div class="col-sm-10">
-                        <div class="i-checks">
-                          <input id="checkboxCustom1" type="checkbox" value="" class="form-control-custom">
-                          <label for="checkboxCustom1">Option one</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="checkboxCustom2" type="checkbox" value="" checked="" class="form-control-custom">
-                          <label for="checkboxCustom2">Option two checked</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="checkboxCustom" type="checkbox" value="" disabled="" checked="" class="form-control-custom">
-                          <label for="checkboxCustom">Option three checked and disabled</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="checkboxCustom3" type="checkbox" value="" disabled="" class="form-control-custom">
-                          <label for="checkboxCustom3">Option four disabled</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="radioCustom1" type="radio" value="option1" name="a" class="form-control-custom radio-custom">
-                          <label for="radioCustom1">Option one</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="radioCustom2" type="radio" checked="" value="option2" name="a" class="form-control-custom radio-custom">
-                          <label for="radioCustom2">Option two checked</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="radioCustom3" type="radio" disabled="" checked="" value="option2" class="form-control-custom radio-custom">
-                          <label for="radioCustom3">Option three checked and disabled</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="radioCustom4" type="radio" disabled="" name="a" class="form-control-custom radio-custom">
-                          <label for="radioCustom4">Option four disabled</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Select</label>
-                      <div class="col-sm-10 mb-3">
-                        <select name="account" class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                        </select>
-                      </div>
-                      <div class="col-sm-10 offset-sm-2">
-                        <select multiple="" class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="line"></div>
+                   <!--  <div class="line"></div>
                     <div class="form-group row has-success">
                       <label class="col-sm-2 form-control-label">Input with success</label>
                       <div class="col-sm-10">
@@ -156,152 +102,68 @@
                       <label class="col-sm-2 form-control-label">Input with error</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control is-invalid">
-                        <div class="invalid-feedback">Please provide your name.</div>
                       </div>
-                    </div>
-                    <div class="line"></div>
+                    </div> -->
                     <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Control sizing</label>
-                      <div class="col-sm-10">
-                        <div class="form-group">
-                          <input type="text" placeholder=".input-lg" class="form-control form-control-lg">
-                        </div>
-                        <div class="form-group">
-                          <input type="text" placeholder="Default input" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <input type="text" placeholder=".input-sm" class="form-control form-control-sm">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Column sizing</label>
-                      <div class="col-sm-10">
-                        <div class="row">
-                          <div class="col-md-2">
-                            <input type="text" placeholder=".col-md-2" class="form-control">
-                          </div>
-                          <div class="col-md-3">
-                            <input type="text" placeholder=".col-md-3" class="form-control">
-                          </div>
-                          <div class="col-md-4">
-                            <input type="text" placeholder=".col-md-4" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"> </div>
-                    <div class="row">
-                      <label class="col-sm-2 form-control-label">Material Inputs</label>
-                      <div class="col-sm-10">
-                        <div class="form-group-material">
-                          <input id="register-username" type="text" name="registerUsername" required class="input-material">
-                          <label for="register-username" class="label-material">Username</label>
-                        </div>
-                        <div class="form-group-material">
-                          <input id="register-email" type="email" name="registerEmail" required class="input-material">
-                          <label for="register-email" class="label-material">Email Address      </label>
-                        </div>
-                        <div class="form-group-material">
-                          <input id="register-password" type="password" name="registerPassword" required class="input-material">
-                          <label for="register-password" class="label-material">Password                                                      </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Input groups</label>
-                      <div class="col-sm-10">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-prepend"><span class="input-group-text">@</span></div>
-                            <input type="text" placeholder="Username" class="form-control">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input type="text" class="form-control">
-                            <div class="input-group-append"><span class="input-group-text">.00</span></div>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" class="form-control">
-                            <div class="input-group-append"><span class="input-group-text">.00</span></div>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text">
-                                <input type="checkbox">
-                              </div>
-                            </div>
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text">
-                                <input type="radio">
-                              </div>
-                            </div>
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Button addons</label>
-                      <div class="col-sm-10">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <button type="button" class="btn btn-primary">Go!</button>
-                            </div>
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input type="text" class="form-control">
-                            <div class="input-group-append">
-                              <button type="button" class="btn btn-primary">Go!</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">With dropdowns</label>
-                      <div class="col-sm-10">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <button data-toggle="dropdown" type="button" class="btn btn-outline-secondary dropdown-toggle">Action <span class="caret"></span></button>
-                            <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                              <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                            </div>
-                          </div>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <div class="col-sm-4 offset-sm-2">
-                        <button type="submit" class="btn btn-secondary">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </div>
+						<div class="col-sm-5 offset-sm-7">
+							<button type="button" class="btn btn-primary">
+								<c:choose>
+									<c:when test="${roomInfo.srOpenedYN eq 'Y'}"> 방 닫기</c:when>
+									<c:when test="${roomInfo.srOpenedYN eq 'N'}"> 방 열기</c:when>
+								</c:choose>
+							</button>
+							<button type="button" class="btn btn-danger">팀장 변경</button>
+							<button type="button" class="btn btn-primary" onclick="beforeSubmit()">수정완료</button>
+						</div>
+					</div>
                   </form>
                 </div>
               </div>
             </div>
-          </div>
         </div>
-      </section>
+   <script>
+	var i = 1+1;
+
+	function addInput(){
+		var html = "<div class='input-group' style='margin-top:10px;'><select name='day' id='days"+ i +"' class='col-sm-2'>"
+				+ "<option value='월'>월요일</option>"
+				+ "<option value='화'>화요일</option>" 
+				+ "<option value='수'>수요일</option>" 
+				+ "<option value='목'>목요일</option>" 
+				+ "<option value='금'>금요일</option>" 
+				+ "<option value='토'>토요일</option>" 
+				+ "<option value='일'>일요일</option>" 
+				+ "</select>" 
+				+ "<input type='time' name='time' id='time" + i +"' class='offset-sm-1' value='17:00'/>" 
+				+ "<button type='button' class='btn offset-sm-1'>-</button>" 
+				+ "</div>" ; 
+		i++;
+		$(".attendDiv").append(html); 
+	};
+   	
+	function beforeSubmit(){
+		var dayStr = "";
+		var timeStr = "";
+		
+		var arrayDay = $("select[name='day']");
+		var arrayTime = $("input[name='time']");
+		var length = arrayDay.length;
+		
+		for(var x=0; x<length; x++){
+			if(x == length-1){
+				dayStr += arrayDay[x].value;
+				timeStr += arrayTime[x].value;
+			}else{
+				dayStr += arrayDay[x].value + ",";
+				timeStr += arrayTime[x].value + ","; 
+			}
+		}		
+
+		$("input[name='attendDay']").val(dayStr);
+		$("input[name='attendTime']").val(timeStr);
+
+		$("#updateFrm").submit();
+				
+	};
+
+   </script>

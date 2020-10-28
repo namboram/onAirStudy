@@ -24,11 +24,6 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insertWating(StudyRoomWaiting srWating) {
-		return sqlSession.insert("studyroom.insertWating",srWating);
-	}
-
-	@Override
 	public List<StudyRoom> selectMystudyList() {
 		
 		return sqlSession.selectList("studyroom.selectMystudyList");
@@ -50,15 +45,33 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 	
 	@Override
-	public List<StudyRoomWish> selectMywish() {
-		return sqlSession.selectList("studyroom.StudyRoomWish");
-	}
-
-	@Override
 	public List<StudyCategory> selectCategoryList() {
 		return sqlSession.selectList("studyroom.selectCategoryList");
 	}
-//방생성
+	
+	
+	@Override
+	public List<StudyRoomWish> selectMywish() {
+		return sqlSession.selectList("studyroom.selectMywish");
+	}
+	
+	//찜목록
+	@Override
+	public int insertWish(StudyRoomWish srWish) {
+		return sqlSession.insert("studyroom.insertWish", srWish);
+	}
+	
+	@Override
+	public int deleteWish(StudyRoomWish srWish) {
+		return sqlSession.delete("studyroom.deleteWish", srWish);
+	}
+	
+	@Override
+	public List<String> selectCheckWish(StudyRoomWish srWish) {
+		return sqlSession.selectList("studyroom.selectCheckWish", srWish);
+	}
+
+	//방생성
 	@Override
 	public int insertStudyRoomList(StudyRoomList studyroomList) {
 		return sqlSession.insert("studyroom.insertStudyRoomList", studyroomList);	
@@ -132,11 +145,6 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	}
 
 	@Override
-	public int insertWish(StudyRoomWish srWish) {
-		return sqlSession.insert("studyroom.insertWish", srWish);
-	}
-
-	@Override
 	public List<Map<String, Object>> searchRoom(Map<String, String> param) {
 		return sqlSession.selectList("studyroom.searchRoom", param);
 	}
@@ -168,10 +176,22 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.selectList("studyroom.selectsrList");
 	}
 
-	
+
+	@Override
+	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
+		return sqlSession.update("studyroom.updateRoomInfo", studyRoomInfo);
+	}
+
+	//방 신청
+	@Override
+	public int insertWating(StudyRoomWaiting srWating) {
+		return sqlSession.insert("studyroom.insertWating",srWating);
+	}
 
 
-
-
+	@Override
+	public int selectApplyRoom(StudyRoomWaiting srWating) {
+		return sqlSession.selectOne("studyroom.selectApplyRoom",srWating);
+	}
 
 }

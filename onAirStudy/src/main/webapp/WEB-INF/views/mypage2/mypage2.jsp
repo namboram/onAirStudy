@@ -81,9 +81,9 @@
 				<span>D - 37</span></br> <span>2020.11.02</span></br> <span>토익시험</span></br>
 				<hr>
 			</div>
-			<input type="hidden" name="day" id="attendDay" value="${roomInfo.attendDay}"/>
-			<input type="hidden" name="time" id="attendTime" value="${roomInfo.attendTime }"/>
-			<input type="hidden" name="check" id="attendCheck" value="${attendCheck }"/>
+			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
+			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
+			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
 		</div>
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
@@ -112,7 +112,7 @@
 				</ul>
 			</li>
 			<li><a onclick="goToInvitation()">초대하기</a></li>
-			<li><a onclick="goToSchduler()">스케줄러</a></li>
+			<li><a onclick="goToSchduler(${roomInfo.srNo})">스케줄러</a></li>
 			<li>
 				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
 				<ul id="applicantsDropdown" class="collapse list-unstyled ">
@@ -229,8 +229,8 @@ function post_to_url(path, params, method) {
 </script>
 
 <script>
-	function goToSchduler(){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/studyroom/scheduler.do");
+	function goToSchduler(roomNum){
+		 $(".changeDiv").load("${pageContext.request.contextPath}/mypage1/scheduler.do?no="+roomNum);
 	}
 	
 	function goToQuestion(){
