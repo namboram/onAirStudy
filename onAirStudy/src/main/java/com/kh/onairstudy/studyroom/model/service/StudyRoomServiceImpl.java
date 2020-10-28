@@ -24,16 +24,13 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 
 	@Autowired
 	private StudyRoomDAO studyRoomDAO;
+
 	
 	@Override
 	public List<StudyRoom> selectMystudyList() {		
 		return studyRoomDAO.selectMystudyList();
 	}
-	
-	@Override
-	public int insertWating(StudyRoomWaiting srWating) {
-		return studyRoomDAO.insertWating(srWating);
-	}
+
 
 	@Override
 	public List<StudyRoomWaiting> selectMywaitingList() {		
@@ -51,56 +48,75 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 	@Override
-	public List<StudyRoomWish> selectMywish() {
-		return studyRoomDAO.selectMywish();
-	}
-
-
-	@Override
 	public List<StudyCategory> selectCategoryList() {
 		return studyRoomDAO.selectCategoryList();
 	}
-//	방생성
+	
 	@Override
-	public int insertStudyRoom(StudyRoom studyroom) {
-		
-		int result = 0;
-		
-		StudyRoomList srList = new StudyRoomList();
-//		srList.setSrCategory(studyroom.getCategory());
-//		srList.setMemberId(studyroom.getMemberId());
-//		result = studyRoomDAO.insertStudyRoomList(srList);			
-//		
-		
-			studyroom.setSrNo(srList.getSrNo());
-			result = studyRoomDAO.insertStudyRoom(studyroom);		
-						
-			
-			ProfileAttachment profile = new ProfileAttachment();
-			if(studyroom.getProList() != null) {
-//				for(ProfileAttachment profile : studyroom.getProList()) {
-//					
-//					profile.setSrNo(srList.getSrNo());
-//					result = studyRoomDAO.insertProfileAttachment(profile);
-//				}
-				profile.setMemberId(studyroom.getMemberId());
-				profile.setSrNo(srList.getSrNo());
-				result = studyRoomDAO.insertProfileAttachment(profile);
-					
-			}
-			
-			StudyRoomLog srLog = new StudyRoomLog();
-			srLog.setMemberId(studyroom.getMemberId());
-			srLog.setSrNo(srList.getSrNo());
-			result = studyRoomDAO.insertStudyRoomLog(srLog);			
-		
-		return result;
+	public List<StudyRoomWish> selectMywish() {
+		return studyRoomDAO.selectMywish();
+	}
+	
+// 찜목록
+
+	@Override
+	public int insertWish(StudyRoomWish srWish) {
+		return studyRoomDAO.insertWish(srWish);
 	}
 	
 	@Override
-	public int insertStudyRoomList(StudyRoomList srList) {
-		return studyRoomDAO.insertStudyRoomList(srList);
+	public int deleteWish(StudyRoomWish srWish) {
+		return studyRoomDAO.deleteWish(srWish);
 	}
+	
+	@Override
+	public List<String> selectCheckWish(StudyRoomWish srWish) {
+		return studyRoomDAO.selectCheckWish(srWish);
+	}
+//	방생성
+		
+	@Override
+	public int insertStudyRoomList(StudyRoomList studyroomList) {
+		
+			
+			int result = 0;
+			result = studyRoomDAO.insertStudyRoomList(studyroomList);			
+					
+
+			if(studyroomList.getProList() != null) {
+				
+				for(ProfileAttachment profile : studyroomList.getProList()) {
+					
+					profile.setSrNo(studyroomList.getSrNo());
+					result = studyRoomDAO.insertProfileAttachment(profile);
+				}
+			
+			}
+			
+			if(studyroomList.getSrLog() != null) {
+				
+				for(StudyRoomLog srLog: studyroomList.getSrLog()) {
+					
+					srLog.setSrNo(studyroomList.getSrNo());
+					result = studyRoomDAO.insertStudyRoomLog(srLog);
+				}
+			
+			}
+			
+			
+			if(studyroomList.getSRoom() != null) {
+				
+				for(StudyRoom sRoom: studyroomList.getSRoom()) {
+					
+					sRoom.setSrNo(studyroomList.getSrNo());
+					result = studyRoomDAO.insertStudyRoom(sRoom);
+				}
+			
+			}
+
+			return result;
+	}
+	
 
 	
 	@Override
@@ -108,9 +124,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		// TODO Auto-generated method stub
 		return studyRoomDAO.selectStudyRoomLog();
 	}
-
-	
-
 	
 //검색
 	@Override
@@ -146,11 +159,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 
 	@Override
-	public int insertWish(StudyRoomWish srWish) {
-		return studyRoomDAO.insertWish(srWish);
-	}
-
-	@Override
 	public int selectParticipatingRoomCnt(String memberId) {
 		return studyRoomDAO.selectParticipatingRoomCnt(memberId);
 	}
@@ -172,7 +180,17 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 
 
+	//방 신청
 
-	
+	@Override
+	public int insertWating(StudyRoomWaiting srWating) {
+		return studyRoomDAO.insertWating(srWating);
+	}
+
+	@Override
+	public int selectApplyRoom(StudyRoomWaiting srWating) {
+		return studyRoomDAO.selectApplyRoom(srWating);
+	}
+
 	
 }

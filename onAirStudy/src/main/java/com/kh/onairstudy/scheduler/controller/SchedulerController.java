@@ -32,13 +32,13 @@ public class SchedulerController {
 	@Autowired
 	private SchedulerService schedulerService;
 	
-	@RequestMapping("/scheduler/main.do")
+	@RequestMapping("/mypage1/scheduler.do")
 	public ModelAndView mainScheduler(ModelAndView mav, 
 										@SessionAttribute("loginMember") Member member,
-										@SessionAttribute(value="roomInfo", required=false) StudyRoomInfo info) {
+										@RequestParam(value="no", required=false) String roomNum) {
 
 		//내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(member, info);
+		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
 		
 		//확인
 //		for(Scheduler sch : addList) {
@@ -46,12 +46,16 @@ public class SchedulerController {
 //		}
 		
 		mav.addObject("list", addList);
+		mav.addObject("roomNum", roomNum);
+		
+		log.debug("memberId = {}", member.getMemberId());
+		log.debug("roomNum ={}", roomNum);
 		
 		//방번호유무
-		if(info==null)
+		if(roomNum==null)
 			mav.setViewName("/mypage1/mypage1_scheduler");
 		else
-			mav.setViewName("/mypage2/mapage2_scheduler");
+			mav.setViewName("/scheduler/scheduler");
 			
 		
 		return mav;
@@ -59,31 +63,16 @@ public class SchedulerController {
 		
 	}
 	
-	
-//	@RequestMapping("/studyroom/scheduler.do")
-//	public ModelAndView studyRoomScheduler(ModelAndView mav, HttpSession session) {
-//
-//		//내역가져오기
-//		List<Scheduler> addList = makeScheduleArrays(session);
-//		
-//		mav.addObject("list", addList);
-//		mav.setViewName("scheduler/studyroom-scheduler");
-//		
-//		return mav;
-//	}
-	
-	
-	
-	public List<Scheduler> makeScheduleArrays(Member member, StudyRoomInfo info){
+	public List<Scheduler> makeScheduleArrays(Member member, String roomNum){
 				
 				//로그인된 아이디 가져오기
 				String memberId = member.getMemberId();
 				String srNo = null;
 				
 				//방번호유무 갈림
-				if(info != null) {
+				if(roomNum != null) {
 					memberId = null;
-					srNo = Integer.toString(info.getSrNo());
+					srNo = roomNum;
 				}
 		
 				Map<String, Object> map = new HashMap<>();
@@ -154,7 +143,7 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "일정 등록 실패");
 		}
 			
-		return "redirect:/scheduler/main.do";
+		return "redirect:/mypage1/scheduler.do";
 	}
 
 	@RequestMapping("/scheduler/update.do")
@@ -178,7 +167,7 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "일정 수정 실패");
 		}
 //		
-		return "redirect:/scheduler/main.do";
+		return "redirect:/mypage1/scheduler.do";
 	}
 	
 	public RedirectAttributes makeYearMonths(Scheduler sch, RedirectAttributes redirectAttr){
@@ -223,7 +212,7 @@ public class SchedulerController {
 		else
 			redirectAttr.addFlashAttribute("msg", "일정 삭제 실패");
 			
-		return "redirect:/scheduler/main.do";
+		return "redirect:/mypage1/scheduler.do";
 	}
 	
 	
@@ -232,7 +221,7 @@ public class SchedulerController {
 							@RequestParam("checked") boolean[] yn,
 							@RequestParam("startDate") Date startDate,
 							@SessionAttribute("loginMember") Member member,
-							@SessionAttribute(value="roomInfo", required=false) StudyRoomInfo info,
+							@RequestParam(value="roomNum", required=false) String roomNum,
 							RedirectAttributes redirectAttr) {
 		
 		Scheduler sch = null;
@@ -246,8 +235,8 @@ public class SchedulerController {
 			sch.setMemberId(member.getMemberId());
 			sch.setSrNo(0);
 			//방번호유무
-			if(info != null) {
-				sch.setSrNo(info.getSrNo());
+			if(roomNum != null) {
+				sch.setSrNo(Integer.parseInt(roomNum));
 				sch.setMemberId(null);
 			}
 			sch.setStartDate(startDate);
@@ -262,8 +251,8 @@ public class SchedulerController {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", member.getMemberId());
-		if(info != null)
-			map.put("srNo", info.getSrNo());
+		if(roomNum != null)
+			map.put("srNo", roomNum);
 		map.put("startDate", startDate);
 		
 		//이전내역삭제
@@ -282,13 +271,13 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "리스트 저장 실패");
 		
 		
-		return "redirect:/scheduler/main.do";
+		return "redirect:/mypage1/scheduler.do";
 	}
 	
 	@RequestMapping("/scheduler/delTodo.do")
 	public String deleteTodo(@RequestParam("startDate") Date startDate,
 							@SessionAttribute("loginMember") Member member,
-							@SessionAttribute(value="roomInfo", required=false) StudyRoomInfo info,
+							@RequestParam(value="roomNum", required=false) String roomNum,
 							RedirectAttributes redirectAttr) {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -298,9 +287,9 @@ public class SchedulerController {
 		map.put("srNo", null);
 
 		//방번호유무
-		if(info != null) {
+		if(roomNum != null) {
 			map.put("memberId", null);
-			map.put("srNo", info.getSrNo());
+			map.put("srNo", Integer.parseInt(roomNum));
 		}
 		
 		map.put("startDate", startDate);
@@ -318,7 +307,7 @@ public class SchedulerController {
 			redirectAttr.addFlashAttribute("msg", "리스트 삭제 성공");
 		
 		
-		return "redirect:/scheduler/main.do";
+		return "redirect:/mypage1/scheduler.do";
 	}
 	
 	

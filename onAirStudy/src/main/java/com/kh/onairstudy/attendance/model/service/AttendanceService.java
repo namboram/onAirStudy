@@ -14,4 +14,6 @@ public interface AttendanceService {
 	int getAttendCnt(Map<String, Object> param);
 
 	int updateAttendance(Map<String, Object> param);
+	
+	List<Attendance> selectAttendList(int roomNum);
 }

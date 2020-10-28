@@ -50,12 +50,12 @@ function goDiaryForm(){
 		        	   id="keywordS" name="keywordS" placeholder="검색어를 입력해주세요"/>&nbsp;
 	  		</span>
 		        <button class="btn btn-outline-danger" id="diary-searchbtn"type="submit">검색</button>
-  		
   		</form>
 		    <input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goDiaryForm();"/>
   	</div>
 		
     <br />
+    
     <!-- 공부다이어리 목록 -->
 	<table class="table" class="table table-striped table-hover">
 	    <tr class="header">
@@ -63,7 +63,7 @@ function goDiaryForm(){
 	      <th>제목</th>
 	      <th>작성자</th>
 	      <th>작성일</th>
-	      <th>첨부파일</th> <!-- 첨부파일 있을 경우, /resources/images/file.png 표시 width: 16px-->
+	     <!--  <th>첨부파일</th> --> <!-- 첨부파일 있을 경우, /resources/images/file.png 표시 width: 16px-->
 	      <th>조회수</th>
 	    </tr>
 	    <c:forEach items="${ list }" var="diary">
@@ -72,12 +72,12 @@ function goDiaryForm(){
 	      <td><a></a>${ diary.diaryTitle }</td>
 	      <td>${ diary.memberId }</td>
 	      <td><fmt:formatDate value="${ diary.diaryDate }" pattern="yy/MM/dd"/></td>
-	      <td>
+	   <%--    <td>
 	      	<c:if test="${ diary.fileCount gt 0 }">
 					<img src="${ pageContext.request.contextPath }/resources/images/file.png"
 						 style="width:16px;"/>
 			</c:if>  
-	      </td>
+	      </td> --%>
 	      <td>${ diary.readCnt }</td>
 		</tr>
 	    </c:forEach>

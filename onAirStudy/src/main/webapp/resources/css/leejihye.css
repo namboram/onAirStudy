@@ -14,7 +14,6 @@ nav.navbar-default{
 
 nav.side-navbar {
   background: #E0B1D0;
-  height: 100%;
   color: #686a76;
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -34,6 +33,7 @@ nav.admin-sideBar {
 
 nav.mypage-sideBar {
 	background: #AD8686;
+	height: 100%;
 }
 
 
@@ -168,20 +168,6 @@ nav.side-navbar .avatar {
     border-radius: 10px;
 }
 
-/*
-nav.side-navbar .title {
-  margin-left: 10px;
-}
-nav.side-navbar .title h1 {
-  color: #333;
-}
-nav.side-navbar .title p {
-  font-size: 0.9em;
-  font-weight: 200;
-  margin-bottom: 0;
-  color: #aaa;
-}
-*/
 nav.side-navbar span.heading {
   text-transform: uppercase;
   font-weight: 400;
