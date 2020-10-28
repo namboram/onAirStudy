@@ -21,6 +21,13 @@ public interface ServiceCenterService {
 
 	int totalCount(String search_option, String keyword, int category);
 
+
 	Map<String, Object> serviceDetail(int no);
+
+	Object selectService(int no);
+
+	int serviceUpdate(ServiceCenter service);
+
+	int serviceDelete(int no);
 	
 }

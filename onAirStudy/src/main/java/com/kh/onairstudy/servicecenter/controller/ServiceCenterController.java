@@ -6,9 +6,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +60,7 @@ public class ServiceCenterController {
 	
 	}
 	
-
+//카테고리별 검색
 	 @RequestMapping(value = "list.do")    //세부적인 url mapping
 	    public ModelAndView list(//RequestParam으로 옵션, 키워드, 페이지의 기본값을 각각 설정해준다.
 	            
@@ -70,8 +70,6 @@ public class ServiceCenterController {
 	            @RequestParam(defaultValue="0") int category
 	            )
 	             throws Exception{
-	        
-	     
 	        
 	        //map에 담기위해 리스트에 검색옵션, 키워드를 저장
 	        List<ServiceCenter> list = serviceCenterService.listAll(search_option, keyword, category);
@@ -93,22 +91,52 @@ public class ServiceCenterController {
 	
 	
 	 
-//	상세보기
+//상세보기
 	 @RequestMapping("/serviceDetail.do")
-		public String noticeDetail(ModelAndView mav, @RequestParam("no") int no) {
-			
-			Map<String, Object> map = serviceCenterService.serviceDetail(no);
-			mav.addObject("map",map);
-			
+		public String serviceDetail(Model model,
+									@RequestParam("no") int no) {
+		
+			Map<String, Object> map = serviceCenterService.serviceDetail(no);	
+			model.addAttribute("map", map);
 			
 			return "service/serviceDetail";
 		}
+
+	 
+	 
+	 
+	 @RequestMapping(value="serviceUpdate.do", method = RequestMethod.GET)
+		public String serviceUpdate(@RequestParam int no, Model model){
 		
+			model.addAttribute("service", serviceCenterService.selectService(no));
+			return "service/serviceUpdateForm";
+		}
+
+	 
+	 //수정		
+		@RequestMapping(value="serviceUpdate.do", method = RequestMethod.POST)
+		public String serviceUpdate(ServiceCenter service, RedirectAttributes redirectAttributes){
+			System.out.println("serviceUpdate="+ service);
+			int result = serviceCenterService.serviceUpdate(service);
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 수정성공" : "Dev 수정실패");
+			return "redirect:/servicecenter.do";
+		}
 	
+		
+	//삭제		
+		@RequestMapping(value = "serviceDelete.do",
+						method = RequestMethod.POST)
+		public String serviceDelete(@RequestParam("no") int no, RedirectAttributes redirectAttributes){
+			int result =serviceCenterService.serviceDelete(no);
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 삭제성공" : "Dev 삭제실패");
+			return "redirect:/servicecenter.do";
+		}
+	 
+	 
 	 
 	 
 	
-// 글쓰기폼
+//글쓰기폼
 	@RequestMapping("/service/serviceForm.do")
 	public String serviceForm() {
 		return "service/serviceForm";
@@ -117,16 +145,14 @@ public class ServiceCenterController {
 
 	
 	
-//	게시글 등록
+//게시글 등록
 	@RequestMapping(value = "/service/insertService.do",
 		    method = RequestMethod.POST)
 		public String insertService(ServiceCenter servicecenter, 
-							RedirectAttributes redirectAttr,
-							HttpSession session) {
+									RedirectAttributes redirectAttr,
+									HttpSession session) {
 		System.out.println("servicecenter = " + servicecenter);
 		 
-
-
 		//업무로직
 		int result = serviceCenterService.insertService(servicecenter);
 		String msg = (result > 0) ? "문의글 등록 성공!" : "문의글 등록 실패!";

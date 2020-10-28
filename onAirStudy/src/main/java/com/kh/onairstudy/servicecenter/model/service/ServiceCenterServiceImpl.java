@@ -45,9 +45,27 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 		return serviceCenterDAO.totalCount(search_option, keyword, category);
 	}
 
+
 	@Override
 	public Map<String, Object> serviceDetail(int no) {
-		return serviceCenterDAO.serviceDetail(no);
+	return serviceCenterDAO.serviceDetail(no);
 	}
+
+	@Override
+	public Object selectService(int no) {
+		return serviceCenterDAO.selectService(no);
+	}
+
+	@Override
+	public int serviceUpdate(ServiceCenter service) {
+		return serviceCenterDAO.serviceUpdate(service);
+	}
+
+	@Override
+	public int serviceDelete(int no) {
+		return serviceCenterDAO.serviceDelete(no);
+	}
+
+
 
 }

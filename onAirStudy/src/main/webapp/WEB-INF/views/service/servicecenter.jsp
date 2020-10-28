@@ -8,11 +8,6 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <script>
-//아래쪽에서 이 함수를 호출해서 페이지값을 컨트롤러에 맵핑시킨다
-function list(page){
-    console.log("페이지를 이동합니다.");
-    location.href="${pageContext.request.contextPath}/list.do?curPage="+page;
-}
 
 function selectCategory(category) {
 	console.log(category);
@@ -27,7 +22,6 @@ function searchClick() {
 
 function isLogined() {
 	var memberid = $("#member_id").val();
-	
 	if(memberid != null) {
 		return memberid;
 	} else {
@@ -70,40 +64,40 @@ $(document).ready(function() {
 
 
 	<!--   서비스별 질문 -->
-<div class="row" >
-	<div class="m-5">
-	
-		<h3>서비스별 질문</h3>
-		<hr>
-			<ul class="row" >
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(3)">
-					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-					<h4 style="margin-top:20%;">결제</h4>	
-				</a>
-				</div>
-			</li>
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(2)">
-					<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
-					<h4 style="margin-top:20%;">이용</h4></a></div>
-			</li>
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(4)">	
-					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
-					<h4 style="margin-top:20%;">기타</h4></a></div>	
-			</li>
-			<li>
-				<div class="mx-auto d-block">
-				<a href="#" onclick="selectCategory(1)">
-					<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
-					<h4 style="margin-top:20%;">신고</h4>	
-				</a></div></li>
-			</ul>
+	<div class="row" >
+		<div class="m-5">
+		
+			<h3>서비스별 질문</h3>
 			<hr>
+				<ul class="row" >
+				<li>
+					<div class="mx-auto d-block">
+					<a href="#" onclick="selectCategory(3)">
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
+						<h4 style="margin-top:20%;">결제</h4>	
+					</a>
+					</div>
+				</li>
+				<li>
+					<div class="mx-auto d-block">
+					<a href="#" onclick="selectCategory(2)">
+						<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
+						<h4 style="margin-top:20%;">이용</h4></a></div>
+				</li>
+				<li>
+					<div class="mx-auto d-block">
+					<a href="#" onclick="selectCategory(4)">	
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px">
+						<h4 style="margin-top:20%;">기타</h4></a></div>	
+				</li>
+				<li>
+					<div class="mx-auto d-block">
+					<a href="#" onclick="selectCategory(1)">
+						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
+						<h4 style="margin-top:20%;">신고</h4>	
+					</a></div></li>
+				</ul>
+				<hr>
 		</div>
 			
 				
@@ -128,7 +122,6 @@ $(document).ready(function() {
 			            </div>
 			        </div>
 		        </c:forEach>
-		        
 		    </div>
 		</div>			
 	</div> 
@@ -148,11 +141,11 @@ $(document).ready(function() {
 <!-- 검색 -->
 	<form name="form1">
 	 <div class="form-group row justify-content-center">
-				<div class="w100" style="padding-right:10px">
+		<div class="w100" style="padding-right:10px">
 			 <select name="search_option" id="searchOption">
 				        <option value="member_id"
 				<c:if test="${map.search_option == 'member_id'}">selected</c:if>
-				   >작성자</option>
+					   >작성자</option>
 				
 				        <option value="service_title" 
 				<c:if test="${map.search_option == 'service_title'}">selected</c:if>

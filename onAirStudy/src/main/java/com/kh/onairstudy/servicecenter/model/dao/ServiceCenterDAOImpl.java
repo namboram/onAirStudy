@@ -41,10 +41,8 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		map.put("category", category);
-//		map.put("start", start); 
-//		map.put("end", end);
 		
-		//매개변수는 시작 레코드의 번호, 끝 번호, 옵션과 키워드가 들어간다.
+		//매개변수는 옵션과 키워드가 들어간다.
 		return sqlSession.selectList("service.listAll" , map);
 	}
 
@@ -56,18 +54,36 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
 		map.put("category", category);
-//		map.put("start", start); 
-//		map.put("end", end);
 				
-		//매개변수는 시작 레코드의 번호, 끝 번호, 옵션과 키워드가 들어간다.
+		//매개변수는 옵션과 키워드가 들어간다.
 		return sqlSession.selectOne("service.totalCount", map);
 				
 	}
 
+	
 	@Override
 	public Map<String, Object> serviceDetail(int no) {
 		return sqlSession.selectOne("service.serviceDetail",no);
 	}
+
+	@Override
+	public Object selectService(int no) {
+		return sqlSession.selectOne("service.serviceDetail", no);
+	}
+
+	@Override
+	public int serviceUpdate(ServiceCenter service) {
+		return sqlSession.update("service.serviceUpdate", service);
+	}
+
+	@Override
+	public int serviceDelete(int no) {
+		return sqlSession.delete("service.serviceDelete" , no);
+	}
+
+	
+	
+	
 
 	
 

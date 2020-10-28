@@ -27,7 +27,7 @@ button {
 	<div id="diary-main-container">
 		<input type="text" class="form-control" 
 			   name="diaryTitle" id="title" 
-			   value="${ s.TITLE }" required>
+			   value="${ map.TITLE }" required>
 		<input type="text" class="form-control" 
 			   name="memberId" 
 			   value="관리자" readonly required>

@@ -12,7 +12,6 @@
 </select>
 
 
-
 <select id="listAll" resultMap="serviceListMap">
 	select * 
 	from service
@@ -29,7 +28,39 @@
  </select>
 
 
+<select id="serviceDetail" resultType="map">
+select
+	*
+from
+	service
+where
+	no = #{ no }
+</select>
 
+
+<update id="serviceUpdate">
+
+	update 
+			service
+	set 
+			service_title = #{service_title}, 
+			category = #{category}
+			service_content = #{service_content}
+	where 
+			no = #{no}
+</update>
+
+
+<delete id="serviceDelete">
+	delete 
+	from 
+		service
+	where 
+		no = #{no}
+</delete>
+	
+	
+	
 <sql id="search">
 <choose>
 	
@@ -53,6 +84,9 @@
 
 
 
+
+
+
 <resultMap type="map" id="serviceMap">
 	<id column="no" property="no"/>	
 	<result column="category" property="category"/>
@@ -64,18 +98,28 @@
 
  
  <select id="selectServiceList" resultMap="serviceListMap">
- 	<![CDATA[
+<![CDATA[
  		select * 
- 		from (select /* + INDEX_DESC(service) */ 
- 			  rownum rn, no, category, service_title, service_status, service_date, service_content, member_id
- 			  from service where rownum <= #{pageNum} * #{amount})
+ 		from (select 
+ 				/* + INDEX_DESC(service) */ 
+ 			  	rownum rn, no, category, service_title, service_content, member_id , service_date, service_status
+ 			  from 
+ 			  	service 
+ 			  where rownum <= #{pageNum} * #{amount})
  		where rn > (#{pageNum} - 1) * #{amount}
  		order by no desc
  	]]>
+ 	
+ 	
 </select>
 
 
  
+ <!-- 카테고리 숫자 -> 글자로 불러오기
+  	select C.category
+	from service S left join service_category C on S.category = C.no -->
+
+
 <insert id="insertService">
 
 	insert into 
@@ -95,15 +139,6 @@
 </insert>
 
 
-
-<select id="serviceDetail" resultType="map">
-select
-	*
-from 
-	service
-where
-	no = #{no}
-</select>
 	
 
 

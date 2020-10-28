@@ -15,12 +15,21 @@ public interface ServiceCenterDAO {
 
 	int insert(ServiceCenter servicecenter);
 
-	//게시글 리스트를 출력하는 메소드 (검색옵션, 키워드, 시작번호와 끝번호 포함)
+	//게시글 리스트를 출력하는 메소드 (검색옵션, 키워드 포함)
 	List<ServiceCenter> listAll(String search_option, String keyword, int category);
 
 	int totalCount(String search_option, String keyword, int category);
 
 	Map<String, Object> serviceDetail(int no);
 
+	Object selectService(int no);
+
+	int serviceUpdate(ServiceCenter service);
+
+	int serviceDelete(int no);
+
+	
+
+	
 
 }
