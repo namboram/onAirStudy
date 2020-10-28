@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,7 @@ import com.kh.onairstudy.chat.model.service.ChatService;
 import com.kh.onairstudy.chat.model.vo.Chat;
 import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.message.model.vo.Message;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -112,43 +114,47 @@ public class StudyRoomController {
 		//찜
 		@RequestMapping("/studyroom/favStudyroom.do")
 		public String favR(StudyRoomWish srWish, Model model,
-							@RequestParam("srNo") int srNo, 
-							@RequestParam("wNo") int wNo, 
-							@RequestParam("memberId") String loginM, 
+							@RequestParam("srNo") int srNo, 						 
+							@RequestParam("memberId") String loginM, 							
 							RedirectAttributes redirectAttr) {	
 			
 			
-			String msg = "";
-			int result = 0;		
-			// 찜 조회
 //			List<String> ApplyW = studyRoomService.selectCheckWish(srWish);
 //			model.addAttribute("ApplyW",ApplyW);
-			String id = srWish.getMemberId();
 			
-			if( wNo == srNo && id == loginM) {								
-				
-				result = studyRoomService.deleteWish(srWish);
-				msg = "관심 목록에서 해제 되었습니다.";
-				
-			}else{
-				//찜 등록
-				result = studyRoomService.insertWish(srWish);
-				msg =  "관심 목록에 추가 하였습니다.";
-				
-			}									
+			String msg = "";
+			int result = 0;	
+						
+			// 찜 등록
+															
+			int wishR = studyRoomService.selectCheckWish(srWish);
+			
+			if( wishR > 0 ) {			
+								result = studyRoomService.deleteWish(srWish);
+								msg = "관심 목록에서 해제 되었습니다.";
+		
+							}else {
+			 
+								result = studyRoomService.insertWish(srWish);
+								msg =  "관심 목록에 추가 하였습니다.";
+							}
+
 
 			redirectAttr.addFlashAttribute("msg", msg);
-			return "redirect:/studyroom/studyroomlist.do";			
+			
+			return "redirect:/studyroom/studyroomlist.do";
+			
 		}
 		
 		//찾기
-		@RequestMapping(value = "/studyroom/searchStudyroom.do", method = RequestMethod.POST)
+		@RequestMapping(value = "/studyroom/searchStudyroom.do")
 		public ModelAndView searchRoom(@RequestParam(defaultValue="") String keyword, 
-									@RequestParam(defaultValue="sr_title") String search_option, 
+									@RequestParam(defaultValue="srTitle") String search_option, 
+									@RequestParam(defaultValue="0") int category,
 									ModelAndView mav) throws Exception {
 			//1. map에 저장
-			List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword);
-			
+			List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword, category);
+			List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
 			int count = studyRoomService.countArticle(search_option, keyword);
 			//mav에 값을 넣고 페이지 지정, map에 자료 저장
 			Map<String,Object> map = new HashMap<String, Object>(); 
@@ -158,6 +164,11 @@ public class StudyRoomController {
 			map.put("search_option", search_option);
 			map.put("keyword", keyword);
 			mav.addObject("map",map);
+			
+			mav.addObject("srList", sList);		
+			
+			mav.addObject("sCategory", sCategory);
+		
 			mav.setViewName("studyroom/studyRoomList");
 			return mav;
 		}
@@ -343,15 +354,72 @@ public class StudyRoomController {
 		}
 		
 		@RequestMapping("/studyroom/update.do")
-		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr, HttpSession session) {
+		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr) {
 			
 			log.debug("studyRoomInfo = {}", studyRoomInfo);
 			
-	
+			if(studyRoomInfo.getForceExitYN() == null)
+				studyRoomInfo.setForceExitYN("N");
 			
 			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
 			
 			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, studyRoomInfo.getSrNo());
 			return "redirect:/studyroom/main.do";
 		}
+		
+		@RequestMapping(value="/studyroom/updateOpened.do", method=RequestMethod.POST)
+		public String updateOpened(@RequestParam("roomNum") String srNo,
+								 @RequestParam("openedYN") String openedYN,
+								 RedirectAttributes redirectAttr) {
+			
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("srOpenedYN", openedYN);
+			
+			int result = studyRoomService.updateRoomOpenedYN(param);
+					
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, srNo);
+			
+			return "redirect:/studyroom/main.do";
+		}
+		
+		@RequestMapping("/studyroom/updateLeader.do")
+		public String changeLeader(@RequestParam("roomNum") String srNo, RedirectAttributes redirectAttr, HttpSession session) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			log.debug("memberId = {}", loginMember.getMemberId());
+			
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("memberId", loginMember.getMemberId());
+			
+			int result = studyRoomService.updateLog(param);
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, srNo);
+			
+			return "redirect:/mypage1_index.do";
+		}
+		
+		@RequestMapping("/studyroom/withdraw.do")
+		public String withdraw(@RequestParam("roomNum") String srNo, RedirectAttributes redirectAttr, HttpSession session) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			log.debug("memberId = {}", loginMember.getMemberId());
+			
+			
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("memberId", loginMember.getMemberId());
+			
+			int result = studyRoomService.withdraw(param);
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "스터디방 탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
+			
+			
+			return "redirect:/mypage1_index.do";
+		}
+		
 }

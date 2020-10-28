@@ -9,18 +9,30 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/studyRoomList.css">
 
+<script>
 
+function selectCategory(category) {
+	console.log(category);
+    location.href="${pageContext.request.contextPath}/studyroom/searchStudyroom.do?category="+category;
+}
+
+function searchRoom() {
+	const selectOption = $("#searchOption").val();
+	const keyword = $("#keyword").val();
+	location.href="${pageContext.request.contextPath}/studyroom/searchStudyroom.do?search_option="+selectOption + "&keyword=" + keyword;
+	
+}
+
+</script>
 <div class="studyRoomList" style="margin-bottom: 0;">
 	<div class="col-lg-12 p-4 text-center">
 	
-		<form
-			action="${ pageContext.request.contextPath }/studyroom/searchStudyroom.do"
-			id="searchRoom" method="POST">
+		<form name="search_option" method="POST">
 			<div class="row">
 			
-			<select class="optionFrm" name="search_option " >
-			<option value="memberId"
-			<c:if test="${map.search_option == 'memberId'}">selected</c:if>
+			<select class="optionFrm" name="search_option" style="width:7%">
+			<option value="member_id"
+			<c:if test="${map.search_option == 'member_id'}">selected</c:if>
   			 >그룹 리더</option>
 
         	<option value="sr_title" 
@@ -32,17 +44,21 @@
 					name="keyword" value="${ map.Keyword }"
 					placeholder="어떤 스터디 그룹을 찾으시나요?" required />
 
-				<button type="submit" class="btn btn-light btn-sm" style="margin-top:1%;">검색</button>
+				<button type="button" class="btn btn-light btn-sm" style="margin-top:1%; margin-left:1%" onclick="searchRoom()" value= "조회">검색</button>
 			</div>
 		</form>
 		
 		
 		<br>
+		
+		<div class="container" style="padding-left:18%">
+		<div class="row" >
 		<c:forEach items="${ sCategory }" var="sCategory">
-			<input type="checkbox" name="srCategory" id="srCategory"
-				value="${ sCategory.no }" />
-			<label for="srCategory">${ sCategory.category }</label>
-		</c:forEach>
+			<button type="button" class="btn btn-outline" onclick="selectCategory('${sCategory.no}')">
+			${ sCategory.category }</button>
+		</c:forEach> 
+				</div>
+			</div>
 	</div>
 
 	
@@ -59,7 +75,7 @@
 		<div class="row" id="srlistG">
 		
 			<c:forEach items="${ srList }" var="roomList" varStatus="status">
-			 <c:set var="w" value="${(selectW[status.index])}" />
+			
 				 
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
@@ -71,15 +87,16 @@
 					</div>
 		
 					<div class="hBtn" >
-						<form
-							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
-							id="favRoom" method="POST">
+						<form id="favRoom" 
+								action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
+								method="POST">
 				
-							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }"  hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.wishNo }" hidden> 
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
-							<input type="text" class="form-control" name="wNo"	value="${w.srNo}" hidden >
+							
 														
-							<button type="submit" class="heartBtn" style="<c:if test="${roomList.srNo == w.srNo}">background-color:gray;</c:if>">
+							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
@@ -111,7 +128,12 @@
 			</c:forEach>
 		</div>
 	</div>
-</div>
+	</div>
+	
+				
+				
+
+
 
 <!-- <script>
 $(':checkbox[name="srCategory"]').on({

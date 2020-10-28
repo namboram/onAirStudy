@@ -29,12 +29,12 @@
 
 				<div class="tq_G">
 					<c:forEach items="${testList}" var="t">
-							<div class="col-lg"
+							<div class="col-lg questionX"
 								style="background-color: #FFF0F0; border-radius: 15px; padding: 15px;">
-								<div class="questionBox" style="background-color: white; border-radius:15px; height:250px; padding:3%">		
+								<div class="questionBox" style="background-color: white; overflow:auto; border-radius:15px; height:250px; padding:3%">		
 								 ${t.testQuestion} <br /><br />
 								<c:if test="${t.renamedFilename != null }">
-								<img class="testPic" style="height:150px;"
+								<img class="testPic" style="height:200px;"
 								src="${pageContext.request.contextPath }/resources/testPic/${ t.renamedFilename }"> 
 								</c:if>
 							
@@ -67,7 +67,7 @@
 									value="${t.testChoice_4}" readonly>
 									
 								<input type="text" id="testAnswer" value="${t.testAnswer}" />
-								<input type="text" id="userAnswer" class="userAnswer" />
+							
 							</div>
 							<br>		
 
@@ -83,6 +83,7 @@
 		</div>
 		
 		<script>
+	
 		   $(".choice1").click(function(){
 				return $(".choice1").val();
 		        });
@@ -97,8 +98,10 @@
 		        }); 
 		    
 		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
-				$(".userAnswer").val(event.result);				
+				$(".userAnswer").val(event.result);			 			
+					 			
 		        });
+	
 	
 		</script>
 		

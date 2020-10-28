@@ -1,5 +1,6 @@
 package com.kh.onairstudy.studyroom.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public interface StudyRoomDAO {
 	//찜목록
 	int insertWish(StudyRoomWish srWish);
 	int deleteWish(StudyRoomWish srWish);
-	List<String> selectCheckWish(StudyRoomWish srWish);
+	int selectCheckWish(StudyRoomWish srWish);
 	
 	//방생성
 	int insertStudyRoomList(StudyRoomList studyroomList);
@@ -47,7 +48,7 @@ public interface StudyRoomDAO {
 	
 	
 	//검색
-	List<StudyRoomList> listAll(String search_option, String keyword);
+	List<StudyRoomList> listAll(String search_option, String keyword, int category);
 	int countArticle(String search_option, String keyword);
 	
 	//
@@ -74,7 +75,24 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
+
+	int insertMemberToSr(Map<String, Object> param);
+
 	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
+
+	int updateRoomOpenedYN(HashMap<String, String> param);
+
+	int updateLeader(HashMap<String, String> param);
+
+	int withdraw(HashMap<String, String> param);
+
+	int deleteMemberAttend(HashMap<String, String> param);
+
+	String selectNextLeader(String memberId);
+
+	int updateLog(HashMap<String, String> param);
+
+
 
 
 

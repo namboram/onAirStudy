@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private StudyRoomService studyRoomService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -60,9 +64,18 @@ public class MemberController {
 		
 		
 		log.debug("member = " + member);
-		
+
 		//업무로직
 		int result = memberService.insertMember(member);
+		System.out.println(member.getMemberId());
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("memberId", member.getMemberId());
+		param.put("srNo", member.getCategory());
+		
+		log.debug("param = {}",param);
+		
+		result = studyRoomService.insertMemberToSr(param);
 		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
 		redirectAttr.addFlashAttribute("msg", msg);
 		

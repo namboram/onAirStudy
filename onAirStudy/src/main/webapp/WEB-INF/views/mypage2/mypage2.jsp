@@ -63,7 +63,7 @@
 			</div>
 		</div>
 <div class="row">	
-	<nav class="side-navbar col-lg-2 p-0">
+	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="message-icon-line">
@@ -72,8 +72,10 @@
 			</div>
 			<div class="avatar">
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
-				<h3 class="userName">${loginUser.memberId}</h3>
-				<h5>premium</h5>
+				<h3 class="userName">${loginMember.memberId}</h3>
+				<c:if test="${ loginMember.memberRole eq 'P'}">
+					<h5>premium</h5>
+				</c:if>
 			</div>
 			<div class="d-day-display">
 				<hr>
@@ -97,6 +99,7 @@
 							<span>${part.memberId }</span>
 							<c:if test="${part.leaderYN eq 'Y'}">
 								<span>팀장</span>
+								<input type="hidden" id="leaderId" value="${part.memberId }" />
 							</c:if>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>

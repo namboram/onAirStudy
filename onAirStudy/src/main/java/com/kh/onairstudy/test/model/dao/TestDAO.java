@@ -12,5 +12,7 @@ public interface TestDAO {
 
 	List<Test> selectQuestion(int srNo);
 
+	int updatePoint(String memberId);
+
 
 }
