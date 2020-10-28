@@ -69,7 +69,13 @@ public class DiaryDAOImpl implements DiaryDAO {
 	}
 
 
+	@Override
+	public int deleteDiary(int no) {
+		return sqlSession.delete("diary.deleteDiary", no);
+	}
 
+
+	
 	
 	
 
