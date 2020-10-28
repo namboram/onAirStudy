@@ -345,7 +345,7 @@ public class StudyRoomController {
 		}
 		
 		@RequestMapping("/studyroom/update.do")
-		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr, HttpSession session) {
+		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr) {
 			
 			log.debug("studyRoomInfo = {}", studyRoomInfo);
 			
@@ -371,6 +371,20 @@ public class StudyRoomController {
 			int result = studyRoomService.updateRoomOpenedYN(param);
 					
 			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, srNo);
+			
+			return "redirect:/studyroom/main.do";
+		}
+		
+		@RequestMapping("/studyroom/updateLeader.do")
+		public String changeLeader(@RequestParam("roomNum") String srNo, RedirectAttributes redirectAttr, HttpSession session) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			log.debug("memberId = {}", loginMember.getMemberId());
+			
+			int result = studyRoomService.updateLeader(loginMember.getMemberId());
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "스터디방 리더가 바뀌었습니다" : "스터디방 리더 변경에 실패했습니다");
 			redirectAttr.addAttribute("roomNum"	, srNo);
 			
 			return "redirect:/studyroom/main.do";

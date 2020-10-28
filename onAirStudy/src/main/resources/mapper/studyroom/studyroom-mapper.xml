@@ -411,4 +411,8 @@ from sr_log
 		where
 			sr_no = ${srNo}
 	</update>
+	
+	<update id="updateLeader">
+	
+	</update>
 </mapper>

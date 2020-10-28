@@ -113,7 +113,6 @@
 							<c:if test="${roomInfo.srOpenedYN eq 'N'}">
 								<button type="button" class="btn btn-primary" onclick="roomOpened('Y')">방 열기</button>	
 							</c:if>
-							<button type="button" class="btn btn-danger">팀장 변경</button>
 							<button type="button" class="btn btn-primary" onclick="beforeSubmit()">수정완료</button>
 						</div>
 					</div>
@@ -150,8 +149,6 @@
 	}
 
 
-
-	
 	function beforeSubmit(){
 		var dayStr = "";
 		var timeStr = "";

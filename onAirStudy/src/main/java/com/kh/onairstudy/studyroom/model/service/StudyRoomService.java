@@ -68,6 +68,8 @@ public interface StudyRoomService {
 
 	int updateRoomOpenedYN(HashMap<String, String> param);
 
+	int updateLeader(String memberId);
+
 
 
 

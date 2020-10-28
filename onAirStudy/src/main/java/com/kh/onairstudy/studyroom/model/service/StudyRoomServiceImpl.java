@@ -203,6 +203,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.updateRoomOpenedYN(param);
 	}
 
+
+	@Override
+	public int updateLeader(String memberId) {
+		return studyRoomDAO.updateLeader(memberId);
+	}
+
 	
 	
 }

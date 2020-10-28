@@ -79,6 +79,8 @@ public interface StudyRoomDAO {
 
 	int updateRoomOpenedYN(HashMap<String, String> param);
 
+	int updateLeader(String memberId);
+
 
 
 	

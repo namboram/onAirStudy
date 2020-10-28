@@ -199,6 +199,12 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.update("studyroom.updateRoomOpenedYN", param);
 	}
 
+	@Override
+	public int updateLeader(String memberId) {
+		return sqlSession.update("studyroom.updateLeader", memberId);
+	}
+
+	
 	
 	
 }

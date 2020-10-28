@@ -80,7 +80,7 @@
 										onclick="modifyInfo()">방 정보 수정</button>
 								</c:if>
 							</c:forEach>
-							<button type="button" class="btn btn-danger">스터디 탈퇴</button>
+							<button type="button" class="btn btn-danger" onclick="secession('${loginMember.memberId}')">스터디 탈퇴</button>
 						</div>
 					</div>
 				</form>
@@ -95,6 +95,17 @@
 function modifyInfo(){
 	var no = ${roomInfo.srNo};
 	$(".changeDiv").load("${pageContext.request.contextPath}/studyroom/updateInfo.do");
+}
+
+
+function secession(myId){
+	console.log(myId);
+
+	var teamLeader = $("#leaderId").val();
+	if(myId == teamLeader){
+		console.log("팀장이네여!");
+	}
+	
 }
 
 </script>
