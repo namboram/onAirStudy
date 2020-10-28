@@ -53,15 +53,17 @@ public class StudytimeController {
 		List<Studytime> studytimeList = studytimeService.selectList(loginMember.getMemberId());
 		List<Attendance> attendList = attendanceService.selectList(loginMember.getMemberId());
 		List<Scheduler> scheduleList = schedulerService.mainScheduler(map);
+		List<String> srList = studytimeService.selectsrList(loginMember.getMemberId());
 		
 		log.info("studytimeList= {}", studytimeList);
 		log.info("attendList= {}" , attendList );
 		log.info("todoList ={}" , scheduleList);
+		log.info("srList ={}" , srList);
 		
 		model.addAttribute("studytimeList",studytimeList);
 		model.addAttribute("attendList" , attendList );
 		model.addAttribute("todoList" , scheduleList );
-		
+		model.addAttribute("srList" , srList );
 		
 		return "mypage1/mypage1_index";
 		

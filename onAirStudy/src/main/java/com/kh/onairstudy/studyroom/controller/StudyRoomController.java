@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,7 @@ import com.kh.onairstudy.chat.model.service.ChatService;
 import com.kh.onairstudy.chat.model.vo.Chat;
 import com.kh.onairstudy.common.Utils;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.message.model.vo.Message;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 import com.kh.onairstudy.studyroom.model.vo.StudyCategory;
@@ -346,15 +348,72 @@ public class StudyRoomController {
 		}
 		
 		@RequestMapping("/studyroom/update.do")
-		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr, HttpSession session) {
+		public String updateRoomInfo( StudyRoomInfo studyRoomInfo, RedirectAttributes redirectAttr) {
 			
 			log.debug("studyRoomInfo = {}", studyRoomInfo);
 			
-	
+			if(studyRoomInfo.getForceExitYN() == null)
+				studyRoomInfo.setForceExitYN("N");
 			
 			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
 			
 			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, studyRoomInfo.getSrNo());
 			return "redirect:/studyroom/main.do";
 		}
+		
+		@RequestMapping(value="/studyroom/updateOpened.do", method=RequestMethod.POST)
+		public String updateOpened(@RequestParam("roomNum") String srNo,
+								 @RequestParam("openedYN") String openedYN,
+								 RedirectAttributes redirectAttr) {
+			
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("srOpenedYN", openedYN);
+			
+			int result = studyRoomService.updateRoomOpenedYN(param);
+					
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "방 정보를 업데이트했습니다" : "방정보 업데이트에 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, srNo);
+			
+			return "redirect:/studyroom/main.do";
+		}
+		
+		@RequestMapping("/studyroom/updateLeader.do")
+		public String changeLeader(@RequestParam("roomNum") String srNo, RedirectAttributes redirectAttr, HttpSession session) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			log.debug("memberId = {}", loginMember.getMemberId());
+			
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("memberId", loginMember.getMemberId());
+			
+			int result = studyRoomService.updateLog(param);
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
+			redirectAttr.addAttribute("roomNum"	, srNo);
+			
+			return "redirect:/mypage1_index.do";
+		}
+		
+		@RequestMapping("/studyroom/withdraw.do")
+		public String withdraw(@RequestParam("roomNum") String srNo, RedirectAttributes redirectAttr, HttpSession session) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			log.debug("memberId = {}", loginMember.getMemberId());
+			
+			
+			HashMap<String, String> param = new HashMap<String, String>();
+			param.put("srNo", srNo);
+			param.put("memberId", loginMember.getMemberId());
+			
+			int result = studyRoomService.withdraw(param);
+			
+			redirectAttr.addFlashAttribute("msg", result == 1 ? "스터디방 탈퇴가 완료되었습니다" : "스터디방 탈퇴를 실패했습니다");
+			
+			
+			return "redirect:/mypage1_index.do";
+		}
+		
 }

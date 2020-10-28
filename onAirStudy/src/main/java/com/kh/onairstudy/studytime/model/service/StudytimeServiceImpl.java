@@ -24,6 +24,12 @@ public class StudytimeServiceImpl implements StudytimeService {
 		studytimeDAO.insertStudyTime(studytime);
 		
 	}
-	
+
+	@Override
+	public List<String> selectsrList(String memberId) {
+		return studytimeDAO.selectsrList(memberId);
+	}
+
+
 	
 }

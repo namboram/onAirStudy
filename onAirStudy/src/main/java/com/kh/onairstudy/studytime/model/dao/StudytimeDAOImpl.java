@@ -25,5 +25,12 @@ public class StudytimeDAOImpl implements StudytimeDAO {
 		
 	}
 
+	@Override
+	public List<String> selectsrList(String memberId) {
+	
+		return sqlSession.selectList("studytime.selectsrList", memberId);
+		
+	}
+
 
 }

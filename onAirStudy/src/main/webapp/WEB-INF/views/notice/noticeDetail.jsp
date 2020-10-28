@@ -14,15 +14,12 @@
 	width: 80%;
 	padding: 10%;
 }
-
 .tableB {
 	border-bottom: 1px solid gray;
 }
-
 .tableB th {
 	width: 10%;
 }
-
 #contentB {
 	height: 100%;
 	padding: 5%;
@@ -125,5 +122,3 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
-
