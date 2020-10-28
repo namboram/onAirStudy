@@ -33,7 +33,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
+					<hr />
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">스터디 한줄 소개</label>
                       <div class="col-sm-10">
@@ -42,7 +42,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
+                    <hr />
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">우리방 목표</label>
                       <div class="col-sm-10">
@@ -51,7 +51,7 @@
                         </div>
                       </div>
                     </div>
-					<div class="line"></div>
+					<hr />
 					<div class="form-group row">
 						<label class="col-sm-2 form-control-label">출석체크</label>
 						<div class="col-sm-10 attendDiv">
@@ -63,22 +63,23 @@
 							<c:set var="arrDay" value="${fn:split(roomInfo.attendDay, ',') }"/>
 							<c:set var="arrTime" value="${fn:split(roomInfo.attendTime, ',') }"/>
 							<c:forEach var="i" begin="0" end="${fn:length(arrDay)-1}">
-								<div class="input-group" style="margin-top: 10px;">
-								<select name="day" id="days${ i }" class="col-sm-2" class="dayAttend">
-									<option value="월" <c:if test="${ arrDay[i] eq '월' }">selected</c:if>>월요일</option>
-									<option value="화" <c:if test="${ arrDay[i] eq '화' }">selected</c:if>>화요일</option>
-									<option value="수" <c:if test="${ arrDay[i] eq '수' }">selected</c:if>>수요일</option>
-									<option value="목" <c:if test="${ arrDay[i] eq '목' }">selected</c:if>>목요일</option>
-									<option value="금" <c:if test="${ arrDay[i] eq '금' }">selected</c:if>>금요일</option>
-									<option value="토" <c:if test="${ arrDay[i] eq '토' }">selected</c:if>>토요일</option>
-									<option value="일" <c:if test="${ arrDay[i] eq '일' }">selected</c:if>>일요일</option>
-								</select>
-								<input type="time" name="time" id="time${ i }" class="offset-sm-1" value="${ arrTime[i] }"/>
-								<button type="button" class="btn offset-sm-1">-</button>
-							</div>
+								<div class="input-group" style="margin-top: 10px;" name="안녕">
+									<select name="day" id="days${ i }" class="col-sm-2" class="dayAttend">
+										<option value="월" <c:if test="${ arrDay[i] eq '월' }">selected</c:if>>월요일</option>
+										<option value="화" <c:if test="${ arrDay[i] eq '화' }">selected</c:if>>화요일</option>
+										<option value="수" <c:if test="${ arrDay[i] eq '수' }">selected</c:if>>수요일</option>
+										<option value="목" <c:if test="${ arrDay[i] eq '목' }">selected</c:if>>목요일</option>
+										<option value="금" <c:if test="${ arrDay[i] eq '금' }">selected</c:if>>금요일</option>
+										<option value="토" <c:if test="${ arrDay[i] eq '토' }">selected</c:if>>토요일</option>
+										<option value="일" <c:if test="${ arrDay[i] eq '일' }">selected</c:if>>일요일</option>
+									</select>
+									<input type="time" name="time" id="time${ i }" class="offset-sm-1" value="${ arrTime[i] }"/>
+									<button type="button" class="btn offset-sm-1" onclick="deleteInput()">-</button>
+								</div>
 							</c:forEach>
 						</div>
 					</div>
+					<hr />
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">우리방 규칙</label>
                       <div class="col-sm-10">
@@ -104,6 +105,7 @@
                         <input type="text" class="form-control is-invalid">
                       </div>
                     </div> -->
+                    <hr />
                     <div class="form-group row">
 						<div class="col-sm-5 offset-sm-7">
 							<button type="button" class="btn btn-primary">
@@ -139,6 +141,10 @@
 				+ "</div>" ; 
 		i++;
 		$(".attendDiv").append(html); 
+	};
+
+	function deleteInput(){
+		
 	};
    	
 	function beforeSubmit(){

@@ -347,7 +347,8 @@ public class StudyRoomController {
 			
 			log.debug("studyRoomInfo = {}", studyRoomInfo);
 			
-	
+			if(studyRoomInfo.getForceExitYN() == null)
+				studyRoomInfo.setForceExitYN("N");
 			
 			int result = studyRoomService.updateRoomInfo(studyRoomInfo);
 			
