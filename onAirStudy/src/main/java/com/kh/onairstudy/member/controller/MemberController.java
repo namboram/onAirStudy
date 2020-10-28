@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,15 +67,15 @@ public class MemberController {
 		log.debug("member = " + member);
 
 		//업무로직
+		//1. 회원등록
 		int result = memberService.insertMember(member);
 		System.out.println(member.getMemberId());
 		
+		//2. 회원 sr_log등록
 		Map<String, Object> param = new HashMap<>();
 		param.put("memberId", member.getMemberId());
 		param.put("srNo", member.getCategory());
-		
-		log.debug("param = {}",param);
-		
+		log.debug("param = {}", param);
 		result = studyRoomService.insertMemberToSr(param);
 		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
 		redirectAttr.addFlashAttribute("msg", msg);
@@ -241,6 +242,18 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+		
+		
+		@RequestMapping("/mypage1/memberDetail.do")
+		public ModelAndView memberDetail(@ModelAttribute("loginMember") Member loginMember,
+											 String name,
+											 ModelAndView mav) {
+			log.debug("name = {}", name);
+			log.debug("loginMember = {}", loginMember);
+				
+			mav.setViewName("member/memberDetail");
+			return mav;
+		}
 		
 }
 		
