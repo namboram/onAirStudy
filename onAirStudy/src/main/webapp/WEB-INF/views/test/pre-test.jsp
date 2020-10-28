@@ -11,23 +11,24 @@
 <div class="pre_test" style="margin-bottom: 0;">
 	<div class="row">
 
-		<div class="col-sm" style="background-color: white;">
+		<div class="col-sm" style="background-color: white; padding:3%">
 			<div>
 				<div>
+					
 					<h2>Pre-test</h2>
+					<hr />
 				</div>
 				<div align="center">
 					<div class="col-lg-4"
 						style="background-color: #F6E5FE; border-radius: 15px;">
-						<h4 style="text-align: center;">오늘의 Test</h4>
+						<h4 style="text-align: center;">오늘의 Test</h4>				
 					</div>
+					<hr />
 				</div>
 				<input type="hidden" name="srNo" value="${roomInfo.srNo }" />
 
 				<div class="tq_G">
 					<c:forEach items="${testList}" var="t">
-						<%-- <c:if test="${t.srNo == roomInfo.srNo }"> --%>
-
 							<div class="col-lg"
 								style="background-color: #FFF0F0; border-radius: 15px; padding: 15px;">
 								<div class="questionBox" style="background-color: white; border-radius:15px; height:250px; padding:3%">		
@@ -39,51 +40,68 @@
 							
 								</div>
 								<br> <br> 
-								<input type="button" class="btn btn-outline-dark btn-sm" id="choice1" value="1"
+								<input type="button" class="btn btn-outline-dark btn-sm choice1" id="choice1" value="1"
 									style="margin-right: 10px; border-radius: 50%;">
 								<input
 									type="text" class="col-lg-10" style="border-radius: 15px;"
-									value="${t.testChoice_1}" readonly> <br> 
+									value="${t.testChoice_1}" readonly> <br>
 									
-								<input type="button" class="btn btn-outline-dark btn-sm" id="choice1"
+								<input type="button" class="btn btn-outline-dark btn-sm choice2" id="choice2"
 									value="2" style="margin-right: 10px; border-radius: 50%;">
 								<input type="text" class="col-md-10"
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${t.testChoice_2}" readonly> <br> 
 									
 								<input
-									type="button" class="btn btn-outline-dark btn-sm" id="choice1"
+									type="button" class="btn btn-outline-dark btn-sm choice3" id="choice3"
 									value="3" style="margin-right: 10px; border-radius: 50%;">
 								<input type="text" class="col-lg-10"
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${t.testChoice_3}" readonly> <br> 
 									
 								<input
-									type="button" class="btn btn-outline-dark btn-sm" id="choice1"
+									type="button" class="btn btn-outline-dark btn-sm choice4" id="choice4"
 									value="4" style="margin-right: 10px; border-radius: 50%;">
 								<input type="text" class="col-lg-10"
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${t.testChoice_4}" readonly>
+									
+								<input type="text" id="testAnswer" value="${t.testAnswer}" />
+								<input type="text" id="userAnswer" class="userAnswer" />
 							</div>
-							<br>
-
-
-
-		
+							<br>		
 
 					</c:forEach>
 				</div>
 
 				<div align="center">
 					<button type="submit" class="btn btn-outline-primary"
-						style="margin-right: 30px;" data-toggle="modal"
-						data-target="#myModal_sub_G">제출하기</button>
+						style="margin-right: 30px;" onclick="submit('${roomInfo.srNo}')">제출하기</button>
 				</div>
 				<br>
 			</div>
-
-
 		</div>
+		
+		<script>
+		   $(".choice1").click(function(){
+				return $(".choice1").val();
+		        });
+		    $(".choice2").click(function(){
+				return $(".choice2").val();
+		        });
+		    $(".choice3").click(function(){
+				return $(".choice3").val();
+		        });
+		    $(".choice4").click(function(){
+				return $(".choice4").val();
+		        }); 
+		    
+		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
+				$(".userAnswer").val(event.result);				
+		        });
+	
+		</script>
+		
 		<!-- The Modal -->
 		<div class="modal fade" id="myModal_sub_G">
 			<div class="modal-dialog">
