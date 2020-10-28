@@ -10,9 +10,6 @@
 	text-align: center;
 }
 
-.roomInfo .card {
-	margin: 0 auto;
-}
 </style>
 				<div class="roomInfo">
 					<header>

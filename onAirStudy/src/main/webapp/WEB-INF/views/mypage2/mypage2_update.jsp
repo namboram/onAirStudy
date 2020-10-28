@@ -4,26 +4,27 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
-
- <section class="forms">
-        <div class="container-fluid">
-          <!-- Page Header-->
+<style>
+.roomInfo h1{
+	text-align: center;
+}
+</style>
+		<div class="roomInfo">
           <header> 
             <h1 class="h3 display">우리 스터디방                     </h1>
           </header>
-          <div class="row">
-            <div class="col-lg-11">
+         	<div class="col-lg-11 p-0"  style="margin: 0 auto; margin-top: 2.5em">
               <div class="card">
                 <div class="card-header d-flex align-items-center">
-                  <h4>정보수정                       </h4>
-                </div>
+					<label class="col-sm-12 form-control-label" style="text-align:center">${roomInfo.srTitle }</label>
+				</div>
                 <div class="card-body">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST">
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">스터디 방제</label>
                       <div class="col-sm-10">
                        <div class="form-group">
-                          <input type="text" class="form-control form-control-lg">
+                          <input type="text" class="form-control form-control-lg" value="${roomInfo.srTitle }">
                         </div>
                       </div>
                     </div>
@@ -32,7 +33,7 @@
                       <label class="col-sm-2 form-control-label">스터디 한줄 소개</label>
                       <div class="col-sm-10">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-lg">
+                          <input type="text" class="form-control form-control-lg" value="${roomInfo.srComment }">
                         </div>
                       </div>
                     </div>
@@ -41,67 +42,46 @@
                       <label class="col-sm-2 form-control-label">우리방 목표</label>
                       <div class="col-sm-10">
                        <div class="form-group">
-                          <input type="text" class="form-control form-control-lg">
+                          <input type="text" class="form-control form-control-lg" value="${roomInfo.srGoal }">
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">출석체크</label>
+						<div class="col-sm-10">
+							<div class="form-group">
+								<label class="col-sm-3 form-control-label">요일</label>
+								<label class="col-sm-2 form-control-label">시간</label>
+								<button type="button" class="btn">+</button>
+							</div>
+							<div class="form-group">
+									<select name="days1" id="days1" class="col-sm-2">
+										<option value="월">월요일</option>
+										<option value="화">화요일</option>
+										<option value="수">수요일</option>
+										<option value="목">목요일</option>
+										<option value="금">금요일</option>
+										<option value="토">토요일</option>
+										<option value="일">일요일</option>
+									</select>
+								<input type="time" name="attendTime1" id="attendTime1" class="offset-sm-1" value="17:00"/>
+								<button type="button" class="btn offset-sm-1">-</button>
+							</div>
+						</div>
+					</div>
                     <div class="form-group row">
                       <label class="col-sm-2 form-control-label">우리방 규칙</label>
                       <div class="col-sm-10">
                         <div class="form-group">
                           <span>팀장 경고 누적   </span>
-                          <input type="number" name="" id="" min="0" max="5" value="2"/>
+                          <input type="number" name="" id="" min="1" max="10" value="${ roomInfo.forceExitOpt }"/>
                           <span>  회시 자동탈퇴처리  </span>  
-                          <input id="inlineCheckbox1" type="checkbox" value="option1"> 
+                          <input id="inlineCheckbox1" type="checkbox" value="Y" <c:if test="${ roomInfo.forceExitYN eq 'Y' }">checked</c:if> > 
                         </div>
                       </div>
                     </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Inline checkboxes</label>
-                      <div class="col-sm-10">
-                        <label class="checkbox-inline">
-                          <input id="inlineCheckbox1" type="checkbox" value="option1"> 
-                        </label>
-                      </div>
-                    </div>
-                     <input class="form-control" type="number" value="42" id="example-number-input">
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Checkboxes &amp; radios <br><small class="text-primary">Custom elements</small></label>
-                      <div class="col-sm-10">
-                        <div class="i-checks">
-                          <input id="checkboxCustom1" type="checkbox" value="" class="form-control-custom">
-                          <label for="checkboxCustom1">Option one</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="checkboxCustom2" type="checkbox" value="" checked="" class="form-control-custom">
-                          <label for="checkboxCustom2">Option two checked</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="checkboxCustom" type="checkbox" value="" disabled="" checked="" class="form-control-custom">
-                          <label for="checkboxCustom">Option three checked and disabled</label>
-                        </div>
-                        <div class="i-checks">
-                          <input id="checkboxCustom3" type="checkbox" value="" disabled="" class="form-control-custom">
-                          <label for="checkboxCustom3">Option four disabled</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Select</label>
-                      <div class="col-sm-10 mb-3">
-                        <select name="account" class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="line"></div>
+                   <!--  <div class="line"></div>
                     <div class="form-group row has-success">
                       <label class="col-sm-2 form-control-label">Input with success</label>
                       <div class="col-sm-10">
@@ -114,11 +94,25 @@
                       <div class="col-sm-10">
                         <input type="text" class="form-control is-invalid">
                       </div>
-                    </div>
+                    </div> -->
+                    <div class="form-group row">
+						<div class="col-sm-5 offset-sm-7">
+							<button type="button" class="btn btn-primary">
+								<c:choose>
+									<c:when test="${roomInfo.srOpenedYN eq 'Y'}"> 방 닫기</c:when>
+									<c:when test="${roomInfo.srOpenedYN eq 'N'}"> 방 열기</c:when>
+								</c:choose>
+							</button>
+							<button type="button" class="btn btn-danger">팀장 변경</button>
+							<button type="submit" class="btn btn-primary">수정완료</button>
+						</div>
+					</div>
                   </form>
                 </div>
               </div>
             </div>
-          </div>
         </div>
-      </section>
+   <script>
+	
+
+   </script>
