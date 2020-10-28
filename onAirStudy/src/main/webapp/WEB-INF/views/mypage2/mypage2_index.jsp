@@ -6,9 +6,6 @@
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
 <style>
-.forms .col-sm-4, .forms .col-sm-8{
-	text-align: center;
-}
 .roomInfo h1{
 	text-align: center;
 }
@@ -21,8 +18,8 @@
 					<header>
 						<h1 class="h3 display">우리 스터디방</h1>
 					</header>
-					<div class="col-lg-11 p-0" style="margin: 0 auto;" >
-							<div class="card">
+					<div class="col-lg-11 p-0" style="margin: 0 auto; margin-top: 2.5em" >
+							<div class="card" >
 								<div class="card-header d-flex align-items-center">
 									<label class="col-sm-12 form-control-label" style="text-align:center">${roomInfo.srTitle }</label>
 								</div>
