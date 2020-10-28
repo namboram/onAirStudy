@@ -30,7 +30,7 @@ function searchRoom() {
 		<form name="search_option" method="POST">
 			<div class="row">
 			
-			<select class="optionFrm" name="search_option" style="width:7%">
+			<select class="optionFrm" id="searchOption" name="search_option" style="width:7%">
 			<option value="member_id"
 			<c:if test="${map.search_option == 'member_id'}">selected</c:if>
   			 >그룹 리더</option>
@@ -40,8 +40,8 @@ function searchRoom() {
         	>제목</option>
 			
 			</select>
-				<input type="text" class="searchFrm form-control col-sm-6"
-					name="keyword" value="${ map.Keyword }"
+				<input type="text" class="searchFrm form-control col-sm-6" id="keyword"
+					name="keyword" value="${ map.keyword }"
 					placeholder="어떤 스터디 그룹을 찾으시나요?" required />
 
 				<button type="button" class="btn btn-light btn-sm" style="margin-top:1%; margin-left:1%" onclick="searchRoom()" value= "조회">검색</button>
