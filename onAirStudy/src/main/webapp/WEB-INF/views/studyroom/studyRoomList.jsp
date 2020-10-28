@@ -59,7 +59,7 @@
 		<div class="row" id="srlistG">
 		
 			<c:forEach items="${ srList }" var="roomList" varStatus="status">
-			 <c:set var="w" value="${(selectW[status.index])}" />
+			
 				 
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
@@ -71,15 +71,16 @@
 					</div>
 		
 					<div class="hBtn" >
-						<form
-							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
-							id="favRoom" method="POST">
+						<form id="favRoom" 
+								action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
+								method="POST">
 				
-							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }"  hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.wishNo }" hidden> 
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
-							<input type="text" class="form-control" name="wNo"	value="${w.srNo}" hidden >
+							
 														
-							<button type="submit" class="heartBtn" style="<c:if test="${roomList.srNo == w.srNo}">background-color:gray;</c:if>">
+							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
@@ -111,7 +112,110 @@
 			</c:forEach>
 		</div>
 	</div>
+	
+				
+				
+
+	<!-- 페이징처리 -->
+	<div id="pagingDiv">
+		<c:if test="${paging.prev}">
+			<a href="${paging.startPage - 1 }">이전</a>
+		</c:if>
+		<c:forEach var="num" begin="${paging.startPage}"
+			end="${paging.endPage }">
+				&nbsp;<a href="${num }">${num }</a>&nbsp;
+			</c:forEach>
+		<c:if test="${paging.next}">
+			<a id="next" href="${paging.endPage + 1 }">다음</a>
+		</c:if>
+	</div>
+
+	<form id="pagingFrm" name="pagingForm" action="getBoardList.do"
+		method="get">
+		<input type="hidden" id="pageNum" name="pageNum"
+			value="${paging.cri.pageNum }"> <input type="hidden"
+			id="amount" name="amount" value="${paging.cri.amount }">
+	</form>
+
+
+
+
+
 </div>
+
+<script type="text/javascript">
+var $setRows = $('#setRows');
+
+$setRows.submit(function (e) {
+    e.preventDefault();
+    var rowPerPage = $('[name="rowPerPage"]').val() * 1;// 1 을  곱하여 문자열을 숫자형로 변환
+
+//      console.log(typeof rowPerPage);
+
+    var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
+    if (!rowPerPage) {
+        alert(zeroWarning);
+        return;
+    }
+    $('#nav').remove();
+    var $products = $('#srlistG');
+
+    $products.after('<div id="nav">');
+
+
+    var $tr = $($products).find('tbody tr');
+    var rowTotals = $tr.length;
+//  console.log(rowTotals);
+
+    var pageTotal = Math.ceil(rowTotals/ rowPerPage);
+    var i = 0;
+
+    for (; i < pageTotal; i++) {
+        $('<a href="#"></a>')
+                .attr('rel', i)
+                .html(i + 1)
+                .appendTo('#nav');
+    }
+
+    $tr.addClass('off-screen')
+            .slice(0, rowPerPage)
+            .removeClass('off-screen');
+
+    var $pagingLink = $('#nav a');
+    $pagingLink.on('click', function (evt) {
+        evt.preventDefault();
+        var $this = $(this);
+        if ($this.hasClass('active')) {
+            return;
+        }
+        $pagingLink.removeClass('active');
+        $this.addClass('active');
+
+        // 0 => 0(0*4), 4(0*4+4)
+        // 1 => 4(1*4), 8(1*4+4)
+        // 2 => 8(2*4), 12(2*4+4)
+        // 시작 행 = 페이지 번호 * 페이지당 행수
+        // 끝 행 = 시작 행 + 페이지당 행수
+
+        var currPage = $this.attr('rel');
+        var startItem = currPage * rowPerPage;
+        var endItem = startItem + rowPerPage;
+
+        $tr.css('opacity', '0.0')
+                .addClass('off-screen')
+                .slice(startItem, endItem)
+                .removeClass('off-screen')
+                .animate({opacity: 1}, 300);
+
+    });
+
+    $pagingLink.filter(':first').addClass('active');
+
+});
+
+
+$setRows.submit();
+</script>
 
 <!-- <script>
 $(':checkbox[name="srCategory"]').on({
