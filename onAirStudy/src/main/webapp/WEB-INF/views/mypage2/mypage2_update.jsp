@@ -19,7 +19,7 @@
 					<label class="col-sm-12 form-control-label" style="text-align:center">${roomInfo.srTitle }</label>
 				</div>
                 <div class="card-body">
-                  <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST">
+                  <form class="form-horizontal" action="${pageContext.request.contextPath }/studyroom/update.do" method="POST" id="updateFrm">
                     <input type="hidden" name="srOpenedYN" value="${roomInfo.srOpenedYN}" />
                     <input type="hidden" name="category" value="${roomInfo.category}" />
                     <input type="hidden" name="attendDay" value=""/>
@@ -154,13 +154,11 @@
 			}
 		}		
 
-		console.log(dayStr);
-		console.log(timeStr);
+		$("input[name='attendDay']").val(dayStr);
+		$("input[name='attendTime']").val(timeStr);
 
-		var attendDay = $("input[name='attendDay']");
-		var attendTime = $("input[name='attendTime']");
-		
-
+		$("#updateFrm").submit();
+				
 	};
 
    </script>
