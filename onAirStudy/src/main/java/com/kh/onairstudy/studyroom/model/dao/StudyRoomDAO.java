@@ -13,22 +13,32 @@ import com.kh.onairstudy.studyroom.model.vo.StudyRoomWaiting;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomWish;
 
 public interface StudyRoomDAO {
-	
+	//방신청
 	int insertWating(StudyRoomWaiting srWating);
+	
+	int selectApplyRoom(StudyRoomWaiting srWating);
+	
 
+
+	List<StudyRoomWish> selectMywish();
+	
+	//내 방 리스트
 	List<StudyRoom> selectMystudyList();
 
 	List<StudyRoomWaiting> selectMywaitingList();
 
 	List<StudyRoomWish> selectMywishList();
 
+	//메인 스터디방 리스트
 	List<StudyRoomList> selectStudyRoomList();
-
-	List<StudyRoomWish> selectMywish();
 
 	List<StudyCategory> selectCategoryList();
 
+	//찜목록
 	int insertWish(StudyRoomWish srWish);
+	int deleteWish(StudyRoomWish srWish);
+	List<String> selectCheckWish(StudyRoomWish srWish);
+	
 	//방생성
 	int insertStudyRoomList(StudyRoomList studyroomList);
 	int insertProfileAttachment(ProfileAttachment profile);
@@ -59,17 +69,22 @@ public interface StudyRoomDAO {
 
 	int insertAttendance(Map<String, Object> param);
 
-
-
 	
 	List<StudyRoomList> selectsrList();
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
+
 	int insertMemberToSr(Map<String, Object> param);
+
+	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
+
+
 
 
 	
+
+
 
 
 

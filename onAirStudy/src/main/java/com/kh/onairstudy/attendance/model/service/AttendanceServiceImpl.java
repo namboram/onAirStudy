@@ -38,5 +38,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public int updateAttendance(Map<String, Object> param) {
 		return AttendanceDAO.updateAttendance(param);
 	}
+
+	@Override
+	public List<Attendance> selectAttendList(int roomNum) {
+		return AttendanceDAO.selectAttendList(roomNum);
+	}
+	
+	
 	
 }

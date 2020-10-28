@@ -23,6 +23,8 @@ public interface DiaryService {
 
 	int deleteDiaryReply(DiaryReply diaryReply);
 
+	int deleteDiary(int no);
+
 
 
 

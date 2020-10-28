@@ -67,20 +67,20 @@ $(function(){
                         <div class="col-lg" style=" background-color: #FFF0F0; border-radius: 15px;">
                             <br>
                             <div class="form-check" style="align-items: center;">
-                                <input type="button" class="btn btn-outline-dark" id="choice1" value="1"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_1" class="col-lg-10"
+                                <input type="button" class="btn btn-outline-dark choice1" id="choice1" value="1"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_1" class="col-lg-10 testChoice1"
                                     style="border-radius: 15px;">
                                 <br>
-                                <input type="button" class="btn btn-outline-dark" id="choice2" value="2"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_2" class="col-lg-10"
+                                <input type="button" class="btn btn-outline-dark choice2" id="choice2" value="2"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_2" class="col-lg-10 testChoice2"
                                     style="border-radius: 15px; margin-top: 15px;">
                                 <br>
-                                <input type="button" class="btn btn-outline-dark" id="choice3" value="3"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_3" class="col-lg-10"
+                                <input type="button" class="btn btn-outline-dark choice3" id="choice3" value="3"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_3" class="col-lg-10 testChoice3" 
                                     style="border-radius: 15px; margin-top: 15px;">
                                 <br>
-                                <input type="button" class="btn btn-outline-dark" id="choice4" value="4"
-                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_4" class="col-lg-10"
+                                <input type="button" class="btn btn-outline-dark choice4" id="choice4" value="4"
+                                    style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_4" class="col-lg-10 testChoice4"
                                     style="border-radius: 15px; margin-top: 15px;">
                             </div>
                             <br>
@@ -89,7 +89,7 @@ $(function(){
                         <div align = "right"> 
                             <div class="col-md-4" style="background-color: #FFF0F0; border-radius: 15px; padding: 10px; text-align: left;">
                              <label for="testAnswer">정답:</label>
-                             <input type="text" id="testAnswer" name="testAnswer" />
+                             <input type="text" id="testAnswer" class="testAnswer" name="testAnswer" />
                             </div>
                         </div>
                     </div>
@@ -107,21 +107,21 @@ $(function(){
             
  
     <script>
-    $("#choice1").click(function(){
-		return $("#choice1").val();
+    $(".choice1").click(function(){
+		return $(".choice1").val();
         });
-    $("#choice2").click(function(){
-		return $("#choice2").val();
+    $(".choice2").click(function(){
+		return $(".choice2").val();
         });
-    $("#choice3").click(function(){
-		return $("#choice3").val();
+    $(".choice3").click(function(){
+		return $(".choice3").val();
         });
-    $("#choice4").click(function(){
-		return $("#choice4").val();
+    $(".choice4").click(function(){
+		return $(".choice4").val();
         }); 
     
-    $("#choice1, #choice2, #choice3, #choice4").click(function(event){
-		$("#testAnswer").val(event.result);
+    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
+		$(".testAnswer").val(event.result);
 		
         });
     </script>

@@ -24,16 +24,13 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 
 	@Autowired
 	private StudyRoomDAO studyRoomDAO;
+
 	
 	@Override
 	public List<StudyRoom> selectMystudyList() {		
 		return studyRoomDAO.selectMystudyList();
 	}
-	
-	@Override
-	public int insertWating(StudyRoomWaiting srWating) {
-		return studyRoomDAO.insertWating(srWating);
-	}
+
 
 	@Override
 	public List<StudyRoomWaiting> selectMywaitingList() {		
@@ -51,14 +48,30 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 	@Override
+	public List<StudyCategory> selectCategoryList() {
+		return studyRoomDAO.selectCategoryList();
+	}
+	
+	@Override
 	public List<StudyRoomWish> selectMywish() {
 		return studyRoomDAO.selectMywish();
 	}
-
+	
+// 찜목록
 
 	@Override
-	public List<StudyCategory> selectCategoryList() {
-		return studyRoomDAO.selectCategoryList();
+	public int insertWish(StudyRoomWish srWish) {
+		return studyRoomDAO.insertWish(srWish);
+	}
+	
+	@Override
+	public int deleteWish(StudyRoomWish srWish) {
+		return studyRoomDAO.deleteWish(srWish);
+	}
+	
+	@Override
+	public List<String> selectCheckWish(StudyRoomWish srWish) {
+		return studyRoomDAO.selectCheckWish(srWish);
 	}
 //	방생성
 		
@@ -105,16 +118,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 
-
 	
 	@Override
 	public List<StudyRoomLog> selectStudyRoomLog() {
 		// TODO Auto-generated method stub
 		return studyRoomDAO.selectStudyRoomLog();
 	}
-
-	
-
 	
 //검색
 	@Override
@@ -150,11 +159,6 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 
 	@Override
-	public int insertWish(StudyRoomWish srWish) {
-		return studyRoomDAO.insertWish(srWish);
-	}
-
-	@Override
 	public int selectParticipatingRoomCnt(String memberId) {
 		return studyRoomDAO.selectParticipatingRoomCnt(memberId);
 	}
@@ -181,9 +185,22 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return studyRoomDAO.insertMemberToSr(param);
 	}
 
+	@Override
+	public int updateRoomInfo(StudyRoomInfo studyRoomInfo) {
+		return studyRoomDAO.updateRoomInfo(studyRoomInfo);
+	}
 
+	//방 신청
 
+	@Override
+	public int insertWating(StudyRoomWaiting srWating) {
+		return studyRoomDAO.insertWating(srWating);
+	}
 
-	
+	@Override
+	public int selectApplyRoom(StudyRoomWaiting srWating) {
+		return studyRoomDAO.selectApplyRoom(srWating);
+	}
+
 	
 }

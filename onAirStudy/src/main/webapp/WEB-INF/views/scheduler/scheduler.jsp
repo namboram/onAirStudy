@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- 커스텀 -->
@@ -103,7 +103,7 @@
 					<form id="iuscheduleFrm" method="post">
 					
 						<input type="hidden" name="memberId" value="${ loginMember.memberId }" />
-						<input type="hidden" name="no" value="" />
+						<input type="hidden" name="no" value="${ roomNum }" />
 
 						<h3 style="margin-right: 180px;">날짜 입력</h3>
 						<br /> <input type="text" class="datepick delB" name="startDate">
@@ -205,7 +205,8 @@
 	var srNo = "${ roomInfo.srNo }";
 
 	//방번호 유무에 따라 히든태그 생성
-	$(document).ready(function(){
+	/* $(document).ready(function(){
+		console.log($("#iuscheduleFrm"));
 		if(srNo != ""){
 			var inputH = $("#iuscheduleFrm").createElement("input");
 				inputH.setAttribute("type", "hidden");
@@ -213,7 +214,7 @@
 				inputH.setAttribute("value", srNo);
 			}
 		});
-	
+	 */
 
     function deleteTodoBtn(){
 		var thisDate = $("#todoDateB").html();
@@ -472,8 +473,14 @@
 				
     		$('#iuscheduleFrm').attr("action","${pageContext.request.contextPath }/scheduler/"+action);
 
-     		if(checkSub())
-				$('#iuscheduleFrm').submit();
+    		if($("[name=no]").val() == null)
+        			$("[name=no]").remove();
+
+    		
+
+    		
+    		/* if(checkSub())
+				$('#iuscheduleFrm').submit(); */
 
         	}
 

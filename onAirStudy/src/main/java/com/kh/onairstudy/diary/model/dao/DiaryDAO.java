@@ -28,6 +28,9 @@ public interface DiaryDAO {
 
 	int deleteDiaryReply(DiaryReply diaryReply);
 
+	int deleteDiary(int no);
+
+
 
 
 

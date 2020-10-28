@@ -39,7 +39,12 @@ public class MessageController {
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("title","전체 쪽지함");
 		//model.addAttribute("test","아뭐야아아ㅏㅏ");
-		return "message/messageList";
+		
+		if(member.getMemberRole().equals("A"))
+			return "admin/messageList";
+		else
+			return "message/messageList";
+		
 	}
 	
 	@RequestMapping("/message/sendReceiveFilter.do")
@@ -55,7 +60,11 @@ public class MessageController {
 		}else {
 			model.addAttribute("title","발신함");
 		}
-		return "message/messageList";
+		
+		if(member.getMemberRole().equals("A"))
+			return "admin/messageList";
+		else
+			return "message/messageList";
 	}
 	
 	@RequestMapping("/message/messageDetail.do")
@@ -73,7 +82,11 @@ public class MessageController {
 		}
 		model.addAttribute("message",message);
 		model.addAttribute("message2",message2);
-		return "message/messageDetail";
+		
+		if(member.getMemberRole().equals("A"))
+			return "admin/messageDetail";
+		else
+			return "message/messageDetail";
 	}
 	
 	@RequestMapping(value="/message/delMessageList.do",method=RequestMethod.POST)

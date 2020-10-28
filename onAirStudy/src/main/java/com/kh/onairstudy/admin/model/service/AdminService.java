@@ -43,4 +43,8 @@ public interface AdminService {
 
 	List<Map<String, Object>> memberAll();
 
+	int sendMessage(Map<String, Object> map);
+
+	int messageCnt();
+
 }
