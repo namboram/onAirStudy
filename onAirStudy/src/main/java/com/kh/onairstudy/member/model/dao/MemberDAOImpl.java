@@ -49,7 +49,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public String selectNextPaymentDay(String memberId) {
+	public int selectNextPaymentDay(String memberId) {
 		return sqlSession.selectOne("member.selectNextPaymentDay", memberId);
 	}
 

@@ -136,13 +136,14 @@
 		<br>
 			<div class="container">
 			<div class="row" id="srlistG">
-				<c:forEach items="${ dm_List }" var="dm" end="9">
 					
+				<c:forEach items="${ dm_List }" var="dm" end="9">
 					<div class="m-2 p-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 300px;">
 						<div class="">
 						
-							<div >
-								<%-- <img src="${pageContext.request.contextPath }/resources/upload/${ dm.M_PIC }"> 	 --%>					
+							<div>
+								<img class="mPic"
+									src="${pageContext.request.contextPath }/resources/upload/${ dm.MPic }" > 						
 							</div>
 						
 							<div>
@@ -150,15 +151,15 @@
 							<h5 class="text-center">
 								${ dm.memberId }
 							</h5>	
-							<h5 class="text-center">
+							<p class="text-center">
 								${ dm.memberName }
-							</h5>
-							<h5 class="text-center">
+							</p>
+							<p class="text-center" style="margin-top:-5%;">
 								 ${ dm.comment }
-								</h5>
-							<h5 class="text-center">
-								 성실도 : ${ dm.diligentPoint }점
-								</h5>						
+								</p>
+							<p class="text-center" style="margin-top:-5%;">
+								 <strong>성실도 : ${ dm.diligentPoint }점</strong>
+								</p>						
 								<br>
 							</div>
 						</div>
