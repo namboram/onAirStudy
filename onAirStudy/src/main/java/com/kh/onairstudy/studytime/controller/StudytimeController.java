@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
-@SessionAttributes({"memberInfo"})
+@SessionAttributes({"memberInfo","sideBarInfo"})
 public class StudytimeController {
 	
 	@Autowired

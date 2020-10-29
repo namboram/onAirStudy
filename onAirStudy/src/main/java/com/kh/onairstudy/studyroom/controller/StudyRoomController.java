@@ -337,9 +337,14 @@ public class StudyRoomController {
 
 		//스터디방 입장 - 인덱스 페이지
 		@RequestMapping("/studyroom/main.do")
-		public String main( @RequestParam("roomNum") int roomNum, Model model, HttpSession session) {
+		public String main( @RequestParam("roomNum") int roomNum, @RequestParam(value="test", required = false) String test, Model model, HttpSession session) {
 
-
+		if(test != null) {
+			model.addAttribute("test", test);
+			log.debug("test = {}",test);
+		}
+			
+		
 		log.debug("roomNum = {}", roomNum);
 		
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
@@ -355,7 +360,6 @@ public class StudyRoomController {
 		/*
 		 * 아래부터 채팅 정보 불러올게요
 		 */
-		//String memberId = (String)session.getAttribute("memberId");
 		List<Chat> firstList = chatService.selectFirstChatList(roomNum);
 		model.addAttribute("roomNo",roomNum);
 		model.addAttribute("firstList",firstList);
