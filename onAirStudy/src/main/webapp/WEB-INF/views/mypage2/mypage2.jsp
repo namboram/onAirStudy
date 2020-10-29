@@ -176,6 +176,11 @@ function msgSend(receiverId) {
 		}
 	}
 $(function(){
+
+	<c:if test="${ not empty test}">
+		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/mypage2_question.do");
+	</c:if>
+	
 	var d = new Date();
 	var week = new Array('일','월','화','수','목','금','토');
 	
