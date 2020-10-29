@@ -3,14 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!-- <style>
- .answerChoice {
-	columns: 2;
-} 
-</style> -->
+<script>
+$(document).ready(function(){
+    $('.slider').bxSlider();
+  });
+</script>
 
 <div class="pre_test" style="margin-bottom: 0;">
-	<div class="row">
+
 
 		<div class="col-sm" style="background-color: white; padding:3%">
 			<div>
@@ -41,10 +41,10 @@
 <div class="choice4">${ t.testChoice_4 }</div>
 <div class="answer">${ t.testAnswer }</div>
 </c:forEach></div>	 --%>	
-<div id="demo" class="carousel slide" data-ride="carousel">
-					
-					<div class="carousel-inner">
+				
+					<div class="slider">
 					<c:forEach items="${testList}" var="t">
+					
 					
 							<div class="col-lg questionX"
 								style="background-color: #FFF0F0; border-radius: 15px; padding: 1.5%;">
@@ -84,13 +84,15 @@
 							</div>
 							<br>
 							
+										
 							</c:forEach>
-						<a class="carousel-control-prev" href="#demo" data-slide="prev">
+							</div>
+					<!-- 	<a class="carousel-control-prev" href="#demo" data-slide="prev">
 							<span class="carousel-control-prev-icon"></span>
 						</a> <a class="carousel-control-next" href="#demo"
 							data-slide="next"> <span class="carousel-control-next-icon"></span>
 						</a>
-
+ -->
 
 					</div>
 				</div>
@@ -214,5 +216,4 @@
 			</div>
 		</div>
 
-	</div>
-</div>
+
