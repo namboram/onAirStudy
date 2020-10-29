@@ -204,7 +204,7 @@
 				success:function(msg){
 					Frm.empty();
 					alert(msg);
-					searchButton();
+					searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
 					viewTodoList(targetDate);
 					
 				},
@@ -254,7 +254,7 @@
 					success:function(list){
 						Frm.empty();
 						alert(list);
-						searchButton();
+						searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
 						viewTodoList(targetDate);
 					},
 					error:function(){
@@ -377,6 +377,9 @@
 	function viewSchedule(theDate){
 
 		targetDate = theDate;
+
+		console.log("Y="+targetDate.substr(0, 4)+", M="+targetDate.substr(5, 2));
+		
 		var htmlB = "";
 		var count = 0;
 		//헤더에 날짜 넣어주기
@@ -462,7 +465,8 @@
 					datatype:"json",
 					success:function(msg){
 						alert(msg);
-						searchButton();
+						searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
+						viewSchedule(theDate);
 					},
 					error:function(){
 						console.log("에러~");
@@ -492,7 +496,12 @@
     					datatype:"json",
     					success:function(msg){
     						alert(msg);
-    						searchButton();
+    						if(!bool)
+    							searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
+    						else
+    							searchButton();
+        						
+    						viewSchedule(theDate);
     						
     					},
     					error:function(){
@@ -648,8 +657,8 @@
    		    return  year + '-' + month + '-' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
    		}
 
-   		//새로고침버튼 클릭 ajax
-   	   	function searchButton(){
+   		//새로고침  ajax
+   	   	function searchButton(Y, M){
 			var no = 15;
    	 		
    	        var values = []; //ArrayList 값을 받을 변수를 선언
@@ -662,7 +671,6 @@
    	                if(map.code == "OK") { //controller에서 넘겨준 성공여부 코드
    	                    
    	                    values = map.list; //java에서 정의한 ArrayList명을 적어준다.
-   	                    
 
    	                    //배열초기화
 		   	             schedules= [];
@@ -679,7 +687,7 @@
 
 						console.log(schedules);
 						
-						 drawCalendar();
+						 drawCalendar(Y, M);
    	                    
    	                }
    	                else {
@@ -691,12 +699,7 @@
    		}
    			//기본 달력출력
            $(document).ready(function(){
-				if("${ Y }"== "" && "${ M }"==""){
-	               drawCalendar();
-	               return;
-				}
-               
-               drawCalendar("${ Y }", "${ M }");
+	           drawCalendar();
 
            });
 
