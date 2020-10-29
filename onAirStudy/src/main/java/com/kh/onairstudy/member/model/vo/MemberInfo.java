@@ -17,7 +17,7 @@ import lombok.ToString;
 
 public class MemberInfo implements Serializable{
 
-	private int dDayCnt;
+	private int dayCnt;
 	private Date startDate;
 	private String content;
 }
