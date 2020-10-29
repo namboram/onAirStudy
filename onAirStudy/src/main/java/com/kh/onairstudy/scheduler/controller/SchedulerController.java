@@ -1,5 +1,6 @@
 package com.kh.onairstudy.scheduler.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,13 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.scheduler.model.service.SchedulerService;
 import com.kh.onairstudy.scheduler.model.vo.Scheduler;
-import com.kh.onairstudy.studyroom.model.vo.StudyRoomInfo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -339,9 +340,6 @@ public class SchedulerController {
 			return "redirect:/mypage1/scheduler.do";
 			
 	}
-	
-	
-	
 
 	
 	
