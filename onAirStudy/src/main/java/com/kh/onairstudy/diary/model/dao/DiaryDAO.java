@@ -10,7 +10,7 @@ import com.kh.onairstudy.diary.model.vo.DiaryReply;
 
 public interface DiaryDAO {
 
-	List<Diary> selectDiaryList();
+	List<Diary> selectDiaryList(Map<String, Object> map);
 
 	int insertDiary(Diary diary);
 
@@ -29,6 +29,8 @@ public interface DiaryDAO {
 	int deleteDiaryReply(DiaryReply diaryReply);
 
 	int deleteDiary(int no);
+
+	int totalDiary(Map<String, Object> map);
 
 
 
