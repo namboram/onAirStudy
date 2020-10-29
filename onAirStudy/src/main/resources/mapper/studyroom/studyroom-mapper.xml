@@ -230,6 +230,14 @@ where
 
 </select>
 
+<delete id="deleteApply">
+delete from
+	sr_waiting_list 
+where
+	sr_no = #{srNo} and member_id = #{memberId}
+
+</delete>
+
 <!-- 찜 목록  -->
 <select id="selectCheckWish" resultType="_int">
 select

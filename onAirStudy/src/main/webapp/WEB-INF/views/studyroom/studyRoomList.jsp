@@ -65,7 +65,7 @@ function searchRoom() {
 	<div class="container" id="container">
 	
 		<div class="rBtn">
-			<button type="button" class="btn btn-outline-primary">
+			<button type="button" class="btn btn-outline-warning">
 			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
 				방 만들기</a>
 		</button>

@@ -231,6 +231,11 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.update("studyroom.updateLog", param);
 	}
 
+	@Override
+	public int deleteApply(StudyRoomWaiting srWating) {
+		return sqlSession.delete("studyroom.deleteApply", srWating);
+	}
+
 	
 	
 	
