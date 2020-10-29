@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.common.PagingCriteria;
 import com.kh.onairstudy.servicecenter.model.dao.ServiceCenterDAO;
-import com.kh.onairstudy.servicecenter.model.vo.ServiceCategory;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
@@ -67,11 +66,6 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	@Override
 	public int serviceDelete(int no) {
 		return serviceCenterDAO.serviceDelete(no);
-	}
-
-	@Override
-	public List<ServiceCategory> selectserviceCategory() {
-		return serviceCenterDAO.selectCategory();
 	}
 
 

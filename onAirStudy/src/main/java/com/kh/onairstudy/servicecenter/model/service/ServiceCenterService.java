@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.kh.onairstudy.common.PagingCriteria;
-import com.kh.onairstudy.servicecenter.model.vo.ServiceCategory;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
@@ -33,6 +32,5 @@ public interface ServiceCenterService {
 
 	int serviceDelete(int no);
 
-	List<ServiceCategory> selectserviceCategory();
 
 }
