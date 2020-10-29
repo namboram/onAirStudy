@@ -32,4 +32,5 @@ public interface ServiceCenterService {
 
 	int serviceDelete(int no);
 
+
 }
