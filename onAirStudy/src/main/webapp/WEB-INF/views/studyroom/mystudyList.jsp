@@ -42,8 +42,9 @@
 
 						<c:forEach items="${ studyList }" var="studyroom">
 							<c:if test="${studyroom.memberId eq loginMember.memberId }">
-								<tr>
-									<td>${studyroom.sLeader}</td>
+								<tr>									
+									<td><c:if test="${studyroom.sleader != 'N'}"><img class="roomPic"
+							src="${pageContext.request.contextPath }/resources/images/crown.png" style="height:20px;"></c:if></td>
 									<td>${studyroom.sCategory}</td>
 									<td>${studyroom.srTitle}</td>
 									<td>${studyroom.srComment}</td>
@@ -67,6 +68,7 @@
 				<table class="table">
 					<thead class="thead-rounded">
 						<tr>
+							<th></th>
 							<th>카테고리</th>
 							<th>그룹 이름</th>
 							<th>그룹 소개</th>
@@ -78,6 +80,7 @@
 							<c:if
 								test="${studyroomwaiting.memberId eq loginMember.memberId }">
 								<tr>
+									<td></td>
 									<td>${studyroomwaiting.aCategory}</td>
 									<td>${studyroomwaiting.aTitle}</td>
 									<td>${studyroomwaiting.aComment}</td>
@@ -101,6 +104,7 @@
 				<table class="table">
 					<thead class="thead-rounded">
 						<tr>
+							<th></th>
 							<th>카테고리</th>
 							<th>그룹 이름</th>
 							<th>그룹 소개</th>
@@ -111,6 +115,7 @@
 						<c:forEach items="${ wishList }" var="studyroomwish">
 							<c:if test="${studyroomwish.memberId eq loginMember.memberId }">
 								<tr>
+									<td></td>
 									<td>${studyroomwish.wCategory}</td>
 									<td>${studyroomwish.wTitle}</td>
 									<td>${studyroomwish.wComment}</td>

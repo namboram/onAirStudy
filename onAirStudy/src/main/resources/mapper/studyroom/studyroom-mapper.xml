@@ -37,7 +37,7 @@ where
   		<result column="sr_comment" property="srComment"/>
   		<result column="member_id" property="memberId"/>
   		<result column="status_log" property="status"/>
-  		<result column="reader_yn" property="sReader"/>
+  		<result column="leader_yn" property="sleader"/>
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
