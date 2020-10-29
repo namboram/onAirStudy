@@ -73,18 +73,32 @@ div#enroll-bottom-container{
     bottom: 5px;
     left: 0px;
     transition: all 0.3s ease;
+    transform: translateY(-100%);
+    font-size: 5px;
 }
+.idChk{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+   /*  transition: all 0.3s ease; */
+    /* transform: translateY(-100%); */
+    font-size: 5px;
+    cusor: pointer;
+}
+
+/* 
 
 .formMember input:focus + .label-member .content-member, 
 .formMember input:valid + .label-member .content-member{
     transform: translateY(-100%);
     font-size: 5px;
-}
+} 
 
 .formMember input:focus + .label-member::after, 
 .formMember input:valid + .label-member::after{
     transform: translateX(0%);
 }
+*/
 
 /* 관심카테고리 */
 .fieldset-category{
