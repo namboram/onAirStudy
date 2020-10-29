@@ -153,6 +153,7 @@ public class StudyRoomController {
 									@RequestParam(defaultValue="sr_title") String search_option, 
 									@RequestParam(defaultValue="0") int category,
 									ModelAndView mav) throws Exception {
+			log.info("search_option={}",search_option);
 			//1. map에 저장
 			List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword, category);
 			List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
