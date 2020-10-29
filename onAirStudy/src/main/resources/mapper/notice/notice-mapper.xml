@@ -9,6 +9,8 @@ select
 	*
 from
 	notice
+where
+	rownum between #{ start } and #{ end }
 order by
 	notice_date
 </select>
@@ -59,6 +61,13 @@ set
 where
 	no = #{ no }
 </update>
+
+<select id="totalNotice" resultType="int">
+select
+	count(*)
+from
+	notice
+</select>
 
  
 </mapper>

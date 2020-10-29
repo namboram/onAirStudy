@@ -47,4 +47,12 @@ public interface AdminService {
 
 	int messageCnt();
 
+	int totalMember(Map<String, Object> search);
+
+	int totalService(Map<String, Object> search);
+
+	int totalReport(Map<String, Object> search);
+
+	int totalStudy(Map<String, Object> search);
+
 }
