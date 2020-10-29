@@ -15,10 +15,17 @@ public interface MemberDAO {
 
 	int updateBlack(String reportedMember);
 
+	int updateMember(Member member);
+
+	Member selectOneMemberDetail(String memberId);
+
 	String getMemberImage(String memberId);
 	
 	String selectNextPaymentDay(String memberId);
 	
 	MemberInfo selectdDayInfo(String memberId);
+	
+	//아이디중복체크
+	int idChk(Member member);
 
 }
