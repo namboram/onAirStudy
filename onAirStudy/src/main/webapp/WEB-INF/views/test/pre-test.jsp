@@ -28,7 +28,7 @@
 				</div>
 				<input type="hidden" name="srNo" value="${roomInfo.srNo }" />
 
-<div hidden>
+<%-- <div hidden>
 <c:forEach items="${testList}" var="t">
 <div class="question">${t.testQuestion}</div>
 <div class="pic"><c:if test="${t.renamedFilename != null }">
@@ -40,19 +40,24 @@
 <div class="choice3">${ t.testChoice_3 }</div>
 <div class="choice4">${ t.testChoice_4 }</div>
 <div class="answer">${ t.testAnswer }</div>
-</c:forEach></div>		
-<div class="tq_G">
+</c:forEach></div>	 --%>	
+<div id="demo" class="carousel slide" data-ride="carousel">
+					
+					<div class="carousel-inner">
+					<c:forEach items="${testList}" var="t">
 					
 							<div class="col-lg questionX"
-								style="background-color: #FFF0F0; border-radius: 15px; padding: 15px;">
+								style="background-color: #FFF0F0; border-radius: 15px; padding: 1.5%;">
 								<div class="questionBox" style="background-color: white; overflow:auto; border-radius:15px; height:250px; padding:3%">		
-								  <br /><br />
+								 ${t.testQuestion}
 								  
-								  
-								<div class="picT">
+								<br /><br />
 								
-								</div>
-							
+								<c:if test="${t.renamedFilename != null }">
+								<img class="testPic" style="height:200px;"
+								src="${pageContext.request.contextPath }/resources/testPic/${ t.renamedFilename }"> 
+								</c:if>
+													
 								</div>
 								<br> <br> 
 								
@@ -60,32 +65,40 @@
 								
 								<label for="choice1"><h4>①</h4></label>
 								<input type="text" class="col-lg-10" id="choice1" name="choice1"
-									style="border-radius: 15px;" value="" readonly> <br>
+									style="border-radius: 15px;" value="${ t.testChoice_1 }" readonly> <br>
 									
 								<label for="choice2"><h4>②</h4></label>
 								<input type="text" class="col-md-10" id="choice2" name="choice2"
 									style="border-radius: 15px; margin-top: 15px;"
-									value="" readonly> <br> 
+									value="${ t.testChoice_2 }" readonly> <br> 
 									
 								<label for="choice3"><h4>③</h4></label>
 								<input type="text" class="col-lg-10" id="choice3" name="choice3"
 									style="border-radius: 15px; margin-top: 15px;"
-									value="" readonly> <br> 
+									value="${ t.testChoice_3 }" readonly> <br> 
 									
 								<label for="choice4"><h4>④</h4></label>
 								<input type="text" class="col-lg-10" id="choice4" name="choice4"
 									style="border-radius: 15px; margin-top: 15px;"
-									value="" readonly>															
+									value="${ t.testChoice_4 }" readonly>															
 							</div>
-							<br>		
+							<br>
+							
+							</c:forEach>
+						<a class="carousel-control-prev" href="#demo" data-slide="prev">
+							<span class="carousel-control-prev-icon"></span>
+						</a> <a class="carousel-control-next" href="#demo"
+							data-slide="next"> <span class="carousel-control-next-icon"></span>
+						</a>
 
-				
+
+					</div>
 				</div>
 				
 				<div class="card">
-				<div class="card-header bg-warning"><h4>답안지</h4></div>
+				<div class="card-header bg-warning"><h4 align="center">답안지</h4></div>
 				<div class="card-body">
-				<div class="answerChoice">
+				<div class="answerChoice row" style="margin-left:10%;">
 				<div class="col-lg-4 row" spnum="1">
 				<h4>1.</h4>
 				<button class="btn" value="1"><h4>①</h4></button>
@@ -166,15 +179,12 @@
 				<button class="btn" value="4"><h4>④</h4></button>				
 				</div>
 				
+				</div>				
 				</div>
-				</div>
-				<div class="card-footer bg-white">
+				
 				<div align="center">
-					<button type="submit" class="btn btn-outline-primary" onclick="submitTest('${roomInfo.srNo}')">제출하기</button>
+					<button type="submit" class="btn btn-outline-primary" style="margin-bottom:1%;" onclick="submitTest('${roomInfo.srNo}')">제출하기</button>
 				</div>
-				</div>		
-								
-				<br>
 			
 			</div>
 		</div>
