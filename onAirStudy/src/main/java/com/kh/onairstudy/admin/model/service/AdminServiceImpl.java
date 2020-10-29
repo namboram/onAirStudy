@@ -115,6 +115,26 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.messageCnt();
 	}
 
+	@Override
+	public int totalMember(Map<String, Object> search) {
+		return adminDAO.totalMember(search);
+	}
+
+	@Override
+	public int totalService(Map<String, Object> search) {
+		return adminDAO.totalService(search);
+	}
+
+	@Override
+	public int totalReport(Map<String, Object> search) {
+		return adminDAO.totalReport(search);
+	}
+
+	@Override
+	public int totalStudy(Map<String, Object> search) {
+		return adminDAO.totalStudy(search);
+	}
+
 	
 	
 }

@@ -136,40 +136,34 @@
 		<br>
 			<div class="container">
 			<div class="row" id="srlistG">
-				
 				<c:forEach items="${ dm_List }" var="dm" end="9">
 					
 					<div class="m-2 p-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 300px;">
 						<div class="">
 						
-						<%-- <img class="mPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ dm.mPic }"	width="150px"> 						
-							<a href="${pageContext.request.contextPath }/"></a>   --%>
+							<div >
+								<%-- <img src="${pageContext.request.contextPath }/resources/upload/${ dm.M_PIC }"> 	 --%>					
+							</div>
 						
-						<h5 class="text-center">
-							${ dm.memberId }
-						</h5>	
-						<h5 class="text-center">
-							${ dm.memberName }
-						</h5>
-						<h5 class="text-center">
-							 ${ dm.comment }
+							<div>
+							
+							<h5 class="text-center">
+								${ dm.memberId }
+							</h5>	
+							<h5 class="text-center">
+								${ dm.memberName }
 							</h5>
-						<h5 class="text-center">
-							 성실도 : ${ dm.diligentPoint }점
-							</h5>
-						
-							<br>
+							<h5 class="text-center">
+								 ${ dm.comment }
+								</h5>
+							<h5 class="text-center">
+								 성실도 : ${ dm.diligentPoint }점
+								</h5>						
+								<br>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
-				
-				
-				
-				
-				
-				
-				
 			</div>
 		</div>
 	</div>
@@ -178,36 +172,41 @@
 
 
 <!-- 이달의 성실 스터디방 -->
-	<div class="container-fluid" style="background-color: #E3DBD6;  height:550px;">
+	<div class="container-fluid" style="background-color: #E3DBD6;  height:560px;">
 	<br>
 		<h3 class="text-center">이달의 성실 스터디방</h3>
 			
-		<div class="container-sm-5 p-5">
-			<div class="row" id="srlistG">
+		<div class="container-sm-5" style="margin-left:4%;">
+			<div class="row" id="srlistRank">
+				
 				<c:forEach items="${ ds_List }" var="ds" end="4">
-				
-				
-					<div class="m-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 330px;">
+					<div class="m-5" id="sr" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 210px; height: 350px;">
 						<div class="">
 						
-						<%-- <img class="mPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ dm.mPic }"	width="150px"> 						
-							<a href="${pageContext.request.contextPath }/"></a>  --%>
-						
-						<h5 class="text-center">
-							${ ds.srTitle }
-						</h5>	
-						<h5 class="text-center">
-							 ${ ds.memberId }
-							</h5>
-						<h5 class="text-center">
-							${ ds.srGoal }
-						</h5>
-						<h5 class="text-center">
-							 ${ ds.srComment }
-							</h5>
-						
+							<div class="sr_rank_pic" >
+								<img class="rPic" style="margin-left:0.6%; margin-top:0.5%;"
+									 src="${pageContext.request.contextPath }/resources/upload/${ ds.SR_PIC }"> 
+							</div>
 							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="sr_rank_content">
+								<p class="text-center" style="margin-top:10px;">
+								<strong>${ ds.srTitle }</strong>
+								</p>	
+								<p class="text-center">그룹 리더 :<strong> ${ ds.memberId }</strong></p>
+								<P class="text-center" style="margin-top:-10px;">
+									${ ds.SR_GOAL }
+								</P>
+								<p class="text-center" style="margin-top:-15px;">
+									 ${ ds.srComment }
+									</p>
+							</div>
+								<br>
 						</div>
 					</div>
 				</c:forEach>
@@ -287,8 +286,7 @@
 
 <script>
 <!-- 둘러보기 -->
-<div class="modal fade" id="previewFrm" role="dialog"
-	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
+<div class="modal fade" id="previewFrm" role="dialog" aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 

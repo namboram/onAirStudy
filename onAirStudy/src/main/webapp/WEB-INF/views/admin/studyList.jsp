@@ -35,12 +35,12 @@ $(document).ready(function(){
 				<option value="srSort" >방종류</option>
 			</select>
 			<div id="hide1B" style="display:inline-block">
-				<input type="text" name="searchContent"  value=""/>
+				<input type="text" name="searchKeyword"  value=""/>
 				<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
 			</div>
 			<div id="hide2B" style="display:none;">
-				<input type="radio" name="searchContent" value="N" />기본방
-				<input type="radio" name="searchContent" value="P"/>프리미엄방
+				<input type="radio" name="searchKeyword" value="N" />기본방
+				<input type="radio" name="searchKeyword" value="P"/>프리미엄방
 			</div>
 			</form>
 		</div>
@@ -72,19 +72,10 @@ $(document).ready(function(){
 			
 			</table>
 	
-			<nav aria-label="Page navigation example" style="display:inline-block;">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</ul>
-			</nav>
+	
+			<div id='pageBar'>
+				${ pageBar }
+			</div>
 	
 	</div>
 </div>
@@ -134,26 +125,22 @@ $(document).ready(function(){
 
 	
 	var searchType = "<c:out value="${search['searchType']}"/>";
-	var searchContent = "<c:out value="${search['searchKeyword']}"/>";
+	var searchKeyword = "<c:out value="${search['searchKeyword']}"/>";
 
 
 	
 	//검색유지
 	$(document).ready(
 			function() {
-				if (searchType != "" && searchContent != "") {
+				if (searchType != "" && searchKeyword != "") {
 					if (searchType == 'memberId' || searchType == 'srNo') {
-						$("#hide1B input").val(searchContent);
+						$("#hide1B input").val(searchKeyword);
 					} else if (searchType == 'srSort') {
 						a.css("display", "none");
 						b.css("display", "inline-block");
-						$(
-								'#hide2B [name=searchContent]:radio[value='
-										+ searchContent + ']').prop('checked',
-								true);
+						$('#hide2B [name=searchKeyword]:radio[value='+ searchKeyword + ']').prop('checked',true);
 					}
-					$('[name=searchType]').val(searchType).prop('selected',
-							true);
+					$('[name=searchType]').val(searchType).prop('selected',true);
 				}
 			});
 </script>

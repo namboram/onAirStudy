@@ -48,6 +48,11 @@ public class MessageServiceImpl implements MessageService {
 		return messageDAO.searchMessageList(map);
 	}
 
+	@Override
+	public Message selectMessageNextOne(Map<String, Object> map) {
+		return messageDAO.selectMessageNextOne(map);
+	}
+
 	
 	
 	

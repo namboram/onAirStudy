@@ -42,8 +42,9 @@
 
 						<c:forEach items="${ studyList }" var="studyroom">
 							<c:if test="${studyroom.memberId eq loginMember.memberId }">
-								<tr>
-									<td>${studyroom.sLeader}</td>
+								<tr>									
+									<td><c:if test="${studyroom.sleader != 'N'}"><img class="roomPic"
+							src="${pageContext.request.contextPath }/resources/images/crown.png" style="height:20px;"></c:if></td>
 									<td>${studyroom.sCategory}</td>
 									<td>${studyroom.srTitle}</td>
 									<td>${studyroom.srComment}</td>
@@ -67,6 +68,7 @@
 				<table class="table">
 					<thead class="thead-rounded">
 						<tr>
+							<th></th>
 							<th>카테고리</th>
 							<th>그룹 이름</th>
 							<th>그룹 소개</th>
@@ -78,11 +80,12 @@
 							<c:if
 								test="${studyroomwaiting.memberId eq loginMember.memberId }">
 								<tr>
+									<td></td>
 									<td>${studyroomwaiting.aCategory}</td>
 									<td>${studyroomwaiting.aTitle}</td>
 									<td>${studyroomwaiting.aComment}</td>
 									<td>
-										<button type="button" class="btn btn-outline-primary">
+										<button type="button" class="btn btn-outline-primary" onclick="applyR('${ studyroomwaiting.srNo }')">
 											${studyroomwaiting.aStatus == 'Y' ? '대기중' : '만료'}</button>
 									</td>
 
@@ -101,6 +104,7 @@
 				<table class="table">
 					<thead class="thead-rounded">
 						<tr>
+							<th></th>
 							<th>카테고리</th>
 							<th>그룹 이름</th>
 							<th>그룹 소개</th>
@@ -111,14 +115,23 @@
 						<c:forEach items="${ wishList }" var="studyroomwish">
 							<c:if test="${studyroomwish.memberId eq loginMember.memberId }">
 								<tr>
+									<td></td>
 									<td>${studyroomwish.wCategory}</td>
 									<td>${studyroomwish.wTitle}</td>
 									<td>${studyroomwish.wComment}</td>
 
 
 									<td>
-										<button type="button" class="btn btn-outline-primary">
+									<form id="favRoom" 
+								action="${ pageContext.request.contextPath }/studyroom/delfavStudyroom.do"
+								method="POST">
+								
+								<input type="text" class="form-control" name="srNo"	value="${studyroomwish.srNo }"  hidden> 
+								<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
+								
+										<button type="submit" class="btn btn-outline-primary" <c:if test="${studyroomwish.wStatus != 'Y'}">disabled</c:if>>
 											${studyroomwish.wStatus == 'Y' ? '가입가능' : '만료'}</button>
+									</form>
 									</td>
 								</tr>
 							</c:if>
@@ -140,91 +153,42 @@ function studyEntry(roomNum){
 </script>
 
 
+<!-- 신청 -->
+<div class="modal fade" id="applyRFrm" role="dialog"
+	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
 
-<%-- 	<div class="modal" id="roomC">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- Modal Header -->
-				<div class="modal-header" style="background-color:#E2A182;">
-					<h4 class="modal-title">스터디방 만들기</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<!-- Modal body -->
-				
-				<div class="modal-body">
-				<input type="hidden" id="memId" value="${loginMember.memberId }" />
-										
-				<div class="col-lg-12 p-4 text-center">		
-				
-				<h5>새로 만들 스터디 그룹의 카테고리를 선택해 주세요</h5>
-				<br />	
-				<label for="groupCategory">카테고리를 선택하세요.</label> 
-				<select
-				class="custom-select" id="srCategory" name="srCategory">
-						<option value="1">자격증</option>
-						<option value="2">면접</option>
-						<option value="3">입시</option>
-						<option value="4">취미/예술</option>
-						<option value="5">컴퓨터/IT</option>
-						<option value="6">창업</option>
-						<option value="7">어학</option>
-						<option value="8">기타</option>
-				</select>
-				
-				</div>
-					
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light-outline" data-dismiss="modal"
-						onclick="nRoom();">방 만들러 가기</button>
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">취소</button>
-				</div>
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">스터디 룸 가입 신청 취소</h4>
+				<button type="button" class="close" data-dismiss="modal">×</button>
 			</div>
+
+			<!-- Modal body -->
+			<form
+				action="${ pageContext.request.contextPath }/studyroom/deleteAlpplystudyroom.do"
+				name="applyFrm" method="POST">
+				<input type="text" class="form-control" name="srNo" id="srNo" hidden>
+				<input type="text" class="form-control" name="memberId"
+					id="memberId" value="${ loginMember.memberId }" hidden>
+				<div class="modal-body">스터디 룸 가입을 취소 하시겠습니까?</div>
+				<!-- Modal footer -->
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-outline">확인</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				</div>
+			</form>
+
+
 		</div>
 	</div>
-	
-	 --%>
+</div>
 
-<!-- <script>
-	//방생성
-	 function roomOn() {
-		$("#roomC").modal('show');		
-}
-
-		//모달 창 안
-		function nRoom() {
-			if (confirm("새로운 스터디 방을 생성 하시겠습니까?")) {
-				$.ajax({
-							url : "${pageContext.request.contextPath}/mypage1/creatR.do",
-							type : "POST",
-							
-							data : {								
-								memberId : $("#memId").val(),								
-								srCategory : $("#srCategory").val()
-							},
-							dataType : "json",
-							success : function(data) {
-								window.location.href="${pageContext.request.contextPath}mypage1/newstudy.do";
-									
-							},
-							error : function(xhr, status, err) {
-								console.log("처리실패!");
-								console.log(xhr);
-								console.log(status);
-								console.log(err);
-							}
-						});
-			}
-
-
-
-	
-		}
-		</script>
-		 -->
-
+<script>
+	function applyR(srNo) {
+		$("#applyRFrm").modal().find("[name=srNo]").val(srNo);
+	}
+</script>
 

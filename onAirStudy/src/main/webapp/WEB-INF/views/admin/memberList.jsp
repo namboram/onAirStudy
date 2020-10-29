@@ -50,7 +50,7 @@ $(document).ready(function(){
 				</select>
 
 				<div id="hide1B" style="display: inline-block">
-					<input type="text" name="searchContent" />
+					<input type="text" name="searchKeyword" />
 					<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
 				</div>
 				<div id="hide2B" style="display: none;">
@@ -85,21 +85,12 @@ $(document).ready(function(){
 			</c:if>
 
 		</table>
+		
+		
+		<div id='pageBar'>
+			${ pageBar }
+		</div>
 
-		<nav aria-label="Page navigation example"
-			style="display: inline-block;">
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</ul>
-		</nav>
 
 	</div>
 
@@ -133,27 +124,24 @@ $(document).ready(function(){
 
 	$(document).ready(function() {
 		$("#hide2B select").change(function() {
-			$("[name=searchContent]").val($("#hide2B option:selected").val());
+			$("[name=searchKeyword]").val($("#hide2B option:selected").val());
 			searchNow();
 		});
 	});
 
 	var searchType = "<c:out value="${search['searchType']}"/>";
-	var searchContent = "<c:out value="${search['searchKeyword']}"/>";
+	var searchKeyword = "<c:out value="${search['searchKeyword']}"/>";
 
 	//검색유지
 	$(document).ready(
 			function() {
-				if (searchType != "" && searchContent != "") {
+				if (searchType != "" && searchKeyword != "") {
 					if (searchType == 'memberId') {
-						$("#hide1B input").val(searchContent);
+						$("#hide1B input").val(searchKeyword);
 					} else if (searchType == 'blacklist') {
 						$("#hide1B").css("display", "none");
 						$("#hide2B").css("display", "inline-block");
-						$(
-								'#hide2B [name=searchContent] option:eq('
-										+ searchContent + ')').prop('selected',
-								true);
+						$("#hide2B option[value="+searchKeyword+"]").prop('selected', true);
 					}
 					$('[name=searchType]').val(searchType).prop('selected',
 							true);

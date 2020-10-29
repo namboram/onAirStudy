@@ -45,6 +45,11 @@ public class MessageDAOImpl implements MessageDAO {
 	public List<Message> searchMessageList(Map<String, Object> map) {
 		return sqlSession.selectList("message.searchMessageList",map);
 	}
+
+	@Override
+	public Message selectMessageNextOne(Map<String, Object> map) {
+		return sqlSession.selectOne("message.selectMessageNextOne", map);
+	}
 	
 	
 	
