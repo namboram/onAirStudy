@@ -53,8 +53,8 @@
 							<label for="gruopName"><h4>그룹이름</h4></label> <input type="text"
 								class="col-lg-10" name="srTitle" id="srTitle" style="border-radius: 15px;">
 								
-							 <c:forEach var="s" items="${studyroomList.sRoom}">
-								 
+							
+							 <c:forEach var="s" items="${studyroomList.sRoom}">							 
 								
 								<input type="text" id="srNo" name=srNo value="${s.srNo}" />
 								

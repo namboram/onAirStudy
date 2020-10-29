@@ -60,4 +60,14 @@ where
 
 </update>
 
+<select id="selectCountQuestion" resultType="_int">
+select
+	count(*)
+from 
+	pre_test
+where
+	sr_no=#{srNo}
+
+</select>
+
 </mapper>
