@@ -1,3 +1,4 @@
+<%@page import="com.kh.onairstudy.member.model.vo.MemberInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,6 +7,8 @@
 <link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
+
+
 
 	<nav class="side-navbar mypage-sideBar">
 		<!-- Sidebar Header-->
@@ -17,9 +20,9 @@
 					<h5>premium</h5>
 				</c:if>
 			</div>
-			<div class="d-day-display">
+				<div class="d-day-display">
 		        <hr>
-		        <span>D - 37</span></br>
+		        <span>D - 56</span></br>
 		        <span>2020.11.02</span></br>
 		        <span>토익시험</span></br>
 		    	<hr>
@@ -38,7 +41,7 @@
 				</a></li>
 			<li><a href="${ pageContext.request.contextPath}/mypage1/mystudylist.do">내 스터디방</a></li>
 			<li><a href="${ pageContext.request.contextPath }/mypage1/scheduler.do">스케줄러</a></li>
-			<li><a href="#">내 정보</a></li>
+			<li><a href="${ pageContext.request.contextPath }/mypage1/memberDetail.do">내 정보</a></li>
 		</ul>
 	</nav>
 	
