@@ -21,6 +21,8 @@ public interface InvitationDAO {
 
 	List<Member> selectMemberList(Map<String, String> param);
 
+	int sendInvitation(Map<String, Object> param);
+
 //	int updateInvitation(int no);
 
 
