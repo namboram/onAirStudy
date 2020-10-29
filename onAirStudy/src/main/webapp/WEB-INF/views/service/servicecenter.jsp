@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 	$("#chk").change(function() {
 		if(this.checked) {
-			const memberid = isLogined() ? isLogined() : false;
+			var memberid = isLogined() ? isLogined() : false;
 			if(memberid) {
 				$("#search_option").val('member_id');
 				$("#keyword").val(memberid);
@@ -191,11 +191,27 @@ $(document).ready(function() {
 					    </tr>
 					    
 					      <c:if test="${ serviceList != null }">
-						    <c:forEach items="${ serviceList }" var="s" >
+						 
+						    <c:forEach items="${ serviceList }" var="s">
+						    
 						    <tr>
 							      <td>${ s.no }</td>
 							      <td>${ s.serviceStatus }</td>
-							      <td>${ s.category }</td>
+							     
+							      <c:choose>
+								      <c:when test="${ s.category == 1}">
+								      	<td>신고</td>
+								      </c:when>
+								      <c:when test="${ s.category == 2}">
+								     	 <td>이용</td>
+								      </c:when>
+								      <c:when test="${ s.category == 3}">
+								     	 <td>결제</td>
+								      </c:when>
+								      <c:when test="${ s.category == 4}">
+								     	 <td>기타</td>
+								      </c:when>
+							      </c:choose>
 							      <td>
 							      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=${ s.no }">${ s.serviceTitle }</a></td>
 							      <td>${ s.memberId }</td>

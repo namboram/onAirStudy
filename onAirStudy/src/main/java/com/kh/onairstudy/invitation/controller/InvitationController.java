@@ -1,7 +1,9 @@
 package com.kh.onairstudy.invitation.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.invitation.model.service.InvitationService;
 import com.kh.onairstudy.invitation.model.vo.Invitation;
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 import lombok.extern.slf4j.Slf4j;
@@ -79,5 +83,28 @@ public class InvitationController {
 		redirectAttr.addFlashAttribute("msg", msg);
 		return "redirect:/mypage1/mystudylist.do";
 	}
+	
+	
+	
+	@RequestMapping("/mypage2/invitation.do")
+	public String invitation() {
+		return "/invitation/invitation";
+	}
+	
+	
+	@RequestMapping(value="/invitation/searchMember.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Member> searchMember(@RequestParam("searchId") String searchId, @RequestParam("roomNum") String roomNum) {
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("searchId", searchId);
+		param.put("roomNum", roomNum);
+		
+		List<Member> list = invitationService.selectMemberList(param);
+		return list;
+	}
+	
+	
+	
 	
 }
