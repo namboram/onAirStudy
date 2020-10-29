@@ -17,7 +17,6 @@
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
 				<h3>${loginMember.memberId }</h3>
 				<c:if test="${ loginMember.memberRole eq 'P'}">
-					<h5>${ loginMember.memberId }</h5>
 					<h5>premium</h5>
 				</c:if>
 			</div>
