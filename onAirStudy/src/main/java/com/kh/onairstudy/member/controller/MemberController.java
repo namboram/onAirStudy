@@ -1,24 +1,23 @@
 package com.kh.onairstudy.member.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -47,6 +46,8 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
+	
+	
 	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.GET)
 	public ModelAndView memberEnroll(ModelAndView mav) {
 		mav.addObject("name", "홍길동");
@@ -54,67 +55,54 @@ public class MemberController {
 		return mav;
 		}
 	
+	// 아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/member/idChk.do", method = RequestMethod.POST)
+	public int idChk(Member member) throws Exception {
+		int result = memberService.idChk(member);
+		return result;
+	}
+
+	
 	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.POST)
-	public String memberEnroll(RedirectAttributes redirectAttr,  Member member) {
+	public String memberEnroll(RedirectAttributes redirectAttr,  
+							   Member member) {
 		
 		String rawPassword = member.getPassword();
-		
 		String encodedPassword = bcryptPasswordEncoder.encode(rawPassword);
 		member.setPassword(encodedPassword);
-		
-		
 		log.debug("member = " + member);
-
+		
+		
 		//업무로직
-		int result = memberService.insertMember(member);
-		System.out.println(member.getMemberId());
+		//1. 회원등록
+		int result = memberService.idChk(member);
+		log.debug("member = " + member);
+		try {
+			
+		if(result == 1) {
+			return "/memeber/memberEnroll";
+		}else if(result == 0) {
+			
+			result = memberService.insertMember(member);
+//		System.out.println(member.getMemberId());
 		
-		Map<String, Object> param = new HashMap<>();
-		param.put("memberId", member.getMemberId());
-		param.put("srNo", member.getCategory());
-		
-		log.debug("param = {}",param);
-		
-		result = studyRoomService.insertMemberToSr(param);
-		String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
-		redirectAttr.addFlashAttribute("msg", msg);
+			//2. 회원 sr_log등록
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberId", member.getMemberId());
+			param.put("srNo", member.getCategory());
+			log.debug("param = {}", param);
+			result = studyRoomService.insertMemberToSr(param);
+			String msg = result > 0 ? "회원 가입 성공!" : "회원 가입 실패!";
+			redirectAttr.addFlashAttribute("msg", msg);
+			}
+		}catch(Exception e) {
+			throw new RuntimeException();
+		}
 		
 		return "redirect:/";
-		}
-
-		
-	@RequestMapping("member/checkIdDuplicate.do")
-	@ResponseBody
-	public Map<String, Object> checkIdDuplicate(@RequestParam("memberId") String memberId){
-		Map<String, Object> map = new HashMap<>();
-		//1. 업무로직
-		boolean isAvailable = memberService.selectOneMember(memberId) == null;
-		
-		//2. model 정보 : json으로 변환
-		map.put("memberId", memberId);
-		map.put("isAvailable", isAvailable);
-		
-		return map;
 	}
-	
-	
-	
-	//@RequestMapping("/checkIdDuplicate.do")
-	public String checkIdDuplicate(@RequestParam("memberId") String memberId,
-								   Model model) {
-		//1. 업무로직
-		boolean isAvailable = memberService.selectOneMember(memberId) == null;
 		
-		//2. model 정보 : json으로 변환
-		model.addAttribute("memberId", memberId);
-		model.addAttribute("isAvailable", isAvailable);
-		
-		//3. viewName으로 jsonView 지정
-		//BeanNameViewResolver(1), InternalResourceViewResolver(21억)
-		//BeanNameViewResolver에 의해 빈id가 jsonView를 검색.
-		//jsonView빈은 model의 데이터를 json문자열로 변환해 응답에 출력.
-		return "jsonView";
-	}
 	
 	
 	/*휴대폰본인인증
@@ -241,6 +229,43 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+		
+		//등록한 폼 내용 가져오기
+		@RequestMapping("/mypage1/memberDetail.do")
+		public ModelAndView memberDetail(@ModelAttribute("loginMember") Member loginMember,
+											 ModelAndView mav) {
+
+			log.debug("loginMember = {}", loginMember);
+				
+			mav.setViewName("member/memberDetail");
+			return mav;
+		}
+		
+		//수정폼 저장하기
+		@RequestMapping(value="/mypage1/memberUpdate.do", method = RequestMethod.POST)
+	
+		public String memberUpdate(Member member,
+									RedirectAttributes redirectAttributes) {
+			
+			 log.debug("member@update = {}", member);
+
+			
+	         int result = memberService.updateMember(member);
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "정보 수정성공" : "정보 수정실패");
+			
+			return "redirect:/mypage1/memberDetail.do";
+		}
+		
+		//프로필사진 업로드
+		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
+		public String mProfileInsert(@RequestParam(value = "upFile",required = false) MultipartFile upFile,
+									RedirectAttributes redirectAttr) {
+			log.debug("upfile.name = {}", upFile.getOriginalFilename());
+	        log.debug("upfile.size = {}", upFile.getSize());
+			
+	        
+	        return "redirect:/mypage1/memberDetail.do";
+		}
 		
 }
 		

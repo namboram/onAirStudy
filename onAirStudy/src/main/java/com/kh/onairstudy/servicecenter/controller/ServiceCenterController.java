@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +39,7 @@ public class ServiceCenterController {
 		
 		List<ServiceCenter> serviceList = serviceCenterService.selectServiceList(cri);
 		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
+		
 		
 		int totalCount = serviceCenterService.totalCount(null, null, 0);
 		
