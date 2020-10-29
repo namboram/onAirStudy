@@ -77,5 +77,7 @@ public interface StudyRoomService {
 
 	int updateLog(HashMap<String, String> param);
 
+	int deleteApply(StudyRoomWaiting srWating);
+
 
 }

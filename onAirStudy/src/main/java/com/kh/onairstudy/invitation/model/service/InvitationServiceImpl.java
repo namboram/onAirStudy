@@ -1,12 +1,14 @@
 package com.kh.onairstudy.invitation.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.invitation.model.dao.InvitationDAO;
 import com.kh.onairstudy.invitation.model.vo.Invitation;
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
@@ -62,6 +64,14 @@ public class InvitationServiceImpl implements InvitationService {
 	}
 
 
+
+	@Override
+	public List<Member> selectMemberList(Map<String, String> param) {
+		return invitationDAO.selectMemberList(param);
+	}
+
+	
+	
 
 //	@Override
 //	public int updateInvitation(int no) {

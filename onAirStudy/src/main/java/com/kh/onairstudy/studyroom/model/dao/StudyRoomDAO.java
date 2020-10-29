@@ -92,6 +92,8 @@ public interface StudyRoomDAO {
 
 	int updateLog(HashMap<String, String> param);
 
+	int deleteApply(StudyRoomWaiting srWating);
+
 
 
 
