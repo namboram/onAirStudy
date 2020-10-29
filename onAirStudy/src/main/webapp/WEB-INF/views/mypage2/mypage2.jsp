@@ -25,7 +25,7 @@
         	출석체크를 위해 check버튼을 눌러주세요
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="goToAttendCheck(${roomInfo.srNo})">check</button>
+        <button type="button" class="btn btn-primary" onclick="goToAttendCheck('${roomInfo.srNo}')">check</button>
       </div>
     </div>
   </div>
@@ -243,7 +243,7 @@ function post_to_url(path, params, method) {
 	}
 
 	function goToInvitation(){
-		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/invitation.do");
 	}
 	
 	function goToIndex(roomNum){
