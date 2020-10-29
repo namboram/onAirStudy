@@ -16,7 +16,15 @@ public interface MemberService {
 
 	int updateBlack(String reportedMember);
 
+	int updateMember(Member member);
+
+	Member selectOneMemberDetail(String memberId);
+
 	Map<String, Object> selectMemberInfo(String memberId);
+
+	//아이디중복체크
+	int idChk(Member member);
+
 
 
 

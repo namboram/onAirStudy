@@ -7,7 +7,7 @@ import com.kh.onairstudy.notice.model.vo.Notice;
 
 public interface NoticeService {
 
-	List<Map<String, Object>> noticeList();
+	List<Map<String, Object>> noticeList(Map<String, Object> search);
 
 	Map<String, Object> noticeDetail(int no);
 
@@ -16,5 +16,7 @@ public interface NoticeService {
 	int noticeInsert(Map<String, Object> map);
 
 	int noticeUpdate(Notice notice);
+
+	int totalNotice();
 
 }

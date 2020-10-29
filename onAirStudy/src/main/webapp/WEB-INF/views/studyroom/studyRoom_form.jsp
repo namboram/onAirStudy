@@ -86,7 +86,7 @@
 							<br /> <br /> <label for="srComment"><h4>한줄
 									소개</h4></label> <br />
 							<textarea id="srComment" rows="3" class="col-lg-12" name="srComment"
-								style="border-radius: 15px;">그룹을 소개해주세요</textarea>
+								style="border-radius: 15px;" placeholder="그룹을 소개해주세요"></textarea>
 						</div>
 						<div class="col-sm pt-3 text-center">
                         <button type="submit" class="btn btn-outline-primary">등록 </button>

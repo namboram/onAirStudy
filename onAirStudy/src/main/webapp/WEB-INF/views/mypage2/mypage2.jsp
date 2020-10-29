@@ -25,7 +25,7 @@
         	출석체크를 위해 check버튼을 눌러주세요
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="goToAttendCheck(${roomInfo.srNo})">check</button>
+        <button type="button" class="btn btn-primary" onclick="goToAttendCheck('${roomInfo.srNo}')">check</button>
       </div>
     </div>
   </div>
@@ -66,10 +66,6 @@
 	<nav class="side-navbar col-lg-2">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
-			<div class="message-icon-line">
-				<div class="icon icon-mail message" onclick="" style=""></div>
-				<div class="messageAlarm">1</div>
-			</div>
 			<div class="avatar">
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
 				<h3 class="userName">${loginMember.memberId}</h3>
@@ -77,11 +73,14 @@
 					<h5>premium</h5>
 				</c:if>
 			</div>
+			<%-- <c:if test="${ not empty memberInfo.dDay }">
+			<c:set var="dDay" value="${ memberInfo.dDay }"/>
 			<div class="d-day-display">
 				<hr>
-				<span>D - 37</span></br> <span>2020.11.02</span></br> <span>토익시험</span></br>
+				<span>D - ${  dDay.dDayCnt }</span></br> <span>${ dDay.startDate }</span></br> <span>${ dDay.content }</span></br>
 				<hr>
 			</div>
+			</c:if> --%>
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
 			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
@@ -231,7 +230,7 @@ function post_to_url(path, params, method) {
 
 <script>
 	function goToSchduler(roomNum){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/mypage1/scheduler.do?no="+roomNum);
+		 $(".changeDiv").load("${pageContext.request.contextPath}/scheduler/scheduler_.do?no="+roomNum);
 	}
 	
 	function goToQuestion(){
@@ -243,7 +242,7 @@ function post_to_url(path, params, method) {
 	}
 
 	function goToInvitation(){
-		//$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/pretest.do");
+		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/invitation.do");
 	}
 	
 	function goToIndex(roomNum){

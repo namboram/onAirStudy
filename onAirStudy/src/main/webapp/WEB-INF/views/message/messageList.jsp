@@ -8,6 +8,7 @@
 <style>
 #containerMsgK {
 	background-color: #F9F1ED;
+	min-height : 700px;
 }
 
 #contentMsgK {
@@ -18,13 +19,11 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </div>
 
-<div class="row">
-	<div class="col-lg-2">
-	<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
-	</div>
+<div class="row " id="containerMsgK">
+	<div class="col-lg-1"></div>
 	<!-- 차트 링크 -->
 	<!-- 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
-	<div class="col-lg-10 p-0" id="containerMsgK">
+	<div class="col-lg-10 mt-3 p-0">
 		<h1>${title}</h1>
 		<div class="row mb-3">
 		
@@ -49,7 +48,7 @@
 			<button type="button" class="btn btn-secondary" onclick="delMsg();" >삭제</button>
 		</div>
 		</div>
-		<div id="contentMsgK" class="m-5">
+		<div id="contentMsgK" class="m-5 ">
 			<table class="table text-center">
 				<thead>
 					<tr >
@@ -101,6 +100,7 @@
 
 		</div>
 	</div>
+	<div class="col-lg-1"></div>
 </div>
 <div class="col-lg p-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

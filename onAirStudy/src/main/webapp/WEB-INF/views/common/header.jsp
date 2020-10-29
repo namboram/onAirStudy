@@ -38,7 +38,7 @@
 <!-- 사용자작성 css -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/header.css" />
-​
+​<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 </head>
 <body>
 	<header>
@@ -91,10 +91,12 @@
 			</c:if>
 
 			<c:if test="${ not empty loginMember }">
+				<div class="icon icon-mail message" onclick="location.href='${pageContext.request.contextPath}/message/messageList.do';" style="cursor:pointer; margin-right: 5px;"></div>
 				<c:if test="${ loginMember.memberRole == 'A' }">
 				<a href="${ pageContext.request.contextPath }/admin/main.do">${ loginMember.memberName }</a>님, 안녕하세요.
 				</c:if>
 				<c:if test="${ loginMember.memberRole != 'A' }">
+				
 				<a href="${ pageContext.request.contextPath }/mypage1_index.do">${ loginMember.memberName }</a>님, 안녕하세요.
 				</c:if>
 			    &nbsp;

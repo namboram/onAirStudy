@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +39,7 @@ public class ServiceCenterController {
 		
 		List<ServiceCenter> serviceList = serviceCenterService.selectServiceList(cri);
 		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
+		
 		
 		int totalCount = serviceCenterService.totalCount(null, null, 0);
 		
@@ -124,7 +124,7 @@ public class ServiceCenterController {
 		public String serviceDelete(@RequestParam("no") int no, RedirectAttributes redirectAttributes){
 			int result = serviceCenterService.serviceDelete(no);
 			
-			redirectAttributes.addFlashAttribute("msg", result>0 ? "Dev 삭제성공" : "Dev 삭제실패");
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "게시글이 삭제되었습니다." : "삭제실패");
 			return "redirect:/servicecenter.do";
 		}
 	 

@@ -104,12 +104,13 @@ public class StudyRoomController {
 			
 				
 			}
-				
 						
 			redirectAttr.addFlashAttribute("msg", msg);			
 			return "redirect:/studyroom/studyroomlist.do";
 			
 			}
+		
+
 		
 		//찜
 		@RequestMapping("/studyroom/favStudyroom.do")
@@ -149,12 +150,14 @@ public class StudyRoomController {
 		//찾기
 		@RequestMapping(value = "/studyroom/searchStudyroom.do")
 		public ModelAndView searchRoom(@RequestParam(defaultValue="") String keyword, 
-									@RequestParam(defaultValue="srTitle") String search_option, 
+									@RequestParam(defaultValue="sr_title") String search_option, 
 									@RequestParam(defaultValue="0") int category,
 									ModelAndView mav) throws Exception {
+			log.info("search_option={}",search_option);
 			//1. map에 저장
 			List<StudyRoomList> sList = studyRoomService.listAll(search_option, keyword, category);
 			List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
+		
 			int count = studyRoomService.countArticle(search_option, keyword);
 			//mav에 값을 넣고 페이지 지정, map에 자료 저장
 			Map<String,Object> map = new HashMap<String, Object>(); 
@@ -165,8 +168,7 @@ public class StudyRoomController {
 			map.put("keyword", keyword);
 			mav.addObject("map",map);
 			
-			mav.addObject("srList", sList);		
-			
+			mav.addObject("srList", sList);				
 			mav.addObject("sCategory", sCategory);
 		
 			mav.setViewName("studyroom/studyRoomList");
@@ -191,6 +193,45 @@ public class StudyRoomController {
 
 			mav.setViewName("mypage1/mypage1_mystudy");
 			return mav;
+		}
+		
+		//스터디방 안에서 관심 삭제
+		@RequestMapping("/studyroom/delfavStudyroom.do")
+		public String delFavR(StudyRoomWish srWish, Model model,
+							@RequestParam("srNo") int srNo, 						 
+							@RequestParam("memberId") String loginM, 							
+							RedirectAttributes redirectAttr) {	
+			
+		
+			String msg = "";
+			int result = 0;	
+						
+			// 찜 등록
+															
+			int wishR = studyRoomService.selectCheckWish(srWish);
+			
+			if( wishR > 0 ) {			
+								result = studyRoomService.deleteWish(srWish);
+								msg = "관심 목록에서 해제 되었습니다.";
+		
+							}
+
+			redirectAttr.addFlashAttribute("msg", msg);
+			
+			return "redirect:/mypage1/mystudylist.do";
+			
+		}
+		
+		//신청삭제
+		@RequestMapping("/studyroom/deleteAlpplystudyroom.do")
+		public String deleteAlpply(StudyRoomWaiting srWating, @RequestParam("srNo") int srNo, 
+							@RequestParam("memberId") String memberId,
+							RedirectAttributes redirectAttr) {
+			String msg = "";
+			int result = studyRoomService.deleteApply(srWating);
+			msg = "신청을 취소 하였습니다.";
+			redirectAttr.addFlashAttribute("msg", msg);			
+			return "redirect:/mypage1/mystudylist.do";
 		}
 
 

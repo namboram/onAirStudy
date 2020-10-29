@@ -244,6 +244,12 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 		return result;
 	}
 
+
+	@Override
+	public int deleteApply(StudyRoomWaiting srWating) {
+		return studyRoomDAO.deleteApply(srWating);
+	}
+
 	
 	
 }

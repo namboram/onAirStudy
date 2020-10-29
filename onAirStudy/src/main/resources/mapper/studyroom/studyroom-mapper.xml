@@ -37,7 +37,7 @@ where
   		<result column="sr_comment" property="srComment"/>
   		<result column="member_id" property="memberId"/>
   		<result column="status_log" property="status"/>
-  		<result column="reader_yn" property="sReader"/>
+  		<result column="leader_yn" property="sleader"/>
   	</resultMap>
 
 <select id="selectMywaitingList" resultMap="waitingMap">
@@ -102,10 +102,22 @@ where
 <!-- 찾기 -->
 <select id="listAll" resultMap="studyMap">
 select
-    *
-from 
-	sr_list L left join sr_info F on l.sr_no = F.sr_no
-	<include refid="search"/>
+    L.*,
+    sr_title s_title,
+   (select    renamed_filename
+    from   profile_attachment
+    where sr_no =l.sr_no) sr_pic,
+   (select    renamed_filename
+    from   profile_attachment
+    where member_id = L.member_id) m_pic,
+    (select sr_no 
+     from sr_wish_list
+     where sr_no = L.sr_no) wish_no
+ 	from 
+		sr_list L left outer join sr_info s on l.sr_no = s.sr_no  
+<include refid="search"/> 
+	order by
+		sr_opened_yn desc
 </select>
 
 <select id="countArticle" resultType="int">
@@ -118,10 +130,15 @@ from
 
 <sql id="search">
 <choose>
+<when test = "member_id != null">
+	where 
+		L.sr_no>8 and
+		sr_ended_yn != 'Y'
+</when>
 <when test = "search_option =='all'">
 	where
 		member_id like '%' ||#{keyword}|| '%'
-	 or	sr_title like '%' ||#{keyword}|| '%'
+	 or	s_title like '%' ||#{keyword}|| '%'
 </when>
 <when test="category != 0">
      where sr_category = #{category}
@@ -184,12 +201,12 @@ select
  </select>
 
 <select id="selectCategoryList" resultType="studycategory">
-	select
-		*
-	from
-		sr_category
-	where
-		no != 100
+select 
+	distinct C.category 
+from 
+	service_category C left join service S on S.category = C.no
+where 
+	S.no != 100
 </select>
 
 <!-- 방신청 -->
@@ -210,6 +227,14 @@ where
 	member_id = #{memberId} and sr_no = #{srNo}
 
 </select>
+
+<delete id="deleteApply">
+delete from
+	sr_waiting_list 
+where
+	sr_no = #{srNo} and member_id = #{memberId}
+
+</delete>
 
 <!-- 찜 목록  -->
 <select id="selectCheckWish" resultType="_int">
@@ -292,13 +317,26 @@ from sr_log
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">
-	  	select *
-		from sr_info
+	  select I.*,
+	    (select     member_id
+	    from    sr_list
+	    where sr_no =I.sr_no) member_id,
+	    (select    renamed_filename
+	    from   profile_attachment
+	    where sr_no =I.sr_no) sr_pic,
+	   (select    renamed_filename
+	    from   profile_attachment
+	    where sr_no = I.sr_no) m_pic
+	from sr_info I
 	<![CDATA[  
 		where sr_ranking >=1 and sr_ranking <= 5
 		]]>
+
 		
 	</select>
+	
+	
+	
 
 
 	<select id="selectParticipantList" resultType="studyroomlog">
@@ -396,100 +434,4 @@ from sr_log
 		and 
 			status_log = '참여'
 	</select>
-	
-	<insert id="insertMemberToSr">
-	insert into 
-		sr_log
-	values(
-		seq_sr_log_no.nextval,
-		#{ srNo },
-		#{ memberId },
-		'미참여',
-		0,
-		default
-	)
-	
-	</insert>  
-	
-	<update id="updateRoomInfo">
-		update 
-			sr_info 
-		set 
-			sr_title = #{srTitle} , 
-			sr_goal = #{srGoal} , 
-			sr_comment = #{srComment} , 
-			attend_day = #{ attendDay} , 
-			attend_time = #{attendTime} , 
-			forced_exit_opt = #{ forceExitOpt} , 
-			forced_exit_yn = #{ forceExitYN }
-		where 
-			sr_no = #{srNo}
-	</update>
-	
-	<update id="updateRoomOpenedYN">
-		update
-			sr_list
-		set
-			sr_opened_yn = #{srOpenedYN}
-		where
-			sr_no = ${srNo}
-	</update>
-	
-	<update id="updateLog">
-		update 
-			sr_log
-		set 
-			status_log = '나가기',
-			leader_yn = 'N' 
-		where 
-			member_id = #{memberId} 
-		and 
-			sr_no = #{srNo}
-	</update>
-
-	<update id="withdraw">
-		update 
-			sr_log 
-		set 
-			status_log = '나가기' 
-		where 
-			member_id = #{memberId} 
-		and 
-			sr_no = #{srNo}
-	</update>
-
-
-	<delete id="deleteMemberAttend">
-		delete from 
-			attendance 
-		where 
-			member_id = #{memberId} 
-		and 
-			sr_no = #{srNo}
-	</delete>
-
-	<select id="selectNextLeader" resultType="string">
-		select 
-			member_id 
-		from (
-		    select rownum, sr_log.*
-		    from sr_log
-		    where sr_no = #{srNo} 
-		    and sr_log.status_log = '참여'
-		    order by no
-		) 
-		where rownum = 1
-	</select>
-
-	<update id="updateLeader">
-		update 
-			sr_log 
-		set  
-			leader_yn = 'Y' 
-		where 
-			member_id = '${memberId}' 
-		and 
-			sr_no = #{srNo}
-	</update>
-
 </mapper>
