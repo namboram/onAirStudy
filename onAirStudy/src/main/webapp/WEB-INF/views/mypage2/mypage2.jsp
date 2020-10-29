@@ -73,14 +73,14 @@
 					<h5>premium</h5>
 				</c:if>
 			</div>
-			<c:if test="${ not empty memberInfo.dDay }">
+			<%-- <c:if test="${ not empty memberInfo.dDay }">
 			<c:set var="dDay" value="${ memberInfo.dDay }"/>
 			<div class="d-day-display">
 				<hr>
 				<span>D - ${  dDay.dDayCnt }</span></br> <span>${ dDay.startDate }</span></br> <span>${ dDay.content }</span></br>
 				<hr>
 			</div>
-			</c:if>
+			</c:if> --%>
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
 			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
