@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.onairstudy.attendance.model.service.AttendanceService;
 import com.kh.onairstudy.attendance.model.vo.Attendance;
@@ -23,12 +24,15 @@ import com.kh.onairstudy.studytime.model.service.StudytimeService;
 import com.kh.onairstudy.studytime.model.vo.Studytime;
 
 import lombok.extern.slf4j.Slf4j;
+
+import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.member.model.vo.Member;
 
 
 @Slf4j
 @Controller
 @RequestMapping
+@SessionAttributes({"memberInfo"})
 public class StudytimeController {
 	
 	@Autowired
@@ -40,12 +44,13 @@ public class StudytimeController {
 	@Autowired
 	private SchedulerService schedulerService;
 	
-	
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping("/mypage1_index.do")
 	public String studytimeList(Model model, HttpSession session) {
 		
-		Member loginMember = (Member) session.getAttribute("loginUser");
+		Member loginMember = (Member)session.getAttribute("loginUser");
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", loginMember.getMemberId());
@@ -54,16 +59,21 @@ public class StudytimeController {
 		List<Attendance> attendList = attendanceService.selectList(loginMember.getMemberId());
 		List<Scheduler> scheduleList = schedulerService.mainScheduler(map);
 		List<String> srList = studytimeService.selectsrList(loginMember.getMemberId());
+		Map<String, Object> memberInfo = memberService.selectMemberInfo(loginMember.getMemberId());
+		
+		
 		
 		log.info("studytimeList= {}", studytimeList);
 		log.info("attendList= {}" , attendList );
 		log.info("todoList ={}" , scheduleList);
 		log.info("srList ={}" , srList);
+		log.info("memberInfo ={}" , memberInfo);
 		
 		model.addAttribute("studytimeList",studytimeList);
 		model.addAttribute("attendList" , attendList );
 		model.addAttribute("todoList" , scheduleList );
 		model.addAttribute("srList" , srList );
+		model.addAttribute("memberInfo" , memberInfo );
 		
 		return "mypage1/mypage1_index";
 		

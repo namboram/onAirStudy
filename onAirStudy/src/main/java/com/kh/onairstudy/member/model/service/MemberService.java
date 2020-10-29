@@ -1,6 +1,8 @@
 package com.kh.onairstudy.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.onairstudy.member.model.vo.Member;
 
@@ -17,6 +19,9 @@ public interface MemberService {
 	int updateMember(Member member);
 
 	Member selectOneMemberDetail(String memberId);
+
+	Map<String, Object> selectMemberInfo(String memberId);
+
 
 
 

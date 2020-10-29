@@ -3,7 +3,7 @@ package com.kh.onairstudy.member.model.dao;
 import java.util.List;
 
 import com.kh.onairstudy.member.model.vo.Member;
-import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
+import com.kh.onairstudy.member.model.vo.MemberInfo;
 
 public interface MemberDAO {
 
@@ -19,10 +19,10 @@ public interface MemberDAO {
 
 	Member selectOneMemberDetail(String memberId);
 
-
-
-
-
-
+	String getMemberImage(String memberId);
+	
+	String selectNextPaymentDay(String memberId);
+	
+	MemberInfo selectdDayInfo(String memberId);
 
 }

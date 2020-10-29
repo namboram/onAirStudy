@@ -33,4 +33,9 @@ public class TestServiceImpl implements TestService {
 		return testDAO.selectQuestion(srNo);
 	}
 
+	@Override
+	public int updatePoint(String memberId) {
+		return testDAO.updatePoint(memberId);
+	}
+
 }

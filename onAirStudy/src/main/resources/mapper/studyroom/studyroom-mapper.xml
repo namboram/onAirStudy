@@ -103,16 +103,16 @@ where
 <select id="listAll" resultMap="studyMap">
 select
     *
-	from 
-		sr_list L left join sr_info F on l.sr_no = F.sr_no 
+from 
+	sr_list L left join sr_info F on l.sr_no = F.sr_no
 	<include refid="search"/>
 </select>
 
 <select id="countArticle" resultType="int">
 select
     count(*)
-	from 
-		sr_list L left join sr_info F on l.sr_no = F.sr_no
+from 
+	sr_list L left join sr_info F on l.sr_no = F.sr_no
 <include refid="search"/> 
 </select>
 
@@ -123,12 +123,16 @@ select
 		member_id like '%' ||#{keyword}|| '%'
 	 or	sr_title like '%' ||#{keyword}|| '%'
 </when>
+<when test="category != 0">
+     where sr_category = #{category}
+</when>
 <otherwise>
 	where
 	 ${search_option} like '%' ||#{keyword}|| '%'
 </otherwise>
 </choose>
 </sql>
+
 
 <!-- 메인 스터디룸 리스트  -->
 

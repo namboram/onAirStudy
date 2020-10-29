@@ -90,8 +90,33 @@
   	<result column="category" property="category"/> 
   </resultMap>
 
-
-
+	<select id="getMemberImage" resultType="string">
+		select renamed_filename
+		from profile_attachment
+		where member_id = #{memberId}
+	</select>
+	
+	<select id="selectNextPaymentDay" resultType="string">
+		select to_date(add_months(payment_date, 3), 'YY/MM/DD') - to_date(sysdate, 'YY/MM/DD') "d_day_payment"
+		from payment_log 
+		where member_id = #{memberId}
+	</select>
+	
+	<select id="selectdDayInfo" resultMap="memberinfoMap">
+		select *
+		from (
+		    select start_date - to_date(sysdate, 'YY/MM/DD') "d_day_count", start_date, content
+		    from scheduler 
+		    where d_yn = 'Y' and member_id = #{memberId}
+		) M
+		where  start_date - to_date(sysdate, 'YY/MM/DD') > 0
+	</select>
+  
+  <resultMap type="memberinfo" id="memberinfoMap">
+    <result column="d_day_count" property="dDayCnt"/>
+  	<result column="start_date" property="startDate"/>
+  	<result column="content" property="content"/>
+  </resultMap>
 
   
   

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.member.model.vo.Member;
-import com.kh.onairstudy.studyroom.model.vo.StudyRoomLog;
+import com.kh.onairstudy.member.model.vo.MemberInfo;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -48,6 +48,19 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public Member selectOneMemberDetail(String memberId) {
 		return sqlSession.selectOne("member.selectOneMemberDetail",memberId);
+	}
+	public String getMemberImage(String memberId) {
+		return sqlSession.selectOne("member.getMemberImage", memberId);
+	}
+
+	@Override
+	public String selectNextPaymentDay(String memberId) {
+		return sqlSession.selectOne("member.selectNextPaymentDay", memberId);
+	}
+
+	@Override
+	public MemberInfo selectdDayInfo(String memberId) {
+		return sqlSession.selectOne("member.selectdDayInfo", memberId);
 	}
 
 	
