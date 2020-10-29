@@ -127,7 +127,7 @@
 	</select>
   
   <resultMap type="memberinfo" id="memberinfoMap">
-    <result column="count" property="dDayCnt"/>
+    <result column="count" property="dayCnt"/>
   	<result column="start_date" property="startDate"/>
   	<result column="content" property="content"/>
   </resultMap>

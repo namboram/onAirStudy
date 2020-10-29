@@ -43,37 +43,8 @@
 						<th>이름</th>
 						<th>초대</th>
 					</tr>
-					<%-- <c:forEach items="${ list }" var="m">
-						<tr>
-							<td>${m.no }</td>
-							<td>${m.memo }</td>
-							<td><fmt:formatDate value="${m.regDate }"
-									pattern="yy/MM/dd HH:mm:ss"></fmt:formatDate></td>
-							<td><button type="button" class="btn btn-outline-danger"
-									onclick="deleteMemo('${ memo.no }')">삭제</button></td>
-						</tr>
-					</c:forEach> --%>
-				<!-- 	<tr>
-						<td>1</td>
-						<td>honggd</td>
-						<td>홍길동</td>
-						<td>
-							<button type="button" class="btn btn-primary" onclick="">Invite</button>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>kinghj</td>
-						<td>김해지</td>
-						<td>
-							<button type="button" class="btn btn-primary" onclick="">Invite</button>
-						</td>
-					</tr> -->
-					<!-- <tr>
-						<td colspan="4">해당하는 회원이 없습니다</td>
-					</tr> -->
 				</table>
-					<hr />
+				<hr />
 			</div>
 		</div>
 	</div>
@@ -92,7 +63,7 @@ function searchMember(){
 		dataType : "json",
 		success : function(data) {
 			 	console.log(data);
-	           
+			 	displayTableData(data);
 		},
 		error : function(xhr, status, err) {
 			console.log("처리실패!");
@@ -101,9 +72,35 @@ function searchMember(){
 			console.log(err);
 		}
 
-
-
 	});
+
+}
+
+
+function displayTableData(data){
+
+	var $container = $("#invitationTable");
+
+	var html = "";
+	if(data.length > 0){
+		for(var i in data){
+			
+			var m = data[i];
+
+			html += "<tr>"
+				  + "<td>" + i +"</td>"
+				  + "<td>" + m.memberId +"</td>"
+				  + "<td>" + m.memberName +"</td>"
+				  + "<td><button type='button' class='btn btn-primary' onclick=''>Invite</td>"
+				  + "</tr>";
+
+		}
+	}else{
+
+		html += "<tr><td colspan='4'>검색된 회원이 없습니다</td></tr>";
+	}
+
+	$container.append(html);
 }
 
 </script>
