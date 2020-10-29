@@ -230,7 +230,7 @@ function post_to_url(path, params, method) {
 
 <script>
 	function goToSchduler(roomNum){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/mypage1/scheduler.do?no="+roomNum);
+		 $(".changeDiv").load("${pageContext.request.contextPath}/scheduler/scheduler_.do?no="+roomNum);
 	}
 	
 	function goToQuestion(){
