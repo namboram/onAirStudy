@@ -94,13 +94,17 @@ public class InvitationController {
 	
 	@RequestMapping(value="/invitation/searchMember.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<Member> searchMember(@RequestParam("searchId") String searchId, @RequestParam("roomNum") String roomNum) {
+	public List<Member> searchMember(@RequestParam("searchId") String searchId,
+									@RequestParam("roomNum") String roomNum) {
 		
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("searchId", searchId);
 		param.put("roomNum", roomNum);
 		
 		List<Member> list = invitationService.selectMemberList(param);
+		
+		log.debug("list = {}", list);
+		
 		return list;
 	}
 	
