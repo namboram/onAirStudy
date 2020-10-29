@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.onairstudy.common.PagingCriteria;
+import com.kh.onairstudy.servicecenter.model.vo.ServiceCategory;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
@@ -27,6 +28,8 @@ public interface ServiceCenterDAO {
 	int serviceUpdate(ServiceCenter service);
 
 	int serviceDelete(int no);
+
+	List<ServiceCategory> selectCategory();
 	
 
 	

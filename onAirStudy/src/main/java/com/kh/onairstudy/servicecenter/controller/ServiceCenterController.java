@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import com.kh.onairstudy.common.PageMaker;
 import com.kh.onairstudy.common.PagingCriteria;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.servicecenter.model.service.ServiceCenterService;
+import com.kh.onairstudy.servicecenter.model.vo.ServiceCategory;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
@@ -40,6 +40,7 @@ public class ServiceCenterController {
 		
 		List<ServiceCenter> serviceList = serviceCenterService.selectServiceList(cri);
 		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
+		List<ServiceCategory> serviceCategory = serviceCenterService.selectserviceCategory();
 		
 		int totalCount = serviceCenterService.totalCount(null, null, 0);
 		

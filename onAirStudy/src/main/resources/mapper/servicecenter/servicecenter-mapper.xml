@@ -95,16 +95,26 @@ where
 </resultMap>
 
 
+<select id="serviceCategory" resultType="serviceCategory">
+	select
+		*
+	from
+		service_category
+	where
+		no != 100 
+</select>
+
  
  <select id="selectServiceList" resultMap="serviceListMap">
 <![CDATA[
- 		select * 
+ 		select *
+ 		
  		from (select 
- 				/* + INDEX_DESC(service) */ 
  			  	rownum rn, no, category, service_title, service_content, member_id , service_date, service_status
  			  from 
  			  	service 
- 			  where rownum <= #{pageNum} * #{amount})
+ 			  where rownum <= #{pageNum} * #{amount}) 
+ 			  
  		where rn > (#{pageNum} - 1) * #{amount}
  		order by no desc
  	]]>
@@ -112,9 +122,9 @@ where
  	
 </select>
 
-
  
  <!-- 카테고리 숫자 -> 글자로 불러오기
+ 
   	select C.category
 	from service S left join service_category C on S.category = C.no -->
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.common.PagingCriteria;
+import com.kh.onairstudy.servicecenter.model.vo.ServiceCategory;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceCenter;
 import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
@@ -80,6 +81,11 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	@Override
 	public int serviceDelete(int no) {
 		return sqlSession.delete("service.serviceDelete" , no);
+	}
+
+	@Override
+	public List<ServiceCategory> selectCategory() {
+		return sqlSession.selectList("service.serviceCategory");
 	}
 
 

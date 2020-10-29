@@ -1,5 +1,7 @@
 package com.kh.onairstudy.servicecenter.model.vo;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +13,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
-
-public class ServiceContent {
-	private int no;
-	private int category;
-	private String title;
-	private String content;
-	
+public class ServiceCategory implements Serializable {
+		
+		private int no;
+		private String category;
 }
