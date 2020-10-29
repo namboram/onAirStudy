@@ -109,7 +109,7 @@
 	</select>
 	
 	<select id="selectNextPaymentDay" resultType="string">
-	select add_months(payment_date, 3) - trunc(sysdate)
+	select trunc(add_months(payment_date, 3) - trunc(sysdate))
 	from payment_log p 
 	where member_id = #{memberId}
 	

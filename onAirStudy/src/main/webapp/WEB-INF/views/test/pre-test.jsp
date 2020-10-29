@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<style>
-.tq_G {
+<!-- <style>
+ .answerChoice {
 	columns: 2;
-}
-</style>
+} 
+</style> -->
+
 <div class="pre_test" style="margin-bottom: 0;">
 	<div class="row">
 
@@ -27,103 +28,157 @@
 				</div>
 				<input type="hidden" name="srNo" value="${roomInfo.srNo }" />
 
-				<div class="tq_G">
-					<c:forEach items="${testList}" var="t">
+<div hidden>
+<c:forEach items="${testList}" var="t">
+<div class="question">${t.testQuestion}</div>
+<div class="pic"><c:if test="${t.renamedFilename != null }">
+								<img class="testPic" style="height:200px;"
+								src="${pageContext.request.contextPath }/resources/testPic/${ t.renamedFilename }"> 
+								</c:if> </div>
+<div class="choice1">${ t.testChoice_1 }</div>
+<div class="choice2">${ t.testChoice_2 }</div>
+<div class="choice3">${ t.testChoice_3 }</div>
+<div class="choice4">${ t.testChoice_4 }</div>
+<div class="answer">${ t.testAnswer }</div>
+</c:forEach></div>		
+<div class="tq_G">
+					
 							<div class="col-lg questionX"
 								style="background-color: #FFF0F0; border-radius: 15px; padding: 15px;">
 								<div class="questionBox" style="background-color: white; overflow:auto; border-radius:15px; height:250px; padding:3%">		
-								 ${t.testQuestion} <br /><br />
-								<c:if test="${t.renamedFilename != null }">
-								<img class="testPic" style="height:200px;"
-								src="${pageContext.request.contextPath }/resources/testPic/${ t.renamedFilename }"> 
-								</c:if>
+								  <br /><br />
+								  
+								  
+								<div class="picT">
+								
+								</div>
 							
 								</div>
 								<br> <br> 
-								<input class="bradio gu1 rad1" name="classtype1" id="classtype1" type="radio" value="1">
-								<label class="classtype div1 lav1" lanum="1" lav="1" lavno="1" style="background-image: url(&quot;img/1_on.png&quot;);"></label>
-								<input type="button" class="btn btn-outline-dark btn-sm choice1" id="choice1" value="1"
-									style="margin-right: 10px; border-radius: 50%;">
 								
-								<input
-									type="text" class="col-lg-10" style="border-radius: 15px;"
-									value="${t.testChoice_1}" readonly> <br>
+								
+								
+								<label for="choice1"><h4>①</h4></label>
+								<input type="text" class="col-lg-10" id="choice1" name="choice1"
+									style="border-radius: 15px;" value="" readonly> <br>
 									
-								<input type="button" class="btn btn-outline-dark btn-sm choice2" id="choice2"
-									value="2" style="margin-right: 10px; border-radius: 50%;">
-								<input type="text" class="col-md-10"
+								<label for="choice2"><h4>②</h4></label>
+								<input type="text" class="col-md-10" id="choice2" name="choice2"
 									style="border-radius: 15px; margin-top: 15px;"
-									value="${t.testChoice_2}" readonly> <br> 
+									value="" readonly> <br> 
 									
-								<input
-									type="button" class="btn btn-outline-dark btn-sm choice3" id="choice3"
-									value="3" style="margin-right: 10px; border-radius: 50%;">
-								<input type="text" class="col-lg-10"
+								<label for="choice3"><h4>③</h4></label>
+								<input type="text" class="col-lg-10" id="choice3" name="choice3"
 									style="border-radius: 15px; margin-top: 15px;"
-									value="${t.testChoice_3}" readonly> <br> 
+									value="" readonly> <br> 
 									
-								<input
-									type="button" class="btn btn-outline-dark btn-sm choice4" id="choice4"
-									value="4" style="margin-right: 10px; border-radius: 50%;">
-								<input type="text" class="col-lg-10"
+								<label for="choice4"><h4>④</h4></label>
+								<input type="text" class="col-lg-10" id="choice4" name="choice4"
 									style="border-radius: 15px; margin-top: 15px;"
-									value="${t.testChoice_4}" readonly>
-									
-								<input type="text" id="testAnswer" value="${t.testAnswer}" />
-								<input type="text" id="userAnswer" class="userAnswer" />
-							
+									value="" readonly>															
 							</div>
 							<br>		
 
-					</c:forEach>
+				
 				</div>
-
+				
+				<div class="card">
+				<div class="card-header bg-warning"><h4>답안지</h4></div>
+				<div class="card-body">
+				<div class="answerChoice">
+				<div class="col-lg-4 row" spnum="1">
+				<h4>1.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="2">
+				<h4>2.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="3">
+				<h4>3.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="4">
+				<h4>4.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="5">
+				<h4>5.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="6">
+				<h4>6.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="7">
+				<h4>7.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="8">
+				<h4>8.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="9">
+				<h4>9.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				<div class="col-lg-4 row" spnum="10">
+				<h4>10.</h4>
+				<button class="btn" value="1"><h4>①</h4></button>
+				<button class="btn" value="2"><h4>②</h4></button>
+				<button class="btn" value="3"><h4>③</h4></button>
+				<button class="btn" value="4"><h4>④</h4></button>				
+				</div>
+				
+				</div>
+				</div>
+				<div class="card-footer bg-white">
 				<div align="center">
-					<button type="submit" class="btn btn-outline-primary"
-						style="margin-right: 30px;" onclick="submitTest('${roomInfo.srNo}')">제출하기</button>
+					<button type="submit" class="btn btn-outline-primary" onclick="submitTest('${roomInfo.srNo}')">제출하기</button>
 				</div>
+				</div>		
+								
 				<br>
+			
 			</div>
 		</div>
-		<script>
-		function submitTest(srNo){
-			if(confirm("제출 하시겠습니까?")){
-				$.ajax({
-					url : "${pageContext.request.contextPath}/mypage2/submitTest.do",
-					type : "POST",
-					data :{
-						},
-						dataType : "text",
-					success : 
-					});
 
-				}	
-					}
-		
-		</script>
-		
-		<script>
-	
-		   $(".choice1").click(function(){
-				return $(".choice1").val();
-		        });
-		    $(".choice2").click(function(){
-				return $(".choice2").val();
-		        });
-		    $(".choice3").click(function(){
-				return $(".choice3").val();
-		        });
-		    $(".choice4").click(function(){
-				return $(".choice4").val();
-		        }); 
-		    
-		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
-				  $(".userAnswer").val(event.result);					 			
-		        });
-		 
-	
-	
-		</script>
 		
 		<!-- The Modal -->
 		<div class="modal fade" id="myModal_sub_G">
