@@ -11,7 +11,7 @@ import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
 public interface ServiceCenterService {
 
-	List<ServiceCenter> selectServiceList(PagingCriteria cri);
+	List<ServiceCenter> selectServiceList(Map<String, Object> map);
 
 	List<ServiceContent> selectServiceContentList();
 
@@ -21,7 +21,7 @@ public interface ServiceCenterService {
     //매개변수는 시작 레코드 번호, 끝번호, 옵션과 키워드가 들어간다.
 	List<ServiceCenter> listAll(String search_option, String keyword, int category);
 
-	int totalCount(String search_option, String keyword, int category);
+	int totalCount(Map<String, Object> map);
 
 
 	Map<String, Object> serviceDetail(int no);
