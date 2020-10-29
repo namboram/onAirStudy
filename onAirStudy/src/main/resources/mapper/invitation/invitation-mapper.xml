@@ -71,4 +71,39 @@ values(
 		and 
 			status_log = '참여'
 	</select>
+	
+	<select id="selectMemberList" resultMap="memberMap">
+	select 
+		member_id, member_name 
+	from 
+		member
+	where 
+		member_id not in (select member_id from sr_log where sr_no = #{roomNum} and status_log = '참여') 
+	and 
+		member_role = 'P' 
+	and 
+		member_id like '%' || #{searchId} || '%'
+	</select>
+	
+	<resultMap type="member" id="memberMap">
+    <result column="member_id" property="memberId"/>
+  	<result column="member_name" property="memberName"/>
+  	<result column="password" property="password"/>
+  	<result column="member_role" property="memberRole"/>
+  	<result column="phone" property="phone"/>
+  	<result column="diligent_point" property="diligentPoint"/>
+  	<result column="blacklist_yn" property="blacklist"/>
+  	<result column="withdraw_yn" property="withdraw"/>
+  	<result column="member_comment" property="comment"/>
+  	<result column="category" property="category"/> 
+  	<result column="m_pic" property="mPic"/>
+  </resultMap>
+	
+	
+	<insert id="sendInvitation">
+		insert into invitation values(seq_invitation_no.nextval, #{hostingId}, #{invitedId}, #{srNo}, default, default)
+	</insert>
+	
+	
+	
 </mapper>
