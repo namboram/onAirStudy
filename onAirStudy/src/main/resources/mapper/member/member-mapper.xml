@@ -116,13 +116,14 @@
 	</select>
 	
 	<select id="selectdDayInfo" resultMap="memberinfoMap">
-		select *
-		from (
-		    select start_date - to_date(sysdate, 'YY/MM/DD') "count", start_date, content
-		    from scheduler 
-		    where d_yn = 'Y' and member_id = #{memberId}
-		) M
-		where  start_date - to_date(sysdate, 'YY/MM/DD') > 0
+		select start_date, content, trunc(start_date - trunc(sysdate)) "count" 
+		from scheduler 
+		where 
+			d_yn = 'Y' 
+		and 
+			member_id = 'jhking' 
+		and 
+			trunc(start_date - trunc(sysdate)) > 0
 	</select>
   
   <resultMap type="memberinfo" id="memberinfoMap">
