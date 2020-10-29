@@ -29,6 +29,8 @@ public class Member implements Serializable{
 		   private int category;
 		   private Date enrollDate;
 		   
+		   private String mPic;
+		   
 		   
 		
 	}

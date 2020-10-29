@@ -40,8 +40,11 @@
 							
 								</div>
 								<br> <br> 
+								<input class="bradio gu1 rad1" name="classtype1" id="classtype1" type="radio" value="1">
+								<label class="classtype div1 lav1" lanum="1" lav="1" lavno="1" style="background-image: url(&quot;img/1_on.png&quot;);"></label>
 								<input type="button" class="btn btn-outline-dark btn-sm choice1" id="choice1" value="1"
 									style="margin-right: 10px; border-radius: 50%;">
+								
 								<input
 									type="text" class="col-lg-10" style="border-radius: 15px;"
 									value="${t.testChoice_1}" readonly> <br>
@@ -67,6 +70,7 @@
 									value="${t.testChoice_4}" readonly>
 									
 								<input type="text" id="testAnswer" value="${t.testAnswer}" />
+								<input type="text" id="userAnswer" class="userAnswer" />
 							
 							</div>
 							<br>		
@@ -76,11 +80,27 @@
 
 				<div align="center">
 					<button type="submit" class="btn btn-outline-primary"
-						style="margin-right: 30px;" onclick="submit('${roomInfo.srNo}')">제출하기</button>
+						style="margin-right: 30px;" onclick="submitTest('${roomInfo.srNo}')">제출하기</button>
 				</div>
 				<br>
 			</div>
 		</div>
+		<script>
+		function submitTest(srNo){
+			if(confirm("제출 하시겠습니까?")){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/mypage2/submitTest.do",
+					type : "POST",
+					data :{
+						},
+						dataType : "text",
+					success : 
+					});
+
+				}	
+					}
+		
+		</script>
 		
 		<script>
 	
@@ -98,9 +118,9 @@
 		        }); 
 		    
 		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
-				$(".userAnswer").val(event.result);			 			
-					 			
+				  $(".userAnswer:eq()").val(event.result);					 			
 		        });
+		 
 	
 	
 		</script>
