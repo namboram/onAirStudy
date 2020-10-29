@@ -10,10 +10,6 @@
 	<nav class="side-navbar mypage-sideBar">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header py-5">
-			<div class="message-icon-line">
-				<div class="icon icon-mail message" onclick="location.href='${pageContext.request.contextPath}/message/messageList.do';" style="cursor:pointer;"></div>
-				<div class="messageAlarm" >1</div>
-			</div>
 			<div class="avatar">
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
 				<h3>${loginMember.memberId }</h3>
