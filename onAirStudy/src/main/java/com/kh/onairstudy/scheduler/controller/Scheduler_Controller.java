@@ -251,11 +251,7 @@ public class Scheduler_Controller {
 			sch = new Scheduler();
 
 			//방번호유무
-			if(roomNum != null)
-				sch.setSrNo(roomNum);
-			else
-				sch.setMemberId(member.getMemberId());
-			
+			sch.setSrNo(roomNum);
 			sch.setStartDate(startDate);
 			sch.setEndDate(startDate);
 			sch.setContent(contents[i]);
@@ -266,6 +262,7 @@ public class Scheduler_Controller {
 			log.debug("sch={}", sch);
 			list.add(sch);
 		}
+		
 		
 		Map<String, Object> map = new HashMap<>();
 		

@@ -7,7 +7,7 @@
 <%-- 한글 깨짐 방지 --%>
 
 <!-- 필요 js 및 css -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -15,7 +15,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-	crossorigin="anonymous">
+	crossorigin="anonymous"> -->
 
 <!-- 날짜변환 -->
 <script type="text/javascript"
@@ -194,7 +194,7 @@
 				<div class="modal-body">
 					<h5>To do List</h5>
 					<form id="storeTodoFrm" method="POST">
-					<input type="hidden" name="roomNum" value="15" />
+					</form>
 						<table class="table" id="todoTable">
 
 
@@ -203,7 +203,7 @@
 
 
 						</table>
-					</form>
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" onclick="deleteTodoBtn();"
@@ -253,6 +253,7 @@
 			var checkB = $("#todoTable input:checkbox");
 
 			var Frm = $("#storeTodoFrm");
+			
 			var startD = $("#todoDateB").text();
 
 			if(checkB.length == 0 ){
@@ -262,14 +263,15 @@
 			
 			//날짜입력
 			Frm.append($('<input/>', {type:'hidden', name:'startDate', value: startD }));
+			Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: 15 }));
 
 			checkB.each(function(i, item){ 
 				//내용과 enabled 여부
 				Frm.append($('<input/>', {type:'hidden', name:'content', value: item.value }));
 				Frm.append($('<input/>', {type:'hidden', name:'checked', value: item.checked }));
+				
 
 			});
-
 			if(!confirm("저장하시겠습니까?"))
 					return;
 
@@ -281,6 +283,7 @@
 					data : formB,
 					datatype:"json",
 					success:function(list){
+						Frm.empty();
 						alert(list);
 						
 						/* viewTodoList(); */
@@ -303,34 +306,16 @@
     //ajax
 	var index = 0;
     function viewTodoList(e){
-        $tbl = $("#todoTable");
-        $addT = $("#addTableTodo");
-        htmlB = "";
+        var $tbl = $("#todoTable");
+        var $addT = $("#addTableTodo");
+        var htmlB = "";
         $tbl.empty();
         $addT.empty();
-
+        
 		$("#todoDateB").text(e);
 
-        
-		if(sches.length > 0){
-        	for(var i = 0 ; i<sches.length ; i++){
 
-				if(sches[i].startDate == e && sches[i].scheduleYN=="N" && sches[i].dYN=="N"){
-					htmlB += "<tr id='bb"+index+"'><td><input type='checkbox' class='chechBB' id='b"+index+"' value='"+sches[i].content+"' style='display:none;'";
-					if(sches[i].enabledYN == "Y")
-						htmlB += " checked";
-					htmlB += ">";
-					htmlB += "<label for='b"+index+"' onclick='checkcheckB(b"+index+", this)' ";
-					if(sches[i].enabledYN == "Y")
-						htmlB += "style='text-decoration:line-through;'";
-					htmlB += ">"+sches[i].content+"</label></td>";
-					htmlB += "<td class='tdB'><button type='button' class='btn btn-light' onclick='deleteTodo(bb"+index+")'>x</button></td></tr>";
-					index++;		
-				}
-            }
-        
-	}
-		else if(schedules.length > 0){
+		if(schedules.length > 0){
 			for(var i = 0 ; i<schedules.length ; i++){
 
 				if(schedules[i].startDate == e && schedules[i].scheduleYN=="N" && schedules[i].dYN=="N"){
@@ -380,6 +365,7 @@
 		index++;
 
 		$("#todoTable").append(htmlB);
+		$(".addTodoVal").val("");
 		}else{
 			alert("내용을 입력해주세요.");
 		}
@@ -658,8 +644,6 @@
    		    return  year + '-' + month + '-' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
    		}
 
-   		var sches = [];
-
    		//새로고침버튼 클릭 ajax
    	    $("#searchButton").click(function(){
    	     
@@ -678,7 +662,7 @@
    	                    
 
    	                    //배열초기화
-		   	             sches= [];
+		   	             schedules= [];
    	    	                    
 	   	                $.each(values, function( index, value ) {
 		   	                //Date 변환
@@ -687,10 +671,10 @@
 
 		   	                
 	   	                    //배열추가 
-	   	                  	sches.push(new schedule(value.no, value.srNo, formatB(start), formatB(end), value.content, value.colorCode, value.scheduleYN, value.timeOpt == null? null:value.timeOpt, value.dyn, value.enabledYN));
+	   	                  	schedules.push(new schedule(value.no, value.srNo, formatB(start), formatB(end), value.content, value.colorCode, value.scheduleYN, value.timeOpt == null? null:value.timeOpt, value.dyn, value.enabledYN));
 	   	                 });
 
-						console.log(sches);
+						console.log(schedules);
 						
 						 drawCalendar();
    	                    
@@ -854,79 +838,9 @@
                 }
 
                     //스케줄넣어주기 ajax
-                    if(sches.length>0){
-                        scheing();
-                    }
-                    else if (schedules.length>0){
+                    if (schedules.length>0){
                     	scheduling();
                    	}
-
-                }
-
-            //ajax
-            function scheing(){
-
-            	if(sches.length > 0){
-					var cnt = 0;
-					var thisTd;
-					var cnt = 0;
-					var arrays = [];
-
-					//for
-					for(var i = 0 ; i < sches.length ; i++){
-
-						//디데이부터 빼주기
-						if(sches[i].dYN == "Y"){
-							$("[name=DYN]").attr("disabled", true).next().empty().append("디데이가 이미 등록되어 있습니다.").css("color", "grey");
-                          }
-
-                          var sts = $("#"+sches[i].startDate);
-                          var firstDate = sches[i].startDate.substr(8);
-                          
-                          var htmlBB = "";
-
-                          //일정 출력해주기
-	                      if(sts!=null){
-
-	                      		if(!(sches[i].dYN=="N" && sches[i].scheduleYN =="N")){	                          
-
-
-	                        	htmlBB += "<div style='background-color:"+sches[i].colorCode+";'>";
-
-	                        	if(firstDate == "01" || i==0 || (i>=1 && sches[i-1].no != sches[i].no)){
-
-	                        		htmlBB += sches[i].content;
-		                          }
-
-	                        	htmlBB += "</div>";
-	                      		}
-	                      		
-	                      	//To do List 날짜 배열화
-							if(sches[i].dYN=="N" && sches[i].scheduleYN =="N")
-	                      		arrays.push(sches[i].startDate);
-
-							sts.append(htmlBB);
-
-						}
-		             }
-
-		             if(arrays == null)
-			             return;
-		             
-		             	//todo 중복날짜 필터링
-						var startArrays = arrays.filter(function(item, i, a){
-							return i==a.indexOf(item);
-						});
-
-						//todo 일정출력
-						for(var i = 0 ; i<startArrays.length ; i++){
-							$("#"+startArrays[i]).append("<div class= 'to-doB' style='background-color:skyblue; color: white;'> To do List </div>");
-
-						}
-
-		             
-
-				}
 
                 }
 
