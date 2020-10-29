@@ -42,42 +42,6 @@
 	src="${pageContext.request.contextPath }/resources/js/datepicker.ko.js"></script>
 <!-- 달력 한글 추가를 위해 커스텀 -->
 
-<!-- 삭제나 업뎃했을때 -->
-<c:if test="${ not empty sche }">
-	<script>
-	$(document).ready(function(){
-
-		$('#viewSchedule').modal("show");
-
-		if("${ M }" < 9){
-			viewSchedule("${ Y }-0${ M+1 }-${ D }");
-			return;
-		}
-		viewSchedule("${ Y }-${ M+1 }-${ D }");
-		
-		});
-</script>
-</c:if>
-<!-- 투두 업뎃했을때 -->
-<c:if test="${ not empty todo }">
-	<script>
-	$(document).ready(function(){
-
-		$('#viewTodoList').modal("show");
-
-		if("${ M }" < 9){
-			viewTodoList("${ Y }-0${ M+1 }-${ D }");
-			return;
-		}
-		viewTodoList("${ Y }-${ M+1 }-${ D }");
-		
-		});
-</script>
-</c:if>
-
-<!-- 페이지 내부의 새로고침!! -->
-<button class="btn" id="searchButton">새로고침</button>
-
 <div class='cal-divB'>
 	<div class="infoB"></div>
 	<br />
@@ -118,8 +82,8 @@
 				<div class="modal-body">
 					<form id="iuscheduleFrm" method="post">
 					
-						<input type="hidden" name="memberId" value="${ loginMember.memberId }" />
 						<input type="hidden" name="no" />
+						<input type="hidden" name="srNo" value="15" />
 
 						<h3 style="margin-right: 180px;">날짜 입력</h3>
 						<br /> <input type="text" class="datepick delB" name="startDate">
@@ -224,7 +188,8 @@
 		var thisDate = $("#todoDateB").html();
 		var Frm = $("#storeTodoFrm");
 		Frm.append($('<input/>', {type:'hidden', name:'startDate', value: thisDate }));
-		Frm.attr("action", "${ pageContext.request.contextPath }/scheduler/delTodo.do");
+		Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: 15 }));
+		Frm.attr("action", "${ pageContext.request.contextPath }/scheduler/delTodo_.do");
 
 		if(!confirm("모두 삭제하시겠습니까?"))
 			return;
@@ -237,7 +202,11 @@
 				data : formB,
 				datatype:"json",
 				success:function(msg){
+					Frm.empty();
 					alert(msg);
+					searchButton();
+					viewTodoList(targetDate);
+					
 				},
 				error:function(){
 					console.log("에러~");
@@ -285,8 +254,8 @@
 					success:function(list){
 						Frm.empty();
 						alert(list);
-						
-						/* viewTodoList(); */
+						searchButton();
+						viewTodoList(targetDate);
 					},
 					error:function(){
 						console.log("에러~");
@@ -302,10 +271,12 @@
         
 
     //To do List 출력
-    //delete로 해당날짜를 다 삭제한 후, insert하는 방식으로!
     //ajax
 	var index = 0;
     function viewTodoList(e){
+
+    	targetDate = e;
+        
         var $tbl = $("#todoTable");
         var $addT = $("#addTableTodo");
         var htmlB = "";
@@ -397,10 +368,15 @@
 	    needBool = false;
 	}
 
+	//타겟날짜를 저장해줄 저장소
+	//달력의 연도, 월 정보와
+	//모달창에 넣어줄 연월일 정보
+	var targetDate = "";
+    
 	//일정보기할때 일정 미리 넣어주기
 	function viewSchedule(theDate){
-		console.log("??");
-		
+
+		targetDate = theDate;
 		var htmlB = "";
 		var count = 0;
 		//헤더에 날짜 넣어주기
@@ -478,25 +454,53 @@
 	
 		//일정 삭제 delete
 		 	function deleteB(no, day){
-				var loc = "${ pageContext.request.contextPath }/scheduler/delete.do?dNo="+no;
-				location.replace(loc);
+				var loc = "${ pageContext.request.contextPath }/scheduler/delete_.do?dNo="+no;
+
+				$.ajax({
+					type:"get",
+					url:loc,
+					datatype:"json",
+					success:function(msg){
+						alert(msg);
+						searchButton();
+					},
+					error:function(){
+						console.log("에러~");
+					}
+
+				});
 		}
 
 
 		//일정 등록 & 수정
     	function subB(bool){
 
-			var action="";
+			var action="${pageContext.request.contextPath }/scheduler/";
 
 			if(bool)
-				action="insert.do";
+				action+="insert_.do";
 			else	
-				action="update.do";
+				action+="update_.do";
 				
-    		$('#iuscheduleFrm').attr("action","${pageContext.request.contextPath }/scheduler/"+action);
+    		$('#iuscheduleFrm').attr("action", action);
 
     		 if(checkSub())
-				$('#iuscheduleFrm').submit(); 
+    			 $.ajax({
+    					type:"post",
+    					url:action,
+    					data : $('#iuscheduleFrm').serialize(),
+    					datatype:"json",
+    					success:function(msg){
+    						alert(msg);
+    						searchButton();
+    						
+    					},
+    					error:function(){
+    						console.log("에러~");
+    					}
+
+    				});
+					
 
         	}
 
@@ -645,8 +649,7 @@
    		}
 
    		//새로고침버튼 클릭 ajax
-   	    $("#searchButton").click(function(){
-   	     
+   	   	function searchButton(){
 			var no = 15;
    	 		
    	        var values = []; //ArrayList 값을 받을 변수를 선언
@@ -685,8 +688,7 @@
    	            }
    	        );
    	        
-   	    });
-
+   		}
    			//기본 달력출력
            $(document).ready(function(){
 				if("${ Y }"== "" && "${ M }"==""){
@@ -699,13 +701,10 @@
            });
 
         
-           $(document).ready(function(){
                //메뉴닫아주기
-               $(".dropB").find("p").click(function(){
+               function closeMenu(){
                    $(".dropB").css("display", "none");
-               });
-          
-           });
+               }
 
            //메뉴닫기
            $(document).ready(function(){
