@@ -34,13 +34,14 @@ div#member-update-container input.form-control{width:50%; text-align:center; mar
 			<input type="submit" class="btn btn-outline-success" value="수정" >&nbsp;
 			<input type="reset" class="btn btn-outline-success" value="취소">
 		</form>
-		<form action="${pageContext.request.contextPath}/mypage1/uploadProfile"
-		      onsubmit="return uploadProfileValidate();">
-		<div style="border:3px solid #000; width:30%">
-			<input type="file" class="custom-file-input" name="upFile" id="upFile1" value="프로필사진 첨부"  >
-			<!-- <label class="custom-file-label" for="upFile1">파일을 선택하세요</label> -->
-			<input type="submit" class="btn btn-outline-success" value="프로필사진 업로드" >
-		</div>
+		
+		<form action="${pageContext.request.contextPath}/mypage1/uploadProfile.do"
+		      onsubmit="return uploadProfileValidate();" method="POST">
+			<div style="border:3px solid #000; width:30%">
+				<input type="file" class="custom-file-input" name="upFile" id="upFile1" value="프로필사진 첨부"  >
+				<label class="custom-file-label" for="upFile1" style="margin-bottom:50px;">파일을 선택하세요</label> 
+				<input type="submit" class="btn btn-outline-success" value="프로필사진 업로드" >
+			</div>
 		</form>
 	</div>
 </div>

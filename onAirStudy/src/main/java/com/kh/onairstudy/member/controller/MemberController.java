@@ -1,8 +1,13 @@
 package com.kh.onairstudy.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.onairstudy.common.Utils;
+import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -265,14 +273,42 @@ public class MemberController {
 		//프로필사진 업로드
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
 		public String mProfileInsert(@RequestParam(value = "upFile",required = false) MultipartFile upFile,
+									HttpServletRequest request,
 									RedirectAttributes redirectAttr) {
-			log.debug("upfile.name = {}", upFile.getOriginalFilename());
-	        log.debug("upfile.size = {}", upFile.getSize());
-			
+//			log.debug("upfile.name = {}", upFile.getOriginalFilename());
+//	        log.debug("upfile.size = {}", upFile.getSize());
+	      //1. 서버컴퓨터에 업로드한 파일 저장하기
+	         if(upFile != null) {
+	         
+	            List<ProfileAttachment> attachList = new ArrayList<>();
+	         //첨부파일 저장경로
+	         String saveDirectory = request.getServletContext()
+	                                .getRealPath("/resources/upload/memberprofile");
+	            
+	            //1.파일명(renameFilename) 생성
+	            String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
+	            
+	            //2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장  tranferTo
+	            File dest = new File(saveDirectory, renamedFilename);
+	            try {
+					upFile.transferTo(dest);
+				} catch (IOException e ) {
+					e.printStackTrace();
+				}
+	            
+	            //3.attachment객체 생성
+	            ProfileAttachment attach = new ProfileAttachment();
+	            attach.setOriginalFilename(upFile.getOriginalFilename());
+	            attach.setRenamedFilename(renamedFilename);
+	            attachList.add(attach);   
+	            }
+
+	         //처리결과 msg 전달
+	         redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
 	        
-	        return "redirect:/mypage1/memberDetail.do";
-		}
+	    return "redirect:/mypage1/memberDetail.do";
 		
+		}
 }
 		
 		
