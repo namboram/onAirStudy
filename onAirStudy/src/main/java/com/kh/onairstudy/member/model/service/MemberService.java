@@ -22,6 +22,9 @@ public interface MemberService {
 
 	Map<String, Object> selectMemberInfo(String memberId);
 
+	//아이디중복체크
+	int idChk(Member member);
+
 
 
 

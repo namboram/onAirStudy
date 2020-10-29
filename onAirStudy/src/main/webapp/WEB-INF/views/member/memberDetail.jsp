@@ -30,7 +30,7 @@ div#member-update-container input.form-control{width:50%; text-align:center; mar
 			<input type="text" class="form-control" placeholder="성실포인트" name="diligentPoint" id="diligentPoint" value="${ loginMember.diligentPoint }" readonly />
 			<input type="text" class="form-control" placeholder="블랙리스트" name="blacklist" id="blacklist" value="${ loginMember.blacklist }" readonly />
 			<br />
-			<input type="hidden" name="memberId" value="${ loginMember.memberId }" />
+			<%-- <input type="hidden" name="memberId" value="${ loginMember.memberId }" /> --%>
 			<input type="submit" class="btn btn-outline-success" value="수정" >&nbsp;
 			<input type="reset" class="btn btn-outline-success" value="취소">
 		</form>
@@ -38,7 +38,7 @@ div#member-update-container input.form-control{width:50%; text-align:center; mar
 		      onsubmit="return uploadProfileValidate();">
 		<div style="border:3px solid #000; width:30%">
 			<input type="file" class="custom-file-input" name="upFile" id="upFile1" value="프로필사진 첨부"  >
-			<label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
+			<!-- <label class="custom-file-label" for="upFile1">파일을 선택하세요</label> -->
 			<input type="submit" class="btn btn-outline-success" value="프로필사진 업로드" >
 		</div>
 		</form>
@@ -75,12 +75,12 @@ function MupdateValidate(){
 	}
 
 	//자기소개
-	if(!/^[가-힣]{20}$/.test($("#comment").val())) {
+	if(/^[ㄱ-ㅎ가-힣]{0,20}$/.test($("#comment").val())) {
 	alert("자기소개는 20글자 이내로 작성해주세요");
 	$("#comment").val("");
 	$("#comment").focus();
 	return false;
-	}
+	} 
     
     return true;
 }

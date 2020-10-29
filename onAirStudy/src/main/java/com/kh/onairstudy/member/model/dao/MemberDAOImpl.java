@@ -62,6 +62,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberInfo selectdDayInfo(String memberId) {
 		return sqlSession.selectOne("member.selectdDayInfo", memberId);
 	}
+	
+	@Override
+	public int idChk(Member member) {
+		return sqlSession.selectOne("member.idChk", member);
+	}
 
 	
 

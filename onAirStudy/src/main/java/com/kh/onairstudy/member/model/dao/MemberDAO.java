@@ -24,5 +24,8 @@ public interface MemberDAO {
 	String selectNextPaymentDay(String memberId);
 	
 	MemberInfo selectdDayInfo(String memberId);
+	
+	//아이디중복체크
+	int idChk(Member member);
 
 }

@@ -65,6 +65,10 @@ public class MemberServiceImpl implements MemberService {
 		return map;
 
 	}
+	@Override
+	public int idChk(Member member) {
+		return memberDAO.idChk(member);
+	}
 
 	
 	

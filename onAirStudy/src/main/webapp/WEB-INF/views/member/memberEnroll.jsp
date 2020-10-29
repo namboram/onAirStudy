@@ -25,19 +25,17 @@
                     <h2>Sign up</h2>
                     <br>
                             <div class="formMember" >
-
                                     <input type="text" 
                                            name="memberId" 
                                            autocomplete="off"
                                            class="form-control" 
-                                           id="memberId_"
->
+                                           id="memberId_">									
+                                   	<button class="idChk" type="button" id="idChk" onclick="idCheck();" value="N">중복확인</button>
                                     <label for="memberId" class="label-member">
                                         <span class="content-member">Id*</span>
                                     </label>
-
                                    <!--  0:사용불가, 1:사용가능 -->
-                                    <input type="hidden" id="idValid" value="0" />
+                                    <input type="hidden" id="IdChk" value="N" />
                             </div>
                             <br>
                             <div class="formMember">
@@ -120,6 +118,22 @@
 </div>
 </div>
 <script>
+function idCheck(){
+	$.ajax({
+		url :"${ pageContext.request.contextPath }/member/idChk.do",
+		type : "post",
+		dataType : "json",
+		data : {"memberId" : $("#memberId_").val()},
+		success : function(data){
+			if(data == 1){
+				alert("중복된 아이디입니다");
+			}else if(data == 0){
+				$("#IdChk").attr("value", "Y");
+				alert("사용가능한 아이디입니다.");	
+			}
+		}
+	})
+}
 <%-- 
 /* 휴대폰번호 인증 팝업 */
 function popupCertification(){
@@ -150,14 +164,13 @@ $(document).ready(function(){
 	});
 });
 
-
 /* 회원가입-유효성검사 */
 $("#memberEnrollFrm").submit(function(){
 	
        var getCheck = /^[a-zA-Z0-9]{4,12}$/ // 아이디가 적합한지
        var getName= RegExp(/^[가-힣]+$/); //이름
        var getPhoneCheck =/^[0-9]{11}$/ //폰번호
-       var getcommentCheck=/^[가-힣]{20}$/ //자기소개
+       var getcommentCheck=/^[ㄱ-ㅎ가-힣]{0,20}$/ //자기소개
        
 
      //아이디 공백 확인
@@ -232,10 +245,18 @@ $("#memberEnrollFrm").submit(function(){
 		
 		//자기소개
 		if(!getcommentCheck.test($("#comment").val())) {
-		alert("자기소개는 20글자 이내로 작성해주세요");
+		alert("자기소개는 20글자이내로 한글작성바랍니다");
 		$("#comment").val("");
 		$("#comment").focus();
 		return false;
+		}
+
+		//중복체크여부
+		var idChkVal = $("#idChk").val();
+		if(idChkVal == "N"){
+			alert("중복확인 버튼을 눌러주세요.");
+		}else if(idChkVal == "Y"){
+			$("#memberEnrollFrm").submit();
 		}
 		
      return true;
