@@ -36,12 +36,14 @@
   
   <!-- 성실멤버 List -->
   <select id="selectDiligentMember" resultMap="memberMap" >
-    select member_id ,  
-       member_name,
-  	   diligent_point,
-   	   member_comment,
-       RANK() OVER (ORDER BY diligent_point DESC) AS rank
-	from member
+ 
+ select M.*,
+        RANK() OVER (ORDER BY diligent_point DESC) AS rank,
+        (select renamed_filename
+        from   profile_attachment
+        where member_id =M.member_id) m_pic
+        
+        from member M
 <![CDATA[  
 	where ROWNUM <= 10
 	]]>
@@ -88,6 +90,7 @@
   	<result column="withdraw_yn" property="withdraw"/>
   	<result column="member_comment" property="comment"/>
   	<result column="category" property="category"/> 
+  	<result column="m_pic" property="mPic"/>
   </resultMap>
 
 	<select id="getMemberImage" resultType="string">

@@ -16,8 +16,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Map<String, Object>> noticeList() {
-		return sqlSession.selectList("notice.noticeList");
+	public List<Map<String, Object>> noticeList(Map<String, Object> search) {
+		return sqlSession.selectList("notice.noticeList", search);
 	}
 
 	@Override
@@ -38,6 +38,11 @@ public class NoticeDAOImpl implements NoticeDAO {
 	@Override
 	public int noticeUptate(Notice notice) {
 		return sqlSession.update("notice.noticeUpdate", notice);
+	}
+
+	@Override
+	public int totalNotice() {
+		return sqlSession.selectOne("notice.totalNotice");
 	}
 	
 	

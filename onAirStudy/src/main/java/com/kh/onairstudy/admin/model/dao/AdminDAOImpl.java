@@ -116,6 +116,26 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectOne("admin.messageCnt");
 	}
 
+	@Override
+	public int totalMember(Map<String, Object> search) {
+		return sqlSession.selectOne("admin.totalMember", search);
+	}
+
+	@Override
+	public int totalService(Map<String, Object> search) {
+		return sqlSession.selectOne("admin.totalService", search);
+	}
+
+	@Override
+	public int totalReport(Map<String, Object> search) {
+		return sqlSession.selectOne("admin.totalReport", search);
+	}
+
+	@Override
+	public int totalStudy(Map<String, Object> search) {
+		return sqlSession.selectOne("admin.totalStudy",search);
+	}
+
 	
 	
 	
