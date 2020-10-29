@@ -205,7 +205,10 @@
 					Frm.empty();
 					alert(msg);
 					searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
-					viewTodoList(targetDate);
+
+					setTimeout(function() {
+						viewTodoList(targetDate);
+					}, 300);
 					
 				},
 				error:function(){
@@ -255,7 +258,9 @@
 						Frm.empty();
 						alert(list);
 						searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
-						viewTodoList(targetDate);
+						setTimeout(function() {
+							viewTodoList(targetDate);
+						}, 300);
 					},
 					error:function(){
 						console.log("에러~");
@@ -394,6 +399,7 @@
 							+"<td class='tdB'><button type='button' class='btn btn-light' onclick='deleteB("+schedules[i].no+");'>삭제</button></td>";
 					htmlB += "</tr>";
 					count++;
+					console.log("제발"+schedules[i].content);
 						}
 					}		
 				}
@@ -466,7 +472,9 @@
 					success:function(msg){
 						alert(msg);
 						searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
-						viewSchedule(theDate);
+						setTimeout(function() {
+							viewSchedule(targetDate);
+						}, 300);
 					},
 					error:function(){
 						console.log("에러~");
@@ -488,6 +496,8 @@
 				
     		$('#iuscheduleFrm').attr("action", action);
 
+    		var startDate = $("[name=startDate]").val();
+
     		 if(checkSub())
     			 $.ajax({
     					type:"post",
@@ -496,12 +506,12 @@
     					datatype:"json",
     					success:function(msg){
     						alert(msg);
-    						if(!bool)
-    							searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
-    						else
-    							searchButton();
-        						
-    						viewSchedule(theDate);
+    						searchButton(startDate.substr(0, 4), startDate.substr(5, 2)-1);
+    						$("#iuschedule").modal("hide");
+    						$("#viewSchedule").modal("show");
+    						setTimeout(function() {
+    							viewSchedule(targetDate);
+    						}, 300);
     						
     					},
     					error:function(){
@@ -705,9 +715,13 @@
 
         
                //메뉴닫아주기
-               function closeMenu(){
+              $(document).ready(function(){
+				$("#pXB").click(function(){
+
                    $(".dropB").css("display", "none");
-               }
+
+					});
+                 })
 
            //메뉴닫기
            $(document).ready(function(){
@@ -759,6 +773,9 @@
                 var yB = firstDate.getFullYear();
                 var MB = firstDate.getMonth()+1;
                 var dB = firstDate.getDate();
+
+                
+				console.log("캘린더 출력했음 타겟데이트는 = "+targetDate);
                 
                 //월별 마지막날짜
                 var lastMonth = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
