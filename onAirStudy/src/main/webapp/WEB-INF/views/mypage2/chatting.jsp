@@ -28,12 +28,14 @@
 	position: relative;
 }   */
 .chat-containerK {
-	overflow: hidden;
+	/* overflow: hidden; */
+	width : 100%;
 	/* max-width : 200px; */
 }
 
 .chatcontent {
 	height: 700px;
+	width : 100%;
 	/* width:300px; */
 	overflow-y: scroll;
 }
@@ -52,7 +54,11 @@
 }
 .myChat{
 	background-color : #E0B1D0;
-	/* max-width : 200px;  */
+	display:inline-block;
+	/* position: absolute;*/  
+	/* right: 0px; */
+	/* float: right; */
+	 max-width : 200px;  
 	/* width : 100%; */
 }
 li{
@@ -66,6 +72,10 @@ vertical-align: text-bottom;
 } 
 .me{
 	text-align : right;
+	/* text-align:center; */
+}
+.otherChat{
+	max-width : 200px;
 }
 </style>
 
@@ -74,7 +84,7 @@ vertical-align: text-bottom;
 	<div class="chatWrap">
 	<!-- The Report Modal -->
 
-		<div class="modal" id="myModal">
+		<div class="modal" id="reportModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<!-- Modal Header -->
@@ -122,20 +132,20 @@ vertical-align: text-bottom;
 					<!-- 내 채팅일 경우 -->
 					<c:if test="${loginMember.memberId eq chat.memberId}">
 				
-					<li data-no="${chat.no}" class="me">
+					<li data-no="${chat.no}" class="me pr-2">
 					<strong class="">${chat.memberId}</strong>
-					<div class="me p-2 m-2">
+					<div class="me ">
 					
-					<strong style="display : inline" class="align-self-end"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
+					<strong style="display : inline;" class="align-self-end"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
 					<c:if test="${chat.vaildYN eq 'Y'}">
-					<div style="display : inline" class="pl-10">
-					<p style="display : inline-bolck" class=" myChat text-muted p-2 m-2" >신고된 채팅입니다.</p> 
-					</div>
+					
+					<p class=" myChat text-muted p-2" ><b>신고된 채팅입니다.</b></p> 
+				
 					</c:if>
 					<c:if test="${chat.vaildYN ne 'Y'}">
-					<div style="display : inline" class="pl-10 text-left">
-					<p style="display : inline-bolck" class="myChat p-2 m-2" >${chat.chatContent }</p> 
-					</div>
+					
+					<p class="myChat text-left p-2" >${chat.chatContent }</p> 
+					
 					</c:if>
 					</div>
 					</li>
@@ -144,16 +154,16 @@ vertical-align: text-bottom;
 					<!-- 다른사람의 채팅일 경우 -->
 					<c:if test="${loginMember.memberId ne chat.memberId}">
 			
-					<li data-no="${chat.no}">
+					<li data-no="${chat.no}" class="pl-2">
 					<strong>${chat.memberId}</strong>
-					<div class="row p-2 m-2">
+					<div class="row ml-0">
 					<c:if test="${chat.vaildYN eq 'Y'}">
-					<p class="bg-light text-muted p-2 m-2">신고된 채팅입니다.</p> 
+					<p class="otherChat bg-light text-muted p-2"><b>신고된 채팅입니다.</b></p> 
 					</c:if>
 					<c:if test="${chat.vaildYN ne 'Y'}">
-					<p class="bg-light p-2 m-2">${chat.chatContent }</p> 
+					<p class="otherChat bg-light p-2">${chat.chatContent }</p> 
 					</c:if>
-					<strong class="align-self-end"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" />
+					<strong class="align-self-center"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" />
 					<a href='#' class='reportModalK'>신고</a></strong></div></li>
 					
 					</c:if>
@@ -240,7 +250,7 @@ $(document).ready(function() {
 	$(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
 	//신고 클릭시 모달창 열기
 	$(document).on("click",".reportModalK",function(){
-		$("#myModal").modal('show');
+		$("#reportModal").modal('show');
 		var content = $(this).closest("strong").prev();
 		$("#reportContents").html(content.text());
 		var id = content.closest("div").prev();
@@ -311,16 +321,16 @@ $(document).ready(function() {
 			//신고된 채팅일 경우
 			var content ="";
 			if(vo.vaildYN == 'Y'){
-				content = "<p style='display : inline' class='myChat text-muted p-2 m-2'>신고된 채팅입니다.</p>";
+				content = "<p class='myChat text-muted p-2'><b>신고된 채팅입니다.</b></p>";
 			}
 			if(vo.vaildYN != 'Y'){
-				content = "<p style='display : inline' class='myChat p-2 m-2'>"+vo.chatContent+"</p>";
+				content = "<p class='myChat text-left p-2'>"+vo.chatContent+"</p>";
 			}
 		
-		html = 	"<li class='me' data-no='"+ endNo +"'>"
+		html = 	"<li class='me pr-2' data-no='"+ endNo +"'>"
 				+ "<strong>" + vo.memberId + "</strong>"
-				+"<div class='me p-2 m-2'>"
-				+ "<strong class='align-self-end'>" + date + "</strong>"
+				+"<div class='me'>"
+				+ "<strong style='display : inline;' class='align-self-end'>" + date + "</strong>"
 				+ content
 				+"</div>"
 				+ "</li>";
@@ -333,17 +343,17 @@ $(document).ready(function() {
 			var content ="";
 			var report ="";
 			if(vo.vaildYN == 'Y'){
-				content = "<p class='bg-light text-muted p-2 m-2'>신고된 채팅입니다.</p>";
+				content = "<p class='otherChat bg-light text-muted p-2'><b>신고된 채팅입니다.</b></p>";
 			}
 			if(vo.vaildYN != 'Y'){
-				content = "<p class='bg-light p-2 m-2'>"+vo.chatContent+"</p>";
+				content = "<p class='otherChat bg-light p-2'>"+vo.chatContent+"</p>";
 				report = "신고";
 			}
-			html = "<li data-no='"+ vo.no +"'>"
+			html = "<li class='pl-2' data-no='"+ vo.no +"'>"
 				+ "<strong>" + vo.memberId + "</strong>"
-				+"<div class='row p-2 m-2'>"
+				+"<div class='row ml-0'>"
 				+ content
-				+ "<strong class='align-self-end'>" + date + "<a href='#' class='reportModalK'>"+report+"</a></strong>"
+				+ "<strong class='align-self-center'>" + date + "<a href='#' class='reportModalK'>"+report+"</a></strong>"
 				+"</div>"
 				+ "</li>";
 		

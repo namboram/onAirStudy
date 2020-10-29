@@ -29,6 +29,7 @@
 			</otherwise>
 
 		</choose>
+		order by no desc
 		
 	</select>
 	<select id="selectMessageOne" resultType="message">
@@ -38,6 +39,20 @@
 			message
 		where
 			no = #{no}
+	</select>
+	<select  id="selectMessageNextOne" resultType="message">
+	 <![CDATA[ 
+		select *
+		from (
+    		select *
+    		from message
+    		where no < #{no} 
+    		and ((sender_id = #{memberId} and sender_del_yn = 'N') or (receiver_id =#{memberId}and receiver_del_yn='N'))
+    		order by no desc
+    		)
+		where
+    	rownum =1
+    	]]> 
 	</select>
 	<update id="deleteMessageList">
 		

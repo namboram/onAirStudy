@@ -74,8 +74,7 @@ public class MessageController {
 		map.put("memberId", member.getMemberId());
 		map.put("no", no);
 		Message message = messageService.selectMessageOne(map);
-		map.put("no", no+1);
-		Message message2 = messageService.selectMessageOne(map); 
+		Message message2 = messageService.selectMessageNextOne(map); 
 		if(message.getReadYN().equals("N") && message.getReceiverId().equals(member.getMemberId())) {
 			int result = messageService.updateRead(map);
 			log.info("result = {}",result);
