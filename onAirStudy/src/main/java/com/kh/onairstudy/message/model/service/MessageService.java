@@ -19,4 +19,6 @@ public interface MessageService {
 
 	List<Message> SearchMessageList(Map<String, Object> map);
 
+	Message selectMessageNextOne(Map<String, Object> map);
+
 }

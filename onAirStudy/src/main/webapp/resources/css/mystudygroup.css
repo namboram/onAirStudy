@@ -1,17 +1,17 @@
 
-.btn-outline-primary {
+.invitation .bnt .btn-outline-primary {
     background-color: white;
     border-color: #AD8686;
     color: #E2A182; }
-.btn-outline-primary:hover,
-.btn-outline-primary:focus {
+.invitation.btn-outline-primary:hover,
+.invitation.btn-outline-primary:focus {
     border-color: rgb(141, 109, 109);
     background-color: rgb(141, 109, 109);
     color: #FFF; }
-    .btn-primary:active,
-.btn-outline-primary:visited,
-.btn-outline-primary:focus,
-.btn-outline-primary:active:hover {
+.invitation .btn-primary:active,
+.invitation .btn-outline-primary:visited,
+.invitation .btn-outline-primary:focus,
+.invitation.btn-outline-primary:active:hover {
     border-color:rgb(141, 109, 109);
     background-color:rgb(141, 109, 109);
     color: #FFF; }
