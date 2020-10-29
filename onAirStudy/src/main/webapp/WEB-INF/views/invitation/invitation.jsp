@@ -91,7 +91,7 @@ function displayTableData(data){
 				  + "<td>" + i +"</td>"
 				  + "<td>" + m.memberId +"</td>"
 				  + "<td>" + m.memberName +"</td>"
-				  + "<td><button type='button' class='btn btn-primary' onclick=''>Invite</td>"
+				  + "<td><button type='button' class='btn btn-primary' onclick='inviteMember()'>Invite</td>"
 				  + "</tr>";
 
 		}
@@ -101,6 +101,11 @@ function displayTableData(data){
 	}
 
 	$container.append(html);
+}
+
+function inviteMember(){
+
+
 }
 
 </script>
