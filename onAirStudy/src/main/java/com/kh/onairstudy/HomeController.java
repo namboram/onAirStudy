@@ -38,7 +38,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
+      
 			//성실멤버 랭킹 list
 			List<Member> dm_List = memberService.selectDiligentMember();			
 			model.addAttribute("dm_List", dm_List );

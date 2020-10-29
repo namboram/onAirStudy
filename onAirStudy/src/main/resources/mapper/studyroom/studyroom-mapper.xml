@@ -203,12 +203,12 @@ select
  </select>
 
 <select id="selectCategoryList" resultType="studycategory">
-	select
-		*
-	from
-		sr_category
-	where
-		no != 100
+select 
+	distinct C.category 
+from 
+	service_category C left join service S on S.category = C.no
+where 
+	S.no != 100
 </select>
 
 <!-- 방신청 -->

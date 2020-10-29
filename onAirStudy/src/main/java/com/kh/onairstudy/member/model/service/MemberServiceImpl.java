@@ -44,6 +44,16 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> selectDiligentMember() {
 		return memberDAO.selectDiligentMember();
 	}
+
+	//회원정보수정
+	@Override
+	public int updateMember(Member member) {
+		return memberDAO.updateMember(member);
+	}
+	@Override
+	public Member selectOneMemberDetail(String memberId) {
+		return memberDAO.selectOneMemberDetail(memberId);
+	}
 	@Override
 	public Map<String, Object> selectMemberInfo(String memberId) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -53,6 +63,11 @@ public class MemberServiceImpl implements MemberService {
 		map.put("dDay", memberDAO.selectdDayInfo(memberId));
 		
 		return map;
+
+	}
+	@Override
+	public int idChk(Member member) {
+		return memberDAO.idChk(member);
 	}
 
 	

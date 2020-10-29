@@ -114,4 +114,14 @@
 	padding-left:15px; 
 	padding-right:15px; 
 	z-index:3"
-}				
+}		
+
+.mPic{
+		border-radius: 5%;
+		width: 130px; 
+		height: 130px;
+		margin-left:-15px;
+		margin-top:-30px;
+		/* position:absolute; 	  */
+		z-index:1"
+	}			

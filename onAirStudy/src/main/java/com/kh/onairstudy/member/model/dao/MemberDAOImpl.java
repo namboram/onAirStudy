@@ -27,9 +27,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public int insertMember(Member member) {
 		return sqlSession.insert("member.insertMember", member);
 	}
-	//03.회원가입시 sr_logt삽입
-
-
 
 	//신고 후 블랙리스트 등록
 	@Override
@@ -44,6 +41,14 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
+	public int updateMember(Member member) {
+		return sqlSession.update("member.updateMember", member);
+	}
+
+	@Override
+	public Member selectOneMemberDetail(String memberId) {
+		return sqlSession.selectOne("member.selectOneMemberDetail",memberId);
+	}
 	public String getMemberImage(String memberId) {
 		return sqlSession.selectOne("member.getMemberImage", memberId);
 	}
@@ -56,6 +61,11 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberInfo selectdDayInfo(String memberId) {
 		return sqlSession.selectOne("member.selectdDayInfo", memberId);
+	}
+	
+	@Override
+	public int idChk(Member member) {
+		return sqlSession.selectOne("member.idChk", member);
 	}
 
 	
