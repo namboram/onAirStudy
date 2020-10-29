@@ -94,6 +94,8 @@ public interface StudyRoomDAO {
 
 	int deleteApply(StudyRoomWaiting srWating);
 
+	int selectMyStudy(int srNo, String memberId);
+
 
 
 
