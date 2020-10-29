@@ -252,12 +252,12 @@ $("#memberEnrollFrm").submit(function(){
 		}
 
 		//중복체크여부
-		var idChkVal = $("#idChk").val();
+	/* 	var idChkVal = $("#idChk").val();
 		if(idChkVal == "N"){
 			alert("중복확인 버튼을 눌러주세요.");
 		}else if(idChkVal == "Y"){
 			$("#memberEnrollFrm").submit();
-		}
+		} */
 		
      return true;
 

@@ -97,7 +97,7 @@ public class MemberController {
 			redirectAttr.addFlashAttribute("msg", msg);
 			}
 		}catch(Exception e) {
-			throw new RuntimeException();
+			e.printStackTrace();
 		}
 		
 		return "redirect:/";
@@ -233,10 +233,13 @@ public class MemberController {
 		//등록한 폼 내용 가져오기
 		@RequestMapping("/mypage1/memberDetail.do")
 		public ModelAndView memberDetail(@ModelAttribute("loginMember") Member loginMember,
-											 ModelAndView mav) {
+										 Model model,
+										  ModelAndView mav) {
 
 			log.debug("loginMember = {}", loginMember);
-				
+			
+			model.addAttribute("loginMember");
+			mav.addObject("loginMember", loginMember);	
 			mav.setViewName("member/memberDetail");
 			return mav;
 		}
@@ -245,16 +248,19 @@ public class MemberController {
 		@RequestMapping(value="/mypage1/memberUpdate.do", method = RequestMethod.POST)
 	
 		public String memberUpdate(Member member,
+									Model model,
 									RedirectAttributes redirectAttributes) {
 			
 			 log.debug("member@update = {}", member);
 
-			
 	         int result = memberService.updateMember(member);
-			redirectAttributes.addFlashAttribute("msg", result>0 ? "정보 수정성공" : "정보 수정실패");
-			
+	         System.out.println(result);
+	    
+	         model.addAttribute("loginMember", member);			
+			 redirectAttributes.addFlashAttribute("msg", result>0 ? "정보 수정성공" : "정보 수정실패");
 			return "redirect:/mypage1/memberDetail.do";
 		}
+		
 		
 		//프로필사진 업로드
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)

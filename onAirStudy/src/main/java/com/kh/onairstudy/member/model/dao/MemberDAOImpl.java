@@ -68,6 +68,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("member.idChk", member);
 	}
 
+	@Override
+	public List<Member> updateSelectOne(String memberId) {
+		return sqlSession.selectOne("member.updateSelectOne", memberId);
+	}
+
 	
 
 

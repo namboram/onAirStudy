@@ -75,7 +75,7 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
-
+	//회원가입시 회원을 카테고리에 맞게 방등록
 	int insertMemberToSr(Map<String, Object> param);
 
 	int updateRoomInfo(StudyRoomInfo studyRoomInfo);

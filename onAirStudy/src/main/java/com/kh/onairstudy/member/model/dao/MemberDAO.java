@@ -27,5 +27,8 @@ public interface MemberDAO {
 	
 	//아이디중복체크
 	int idChk(Member member);
+	
+	//수정폼에 내용 보여주기
+	List<Member> updateSelectOne(String memberId);
 
 }
