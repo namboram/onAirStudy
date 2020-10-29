@@ -206,9 +206,10 @@
 					alert(msg);
 					searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
 
+					//searchButton메소드의 ajax통신에 걸리는 시간을 기다린 후 실행 
 					setTimeout(function() {
 						viewTodoList(targetDate);
-					}, 300);
+					}, 100);
 					
 				},
 				error:function(){
@@ -260,7 +261,7 @@
 						searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
 						setTimeout(function() {
 							viewTodoList(targetDate);
-						}, 300);
+						}, 100);
 					},
 					error:function(){
 						console.log("에러~");
@@ -474,7 +475,7 @@
 						searchButton(targetDate.substr(0, 4), targetDate.substr(5, 2)-1);
 						setTimeout(function() {
 							viewSchedule(targetDate);
-						}, 300);
+						}, 100);
 					},
 					error:function(){
 						console.log("에러~");
@@ -511,7 +512,7 @@
     						$("#viewSchedule").modal("show");
     						setTimeout(function() {
     							viewSchedule(targetDate);
-    						}, 300);
+    						}, 100);
     						
     					},
     					error:function(){
