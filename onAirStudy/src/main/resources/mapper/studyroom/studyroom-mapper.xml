@@ -132,22 +132,29 @@ from
 
 <sql id="search">
 <choose>
-<when test = "member_id != null">
+<!-- <when test = "member_id != null">
 	where 
 		L.sr_no>8 and
 		sr_ended_yn != 'Y'
-</when>
+</when> -->
 <when test = "search_option =='all'">
 	where
 		member_id like '%' ||#{keyword}|| '%'
-	 or	sr_title like '%' ||#{keyword}|| '%'
+	 or	sr_title like '%' ||#{keyword}|| '%' and
+	  L.sr_no>8 and
+	sr_ended_yn != 'Y'
 </when>
 <when test="category != 0">
-     where sr_category = #{category}
+     where sr_category = #{category} and
+      L.sr_no>8 and
+	sr_ended_yn != 'Y'
 </when>
 <otherwise>
 	where
-	 ${search_option} like '%' ||#{keyword}|| '%'
+	 ${search_option} like '%' ||#{keyword}|| '%' and
+	  L.sr_no>8 and
+	sr_ended_yn != 'Y'
+	
 </otherwise>
 </choose>
 </sql>
@@ -237,6 +244,17 @@ where
 	sr_no = #{srNo} and member_id = #{memberId}
 
 </delete>
+
+<select id="selectMyStudy" resultType="_int">
+select
+	count(*)
+from 
+	sr_log
+where
+	member_id = #{memberId} and sr_no = #{srNo}
+
+</select>
+
 
 <!-- 찜 목록  -->
 <select id="selectCheckWish" resultType="_int">
