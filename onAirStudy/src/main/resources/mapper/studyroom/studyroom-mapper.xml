@@ -210,12 +210,12 @@ select
  </select>
 
 <select id="selectCategoryList" resultType="studycategory">
-	select
-		*
-	from
-		sr_category
-	where
-		no != 100
+select 
+	distinct C.category 
+from 
+	service_category C left join service S on S.category = C.no
+where 
+	S.no != 100
 </select>
 
 <!-- 방신청 -->
@@ -337,13 +337,26 @@ from sr_log
 
 <!-- 성실스터디방 List -->
 	<select id="selectDilgentStudyroom" resultMap="studyRoomMap">
-	  	select *
-		from sr_info
+	  select I.*,
+	    (select     member_id
+	    from    sr_list
+	    where sr_no =I.sr_no) member_id,
+	    (select    renamed_filename
+	    from   profile_attachment
+	    where sr_no =I.sr_no) sr_pic,
+	   (select    renamed_filename
+	    from   profile_attachment
+	    where sr_no = I.sr_no) m_pic
+	from sr_info I
 	<![CDATA[  
 		where sr_ranking >=1 and sr_ranking <= 5
 		]]>
+
 		
 	</select>
+	
+	
+	
 
 
 	<select id="selectParticipantList" resultType="studyroomlog">

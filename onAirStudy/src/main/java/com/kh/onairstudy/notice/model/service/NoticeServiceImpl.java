@@ -19,8 +19,8 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public List<Map<String, Object>> noticeList() {
-		return noticeDAO.noticeList();
+	public List<Map<String, Object>> noticeList(Map<String, Object> search) {
+		return noticeDAO.noticeList(search);
 	}
 
 	@Override
@@ -41,6 +41,11 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int noticeUpdate(Notice notice) {
 		return noticeDAO.noticeUptate(notice);
+	}
+
+	@Override
+	public int totalNotice() {
+		return noticeDAO.totalNotice();
 	}
 	
 	

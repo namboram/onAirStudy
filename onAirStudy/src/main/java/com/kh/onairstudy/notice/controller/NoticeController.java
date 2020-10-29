@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.onairstudy.admin.controller.AdminController;
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.notice.model.service.NoticeService;
 import com.kh.onairstudy.notice.model.vo.Notice;
 
@@ -29,13 +31,45 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@RequestMapping("/noticeList.do")
-	public String noticeList(Model model) {
+	public String noticeList(Model model, HttpServletRequest request, HttpServletResponse response) {
 
+		// 1. 파라미터값 변수에 담기
+		int numPerPage = 10;// 한페이지당 수
+		int cPage = 1;// 요청페이지
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
 
-		
-		List<Map<String, Object>> list = noticeService.noticeList();
+		}
+
+		Map<String, Object> search = new HashMap<>();
+
+		// 리퀘온 주소
+		String url = request.getRequestURI();
+
+		// 전체수, 전체페이지수 구하기
+		int totalContents = noticeService.totalNotice();
+
+		String pageBar = new AdminController().getPageBarHtml(cPage, numPerPage, totalContents, url);
+
+		log.debug("pageBar={}", pageBar);
+
+		log.debug("totalContents ={}", totalContents);
+
+		// rnum 넣어주기
+		search.put("start", (cPage - 1) * numPerPage + 1);
+		search.put("end", cPage * numPerPage);
+
+		log.debug("search={}", search);
+
+		List<Map<String, Object>> list = noticeService.noticeList(search);
+
 		model.addAttribute("list", list);
-		
+
+		log.debug("list={}", list);
+
+		model.addAttribute("pageBar", pageBar);
+
 		return "notice/noticeList";
 	}
 	

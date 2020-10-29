@@ -80,7 +80,7 @@
 										onclick="modifyInfo()">방 정보 수정</button>
 								</c:if>
 							</c:forEach>
-							<button type="button" class="btn btn-danger" onclick="withdraw('${loginMember.memberId}', '${roomInfo.srNo }')">스터디 탈퇴</button>
+							<button type="button" class="btn btn-outline-danger" onclick="withdraw('${loginMember.memberId}', '${roomInfo.srNo }')">스터디 탈퇴</button>
 						</div>
 					</div>
 				</form>

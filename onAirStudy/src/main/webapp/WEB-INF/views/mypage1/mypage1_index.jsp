@@ -25,50 +25,55 @@
 		
 		
 			<c:if test="${ loginMember.memberRole == 'P'}">
-			<h3>이번달 스터디방별 출석 그래프</h3>
+			<h3 style="margin-left:5%; margin-top:2%;" >이번달 스터디방별 출석 그래프</h3>
 		<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-5" style="margin-left:3%; margin-top:5%;">
+
 						<canvas id="myChart1"></canvas>
-						<input type="hidden" name="hiddenAttend" value="${ attendList }" />
 					</div>	
 			</c:if>
 		
 			
 			
 			<!-- To Do List-->
-            <div class="col-lg-3 col-md-6">
-              <div class="card to-do">
-                <h2 class="display h4">To do List<button type="button" class="btn btn-light float-right"
-					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더
-					보기</button></h2>
+            <div class="col-lg-3 col-md-6" style="margin-left:10%; margin-top:-2%;" >
+              <div class="card to-do" style="border-radius:8%;">
+                <h2 class="display h4"style="margin-left:30%;">To do List<button type="button" class="btn btn-light m-2"
+					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더보기</button></h2>
                 <c:if test="${ empty todoList }">
                 	<p>캘린더에서 to do list를 등록해보세요~~~</p>
 				</c:if>					
-                <ul class="check-lists list-unstyled">
-	                <c:forEach items="${ todoList }" var="td" varStatus="status">
-	                  <li class="d-flex align-items-center"> 
-	                    <input type="checkbox" id="list-1${status.index}" name="list-1" class="form-control-custom"
-	                      <%-- ${ todoList.scheduleYN eq 'Y' ? 'checked' : '' }  --%>
-	                     >
-	                    <label for="list-1">${ td.content }</label>
+				<p class="text-center"></p>
+                <ul class="check-lists list-unstyled" >
+	                <c:forEach items="${ todoList }" var="td" varStatus="status" end="10">
+	                  <li class="d-flex align-items-center " style="margin-left:30%;"> 
+		                    <inputtype="checkbox" id="list-1${status.index}" name="list-1" class="form-control-custom"
+<%-- 		                        ${ td.scheduleYN == 'Y' ? 'checked' : '' } --%>  
+		                     >
+	                 	 <c:if test="${ td.scheduleYN == 'N' }">
+		                    <label for="list-1" style="font-size:17px;"> - ${ td.content }</label>
+	                    </c:if>
+	                     <c:if test="${ td.scheduleYN == 'Y' }">
+		                    <label for="list-1" style="text-decoration: line-through; color:gray; font-size:17px; ">${ td.content }</label>
+	                    </c:if>
 	                  </li>
 	               </c:forEach>
                 </ul>
               </div>
             </div>
-		
-
-
 		</div>
+
 		
+		
+
 	
 
 		<hr>
 
 
-		<h3>
+		<h3 style="margin-left:5%;">
 			일일 공부시간
-			<button type="button" class="btn btn-primary" data-toggle="modal" 
+			<button type="button" class="btn btn-light m-2" data-toggle="modal" 
 				data-target="#exampleModal" data-whatever="@getbootstrap">시간
 				등록하기</button>
 		</h3>

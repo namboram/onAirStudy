@@ -36,7 +36,7 @@ $(document).ready(function(){
 				<select class="custom-select" name="searchType" id="searchTypeB">
 					<option value="">피신고자</option>
 				</select>
-				<input type="text" name="searchContent" value="${ searchContent }" placeholder="아이디" />
+				<input type="text" name="searchKeyword" value="${ searchKeyword }" placeholder="아이디" />
 
 				<button type="button" class="btn btn-info" onclick="searchNow();">검색</button>
 			</form>
@@ -88,7 +88,9 @@ $(document).ready(function(){
 
 		</table>
 
-
+		<div id='pageBar'>
+			${ pageBar }
+		</div>
 
 
 		<!-- Modal -->
@@ -139,7 +141,7 @@ $(document).ready(function(){
 	$(document).ready(function(){
 
 		if(${ searchContent != null } )
-			$("[name=searchContent]").val(${ searchContent });
+			$("[name=searchKeyword]").val(${ searchKeyword });
 		
 	});
 
@@ -208,11 +210,11 @@ $(document).ready(function(){
 	function updateR(no){
 
 		var loc = "${ pageContext.request.contextPath }/admin/updateReport.do?no="+no;
-		var content = $("[name=searchContent]");	
+		var searchKeyword = $("[name=searchKeyword]");	
 
 		//검색어저장
-		if(content.val() != "" && content.val()!=null)
-			loc += "&searchContent="+content.val();
+		if(searchKeyword.val() != "" && searchKeyword.val()!=null)
+			loc += "&searchKeyword="+searchKeyword.val();
 				
 		
 		if(confirm(no+"번 신고내역을 무효처리 하시겠습니까? 적용 시 복구할 수 없습니다."))
