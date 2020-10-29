@@ -118,7 +118,7 @@
 		        }); 
 		    
 		    $(".choice1, .choice2, .choice3, .choice4").click(function(event){
-				  $(".userAnswer:eq()").val(event.result);					 			
+				  $(".userAnswer").val(event.result);					 			
 		        });
 		 
 	

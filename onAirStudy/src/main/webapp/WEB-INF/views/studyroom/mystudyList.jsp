@@ -62,7 +62,7 @@
 			</div>
 			<br>
 			<div class="col-sm"
-				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; padding: 20px;">
+				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; padding: 20px; overflow:auto;">
 				<h3 style="text-decoration: underline;">대기중인 그룹</h3>
 
 				<table class="table">
@@ -98,7 +98,7 @@
 			</div>
 			<br>
 			<div class="col-sm"
-				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; padding: 20px;">
+				style="background-color: #F9F1ED; border-radius: 25px; border: 2px solid #AD8686; padding: 20px; overflow:auto;">
 				<h3 style="text-decoration: underline;">내가 찜한 그룹</h3>
 
 				<table class="table">

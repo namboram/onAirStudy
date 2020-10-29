@@ -65,7 +65,7 @@ function searchRoom() {
 	<div class="container" id="container">
 	
 		<div class="rBtn">
-			<button type="button" class="btn btn-outline-warning">
+			<button type="button" class="btn btn-outline-warning"  style="float:right;" >
 			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
 				방 만들기</a>
 		</button>
@@ -107,7 +107,7 @@ function searchRoom() {
 
 					<div class="contentR">
 						<br>
-						<h5 class="text-center">${ roomList.sTitle }</h5>
+						<h5 class="text-center">${ roomList.sTitle } ${roomList.wishNo }</h5>
 						<h5 class="text-center">그룹 리더 : ${ roomList.memberId }</h5>
 
 						<h5 id="searchT" class="text-center">${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}

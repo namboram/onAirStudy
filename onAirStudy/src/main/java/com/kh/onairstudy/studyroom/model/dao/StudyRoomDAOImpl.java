@@ -236,6 +236,14 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 		return sqlSession.delete("studyroom.deleteApply", srWating);
 	}
 
+	@Override
+	public int selectMyStudy(int srNo, String memberId) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("srNo", srNo);
+		return sqlSession.selectOne("studyroom.selectMyStudy", map);
+	}
+
 	
 	
 	
