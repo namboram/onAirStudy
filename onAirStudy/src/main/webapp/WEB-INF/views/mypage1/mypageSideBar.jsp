@@ -1,3 +1,4 @@
+<%@page import="com.kh.onairstudy.member.model.vo.MemberInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,6 +8,8 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
+
+
 	<nav class="side-navbar mypage-sideBar">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header py-5">
@@ -14,16 +17,19 @@
 				<img src="${ pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="...">
 				<h3>${loginMember.memberId }</h3>
 				<c:if test="${ loginMember.memberRole eq 'P'}">
+					<h5>${ loginMember.memberId }</h5>
 					<h5>premium</h5>
 				</c:if>
 			</div>
-			<div class="d-day-display">
-		        <hr>
-		        <span>D - 37</span></br>
-		        <span>2020.11.02</span></br>
-		        <span>토익시험</span></br>
-		    	<hr>
-	   		</div>
+			<c:if test="${ not empty memberInfo }">
+				<div class="d-day-display">
+					<hr>
+					<h5>D - ${memberInfo.dayCnt }</h5> 
+					<h5><fmt:formatDate value="${memberInfo.startDate }" pattern="yyyy/MM/dd"></fmt:formatDate></h5>
+					<h5>${memberInfo.content }</h5>
+					<hr>
+				</div>
+			</c:if>
 		</div>
 		<span class="heading">Menu</span>
 		
@@ -31,8 +37,8 @@
 			<li><a href="${ pageContext.request.contextPath}/mypage1/invitationlist.do">초대내역</a></li>
 			<li><a href="${ pageContext.request.contextPath }/premium.do">프리미엄          
 				<div class="badge badge-info" style="margin-left:5px;">
-				<c:if test="${ not empty memberInfo.paymentDay}">
-					D-${ memberInfo.paymentDay }
+				<c:if test="${ not empty sideBarInfo.paymentDay}">
+					D-${ sideBarInfo.paymentDay }
 				</c:if>
 				</div>
 				</a></li>

@@ -21,7 +21,7 @@ public interface MemberDAO {
 
 	String getMemberImage(String memberId);
 	
-	int selectNextPaymentDay(String memberId);
+	String selectNextPaymentDay(String memberId);
 	
 	MemberInfo selectdDayInfo(String memberId);
 	

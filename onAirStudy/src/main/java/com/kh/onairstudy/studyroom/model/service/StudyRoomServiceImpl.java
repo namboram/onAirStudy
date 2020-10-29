@@ -208,6 +208,11 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public int updateRoomOpenedYN(HashMap<String, String> param) {
 		return studyRoomDAO.updateRoomOpenedYN(param);
 	}
+	
+	@Override
+	public int selectMyStudy(int srNo, String memberId) {
+		return studyRoomDAO.selectMyStudy(srNo, memberId);
+	}
 
 
 	@Override
@@ -249,6 +254,9 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	public int deleteApply(StudyRoomWaiting srWating) {
 		return studyRoomDAO.deleteApply(srWating);
 	}
+
+
+
 
 	
 	

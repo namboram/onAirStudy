@@ -109,24 +109,26 @@
 		where member_id = #{memberId}
 	</select>
 	
-	<select id="selectNextPaymentDay" resultType="_int">
-		select to_date(add_months(payment_date, 3), 'YY/MM/DD') - to_date(sysdate, 'YY/MM/DD') "d_day_payment"
-		from payment_log 
-		where member_id = #{memberId}
+	<select id="selectNextPaymentDay" resultType="string">
+	select trunc(add_months(payment_date, 3) - trunc(sysdate))
+	from payment_log p 
+	where member_id = #{memberId}
+	
 	</select>
 	
 	<select id="selectdDayInfo" resultMap="memberinfoMap">
-		select *
-		from (
-		    select start_date - to_date(sysdate, 'YY/MM/DD') "d_day_count", start_date, content
-		    from scheduler 
-		    where d_yn = 'Y' and member_id = #{memberId}
-		) M
-		where  start_date - to_date(sysdate, 'YY/MM/DD') > 0
+		select start_date, content, trunc(start_date - trunc(sysdate)) "count" 
+		from scheduler 
+		where 
+			d_yn = 'Y' 
+		and 
+			member_id = 'jhking' 
+		and 
+			trunc(start_date - trunc(sysdate)) > 0
 	</select>
   
   <resultMap type="memberinfo" id="memberinfoMap">
-    <result column="d_day_count" property="dDayCnt"/>
+    <result column="count" property="dayCnt"/>
   	<result column="start_date" property="startDate"/>
   	<result column="content" property="content"/>
   </resultMap>
