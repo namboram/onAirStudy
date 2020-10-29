@@ -36,7 +36,7 @@ public class Scheduler_Controller {
 
 	@RequestMapping("/scheduler/scheduler.do")
 	@ResponseBody
-	public Object mainScheduler_(@RequestParam(value = "no", required = false) String roomNum) {
+	public Object mainScheduler_(@RequestParam(value = "roomNum", required = false) String roomNum) {
 
 		// 가짜멤버
 		Member member = new Member();
@@ -46,6 +46,7 @@ public class Scheduler_Controller {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", addList);
+		map.put("roomNum", roomNum);
 		map.put("code", "OK");
 
 		log.debug("roomNum ={}", roomNum);
@@ -54,7 +55,7 @@ public class Scheduler_Controller {
 	}
 
 	@RequestMapping("/scheduler/scheduler_.do")
-	public ModelAndView mainScheduler_main(@RequestParam(value = "no", required = false) String roomNum,
+	public ModelAndView mainScheduler_main(@RequestParam(value = "roomNum", required = false) String roomNum,
 			ModelAndView mav) {
 
 		// 가짜멤버
@@ -64,6 +65,7 @@ public class Scheduler_Controller {
 		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
 
 		mav.addObject("list", addList);
+		mav.addObject("roomNum", roomNum);
 		mav.setViewName("scheduler/scheduler_");
 
 		log.debug("roomNum ={}", roomNum);
@@ -133,7 +135,7 @@ public class Scheduler_Controller {
 	// 일정 넣어주기
 	@RequestMapping("scheduler/insert_.do")
 	@ResponseBody
-	public void insertSchedule(Scheduler sch, HttpServletResponse response) throws Exception {
+	public void insertSchedule(Scheduler sch, ModelAndView mav, HttpServletResponse response) throws Exception {
 		// jsp에서 처리못한 값들 처리해주기
 		if (sch.getDYN() == null)
 			sch.setDYN("N");
@@ -144,6 +146,8 @@ public class Scheduler_Controller {
 
 		int result = schedulerService.insertSchedule(sch);
 
+		mav.addObject("roomNum", sch.getSrNo());
+		
 		response.setContentType("text/plain; charset=utf-8");
 
 		if (result > 0)

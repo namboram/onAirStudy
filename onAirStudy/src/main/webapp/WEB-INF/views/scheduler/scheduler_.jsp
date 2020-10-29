@@ -83,7 +83,7 @@
 					<form id="iuscheduleFrm" method="post">
 					
 						<input type="hidden" name="no" />
-						<input type="hidden" name="srNo" value="15" />
+						<input type="hidden" name="srNo" value="${ roomNum }" />
 
 						<h3 style="margin-right: 180px;">날짜 입력</h3>
 						<br /> <input type="text" class="datepick delB" name="startDate">
@@ -188,7 +188,7 @@
 		var thisDate = $("#todoDateB").html();
 		var Frm = $("#storeTodoFrm");
 		Frm.append($('<input/>', {type:'hidden', name:'startDate', value: thisDate }));
-		Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: 15 }));
+		Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: "${ roomNum }" }));
 		Frm.attr("action", "${ pageContext.request.contextPath }/scheduler/delTodo_.do");
 
 		if(!confirm("모두 삭제하시겠습니까?"))
@@ -236,7 +236,7 @@
 			
 			//날짜입력
 			Frm.append($('<input/>', {type:'hidden', name:'startDate', value: startD }));
-			Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: 15 }));
+			Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: "${ roomNum }" }));
 
 			checkB.each(function(i, item){ 
 				//내용과 enabled 여부
@@ -668,16 +668,18 @@
    		    return  year + '-' + month + '-' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
    		}
 
-   		//새로고침  ajax
+		var roomNum = "${ roomNum }";
+
+		//새로고침  ajax
    	   	function searchButton(Y, M){
-			var no = 15;
    	 		
    	        var values = []; //ArrayList 값을 받을 변수를 선언
-   	 
+
+   	        console.log("roomNum=???"+roomNum);
+   	 		
    	        //검색할 코드를 넘겨서 값을 가져온다.        
    	        $.post(
-   	            "${ pageContext.request.contextPath }/scheduler/scheduler.do?no=15", 
-   	            no,
+   	            "${ pageContext.request.contextPath }/scheduler/scheduler.do?roomNum="+roomNum, 
    	            function(map) {
    	                if(map.code == "OK") { //controller에서 넘겨준 성공여부 코드
    	                    
@@ -748,6 +750,8 @@
 
             //캘린더만들기
             function drawCalendar(Y, M){
+
+                console.log("roomNum=${ roomNum }");
                 
                 //테이블찾기
                 var $tblB = $(".tableB");
