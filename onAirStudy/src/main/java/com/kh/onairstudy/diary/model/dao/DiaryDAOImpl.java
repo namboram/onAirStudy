@@ -20,8 +20,8 @@ public class DiaryDAOImpl implements DiaryDAO {
 	
 	
 	@Override
-	public List<Diary> selectDiaryList() {
-		return sqlSession.selectList("diary.selectDiaryList");
+	public List<Diary> selectDiaryList(Map<String, Object> map) {
+		return sqlSession.selectList("diary.selectDiaryList", map);
 	}
 
 
@@ -79,6 +79,12 @@ public class DiaryDAOImpl implements DiaryDAO {
 	public int deleteDiaryReply(DiaryReply diaryReply) {
 		return sqlSession.delete("diaryReply.deleteDiaryReply", diaryReply);
 
+	}
+
+
+	@Override
+	public int totalDiary(Map<String, Object> map) {
+		return sqlSession.selectOne("diary.totalDiary", map);
 	}
 
 

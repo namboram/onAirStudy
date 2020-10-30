@@ -265,7 +265,7 @@ public class AdminController {
 	public String insertService(ServiceCenter sc, 
 								@RequestParam("replyNo") int replyNo) {
 		log.debug("sc={}",sc);
-		sc.setReply_no(replyNo);
+		sc.setReplyNo((replyNo));
 		
 		int result = adminService.insertService(sc);
 		if(result>0)
