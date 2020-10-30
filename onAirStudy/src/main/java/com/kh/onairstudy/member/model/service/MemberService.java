@@ -30,6 +30,8 @@ public interface MemberService {
 
 	MemberInfo selectdDayInfo(String memberId);
 
+	
+
 
 
 

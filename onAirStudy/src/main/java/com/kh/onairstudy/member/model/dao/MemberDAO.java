@@ -31,4 +31,6 @@ public interface MemberDAO {
 	//수정폼에 내용 보여주기
 	List<Member> updateSelectOne(String memberId);
 
+
+
 }
