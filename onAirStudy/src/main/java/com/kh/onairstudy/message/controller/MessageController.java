@@ -39,10 +39,7 @@ public class MessageController {
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("title","전체 쪽지함");
 		//model.addAttribute("test","아뭐야아아ㅏㅏ");
-		
-		if(member.getMemberRole().equals("A"))
-			return "admin/messageList";
-		else
+			
 			return "message/messageList";
 		
 	}
@@ -61,9 +58,6 @@ public class MessageController {
 			model.addAttribute("title","발신함");
 		}
 		
-		if(member.getMemberRole().equals("A"))
-			return "admin/messageList";
-		else
 			return "message/messageList";
 	}
 	
@@ -82,9 +76,6 @@ public class MessageController {
 		model.addAttribute("message",message);
 		model.addAttribute("message2",message2);
 		
-		if(member.getMemberRole().equals("A"))
-			return "admin/messageDetail";
-		else
 			return "message/messageDetail";
 	}
 	
