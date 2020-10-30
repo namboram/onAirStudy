@@ -54,5 +54,13 @@
 		</ul>
 	</nav>
 	
+<script>
+$(".d-day-display").click(function(){
+
+	var startDate = "<fmt:formatDate value='${memberInfo.startDate }' pattern='yyyy/MM/dd'></fmt:formatDate>";
 	
+	location.href="${pageContext.request.contextPath}/mypage1/search.do?startDate="+startDate;
+});
+
+</script>
 	
