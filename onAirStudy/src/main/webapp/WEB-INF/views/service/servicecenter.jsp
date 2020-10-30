@@ -1,3 +1,6 @@
+<%@page import="com.kh.onairstudy.servicecenter.model.vo.ServiceCenter"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,6 +23,8 @@ function searchClick() {
 	location.href="${pageContext.request.contextPath}/list.do?search_option="+selectOption + "&keyword=" + keyword;
 }
 
+
+
 function isLogined() {
 	var memberid = $("#member_id").val();
 	if(memberid != null) {
@@ -29,6 +34,8 @@ function isLogined() {
 		return false;
 	}
 }
+
+
 
 $(document).ready(function() {
 
@@ -173,10 +180,10 @@ $(document).ready(function() {
 
         
      <div class="container1" style="padding-left:5%;padding-right:5%;">
-        <div class="float-right" >
-			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
-			<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
-		</div>
+        
+			<!-- <input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input> -->
+			<input type="hidden" id="member_id" name="member_id" value="${ map.memberId }" />
+		
 		
 		
 					  
@@ -190,11 +197,13 @@ $(document).ready(function() {
 					      <th>작성날짜</th>
 					    </tr>
 					    
-					      <c:if test="${ serviceList != null }">
-						 
-						    <c:forEach items="${ serviceList }" var="s">
-						    
-						    <tr>
+					
+						<c:forEach items="${ serviceList }" var="s"> 
+
+
+    
+						    <c:if test="${ s.reply_no eq 0 }">
+						      <tr>
 							      <td>${ s.no }</td>
 							      <td>${ s.serviceStatus }</td>
 							     
@@ -212,15 +221,32 @@ $(document).ready(function() {
 								     	 <td>기타</td>
 								      </c:when>
 							      </c:choose>
+							      
 							      <td>
 							      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=${ s.no }">${ s.serviceTitle }</a></td>
+							      
 							      <td>${ s.memberId }</td>
 							      <td><fmt:formatDate value="${ s.serviceDate }" pattern="yy/MM/dd"/></td>
-							</tr>
-						    </c:forEach>
-					    </c:if>
+							 </c:if> 
+							 
+							
+							<c:if test="${ s.reply_no ne 0 }">
+							      <td></td>
+							      <td></td>
+							      <td></td>
+							      <td><a href="${ pageContext.request.contextPath }/serviceDetail.do?no=${ s.no }">${ s.serviceTitle }</a></td>
+							     <td>${ s.memberId }</td>
+							     <td><fmt:formatDate value="${ s.serviceDate }" pattern="yy/MM/dd"/></td>
+							 </c:if>
+							
+						  </tr>
+					</c:forEach>
+				
+					
 				</table>
 			</div>	
+				
+				
 				
 				
 				
@@ -259,7 +285,7 @@ $(document).ready(function() {
 
 
 
-<script>/* 
+<script>
 	$(document).ready(function() {
 		$("paging a").click(function(e) {
 			e.preventdefault();
@@ -267,7 +293,7 @@ $(document).ready(function() {
 			pagingForm.submit();
 		})		
 	})
- */
+ 
 </script>
 
 

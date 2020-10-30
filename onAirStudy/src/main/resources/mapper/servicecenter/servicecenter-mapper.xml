@@ -102,7 +102,7 @@ where
  		select *
  		
  		from (select 
- 			  	rownum rn, no, category, service_title, service_content, member_id , service_date, service_status
+ 			  	rownum rn, no, category, service_title, service_content, member_id , service_date, service_status , reply_no
  			  from 
  			  	service 
  			  where rownum <= #{pageNum} * #{amount}) 

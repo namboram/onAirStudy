@@ -78,9 +78,6 @@
 
 
 
-
-
-
 <!-- 어떤점이 좋나요? -->
 	<div class="container">
 		<h1 class="text-left" style="color: rgb(255, 195, 163)">
@@ -131,7 +128,9 @@
 	<div class="container-fluid" style="background-color: #F2EDEA; height:800px; " >
 		<br>
 		<h3 class="text-center">
+		<img src="${pageContext.request.contextPath }/resources/images/badge2.png" width=50px;>
 			이달의 성실 멤버
+		<img src="${pageContext.request.contextPath }/resources/images/badge2.png" width=50px;>
 			</h3>
 		<br>
 			<div class="container">
@@ -175,7 +174,11 @@
 <!-- 이달의 성실 스터디방 -->
 	<div class="container-fluid" style="background-color: #E3DBD6;  height:560px;">
 	<br>
-		<h3 class="text-center">이달의 성실 스터디방</h3>
+		<h3 class="text-center">
+		<img src="${pageContext.request.contextPath }/resources/images/trophy.png" width=70px;>
+		이달의 성실 스터디방
+		
+		</h3>
 			
 		<div class="container-sm-5" style="margin-left:4%;">
 			<div class="row" id="srlistRank">
@@ -243,19 +246,24 @@
 								src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"> 						
 						</div>
 						
-						<form
-							action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
-							id="favRoom" method="POST">
-							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }" hidden> 
+							<div class="hBtn" >
+						<form id="favRoom" 
+								action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
+								method="POST">
+				
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }"  hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.wishNo }" hidden> 
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
+							
 														
-							<button type="submit" class="heartBtn" style="<c:if test="${ loginMember.memberId eq w.memberId }">background-color:gray;</c:if>"
-							<c:if test="${ loginMember.memberId eq w.memberId }"> disabled </c:if>>
+							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
 							
 						</form>
+					
+					</div>
 							
 							<br>
 							
@@ -274,20 +282,19 @@
 									onclick="applyR('${ roomList.srNo }')">신청하기</button>	
 								<button type="button" class="btn btn-danger btn-sm"
 									onclick="reportR('${ roomList.srNo }','${roomList.memberId }','${roomList.sTitle }')">신고하기</button>						
-								</c:if>
-							
+								</c:if>	
 						</div>
-	
 					</div>
+					<br/>
 				</c:forEach>
 			</div>
 		</div>
 </div>
 
 
-<script>
 <!-- 둘러보기 -->
-<div class="modal fade" id="previewFrm" role="dialog" aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
+<div class="modal fade" id="previewFrm" role="dialog"
+	aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 
@@ -406,10 +413,7 @@
 				</div>
 			</div>
 		</div>
-		
-		
 		<script>
-		
 		//신고 클릭시 모달창 열기
 		 function reportR(no,leader,title) {
 			$("#reportMyModal").modal('show');
@@ -445,9 +449,7 @@
 						});
 			}
 		}
-
-</script>
-
+		</script>
 
 <div class="col-lg p-0 m-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
