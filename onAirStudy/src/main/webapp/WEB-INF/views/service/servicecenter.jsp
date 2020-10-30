@@ -136,7 +136,7 @@ $(document).ready(function() {
 </div>
 
 
-
+  <c:if test="${ list != null }">
 <!-- 문의게시판 목록 -->
 <div class="m-5" >
 	<h3 class="text-center">문의게시판</h3>
@@ -177,7 +177,8 @@ $(document).ready(function() {
 	</form> --%>
 			
 
-        
+  
+    
      <div class="container1" style="padding-left:5%;padding-right:5%;">
        <%--  <div class="float-right" >
 			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
@@ -250,7 +251,6 @@ $(document).ready(function() {
 				
 				
 				
-				
 				<!-- 페이징처리 -->			
 				<div class="container2 text-center">
 					<div id="paging">
@@ -275,13 +275,12 @@ $(document).ready(function() {
 					</form>
 				</div>
 				
-				
 
 
 
 
 </div> 
-
+</c:if>
 
 
 

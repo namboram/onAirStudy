@@ -445,7 +445,6 @@ from sr_log
 		)
 	</insert>
 	
-
 	<delete id="deleteWaiting">
 		delete from
 			sr_waiting_list
