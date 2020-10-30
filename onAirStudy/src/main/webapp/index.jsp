@@ -285,7 +285,7 @@
 </div>
 
 
-<script>
+
 <!-- 둘러보기 -->
 <div class="modal fade" id="previewFrm" role="dialog" aria-labelledby="deleteMemoModalTitle" aria-hidden="true">
 	<div class="modal-dialog">
@@ -447,8 +447,6 @@
 		}
 
 </script>
-
-
 <div class="col-lg p-0 m-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
