@@ -103,9 +103,7 @@ where
 <select id="listAll" resultMap="studyMap">
 select
     L.*,
-    (select     sr_title
-    from    sr_info
-    where sr_no =l.sr_no) s_title,
+    sr_title s_title,
    (select    renamed_filename
     from   profile_attachment
     where sr_no =l.sr_no) sr_pic,
@@ -116,7 +114,7 @@ select
      from sr_wish_list
      where sr_no = L.sr_no) wish_no
  	from 
-		sr_list L
+		sr_list L left outer join sr_info s on l.sr_no = s.sr_no  
 <include refid="search"/> 
 	order by
 		sr_opened_yn desc
@@ -140,6 +138,7 @@ from
 <when test = "search_option =='all'">
 	where
 		member_id like '%' ||#{keyword}|| '%'
+
 	 or	sr_title like '%' ||#{keyword}|| '%' and
 	  L.sr_no>8 and
 	sr_ended_yn != 'Y'

@@ -7,13 +7,16 @@
 <select id="selectList" parameterType="String" resultMap="studytimeMap">
 
 select 
-	*
+	member_id,
+	study_time,
+	to_char(study_date, 'yyyy-MM-dd') as "s_date"
 from 
 	study_time
-where member_id = #{memberId}
+where member_id = #{memberId} 
+
+
 
 </select>
-
 
 <select id="selectsrList" resultMap="studytimeMap">
 	select 

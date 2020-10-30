@@ -1,12 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:useBean id="now" class="java.util.Date" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <%-- <fmt:requestEncoding value="utf-8" /> --%>
 <%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+
+
+<style>
+
+  table.type10 {
+    border-collapse: collapse;
+    text-align: center;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 30px;
+    margin-left:20%;
+}
+table.type10 thead th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #fff;
+    background: rgb(221, 204, 229);
+    margin: 20px 10px;
+}
+table.type10 tbody th {
+    width: 100px;
+    padding: 10px;
+}
+table.type10 .even {
+    background: #fdf3f5;
+}
+
+</style>
+
 
 <div class="row">
 	<div class="col-lg-2">
@@ -23,14 +57,12 @@
 		<h1>My page</h1>
 		<hr>
 		
-		
-			<c:if test="${ loginMember.memberRole == 'P'}">
+		<c:if test="${ loginMember.memberRole eq 'P'}">
 			<h3 style="margin-left:5%; margin-top:2%;" >이번달 스터디방별 출석 그래프</h3>
-		<div class="row">
-					<div class="col-md-5" style="margin-left:3%; margin-top:5%;">
-
-						<canvas id="myChart1"></canvas>
-					</div>	
+			<div class="row">
+						<div class="col-md-5" style= "margin-left:3%; margin-top:5%;">
+							<canvas id="myChart1"></canvas>
+						</div>	
 			</c:if>
 		
 			
@@ -38,56 +70,83 @@
 			<!-- To Do List-->
             <div class="col-lg-3 col-md-6" style="margin-left:10%; margin-top:-2%;" >
               <div class="card to-do" style="border-radius:8%;">
-                <h2 class="display h4"style="margin-left:30%;">To do List<button type="button" class="btn btn-light m-2"
-					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더보기</button></h2>
+                <h2 class="display h4" style="margin-left:30%;">To do List
+                <button type="button" class="btn btn-light m-2"
+						onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더보기</button></h2>
+                
                 <c:if test="${ empty todoList }">
                 	<p>캘린더에서 to do list를 등록해보세요~~~</p>
 				</c:if>					
-				<p class="text-center"></p>
+				
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+				<p class="text-center">오늘 날짜 : <strong><c:out value="${today}"/></strong></p>
+				<hr>
+                
+                
                 <ul class="check-lists list-unstyled" >
-	                <c:forEach items="${ todoList }" var="td" varStatus="status" end="10">
-	                  <li class="d-flex align-items-center " style="margin-left:30%;"> 
-		                    <inputtype="checkbox" id="list-1${status.index}" name="list-1" class="form-control-custom"
-<%-- 		                        ${ td.scheduleYN == 'Y' ? 'checked' : '' } --%>  
-		                     >
-	                 	 <c:if test="${ td.scheduleYN == 'N' }">
-		                    <label for="list-1" style="font-size:17px;"> - ${ td.content }</label>
-	                    </c:if>
-	                     <c:if test="${ td.scheduleYN == 'Y' }">
-		                    <label for="list-1" style="text-decoration: line-through; color:gray; font-size:17px; ">${ td.content }</label>
-	                    </c:if>
-	                  </li>
+	                <c:forEach items="${ todoList }" var="td" varStatus="status" >
+	                  
+	                  
+		                  <li class="d-flex align-items-center " style="margin-left:30%;"> 
+		                 	 <c:if test="${ td.scheduleYN eq 'N' }">
+			                    <label for="list-1" style="font-size:17px;"> - ${ td.content }</label>
+	                  			<%-- <label for="list-1" style="font-size:17px;">${ td.startDate }</label> --%>
+		                    </c:if>
+		                     <c:if test="${ td.scheduleYN eq 'Y' }">
+			                    <label for="list-1" style="text-decoration: line-through; color:gray; font-size:17px; ">${ td.content }</label>
+		                    </c:if>
+		                  </li>
+		                
 	               </c:forEach>
                 </ul>
               </div>
             </div>
 		</div>
 
-		
-		
-
 	
 
 		<hr>
-
-
 		<h3 style="margin-left:5%;">
 			일일 공부시간
 			<button type="button" class="btn btn-light m-2" data-toggle="modal" 
 				data-target="#exampleModal" data-whatever="@getbootstrap">시간
 				등록하기</button>
 		</h3>
-	
-	<c:if test="${ empty studytimeList }">
-		<h4 class="text-center">공부한 날짜와 시간을 등록해보세요.</h4>
-		<br>
-	</c:if>
 		
-		<div class="col-md-7">
-			<canvas id="lineChart" style="margin-left:30%;"></canvas>
+		<c:if test="${ empty studytimeList }">
+			<h4 class="text-center">공부한 날짜와 시간을 등록해보세요.</h4>
+			<br>
+		</c:if>
+		
+		<div class="row">
+		<div>
+			<br>
+				
+				
+				<table class="type10">
+				    <thead>
+				    <tr>
+				        <th>날짜</th>
+				        <th>시간</th>
+				    </tr>
+				    </thead>
+				    <tbody>
+				    <c:forEach items="${ studytimeList }" var="st" end="6">
+				    <tr>
+				        <th scope="row">${ st.s_date }</th>
+				        <th class="even">${ st.studyTime }</th>
+				    </tr>
+				    </c:forEach>
+				    </tbody>
+				</table>
 		</div>
+			
+			<div class="col-md-7">
+				<canvas id="lineChart" style="margin-left:5%;"></canvas>
+			</div>
 	</div>
 </div>
+
 
 
 
@@ -136,8 +195,6 @@
 
 			var ctx = document.getElementById("myChart1").getContext('2d');
 			//차트 값 생성
-
-		
 			var data = new Array();
 			<c:forEach items="${ attendList }" var="attend" >
 				var json = new Object();
@@ -145,7 +202,6 @@
 				data.push("${attend.attendCnt}");
 			</c:forEach>
 			
-
 			
 				var myChart1 = new Chart(ctx, {
 				type : 'bar',
@@ -186,9 +242,6 @@
 				}
 			});
 
-	
-
-
 
 /* 일일 공부시간 그래프 */
 			
@@ -197,18 +250,11 @@
 			var labels = new Array();
 			var data = new Array();
 
-			/* var date = moment(st.studyDate).format("MMM Do YY"); */  
-
-			
-			
-
-
-
 			
 			<c:forEach items="${ studytimeList }" var="st" >
 				var json = new Object();
-				labels.push("${st.studyDate}"); 
-				data.push("${st.studyTime}");
+				labels.push("${ st.s_date }"); 
+				data.push("${ st.studyTime }");
 			</c:forEach>
 
 			
@@ -227,7 +273,6 @@
 				],
 				borderWidth: 2
 				},
-				
 				]
 				},
 				options: {
@@ -237,10 +282,6 @@
 
 
 </script>
-
-
-
-
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

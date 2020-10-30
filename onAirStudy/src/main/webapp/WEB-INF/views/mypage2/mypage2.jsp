@@ -73,6 +73,7 @@
 					<h5>premium</h5>
 				</c:if>
 			</div>
+
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
 			<input type="hidden" id="attendCheck" value="${attendCheck }"/>

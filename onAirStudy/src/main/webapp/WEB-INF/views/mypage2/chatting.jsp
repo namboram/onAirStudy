@@ -106,9 +106,9 @@ vertical-align: text-bottom;
 						</div>
 						<hr />
 						<h5>신고 대상 : <strong id="reportIdK"></strong></h5>
-						
+						<hr />
 						<h5>신고 내용</h5>
-						<div id="reportContents">
+						<div id="reportContents" class="text-center p-5">
 							
 						</div>
 					</div>

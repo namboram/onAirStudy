@@ -15,7 +15,7 @@ from
 	</if>
 	<if test="srNo != null">
 		sr_no = #{ srNo }
-	</if>
+	</if>	
 </where>
 order by 
 	schedule_yn, 
