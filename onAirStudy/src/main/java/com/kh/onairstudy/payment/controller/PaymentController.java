@@ -54,6 +54,7 @@ public class PaymentController {
 		System.out.println(memberId);
 		
 		int result = paymentService.updatePayHistory(memberId); 
+		result = paymentService.insertPaymentLog(memberId);
 		
 		
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원권한 수정성공" : "회원권한 수정실패");

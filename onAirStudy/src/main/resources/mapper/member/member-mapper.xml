@@ -22,9 +22,6 @@
 		
 		)
 	</insert>
-	
-	
-	
 
 	
 	<select id="idChk" resultType="int">

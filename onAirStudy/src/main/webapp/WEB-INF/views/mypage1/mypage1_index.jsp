@@ -50,8 +50,8 @@ table.type10 .even {
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	
 
-	<div class="col-lg-10" style="background-color: #FBF7FD;">
-
+	<div class="col-lg-10 p-0" style="background-color: #FBF7FD;">
+	<div style="padding:5%">
 		<h1>My page</h1>
 		<hr>
 		
@@ -176,8 +176,13 @@ table.type10 .even {
 		</div>
 	</form>
 </div>
+<<<<<<< HEAD
+</div>
+
+=======
 
 </div>
+>>>>>>> branch 'master' of https://github.com/ekfhdwld/onAirStudy.git
 
 <script>
 

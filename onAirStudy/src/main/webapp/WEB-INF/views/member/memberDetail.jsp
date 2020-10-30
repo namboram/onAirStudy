@@ -5,21 +5,27 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/memberDetail.css" /><div class="col-lg p-0">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/memberDetail.css" />
+<div class="col-lg p-0">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </div>
 <div class="row">
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 	</div>
 	
-	<div class="col-lg-10 p-0" id="member-update-container">
+	<div class="col-lg-10 p-0" id="member-update-container" style="height:100%;">
+	<div style="padding:5%;">
 	<h4>내정보</h4>
 	<hr />
+
 		
 		<div id=updatefrm-left>
 			<h5>내 정보 수정</h5>
 			<hr />
+
+		<div id="updatefrm-left" style="margin-bottom:10%;">
+
 			<form id="memberUpdateFrm1" 
 				  action="${pageContext.request.contextPath}/mypage1/memberUpdate.do" 
 				  onsubmit="return MupdateValidate();"
@@ -67,9 +73,17 @@
 				</div>
 			</form>
 		</div>
+<<<<<<< HEAD
+=======
+	</div>
+	</div>
+</div>
+<script>
+function uploadProfileValidate(){
+>>>>>>> branch 'master' of https://github.com/ekfhd/onAirStudy.git
 
 	
-	<div id="updatefrm-right">
+	<div id="updatefrm-rt">
 		<h5>결제 내역</h5>
 		<table class="table" class="table table-striped table-hover">
 	    <tr class="header">

@@ -57,10 +57,7 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	
-	
-	
-	
+
 	
 	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.GET)
 	public ModelAndView memberEnroll(ModelAndView mav) {
@@ -176,18 +173,14 @@ public class MemberController {
 			return new BCryptPasswordEncoder();
 		}
 		
-	
 
-		
-		
 		@RequestMapping(value = "member/memberLogin.do", 
 					method = RequestMethod.GET)
 		public String memberLogin() {
 		return "member/memberLogin";
 		}
 		
-		
-		
+
 		@RequestMapping(value = "member/memberLogin.do", 
 					method = RequestMethod.POST)
 		public String memberLogin(@RequestParam("memberId") String memberId,

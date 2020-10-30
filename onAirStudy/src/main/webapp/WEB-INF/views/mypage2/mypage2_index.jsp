@@ -102,7 +102,6 @@ function withdraw(myId, srNo){
 
 	var teamLeader = $("#leaderId").val();
 
-	alert(myId , srNo);
 	if(confirm("스터디방을 탈퇴하시겠습니까?")){
 		if(myId == teamLeader){
 			location.href = "${pageContext.request.contextPath}/studyroom/updateLeader.do?roomNum="+srNo;

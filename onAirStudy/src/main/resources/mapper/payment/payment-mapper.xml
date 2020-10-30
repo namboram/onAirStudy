@@ -24,4 +24,15 @@
 		order by
 			no desc
 	</select>
+	
+	<insert id="insertPaymentLog">
+		insert into
+			payment_log
+		values(
+			seq_payment_log_no.nextval,
+			#{ memberId},
+			default,
+			'13000'
+		)
+	</insert>
 </mapper>

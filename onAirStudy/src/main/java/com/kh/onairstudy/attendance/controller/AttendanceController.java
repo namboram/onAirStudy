@@ -3,6 +3,8 @@ package com.kh.onairstudy.attendance.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,7 @@ public class AttendanceController {
 	@RequestMapping("/check.do")
 	public String attendCheck(@RequestParam("id") String memberId,
 							  @RequestParam("roomNum") int roomNum,
-							  RedirectAttributes redirectAttr ) {
+							  RedirectAttributes redirectAttr, HttpSession session ) {
 		
 		log.debug("memberId = {}", memberId);
 		log.debug("roomNum = {}", roomNum);
@@ -46,6 +48,10 @@ public class AttendanceController {
 		
 		redirectAttr.addAttribute("roomNum"	, roomNum);
 		redirectAttr.addFlashAttribute("msg", msg);
+		
+		if(result == 1) {
+			session.setAttribute("attendAlready", "yes");
+		}
 		
 		return "redirect:/studyroom/main.do";
 	}
