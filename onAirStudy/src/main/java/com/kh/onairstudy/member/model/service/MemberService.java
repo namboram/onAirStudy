@@ -25,6 +25,8 @@ public interface MemberService {
 
 	//아이디중복체크
 	int idChk(Member member);
+	//수정폼에 내용보여주기
+	List<Member> updateSelectOne(String memberId);
 
 	MemberInfo selectdDayInfo(String memberId);
 

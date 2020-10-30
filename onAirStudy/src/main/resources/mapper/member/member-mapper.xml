@@ -67,14 +67,14 @@
 		where member_id = #{reportedMember}
 	</update>
   
-<!--   	<select id="selectOneMemberDetail" resultMap="memberMap">
+	<select id="updateSelectOne" resultMap="memberMap">
   		select
 		  	*
 		from 
 		  	member
 	    where 
 		  	member_id = #{ memberId }
-  	</select>  -->
+  	</select>  
 
 	<update id="updateMember">
 		update
@@ -87,7 +87,8 @@
 		where
 			member_id = #{ memberId }
 	</update>	
-
+	
+	
 <resultMap type="member" id="memberMap">
     <result column="member_id" property="memberId"/>
   	<result column="member_name" property="memberName"/>

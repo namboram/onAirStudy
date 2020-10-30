@@ -44,6 +44,13 @@
 			<li><a href="${ pageContext.request.contextPath}/mypage1/mystudylist.do">내 스터디방</a></li>
 			<li><a href="${ pageContext.request.contextPath }/mypage1/scheduler.do">스케줄러</a></li>
 			<li><a href="${ pageContext.request.contextPath }/mypage1/memberDetail.do">내 정보</a></li>
+			<%-- <li class="mylist">
+				<a href="#">내정보</a>
+				  <div id="myListDropdown" class="mylist-dropdown-content">
+				    <a href="${ pageContext.request.contextPath }/mypage1/memberDetail.do">정보수정</a>
+				    <a href="${ pageContext.request.contextPath }/mypage1/mypage1_paymentList.do">결제내역</a>
+				  </div>
+			</li> --%>
 		</ul>
 	</nav>
 	

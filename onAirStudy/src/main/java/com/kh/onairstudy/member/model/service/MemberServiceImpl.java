@@ -76,6 +76,10 @@ public class MemberServiceImpl implements MemberService {
 	public int idChk(Member member) {
 		return memberDAO.idChk(member);
 	}
+	@Override
+	public List<Member> updateSelectOne(String memberId) {
+		return memberDAO.updateSelectOne(memberId);
+	}
 
 	
 	
