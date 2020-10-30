@@ -216,7 +216,7 @@ public class StudyRoomController {
 			String msg = "";
 			int result = 0;	
 						
-			// 찜 등록
+			// 찜 등록 조회
 															
 			int wishR = studyRoomService.selectCheckWish(srWish);
 			

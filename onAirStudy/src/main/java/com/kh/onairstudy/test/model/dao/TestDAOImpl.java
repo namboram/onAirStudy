@@ -34,4 +34,9 @@ public class TestDAOImpl implements TestDAO {
 		return sqlSession.update("test.updatePoint", memberId);
 	}
 
+	@Override
+	public int selectCountQuestion(int srNo) {
+		return sqlSession.selectOne("test.selectCountQuestion", srNo);
+	}
+
 }
