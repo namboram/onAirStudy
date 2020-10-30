@@ -57,7 +57,8 @@ public class StudytimeController {
 		
 		List<Studytime> studytimeList = studytimeService.selectList(loginMember.getMemberId());
 		List<Attendance> attendList = attendanceService.selectList(loginMember.getMemberId());
-		List<Scheduler> scheduleList = schedulerService.mainScheduler(map);
+//		List<Scheduler> scheduleList = schedulerService.mainScheduler(map);
+		List<Scheduler> scheduleList = schedulerService.selectToDoList(loginMember.getMemberId());
 		List<String> srList = studytimeService.selectsrList(loginMember.getMemberId());
 		Map<String, Object> sideBarInfo = memberService.selectMemberInfo(loginMember.getMemberId());
 		

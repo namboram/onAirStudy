@@ -61,6 +61,12 @@ public class SchedulerServiceImpl implements SchedulerService {
 
 
 	@Override
+	public List<Scheduler> selectToDoList(String memberId) {
+		return schedulerDAO.selectToDoList(memberId);
+	}
+
+	
+	
 	public Scheduler dDaySearch(Map<String, Object> map) {
 		return schedulerDAO.dDaySearch(map);
 	}
