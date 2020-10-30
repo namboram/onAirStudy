@@ -80,8 +80,10 @@ public class TestController {
 		}
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "문제를 등록하였습니다." :"문제 등록 중 오류가 발생했습니다.");
+		redirectAttr.addFlashAttribute("test", "Y");
+		redirectAttr.addAttribute("roomNum"	, roomNum);
 		
-		return "redirect:/studyroom/main.do?test=Y&roomNum="+roomNum;
+		return "redirect:/studyroom/main.do";
 	}
 	
 	//시험 문제 추출
