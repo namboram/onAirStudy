@@ -9,11 +9,12 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </div>
 <div class="row">
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 	</div>
 	
 	<div class="col-lg-10 p-0" id="member-update-container">
+	<div style="padding:5%">
 		<h4>내정보</h4>
 		<hr />
 		
@@ -32,6 +33,7 @@
 		</c:forEach>
 		</table>
 	</div>
+</div>
 </div>
 <div class="col-lg p-0">
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

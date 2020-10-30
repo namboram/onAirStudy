@@ -13,7 +13,7 @@
 <div class="invitation" style="margin-bottom: 0;">
 
 
-	<div class="col-sm" style="background-color: #FBF7FD; padding: 20px;">
+	<div class="col-sm" style="background-color: #FBF7FD; padding: 5%;">
 		<h2 class="text-gray" style="float: left; padding-right: auto;">
 			My Study Group</h2>
 <button type="button" class="btn btn-outline-primary"			
