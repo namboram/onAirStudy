@@ -26,13 +26,12 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </div>
 
-<div class="row">
-	<div class="col-lg-2">
-		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
-	</div>
+
+
 	<!-- 차트 링크 -->
 	<!-- 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
-	<div class="col-lg-10 p-0" id="containerMsgK">
+	<div class="row " id="containerMsgK">
+	<div class="col-lg-1"></div>
 		<!-- 신고 모달 -->
 		<div class="modal" id="reportMyModal">
 			<div class="modal-dialog">
@@ -90,7 +89,7 @@
 							<hr />
 
 							<h5>내용</h5>
-							<textarea id="replyContents" cols="63" rows="5"></textarea>
+							<textarea id="replyContents"  style="width: 100%;" rows="5"></textarea>
 						</div>
 
 					</div>
@@ -105,6 +104,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-10 mt-3 p-0">
 		<h1>쪽지함</h1>
 		<div class="row mb-3">
 				<c:if test="${loginMember.memberId eq message.receiverId}">
