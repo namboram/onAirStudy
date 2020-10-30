@@ -61,18 +61,7 @@ public class PaymentController {
 		return "redirect:/";
 		}
 		
-		
-		//결제내역 가져오기
-		@RequestMapping("/mypage1/mypage1_paymentList.do")
-		public ModelAndView paymentList(
-										ModelAndView mav) {
-		
-		List<Payment> list = paymentService.selectPaymentList();		
-		mav.addObject("list", list);
-		mav.setViewName("mypage1/mypage1_paymentList");
-		return mav;
-		}		
-	
+
 
 
 	

@@ -2,7 +2,8 @@
 
 
 #member-update-container {
-			width:80%; margin: 0 auto; 
+			width:80%; 
+			margin: 0 auto; 
 			background-color: #FBF7FD;
     		padding: 20px;
 }
@@ -34,8 +35,9 @@
 	float:left;
 	background-color: #fff;
 	width:300px; 
-	heigth: 700px;
-	margin: 0 auto; 
+	margin: 0 auto;
+	text-align: center;
+	padding: 20px;
 }
 #form-control-label{
 			width:100px; 
@@ -48,6 +50,8 @@ input.form-control{
 			height: 50px;
 			text-align:center; 
 			margin: 10px auto;
+			border : none;
+			border-bottom: 1px solid black;
 			
 }
 input.bottom-form-control{
@@ -55,14 +59,32 @@ input.bottom-form-control{
 	margin : 0 20px 0 70px;
 	
 }
-.mProfile-container{
-			border:1px solid #000; 
-			width:200px;
-			height: 200px;
+/* 프로필사진 업로드  */
+.mProfile-container input[type="file"] { 
+		position: absolute; 
+		width: 1px; height: 1px; padding: 0; margin: -1px; 
+		overflow: hidden; 
+		clip:rect(0,0,0,0); 
+		border: 0; 
+} 
+.mProfile-container label { 
+		display: inline-block; 
+		padding: .5em .75em; 
+		color: #999; 
+		font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #ebebeb; border-bottom-color: #e2e2e2; border-radius: .25em; } 
+/* named upload */ 
+.mProfile-container .file-input { 
+		display: inline-block; 
+		padding: .5em .75em; /* label의 패딩값과 일치 */ 
+		font-size: inherit; 
+		font-family: inherit; 
+		line-height: normal; 
+		vertical-align: middle; 
+		background-color: #f5f5f5; 
+		border: 1px solid #ebebeb; 
+		border-bottom-color: #e2e2e2;
+		border-radius: .25em; 
+		-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+		-moz-appearance: none; appearance: none; 
 }
-.file-label{
-			width:50%;
-			float: center;
-			text-align:center;
-			border: 3px solid #fff;
-}
+
