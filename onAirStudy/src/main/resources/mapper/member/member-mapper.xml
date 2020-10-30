@@ -122,7 +122,7 @@
 		where 
 			d_yn = 'Y' 
 		and 
-			member_id = 'jhking' 
+			member_id = #{memberId} 
 		and 
 			trunc(start_date - trunc(sysdate)) > 0
 	</select>
