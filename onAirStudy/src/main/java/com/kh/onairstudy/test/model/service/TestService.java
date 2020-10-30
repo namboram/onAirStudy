@@ -14,4 +14,6 @@ public interface TestService {
 
 	int updatePoint(String memberId);
 
+	int selectCountQuestion(int srNo);
+
 }
