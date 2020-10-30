@@ -23,8 +23,8 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	private ServiceCenterDAO serviceCenterDAO;
 
 	@Override
-	public List<ServiceCenter> selectServiceList(PagingCriteria cri) {
-		return serviceCenterDAO.selectServiceList(cri);
+	public List<ServiceCenter> selectServiceList(Map<String, Object> map) {
+		return serviceCenterDAO.selectServiceList(map);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class ServiceCenterServiceImpl implements ServiceCenterService {
 	}
 
 	@Override
-	public int totalCount(String search_option, String keyword, int category) {
-		return serviceCenterDAO.totalCount(search_option, keyword, category);
+	public int totalCount(Map<String, Object> map) {
+		return serviceCenterDAO.totalCount(map);
 	}
 
 

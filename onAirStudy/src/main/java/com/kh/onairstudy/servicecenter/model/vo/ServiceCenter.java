@@ -23,11 +23,10 @@ public class ServiceCenter implements Serializable{
 	private String serviceStatus;
 	private String serviceTitle;
 	private String serviceContent;
-	private int reply_no;
+	private int replyNo;
 	private String memberId;
 	private Date serviceDate;
-	private String read_yn;
+	private String readYn;
 	private int serviceLevel;
-	
 	
 }

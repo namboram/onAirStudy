@@ -13,4 +13,15 @@
 			member_id = #{memberId}
 	
 	</update>
+	
+	<select id="selectPaymentList" resultType="payment">
+		select
+			no,
+			payment_date,
+			payment_amount
+		from 
+			payment_log		
+		order by
+			no desc
+	</select>
 </mapper>

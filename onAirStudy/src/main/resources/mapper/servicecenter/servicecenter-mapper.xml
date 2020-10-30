@@ -5,6 +5,40 @@
 <mapper namespace="service">
 
 
+
+ <select id="selectServiceList" resultType="ServiceCenter">
+<![CDATA[
+ select 
+ 		* 
+ from 
+ 		(select 
+ 				S.*, 
+ 				rownum rnum 
+ 		from 
+ 				(select 
+ 						S.* 
+ 				from 
+ 						service S  
+ 				where 
+ 						exists (select 
+ 										reply_no 
+ 								from 
+ 										service 
+ 								where 
+ 										S.reply_no = no 
+ 								and 
+ 										member_id = #{ memberId }) 
+ 				or 
+ 					member_id = #{ memberId }
+ 				order by 
+ 					7) S  
+ 		where 
+ 				rownum <= #{cri.pageNum} * #{cri.amount}) 
+ where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+ 	]]>
+ 	
+</select>
+
 <!-- 자주묻는 질문List -->
 <select id="selectServiceContentList" resultMap="serviceMap">
 	select *
@@ -21,9 +55,21 @@
 
 
 <select id="totalCount" resultType="int">
-	select count(*)
-	from service
-<!--  	<include refid="search" /> -->
+			select 
+ 					count(*)
+ 			from 
+ 				service S  
+ 			where 
+ 				exists (select 
+ 								reply_no 
+ 						from 
+ 								service
+ 						where 
+ 								S.reply_no = no 
+ 						and
+ 								 member_id=#{ memberId }) 
+			or
+ 				member_id =#{ memberId }
 
  </select>
 
@@ -94,28 +140,6 @@ where
 
 </resultMap>
 
-
-
- 
- <select id="selectServiceList" resultMap="serviceListMap">
-<![CDATA[
- 		select *
- 		
- 		from (select 
- 			  	rownum rn, no, category, service_title, service_content, member_id , service_date, service_status , reply_no
- 			  from 
- 			  	service 
- 			  where rownum <= #{pageNum} * #{amount}) 
- 			  
- 		where rn > (#{pageNum} - 1) * #{amount}
- 		order by no desc
- 	]]>
- 	
- 	
-</select>
-
- 
- 
 
 
 <insert id="insertService">

@@ -34,9 +34,10 @@ public class Scheduler_Controller {
 	@Autowired
 	private SchedulerService schedulerService;
 
+	//ajax를 통한 달력조회
 	@RequestMapping("/scheduler/scheduler.do")
 	@ResponseBody
-	public Object mainScheduler_(@RequestParam(value = "no", required = false) String roomNum) {
+	public Object mainScheduler_(@RequestParam("roomNum") String roomNum) {
 
 		// 가짜멤버
 		Member member = new Member();
@@ -46,15 +47,17 @@ public class Scheduler_Controller {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", addList);
+		map.put("roomNum", roomNum);
 		map.put("code", "OK");
 
 		log.debug("roomNum ={}", roomNum);
 
 		return map;
 	}
-
+	
+	//마이페이지2의 처음 주소
 	@RequestMapping("/scheduler/scheduler_.do")
-	public ModelAndView mainScheduler_main(@RequestParam(value = "no", required = false) String roomNum,
+	public ModelAndView mainScheduler_main(@RequestParam("roomNum") String roomNum,
 			ModelAndView mav) {
 
 		// 가짜멤버
@@ -64,6 +67,7 @@ public class Scheduler_Controller {
 		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
 
 		mav.addObject("list", addList);
+		mav.addObject("roomNum", roomNum);
 		mav.setViewName("scheduler/scheduler_");
 
 		log.debug("roomNum ={}", roomNum);
@@ -74,17 +78,9 @@ public class Scheduler_Controller {
 	// 일정 시작~끝 날짜의 중간 날짜들 찾아주기
 	public List<Scheduler> makeScheduleArrays(Member member, String roomNum) {
 
-		// 로그인된 아이디 가져오기
-		String memberId = member.getMemberId();
-
 		Map<String, Object> map = new HashMap<>();
 
-		// 방번호유무 갈림
-		if (roomNum != null) {
-			map.put("srNo", roomNum);
-		} else {
-			map.put("memberId", memberId);
-		}
+		map.put("srNo", roomNum);
 
 		List<Scheduler> list = schedulerService.mainScheduler(map);
 
@@ -133,7 +129,7 @@ public class Scheduler_Controller {
 	// 일정 넣어주기
 	@RequestMapping("scheduler/insert_.do")
 	@ResponseBody
-	public void insertSchedule(Scheduler sch, HttpServletResponse response) throws Exception {
+	public void insertSchedule(Scheduler sch, ModelAndView mav, HttpServletResponse response) throws Exception {
 		// jsp에서 처리못한 값들 처리해주기
 		if (sch.getDYN() == null)
 			sch.setDYN("N");
