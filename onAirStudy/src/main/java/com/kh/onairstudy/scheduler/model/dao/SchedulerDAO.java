@@ -22,6 +22,8 @@ public interface SchedulerDAO {
 
 	int deleteTodo(Map<String, Object> map);
 
+	Scheduler dDaySearch(Map<String, Object> map);
+
 
 
 }

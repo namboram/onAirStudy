@@ -51,6 +51,11 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 		return sqlSession.delete("scheduler.deleteTodo", map);
 	}
 
+	@Override
+	public Scheduler dDaySearch(Map<String, Object> map) {
+		return sqlSession.selectOne("scheduler.dDaySearch", map);
+	}
+
 	
 	
 	
