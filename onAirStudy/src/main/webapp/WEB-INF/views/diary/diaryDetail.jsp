@@ -4,64 +4,35 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<style>
-/* div#diary-container{width:400px;} */
-input, button, textarea {margin-bottom:15px;}
-button {
-	overflow: hidden;
-}
-/* 부트스트랩 : 파일라벨명 정렬*/
-div#diary-detail-container label.custom-file-label{text-align:left;}
-</style>
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/diaryDetail.css" />
 
 
 <div id="diary-container" class="mx-auto col-sm-10 offset-sm-1">
 	<div class="text-center">
-		<h2>STUDY DIARY</h2>
+		<hr class="hr-text" data-content="STUDY DIARY">
 	</div>
-	<%-- <div id="diary-main-container">
-		<input type="text" class="form-control" 
-			   placeholder="제목" name="diaryTitle" id="title" 
-			   value="${ diary.diaryTitle }" required>
-		<input type="text" class="form-control" 
-			   name="memberId" 
-			   value="${ diary.memberId }" readonly required>
-	   
-	    <input type="number" class="form-control" name="readCnt" title="조회수"
-			   value="${ diary.readCnt }" readonly>
-		
-		<input type="datetime-local" class="form-control" name="diaryDate" 
-			   value='<fmt:formatDate value="${ diary.diaryDate }" pattern="yyyy-MM-dd'T'HH:mm"/>'>
-		<hr />
-		
-		<c:forEach items="${ diary.attachList }" var="attach">
-		<!-- 다이어리 사진 송출  -->
-			<button type="button" 
-					class="btn btn-outline-success btn-block">
-				첨부파일 - ${ attach.originalFilename }
-			</button>
-		</c:forEach>
-		
-		
-	    <textarea class="form-control" name="diaryContent" 
-	    		  placeholder="내용" required>${ diary.diaryContent }</textarea>
-	</div> --%>
+	<div class="diary-detail-info">
+		작성자  ${ diary.memberId } / 작성일 <fmt:formatDate value="${ diary.diaryDate }" pattern="yy.MM.dd"/> / 조회수 ${ diary.readCnt }
+		<hr class="hr-color">
+	</div>
 	<div class="border border-secondary">
 		${diary.diaryContent}
 	</div>
+	<button type="button" class="btn" id="listbtn">목록</button>
 	<c:if test="${loginMember.memberId eq diary.memberId }">
-	<form action="${ pageContext.request.contextPath }/diary/deleteDiary.do" method="post" onsubmit="return deleteSubmit();">
-	<input type="hidden" value="${diary.no}" name="no"/>
-	<button type="submit" class="btn btn-danger">삭제</button>
-	</form>
+		<form action="${ pageContext.request.contextPath }/diary/deleteDiary.do" method="post" onsubmit="return deleteSubmit();">
+			<input type="hidden" value="${diary.no}" name="no"/>
+			<button type="submit" class="deletebtn">삭제</button>
+		</form>
 	</c:if>
 </div>
+<br />
+<hr />
 <div id="diary-reply-container">
 	  <c:if test="${ loginMember.memberId != null }">
-	  <hr />
-	  <input type="text" class="form-control col-sm-6" name="replyContent" id="replyContent" placeholder="댓글을 적어주세요" required/>&nbsp;
-      <!-- <input type="password" class="form-control col-sm-2" name="DRpassword" maxlength="4" placeholder="비밀번호" required/>&nbsp; -->
-      <button class="btn btn-outline-success" id="btnReply" >댓글작성</button>
+		  <input type="text" class="" name="replyContent" id="replyContents" placeholder="댓글을 적어주세요" maxlength="25" required/>
+	      
+	      <button class="btn" id="replybtn" >댓글작성</button>
 	  </c:if>
 </div>
 <!-- 댓글 목록 출력할 위치  -->
@@ -101,11 +72,6 @@ $(document).ready(function(){
 	});
 
 });
-
-
-
-
-
 
 </script>
 

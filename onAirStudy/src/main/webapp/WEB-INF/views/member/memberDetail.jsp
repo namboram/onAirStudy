@@ -73,14 +73,11 @@
 				</div>
 			</form>
 		</div>
-<<<<<<< HEAD
-=======
 	</div>
 	</div>
 </div>
 <script>
 function uploadProfileValidate(){
->>>>>>> branch 'master' of https://github.com/ekfhd/onAirStudy.git
 
 	
 	<div id="updatefrm-rt">

@@ -10,11 +10,11 @@
 	function kakaopaypopup(){
 
 		if("${loginMember}" == "" ){
-			alert("로그인해주세요");
 			location.href= "${ pageContext.request.contextPath }/member/memberLogin.do";
+			alert("로그인해주세요");
 		}else if( "${loginMember.memberRole}" == 'P'){
-			alert("이미 프리미엄회원입니다.");
 			location.href="redirect:/";
+			alert("이미 프리미엄회원입니다.");
 		}else{
 			var url = "${ pageContext.request.contextPath }/pay/kakao";
 			var title = "kakaoPay";

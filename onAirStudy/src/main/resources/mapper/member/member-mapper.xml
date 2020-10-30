@@ -10,7 +10,7 @@
 		values(
 			#{ memberId },
 			#{ memberName },
-			#{ password },n,
+			#{ password },
 			default,
 			#{ phone },
 			default,
