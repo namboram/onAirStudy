@@ -177,7 +177,7 @@
 		<h3 class="text-center">
 		<img src="${pageContext.request.contextPath }/resources/images/trophy.png" width=70px;>
 		이달의 성실 스터디방
-		
+		<img src="${pageContext.request.contextPath }/resources/images/trophy.png" width=70px;>
 		</h3>
 			
 		<div class="container-sm-5" style="margin-left:4%;">

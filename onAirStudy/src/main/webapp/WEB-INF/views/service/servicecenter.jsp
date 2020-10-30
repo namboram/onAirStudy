@@ -14,19 +14,16 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <script>
-function selectCategory(category) {
+/* function selectCategory(category) {
 	console.log(category);
     location.href="${pageContext.request.contextPath}/list.do?category="+category;
 }
-
 function searchClick() {
 	var selectOption = $("#searchOption").val();
 	var keyword = $("#keyword").val();
 	location.href="${pageContext.request.contextPath}/list.do?search_option="+selectOption + "&keyword=" + keyword;
 }
-
-/*
- function isLogined() {
+function isLogined() {
 	var memberid = $("#member_id").val();
 	if(memberid != null) {
 		return memberid;
@@ -34,8 +31,8 @@ function searchClick() {
 		alert("로그인을 해주세요!");
 		return false;
 	}
-} */
-/* $(document).ready(function() {
+}
+$(document).ready(function() {
 	$("#chk").change(function() {
 		if(this.checked) {
 			var memberid = isLogined() ? isLogined() : false;
@@ -70,58 +67,62 @@ function searchClick() {
 	<!--   서비스별 질문 -->
 	<!-- <div class="row" style="margin-left:15%;" > -->
 		<div class="m-5">
+		
 			<h3 class="text-center">서비스별 질문</h3>
 			<hr style="border:2px solid rgb(247, 235, 229);">
-				<ul class="row" style="list-style:none;" >
-				<li>
-					<div class="mx-auto d-block p-5">
-					<!-- <a href="#" onclick="selectCategory(1)"> -->
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
-						<!-- </a> --><br><h4 class="text-center" style="margin-top:20%; color=black;">신고</h4>	
-					</div></li>
-				<li>
-					<div class="mx-auto d-block p-5">
-					<!-- <a href="#" onclick="selectCategory(2)"> -->
-						<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
-						<!-- </a> --><br><br><h4 class="text-center" style="margin-top:20%; color=black; ">이용</h4>
-					</div>
-				</li>
-				<li>
-					<div class="mx-auto d-block p-5">
-					<!-- <a href="#" onclick="selectCategory(3)"> -->
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px"><!-- </a> -->
-						<br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;">결제</h4>	
+				<ul class="row" style="list-style:none; width:700px; margin-left:27%;">
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(1)"> -->
+							<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
+							<!-- </a> --><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;">신고</h4>	
+						</div></li>
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(2)"> -->
+							<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
+							<!-- </a> --><br><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" >이용</h4>
+						</div>
+					</li>
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(3)"> -->
+							<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px"><!-- </a> -->
+							<br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;">결제</h4>	
+						
+						</div>
+					</li>
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(4)"> -->	
+							<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/etc.png" width="60px"><!-- </a> -->
+							<br><h4 class="text-center" style="margin-top:20%;  color=black; cursor:pointer;" >기타</h4></div>	
+					</li>
 					
-					</div>
-				</li>
-				<li>
-					<div class="mx-auto d-block p-5">
-					<!-- <a href="#" onclick="selectCategory(4)">	 -->
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/etc.png" width="60px"><!-- </a> -->
-						<br><h4 class="text-center" style="margin-top:20%;  color=black; cursor:pointer;">기타</h4></div>	
-				</li>
-				
 				</ul>
 				<hr style="border:2px solid rgb(247, 235, 229);">
 		</div>
 			
 				
 	<!-- 자주묻는 질문 -->
-	<div class="m-5">
-		<h3 class="text-center">자주하는 질문</h3>
-		
-	 <div class="bs-example"  style="width:500px;" >
+	<div class="m-5"> 
+		<h3 class="text-center">
+		<img src="${ pageContext.request.contextPath }/resources/images/question.png" width="60px">
+		&nbsp;&nbsp;
+		자주하는 질문</h3>
+		<br>
+	 <div class="bs-example" >
 		    <div class="accordion" id="accordionExample">	        
 		       
 		       <c:forEach items="${ serviceContentList }" var="sc" varStatus="status">      
-			        <div class="card">
+			        <div class="card text-center" style="width:400px; margin-left:37%; background-color:rgb(247, 235, 229);">
 			            <div class="card-header">
-			                <h2 class="mb-2 text-center">
-			                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne${status.index}">${ sc.title }</button>									
-			                </h2>
+			                    <button type="button" class="btn btn-link " data-toggle="collapse" data-target="#collapseOne${status.index}">
+			                    <p class="text-center" style="color:black; font-weight: bold;">${ sc.title }</p>
+			                    </button>									
 			            </div>
 			            <div id="collapseOne${status.index}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-			                <div class="card-body">
+			                <div class="card-body text-center" style="background-color:rgb(250, 246, 244);">
 			                    <p>${ sc.content }</p>
 			                </div>
 			            </div>
@@ -133,7 +134,7 @@ function searchClick() {
 <!-- </div> -->
 
 
-
+  <c:if test="${ list != null }">
 <!-- 문의게시판 목록 -->
 <div class="m-5" >
 	<h3 class="text-center">문의게시판
@@ -143,39 +144,47 @@ function searchClick() {
 	</h3>
 
 
-
 <!-- 검색 -->
-	 <%-- <form name="form1">
-		 <div class="form-group row justify-content-center">
-			<div class="w100" style="padding-right:10px">
-				 <select name="search_option" id="searchOption">
-					        <option value="member_id"
-					<c:if test="${map.search_option == 'member_id'}">selected</c:if>
-						   >작성자</option>
-					
-					        <option value="service_title" 
-					<c:if test="${map.search_option == 'service_title'}">selected</c:if>
-					        >제목</option>
-					
-					        <option value="service_content" 
-					<c:if test="${map.search_option == 'service_content'}">selected</c:if>
-					        >내용</option>
-					
-					        <option value="all" 
-					<c:if test="${map.search_option == 'all'}">selected</c:if>
-					        >작성자+내용+제목</option>
-					
-			    </select>
-			    <input name="keyword" id="keyword" placeholder="검색어를 입력하세요" value="${map.keyword}">
-			    <input class="btn btn-sm btn-primary" name="search" type="button" onclick="searchClick()" value="조회">
-			</div>
-		</div>			
-	</form>   --%>
+<%-- 	<form name="form1">
+	 <div class="form-group row justify-content-center">
+		<div class="w100" style="padding-right:10px">
+			 <select name="search_option" id="searchOption">
+				        <option value="member_id"
+				<c:if test="${map.search_option == 'member_id'}">selected</c:if>
+					   >작성자</option>
+				
+				        <option value="service_title" 
+				<c:if test="${map.search_option == 'service_title'}">selected</c:if>
+				        >제목</option>
+				
+				        <option value="service_content" 
+				<c:if test="${map.search_option == 'service_content'}">selected</c:if>
+				        >내용</option>
+				
+				        <option value="all" 
+				<c:if test="${map.search_option == 'all'}">selected</c:if>
+				        >작성자+내용+제목</option>
+				
+		    </select>
+		    <input name="keyword" id="keyword" placeholder="검색어를 입력하세요" value="${map.keyword}">
+		    <input class="btn btn-sm btn-primary" name="search" type="button" onclick="searchClick()" value="조회">
+	
+		</div>
+	</div>
+			
+	</form> --%>
 			
 
-        
+  
+    
      <div class="container1" style="padding-left:5%;padding-right:5%;">
-      
+       <%--  <div class="float-right" >
+			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
+			<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
+		</div> --%>
+		
+		
+					  
 					<table class="table table-hover" id="board">
 					    <tr>
 					      <th>번호</th>
@@ -217,7 +226,6 @@ function searchClick() {
 								      <td><fmt:formatDate value="<%= list.get(i).getServiceDate() %>" pattern="yy/MM/dd"/></td>
 								</tr>
 								<%} %>
-								
 					    	<% for(int j = 0 ; j<list.size();j++){ %>
 					    		<% if(list.get(i).getNo() == list.get(j).getReplyNo()){ %>
 									<tr>
@@ -241,9 +249,8 @@ function searchClick() {
 				
 				
 				
-				
 				<!-- 페이징처리 -->			
-				 <div class="container2 text-center">
+				<div class="container2 text-center">
 					<div id="paging">
 						<c:if test="${paging.prev }">
 							<a href="${paging.startPage -1 }"> [이전] </a>
@@ -265,17 +272,19 @@ function searchClick() {
 						<input type="hidden" id="amount" name="amount" value="${paging.cri.amount }" >
 					</form>
 				</div>
-				 
 				
 
 
 
 
 </div> 
+</c:if>
+
+
+
 
 
 
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
