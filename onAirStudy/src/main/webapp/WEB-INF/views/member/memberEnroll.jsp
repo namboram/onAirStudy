@@ -31,9 +31,9 @@
                                            class="form-control" 
                                            id="memberId_">									
                                    	<button class="idChk" type="button" id="idChk" onclick="idCheck();" value="N">중복확인</button>
-                                    <label for="memberId" class="label-member">
+                                   <label for="memberId" class="label-member">
                                         <span class="content-member">Id*</span>
-                                    </label>
+                                    </label> 
                                    <!--  0:사용불가, 1:사용가능 -->
                                     <input type="hidden" id="IdChk" value="N" />
                             </div>

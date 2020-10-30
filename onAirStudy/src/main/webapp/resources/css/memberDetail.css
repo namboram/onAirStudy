@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+
+#member-update-container {
+			width:80%; margin: 0 auto; 
+			background-color: #FBF7FD;
+    		padding: 20px;
+}
+#member-update-container h4{
+			padding: 20px 20px 0 20px;
+}
+.myinfo-tagS{
+	border: 1px solid #000;
+	width:10%;
+	cursor: pointer;
+	background-color: #fff;
+	margin-left:110px;
+}
+.tagS a{
+	display:inline-block;
+	color: #000;
+}
+
+
+#updatefrm-left{
+	float:left;
+	background-color: #fff;
+	width:700px;
+	padding: 20px;
+	margin-left: 30px; 
+
+}
+#updatefrm-right{
+	float:left;
+	background-color: #fff;
+	width:300px; 
+	heigth: 700px;
+	margin: 0 auto; 
+}
+#form-control-label{
+			width:100px; 
+			text-align:center; 
+	
+}
+
+input.form-control{
+			width:80%; 
+			height: 50px;
+			text-align:center; 
+			margin: 10px auto;
+			
+}
+input.bottom-form-control{
+	width: 100px;
+	margin : 0 20px 0 70px;
+	
+}
+.mProfile-container{
+			border:1px solid #000; 
+			width:200px;
+			height: 200px;
+}
+.file-label{
+			width:50%;
+			float: center;
+			text-align:center;
+			border: 3px solid #fff;
+}

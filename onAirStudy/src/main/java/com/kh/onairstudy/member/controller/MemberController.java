@@ -243,13 +243,20 @@ public class MemberController {
 		public ModelAndView memberDetail(@ModelAttribute("loginMember") Member loginMember,
 										 Model model,
 										  ModelAndView mav) {
-
+			
+			if(loginMember != null){
 			log.debug("loginMember = {}", loginMember);
 			
 			model.addAttribute("loginMember");
 			mav.addObject("loginMember", loginMember);	
 			mav.setViewName("member/memberDetail");
 			return mav;
+			}
+			//로그인안할시 로그인페이지로 이동
+			else {
+			mav.setViewName("member/memberLogin");
+			return mav;
+			}
 		}
 		
 		//수정폼 저장하기
@@ -274,7 +281,7 @@ public class MemberController {
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
 		public String mProfileInsert(@RequestParam(value = "upFile",required = false) MultipartFile upFile,
 									HttpServletRequest request,
-									RedirectAttributes redirectAttr) {
+									RedirectAttributes redirectAttr) throws Exception {
 //			log.debug("upfile.name = {}", upFile.getOriginalFilename());
 //	        log.debug("upfile.size = {}", upFile.getSize());
 	      //1. 서버컴퓨터에 업로드한 파일 저장하기
@@ -290,25 +297,23 @@ public class MemberController {
 	            
 	            //2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장  tranferTo
 	            File dest = new File(saveDirectory, renamedFilename);
-	            try {
-					upFile.transferTo(dest);
-				} catch (IOException e ) {
-					e.printStackTrace();
-				}
-	            
+	          
+	            upFile.transferTo(dest);
+				
 	            //3.attachment객체 생성
 	            ProfileAttachment attach = new ProfileAttachment();
 	            attach.setOriginalFilename(upFile.getOriginalFilename());
 	            attach.setRenamedFilename(renamedFilename);
 	            attachList.add(attach);   
-	            }
+	            
 
 	         //처리결과 msg 전달
-	         redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
+	         redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
 	        
-	    return "redirect:/mypage1/memberDetail.do";
 		
-		}
+	         }
+	         return "redirect:/mypage1/memberDetail.do";
+	    }
 }
 		
 		
