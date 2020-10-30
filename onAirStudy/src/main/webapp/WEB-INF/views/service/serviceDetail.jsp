@@ -48,7 +48,21 @@
                 <th>제목</th>
                 <td>${map.SERVICE_TITLE}</td>
                 <th>카테고리</th>
-                <td>${map.CATEGORY }</td>
+                
+                 <c:choose>
+					<c:when test="${ map.CATEGORY == 1}">
+						<td>신고</td>
+					</c:when>
+					<c:when test="${ map.CATEGORY == 2}">
+						<td>이용</td>
+					</c:when>
+					<c:when test="${ map.CATEGORY == 3}">
+						<td>결제</td>
+					</c:when>
+					<c:when test="${ map.CATEGORY == 4}">
+						<td>기타</td>
+					</c:when>
+				</c:choose>
             </tr>
             <tr>
                 <th>작성자</th>

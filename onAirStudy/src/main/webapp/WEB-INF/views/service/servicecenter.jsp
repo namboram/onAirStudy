@@ -14,18 +14,15 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
 <script>
-
-function selectCategory(category) {
+/* function selectCategory(category) {
 	console.log(category);
     location.href="${pageContext.request.contextPath}/list.do?category="+category;
 }
-
 function searchClick() {
 	var selectOption = $("#searchOption").val();
 	var keyword = $("#keyword").val();
 	location.href="${pageContext.request.contextPath}/list.do?search_option="+selectOption + "&keyword=" + keyword;
 }
-
 function isLogined() {
 	var memberid = $("#member_id").val();
 	if(memberid != null) {
@@ -35,9 +32,7 @@ function isLogined() {
 		return false;
 	}
 }
-
 $(document).ready(function() {
-
 	$("#chk").change(function() {
 		if(this.checked) {
 			var memberid = isLogined() ? isLogined() : false;
@@ -53,7 +48,7 @@ $(document).ready(function() {
 			location.href = '${pageContext.request.contextPath}/servicecenter.do'
 		}
 	})
-});
+}); */
 </script>
     
 
@@ -70,61 +65,64 @@ $(document).ready(function() {
 
 
 	<!--   서비스별 질문 -->
-	<div class="row" style="margin-left:15%;" >
-		<div class="m-5" >
+	<!-- <div class="row" style="margin-left:15%;" > -->
+		<div class="m-5">
 		
 			<h3 class="text-center">서비스별 질문</h3>
 			<hr style="border:2px solid rgb(247, 235, 229);">
-				<ul class="row" style="list-style:none; ">
-				<li>
-					<div class="mx-auto d-block p-5">
-					<a href="#" onclick="selectCategory(1)">
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
-						</a><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(1)">신고</h4>	
-					</div></li>
-				<li>
-					<div class="mx-auto d-block p-5">
-					<a href="#" onclick="selectCategory(2)">
-						<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
-						</a><br><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(2)">이용</h4>
-					</div>
-				</li>
-				<li>
-					<div class="mx-auto d-block p-5">
-					<a href="#" onclick="selectCategory(3)">
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px"></a>
-						<br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" onclick="selectCategory(3)">결제</h4>	
+				<ul class="row" style="list-style:none; width:700px; margin-left:27%;">
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(1)"> -->
+							<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/warning.png" width="60px">
+							<!-- </a> --><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;">신고</h4>	
+						</div></li>
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(2)"> -->
+							<img class="mx-auto" src="${pageContext.request.contextPath }/resources/images/message.png" width="60px">
+							<!-- </a> --><br><br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;" >이용</h4>
+						</div>
+					</li>
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(3)"> -->
+							<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/hand.png" width="60px"><!-- </a> -->
+							<br><h4 class="text-center" style="margin-top:20%; color=black; cursor:pointer;">결제</h4>	
+						
+						</div>
+					</li>
+					<li>
+						<div class="mx-auto d-block p-5">
+						<!-- <a href="#" onclick="selectCategory(4)"> -->	
+							<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/etc.png" width="60px"><!-- </a> -->
+							<br><h4 class="text-center" style="margin-top:20%;  color=black; cursor:pointer;" >기타</h4></div>	
+					</li>
 					
-					</div>
-				</li>
-				<li>
-					<div class="mx-auto d-block p-5">
-					<a href="#" onclick="selectCategory(4)">	
-						<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/etc.png" width="60px"></a>
-						<br><h4 class="text-center" style="margin-top:20%;  color=black; cursor:pointer;" onclick="selectCategory(4)">기타</h4></div>	
-				</li>
-				
 				</ul>
 				<hr style="border:2px solid rgb(247, 235, 229);">
 		</div>
 			
 				
 	<!-- 자주묻는 질문 -->
-	<div class="m-5">
-		<h3 class="text-center">자주하는 질문</h3>
-		
+	<div class="m-5"> 
+		<h3 class="text-center">
+		<img src="${ pageContext.request.contextPath }/resources/images/question.png" width="60px">
+		&nbsp;&nbsp;
+		자주하는 질문</h3>
+		<br>
 	 <div class="bs-example" >
 		    <div class="accordion" id="accordionExample">	        
 		       
 		       <c:forEach items="${ serviceContentList }" var="sc" varStatus="status">      
-			        <div class="card">
+			        <div class="card text-center" style="width:400px; margin-left:37%; background-color:rgb(247, 235, 229);">
 			            <div class="card-header">
-			                <h2 class="mb-2 text-center" style="width:300px; ">
-			                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne${status.index}">${ sc.title }</button>									
-			                </h2>
+			                    <button type="button" class="btn btn-link " data-toggle="collapse" data-target="#collapseOne${status.index}">
+			                    <p class="text-center" style="color:black; font-weight: bold;">${ sc.title }</p>
+			                    </button>									
 			            </div>
 			            <div id="collapseOne${status.index}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-			                <div class="card-body">
+			                <div class="card-body text-center" style="background-color:rgb(250, 246, 244);">
 			                    <p>${ sc.content }</p>
 			                </div>
 			            </div>
@@ -133,17 +131,17 @@ $(document).ready(function() {
 		    </div>
 		</div>			
 	</div> 
-</div>
+<!-- </div> -->
 
 
   <c:if test="${ list != null }">
 <!-- 문의게시판 목록 -->
 <div class="m-5" >
-	<h3 class="text-center">문의게시판</h3>
+	<h3 class="text-center">문의게시판
 			
 			<button id="createBtn" type="button" class="btn btn-info btn-sm float-right" 
 				onclick="location.href='${pageContext.request.contextPath}/service/serviceForm.do'">새 글 쓰기</button>
-
+	</h3>
 
 
 <!-- 검색 -->
@@ -284,22 +282,9 @@ $(document).ready(function() {
 
 
 
-<script>/* 
-	$(document).ready(function() {
-		$("paging a").click(function(e) {
-			e.preventdefault();
-			$("#pageNum").val($(this).attr("href"));
-			pagingForm.submit();
-		})		
-	})
- */
-</script>
-
 
 
 
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-
-

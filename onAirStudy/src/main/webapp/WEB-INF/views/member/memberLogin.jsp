@@ -28,9 +28,8 @@ $(function(){
 	</c:if>
 
 	
-	//페이지 로딩시, 모달 시각화
+	
 	$("#loginModal").modal()
-					//모달 감춰질때 발생 이벤트핸들러 바인딩
 					.on("hide.bs.modal", function(){
 						<c:if test="${ fn:contains(header.referer, '/member/memberLogin.do')}">
 						location.href = "${ pageContext.request.contextPath }";
@@ -51,39 +50,35 @@ $(function(){
 	 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 			aria-labelledby="loginModalLabel" aria-hidden="true">
 	
-		<div class="card align-middle" style="width:20rem; border-radius:20px;">
-					<div class="card-title" style="margin-top:30px;">	
-					
+		<div class="card align-middle" style="width:25rem; border-radius:20px; margin-top:10%;">
+				<div class="card-title" style="margin-top:30px;">	
 					<a class="modal-title" href="${pageContext.request.contextPath}">
-			        	<img src="${pageContext.request.contextPath }/resources/images/logo.png" width="200px" />
+			        	<img src="${pageContext.request.contextPath }/resources/images/logo.png" width="200px" style="margin-left:23%;" />
 					</a>
+				</div>
 					
-					</div>
-					
-					<div class="card-body">
-			      
-					<!-- 로그인 폼 -->
-				      <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/member/memberLogin.do">
+				<div class="card-body">
+						<!-- 로그인 폼 -->
+				      	<form class="form-signin" method="POST" action="${pageContext.request.contextPath}/member/memberLogin.do">
 				        
-				        <label for="inputEmail" class="sr-only">Your ID</label>
-				        <input type="text" id="uid" name="memberId" class="form-control" placeholder="Your ID" required autofocus><BR>
-				        <label for="inputPassword" class="sr-only">Password</label>
-				        <input type="password" id="upw" name="password" class="form-control" placeholder="Password" required><br>
-				        <div class="checkbox">
-				          <label>
-				            <input type="checkbox" value="remember-me"> 기억하기
-				          </label>
-				        </div>
-				        
-				        <button type="submit" id="btn" class="btn my-2 my-sm-0">로그인</button>
-						<button type="button" id="btn" class="btn my-2 my-sm-0" data-dismiss="modal"onclick="location.href='${ pageContext.request.contextPath }'">취소</button>
+					        <label for="inputEmail" class="sr-only">Your ID</label>
+					        <input type="text" id="uid" name="memberId" class="form-control" placeholder="Your ID" required autofocus><BR>
+					        <label for="inputPassword" class="sr-only">Password</label>
+					        <input type="password" id="upw" name="password" class="form-control" placeholder="Password" required><br>
+					        <div class="checkbox">
+					          <!-- <label>
+					            <input type="checkbox" value="remember-me"> 기억하기
+					          </label> -->
+					        </div>
+					        <div class="text-center">
+						        <button type="submit" id="btn" class="btn my-2 my-sm-0">로그인</button>
+								<button type="button" id="btn" class="btn my-2 my-sm-0" data-dismiss="modal"onclick="location.href='${ pageContext.request.contextPath }'">취소</button>
+							</div>
 				      </form>
 			      
-					</div>
-	</div>
-
-	<div class="modal">
-	</div>
+				</div>
+			</div>
+		</div>
    
   </body>
 	
