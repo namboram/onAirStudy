@@ -12,7 +12,7 @@ $(document).ready(function(){
 <div class="pre_test" style="margin-bottom: 0;">
 
 
-		<div class="col-sm" style="background-color: white; padding:3%">
+		<div class="col-lg" style="background-color: white; padding:3%">
 			<div>
 				<div>
 					
@@ -42,22 +42,40 @@ $(document).ready(function(){
 <div class="answer">${ t.testAnswer }</div>
 </c:forEach></div>	 --%>	
 				
-					<div class="slider">
-					<c:forEach items="${testList}" var="t">
+					<div id="demo" class="carousel" data-ride="carousel">
 					
-					
-							<div class="col-lg questionX"
+					<div class="carousel-inner">
+					<div class="carousel-item active">
+					<div class="col-lg "
 								style="background-color: #FFF0F0; border-radius: 15px; padding: 1.5%;">
-								<div class="questionBox" style="background-color: white; overflow:auto; border-radius:15px; height:250px; padding:3%">		
-								 ${t.testQuestion}
-								  
+								<br /><br /><br />
+								<div align="center">
+								<h1>시험을 시작 하시겠습니까?</h1>
+								<br />
+								<h3>문제를 옆으로 넘겨주세요</h3>
 								<br /><br />
+								</div>
+						</div>
+					</div>
+					
+					<c:forEach var="t" items="${testList}" varStatus="status">
+					<div class="carousel-item">
+										
+							<div class="col-lg questionX"
+								style="background-color: #FFF0F0; border-radius: 15px; padding-left: 8%; padding-top: 3%; padding-bottom: 3%;">
 								
+								<div class="questionBox col-lg-11" style="background-color: white; overflow:auto; border-radius:15px; height:250px; padding:3%">		
+								<div class="row">
+								<h3>${t.no}. </h3>
+							
+								 <div style="padding-left:5%;">${t.testQuestion}</div>
+								
+								<br />								
 								<c:if test="${t.renamedFilename != null }">
-								<img class="testPic" style="height:200px;"
+								<img class="testPic" style="height:200px;  padding-left:5%;"
 								src="${pageContext.request.contextPath }/resources/testPic/${ t.renamedFilename }"> 
 								</c:if>
-													
+								</div>				
 								</div>
 								<br> <br> 
 								
@@ -84,112 +102,73 @@ $(document).ready(function(){
 							</div>
 							<br>
 							
-										
-							</c:forEach>
 							</div>
-					<!-- 	<a class="carousel-control-prev" href="#demo" data-slide="prev">
+							</c:forEach>
+							
+							</div>	
+							</div>
+							
+						<a class="carousel-control-prev" href="#demo" data-slide="prev">
 							<span class="carousel-control-prev-icon"></span>
 						</a> <a class="carousel-control-next" href="#demo"
 							data-slide="next"> <span class="carousel-control-next-icon"></span>
 						</a>
- -->
-
+ 
+					</div>
 					</div>
 				</div>
 				
-				<div class="card">
-				<div class="card-header bg-warning"><h4 align="center">답안지</h4></div>
-				<div class="card-body">
+				<div class="card " style="margin-left:3%; margin-right:3%; border-radius: 15px;">
+				<div class="card-header" style="background-color: #FFF0F0; "><h4 align="center">답안지</h4></div>
+				<div class="card-body">				
 				<div class="answerChoice row" style="margin-left:10%;">
-				<div class="col-lg-4 row" spnum="1">
-				<h4>1.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
+				<c:forEach var="t" items="${testList}" varStatus="status">
+				  	<div class="form-check-inline answer">
+				  	<h4>${status.count }</h4>      		
+					<button class="btn1" value="1"><h4>①</h4></button>
+					<button class="btn2" value="2"><h4>②</h4></button>
+					<button class="btn3" value="3"><h4>③</h4></button>
+					<button class="btn4" value="4"><h4>④</h4></button>	
+     				</div>
+			</c:forEach>
+     			</div>	
+				</div>	
 				
-				<div class="col-lg-4 row" spnum="2">
-				<h4>2.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
 				
-				<div class="col-lg-4 row" spnum="3">
-				<h4>3.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
+				<div id="result" class="result col-md-4" style="background-color: #FFF0F0; border-radius: 15px; padding: 10px; text-align: left; display:none;">
+				<label for="testAnswer">결과</label>
+                <input type="text" id="testAnswer" class="testAnswer" name="testAnswer" />
+				</div>			
 				</div>
-				
-				<div class="col-lg-4 row" spnum="4">
-				<h4>4.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				<div class="col-lg-4 row" spnum="5">
-				<h4>5.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				<div class="col-lg-4 row" spnum="6">
-				<h4>6.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				<div class="col-lg-4 row" spnum="7">
-				<h4>7.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				<div class="col-lg-4 row" spnum="8">
-				<h4>8.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				<div class="col-lg-4 row" spnum="9">
-				<h4>9.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				<div class="col-lg-4 row" spnum="10">
-				<h4>10.</h4>
-				<button class="btn" value="1"><h4>①</h4></button>
-				<button class="btn" value="2"><h4>②</h4></button>
-				<button class="btn" value="3"><h4>③</h4></button>
-				<button class="btn" value="4"><h4>④</h4></button>				
-				</div>
-				
-				</div>				
-				</div>
-				
 				<div align="center">
-					<button type="submit" class="btn btn-outline-primary" style="margin-bottom:1%;" onclick="submitTest('${roomInfo.srNo}')">제출하기</button>
+					<button type="button" id="btnShow" class="btn btn-outline-primary" style="margin-bottom:1%;" onclick="submitTest()">제출하기</button>
 				</div>
 			
-			</div>
-		</div>
+				</div>
+				
+	<script>
+
+	$("#btnShow").on("click", function() { $("#result").show(); });
+
+	출처: https://araikuma.tistory.com/632 [프로그램 개발 지식 공유]
+/* 	function submitTest(srNo){
+		if(confirm("제출 하시겠습니까?")){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/mypage2/submitTest.do",
+				type : "POST",
+				data :{
+					},
+					dataType : "text",
+				success : 
+				});
+
+			}	
+				} */
+	
+
+	</script>
+		
+	
 
 		
 		<!-- The Modal -->
@@ -204,7 +183,7 @@ $(document).ready(function(){
 					</div>
 
 					<!-- Modal body -->
-					<div class="modal-body">제출 하시겠습니까?</div>
+					<div class="modal-body"></div>
 
 					<!-- Modal footer -->
 					<div class="modal-footer">

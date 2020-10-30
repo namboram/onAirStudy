@@ -30,15 +30,17 @@ from
 </select>
 
 <select id="selectQuestion" resultMap="testMap">
-SELECT * FROM
+<![CDATA[ 
+  	SELECT rownum, s.* FROM
 	( SELECT * FROM pre_test
-	ORDER BY dbms_random.value )
-  <![CDATA[  
+	ORDER BY dbms_random.value ) s
+ 
 	WHERE sr_no=#{srNo} and rownum <= 10
 ]]> 
 </select>
 <resultMap type="map" id="testMap">
 <id column="sr_no" property="srNo"/>
+<result column="rownum" property="no"/>
 <result column="test_no" property="testNo"/>
 <result column="test_question" property="testQuestion"/>
 <result column="test_answer" property="testAnswer"/>

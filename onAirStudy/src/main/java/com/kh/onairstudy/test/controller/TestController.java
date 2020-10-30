@@ -92,14 +92,14 @@ public class TestController {
 		String msg = "";
 		int srNo = info.getSrNo();	
 		//문제등록 갯수 조회
-		int noTest = testService.selectCountQuestion(srNo);
-		if(noTest<10) {
-			msg = "아직 시험문제가 준비되지 않았습니다. 문제를 등록해주세요.";
-			}
+//		int noTest = testService.selectCountQuestion(srNo);
+//		if(noTest<10) {
+//			msg = "아직 시험문제가 준비되지 않았습니다. 문제를 등록해주세요.";
+//			}
 		
 		List<Test> testList= testService.selectQuestion(srNo);
 			
-		redirectAttr.addFlashAttribute("msg",msg);
+//		redirectAttr.addFlashAttribute("msg",msg);
 		mav.addObject("testList",testList);
 		mav.setViewName("test/pre-test");
 		return mav;
