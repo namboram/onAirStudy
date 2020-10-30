@@ -164,9 +164,6 @@ where
 	
 
 
-
-
-
 <resultMap type="map" id="serviceListMap">
 	
 	<result column="no" property="no"/>

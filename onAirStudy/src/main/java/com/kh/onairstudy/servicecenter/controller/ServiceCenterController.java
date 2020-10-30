@@ -40,6 +40,7 @@ public class ServiceCenterController {
 		
 		Member loginMember = (Member)session.getAttribute("loginUser");
 		
+		
 		log.debug("loginMember={}", loginMember);
 		
 		Map<String, Object> map = new HashMap<>();
