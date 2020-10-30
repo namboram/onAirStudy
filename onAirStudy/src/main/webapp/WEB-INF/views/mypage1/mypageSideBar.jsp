@@ -10,7 +10,7 @@
 
 
 
-	<nav class="side-navbar mypage-sideBar">
+	<nav class="side-navbar mypage-sideBar" style="padding:5%;">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header py-5">
 			<div class="avatar">

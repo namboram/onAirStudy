@@ -5,22 +5,24 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/memberDetail.css" /><div class="col-lg p-0">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/memberDetail.css" />
+<div class="col-lg p-0">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </div>
 <div class="row">
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 	</div>
 	
-	<div class="col-lg-10 p-0" id="member-update-container">
+	<div class="col-lg-10 p-0" id="member-update-container" style="height:100%;">
+	<div style="padding:5%;">
 	<h4>내정보</h4>
 	<hr />
 		<div class=myinfo-tagS>
 			<div class="tagS" id="tagS1"><a href="${ pageContext.request.contextPath }/mypage1/memberDetail.do">정보수정</a></div>
 			<div class="tagS" id="tagS2"><a href="${ pageContext.request.contextPath }/mypage1/mypage1_paymentList.do">결제내역</a></div>
 		</div>
-		<div id=updatefrm-left>
+		<div id="updatefrm-left" style="margin-bottom:10%;">
 			<form id="memberUpdateFrm1" 
 				  action="${pageContext.request.contextPath}/mypage1/memberUpdate.do" 
 				  onsubmit="return MupdateValidate();"
@@ -61,6 +63,7 @@
 				</div>
 			</form>
 		</div>
+	</div>
 	</div>
 </div>
 <script>

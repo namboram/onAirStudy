@@ -12,7 +12,7 @@
 </div>
 <div class="row">
 
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 	</div>
 
