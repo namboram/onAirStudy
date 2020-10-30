@@ -101,10 +101,10 @@ public class TestController {
 			
 			
 		}else {
+			
 			List<Test> testList= testService.selectQuestion(srNo);			
 			mav.addObject("testList",testList);		
-			mav.setViewName("test/pre-test");
-		
+			mav.setViewName("test/pre-test");		
 		}
 		return mav;
 		
