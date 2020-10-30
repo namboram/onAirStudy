@@ -59,12 +59,14 @@
 
 
 <!-- 달력 container -->
+<div class="col-lg" style="padding: 20px; background-color:#FBF7FD;">
 <div class='cal-divB'>
 	<div class="infoB"></div>
 	<br />
 	<table class="tableB table">
 
 	</table>
+</div>
 </div>
 
 
@@ -86,12 +88,7 @@
 </div>
 
 
-
-
-
 <div id="containerBB">
-
-
 
 	<!-- 일정등록 모달 -->
 	<div class="modal" id="iuschedule" tabindex="-1">
@@ -208,11 +205,6 @@
 	</div>
 
 </div>
-
-
-
-
-
 
 
 <script>

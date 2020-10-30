@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> updateSelectOne(String memberId) {
 		return memberDAO.updateSelectOne(memberId);
 	}
-
+	
 	
 	
 	

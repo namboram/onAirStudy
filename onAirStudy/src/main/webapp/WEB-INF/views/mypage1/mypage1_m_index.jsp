@@ -43,7 +43,7 @@ table.type10 .even {
 
 
 <div class="row">
-	<div class="col-lg-2 p-0">
+	<div class="col-lg-2">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 	</div>
 	<!-- 차트 링크 -->
@@ -56,19 +56,10 @@ table.type10 .even {
 		<hr>
 		
 		
-<!-- 출석 그래프 -->		
-
-			<h3 style="margin-left:5%; margin-top:2%;" >이번달 스터디방별 출석 그래프</h3>
-			<div class="row">
-						<div class="col-md-5" style= "margin-left:3%; margin-top:5%;">
-							<canvas id="myChart1"></canvas>
-						</div>	
-			
-		
 			
 			
 <!-- To Do List-->
-            <div class="col-lg-3 col-md-6" style="margin-left:10%; margin-top:-2%;" >
+            <div class="col-lg-3 col-md-6" style="margin-left:35%;" >
               <div class="card to-do" style="border-radius:8%;">
                 <h2 class="display h4"style="margin-left:30%;">To do List<button type="button" class="btn btn-light m-2"
 					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더보기</button></h2>
@@ -89,8 +80,6 @@ table.type10 .even {
 	                </ul>
               </div>
             </div>
-	</div>
-	
 		<hr>
 		
 		
@@ -112,8 +101,6 @@ table.type10 .even {
 		<div class="row">
 		<div>
 			<br>
-				
-				
 				<table class="type10">
 				    <thead>
 				    <tr>
@@ -131,107 +118,56 @@ table.type10 .even {
 				    </tbody>
 				</table>
 		</div>
-			
 			<div class="col-md-7">
 				<canvas id="lineChart" style="margin-left:5%;"></canvas>
 			</div>
+	</div>
+	
+	<!-- 시간 등록하기 modal -->
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<form class="form-studyTime" method="POST" action="${pageContext.request.contextPath}/mypage1_studyTime.do">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">일일 공부시간 등록</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form id="form">
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">날짜</label> 
+									<input type="date" name="studyDate" class="form-control" id="studyDate">
+								</div>
+								<div class="form-group">
+									<label for="message-text" class="col-form-label">공부한 시간</label> <input
+										type="number" name="studyTime" class="form-control" id="studyTime">
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" id="submit" class="btn btn-primary">등록</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 
 
 
 
-<!-- 시간 등록하기 modal -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<form class="form-studyTime" method="POST" action="${pageContext.request.contextPath}/mypage1_studyTime.do">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">일일 공부시간 등록</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form id="form">
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">날짜</label> 
-							<input type="date" name="studyDate" class="form-control" id="studyDate">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">공부한 시간</label> <input
-								type="number" name="studyTime" class="form-control" id="studyTime">
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" id="submit" class="btn btn-primary">등록</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
 
-</div>
 
 <script>
-
-
-/* 막대 차트 */
-
-			var ctx = document.getElementById("myChart1").getContext('2d');
-			//차트 값 생성
-			var data = new Array();
-			<c:forEach items="${ attendList }" var="attend" >
-				var json = new Object();
-				
-				data.push("${attend.attendCnt}");
-			</c:forEach>
-			
-			
-				var myChart1 = new Chart(ctx, {
-				type : 'bar',
-				data : {
-					labels : [
-						<c:forEach items="${ srList }" var="s" >
-						'${s["SR_TITLE"]}',	 
-						</c:forEach>
-						
-				],
-					datasets : [ {
-						 	label: '스터디방별 출석률',
-						 	
-				            data: data,
-						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-								'rgba(54, 162, 235, 0.2)',
-								'rgba(255, 206, 86, 0.2)',
-								'rgba(75, 192, 192, 0.2)',
-								'rgba(153, 102, 255, 0.2)',
-								'rgba(255, 159, 64, 0.2)' ],
-						borderColor : [ 'rgba(255,99,132,1)',
-								'rgba(54, 162, 235, 1)',
-								'rgba(255, 206, 86, 1)',
-								'rgba(75, 192, 192, 1)',
-								'rgba(153, 102, 255, 1)',
-								'rgba(255, 159, 64, 1)' ],
-						borderWidth : 1
-					} ]
-				},
-				options : {
-					scales : {
-						yAxes : [ {
-							ticks : {
-								beginAtZero : true
-							}
-						} ]
-					}
-				}
-			});
 
 
 /* 일일 공부시간 그래프 */
