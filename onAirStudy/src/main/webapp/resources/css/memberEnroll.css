@@ -86,19 +86,6 @@ div#enroll-bottom-container{
     cusor: pointer;
 }
 
-/* 
-
-.formMember input:focus + .label-member .content-member, 
-.formMember input:valid + .label-member .content-member{
-    transform: translateY(-100%);
-    font-size: 5px;
-} 
-
-.formMember input:focus + .label-member::after, 
-.formMember input:valid + .label-member::after{
-    transform: translateX(0%);
-}
-*/
 
 /* 관심카테고리 */
 .fieldset-category{
