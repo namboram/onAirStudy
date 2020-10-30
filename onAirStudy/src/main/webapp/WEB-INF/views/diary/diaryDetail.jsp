@@ -51,7 +51,7 @@ div#diary-detail-container label.custom-file-label{text-align:left;}
 	</div>
 	<c:if test="${loginMember.memberId eq diary.memberId }">
 	<form action="${ pageContext.request.contextPath }/diary/deleteDiary.do" method="post" onsubmit="return deleteSubmit();">
-	<input type="hidden" value="${diary.no }" name="no"/>
+	<input type="hidden" value="${diary.no}" name="no"/>
 	<button type="submit" class="btn btn-danger">삭제</button>
 	</form>
 	</c:if>
@@ -102,16 +102,6 @@ $(document).ready(function(){
 
 });
 
-/* function listReply(){
-	$.ajax({
-		type: "get",
-		url: "${ pageContext.request.contextPath }/diary/diaryDetailList.do?diaryNo=${diary.no}",
-		success: function(result){
-			$("#listReply").html(result);
-		}
-
-	})
-}  */
 
 
 

@@ -10,4 +10,6 @@ public interface PaymentDAO {
 
 	List<Payment> selectPaymentList();
 
+	int insertPaymentLog(String memberId);
+
 }

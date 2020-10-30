@@ -1,6 +1,6 @@
 package com.kh.onairstudy.member.model.dao;
 
-import java.util.List;
+import java.util.List; 
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.member.model.vo.MemberInfo;
+import com.kh.onairstudy.payment.model.vo.ProfileAttach;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -74,6 +75,17 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 
+	@Override
+	public int insertProfilePhoto(ProfileAttach attach) {
+		return sqlSession.insert("member.insertProfilePhoto", attach);
+	}
+	//회원삭제
+	@Override
+	public int deleteMember(String memberId) {
+		return sqlSession.delete("member.deleteMember", memberId);
+	}
+
+	
 
 
 

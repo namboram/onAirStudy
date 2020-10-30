@@ -54,6 +54,7 @@ public class PaymentController {
 		System.out.println(memberId);
 		
 		int result = paymentService.updatePayHistory(memberId); 
+		result = paymentService.insertPaymentLog(memberId);
 		
 		
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원권한 수정성공" : "회원권한 수정실패");
@@ -61,18 +62,7 @@ public class PaymentController {
 		return "redirect:/";
 		}
 		
-		
-		//결제내역 가져오기
-		@RequestMapping("/mypage1/mypage1_paymentList.do")
-		public ModelAndView paymentList(
-										ModelAndView mav) {
-		
-		List<Payment> list = paymentService.selectPaymentList();		
-		mav.addObject("list", list);
-		mav.setViewName("mypage1/mypage1_paymentList");
-		return mav;
-		}		
-	
+
 
 
 	

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.member.model.vo.MemberInfo;
+import com.kh.onairstudy.payment.model.vo.ProfileAttach;
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 
 public interface MemberService {
 
@@ -29,6 +31,12 @@ public interface MemberService {
 	List<Member> updateSelectOne(String memberId);
 
 	MemberInfo selectdDayInfo(String memberId);
+	
+	//회원삭제
+	int deleteMember(String memberId);
+	
+	//프로필사진 저장
+	int insertProfilePhoto(ProfileAttach attach);
 
 	
 

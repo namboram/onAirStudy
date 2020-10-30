@@ -33,4 +33,10 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 
+	@Override
+	public int insertPaymentLog(String memberId) {
+		return paymentDAO.insertPaymentLog(memberId);
+	}
+
+
 }

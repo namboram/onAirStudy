@@ -36,9 +36,9 @@
 		 
 		<interceptor>
 			 <mapping path="/diary/**/*.do"/>
+			 <mapping path="/mypage1/memberDetail.do"/>
 			<exclude-mapping path="/diary/diaryList.do"/>  
-			<exclude-mapping path="/diary/diaryDetail.do"/>  
-			<exclude-mapping path="/mypage1/memberDetail.do"/>
+			<exclude-mapping path="/diary/diaryDetail.do"/>   
 			<beans:bean class="com.kh.onairstudy.common.interceptor.LoginCheckInterceptor"/>	
 		</interceptor>
 		

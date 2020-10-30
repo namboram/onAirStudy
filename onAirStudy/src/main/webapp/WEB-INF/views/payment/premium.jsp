@@ -8,13 +8,21 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 <script>
 	function kakaopaypopup(){
-	
-		var url = "${ pageContext.request.contextPath }/pay/kakao";
-		var title = "kakaoPay";
-		var spec = "left=400px, top=60px, width=600px, height=700px";
-		
-		open(url, title, spec);
-		self.close();
+
+		if("${loginMember}" == "" ){
+			alert("로그인해주세요");
+			location.href= "${ pageContext.request.contextPath }/member/memberLogin.do";
+		}else if( "${loginMember.memberRole}" == 'P'){
+			alert("이미 프리미엄회원입니다.");
+			location.href="redirect:/";
+		}else{
+			var url = "${ pageContext.request.contextPath }/pay/kakao";
+			var title = "kakaoPay";
+			var spec = "left=400px, top=60px, width=600px, height=700px";
+			
+			open(url, title, spec);
+			self.close();
+		}
 	}
 </script>
 

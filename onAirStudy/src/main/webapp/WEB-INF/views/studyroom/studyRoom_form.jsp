@@ -33,8 +33,8 @@
 <div class="newstudygroup" style="margin-bottom: 0;">
 
 
-<div class="row">
-			<div class="col-sm p-4" style="background-color: #FBF7FD;">
+<div class="row" style="background-color: #FBF7FD;padding:5%;">
+			<div class="col-sm p-4">
 				<h2 class="text-gray" style="float: left; padding-right: auto;">
 					New Study Group</h2>
 				<br />
