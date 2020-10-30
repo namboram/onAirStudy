@@ -42,7 +42,7 @@ public class TestController {
 	@RequestMapping(value = "mypage2/testquestion.do", method = RequestMethod.POST)
 	public String testQuestion( Test test, 	@RequestParam(value = "upFile", required = false) MultipartFile upFile,
 								@RequestParam Map<String, String> param, @RequestParam("testAnswer") int answer, RedirectAttributes redirectAttr, 
-								HttpServletRequest request) throws IllegalStateException, IOException{
+								HttpServletRequest request, @RequestParam("srNo") String roomNum) throws IllegalStateException, IOException{
 		//문제
 		String question = request.getParameter("testQeustion");
 		String c1 = request.getParameter("testChoice_1");
@@ -81,7 +81,7 @@ public class TestController {
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "문제를 등록하였습니다." :"문제 등록 중 오류가 발생했습니다.");
 		
-		return "redirect:/mypage2/main.do?test=Y";
+		return "redirect:/studyroom/main.do?test=Y&roomNum="+roomNum;
 	}
 	
 	//시험 문제 추출

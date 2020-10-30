@@ -56,6 +56,13 @@ public class InvitationDAOImpl implements InvitationDAO {
 	public List<Member> selectMemberList(Map<String, String> param) {
 		return sqlSession.selectList("invitation.selectMemberList", param);
 	}
+
+
+	@Override
+	public int sendInvitation(Map<String, Object> param) {
+		return sqlSession.insert("invitation.sendInvitation", param);
+	}
+	
 	
 	
 }
