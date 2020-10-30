@@ -537,4 +537,13 @@ from sr_log
 		where 
 			sr_no = #{srNo}
 	</update>
+	
+	<update id="updateRoomOpenedYN">
+		update
+			sr_list
+		set
+			sr_opened_yn = #{srOpenedYN}
+		where
+			sr_no = ${srNo}
+	</update>
 </mapper>
