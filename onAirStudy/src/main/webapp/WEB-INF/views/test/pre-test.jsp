@@ -124,11 +124,11 @@ $(document).ready(function(){
 				<div class="answerChoice row" style="margin-left:10%;">
 				<c:forEach var="t" items="${testList}" varStatus="status">
 				  	<div class="form-check-inline answer">
-				  	<h4>${status.count }</h4>      		
-					<button class="btn1" value="1"><h4>①</h4></button>
-					<button class="btn2" value="2"><h4>②</h4></button>
-					<button class="btn3" value="3"><h4>③</h4></button>
-					<button class="btn4" value="4"><h4>④</h4></button>	
+				  	<h4>${status.count }</h4>   					
+       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="1" ><h4>①</h4>
+       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="2" ><h4>②</h4>
+       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="3" ><h4>③</h4>
+       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="4" ><h4>④</h4>			
      				</div>
 			</c:forEach>
      			</div>	
