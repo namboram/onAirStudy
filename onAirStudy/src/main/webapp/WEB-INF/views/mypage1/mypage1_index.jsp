@@ -43,7 +43,7 @@ table.type10 .even {
 
 
 <div class="row">
-	<div class="col-lg-2">
+	<div class="col-lg-2 p-0">
 		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
 	</div>
 	<!-- 차트 링크 -->
@@ -90,7 +90,6 @@ table.type10 .even {
               </div>
             </div>
 	</div>
-
 	
 		<hr>
 		
@@ -178,7 +177,7 @@ table.type10 .even {
 	</form>
 </div>
 
-
+</div>
 
 <script>
 
