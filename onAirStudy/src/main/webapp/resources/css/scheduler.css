@@ -38,7 +38,6 @@
                 }
                 #prevB{
                     margin-right: 30px;
-                    background: #f9f1ed;
                     border: none;
                     
                 }
@@ -48,7 +47,6 @@
                 }
                 #nextB{
                     margin-left: 30px;
-                    background: #f9f1ed;
                     border: none;
                 }
                 #nextB img{
@@ -96,7 +94,7 @@
                 	/* float:right; */
                 	/* margin-left:250px; */
                   	width:100%;
-                    background-color: #FBF7FD;
+                    background-color: FBF7FD;
                     padding:50px;
                 }
                 th.sun, .sun .highSpan{

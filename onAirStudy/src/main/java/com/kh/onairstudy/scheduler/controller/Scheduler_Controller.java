@@ -39,11 +39,8 @@ public class Scheduler_Controller {
 	@ResponseBody
 	public Object mainScheduler_(@RequestParam("roomNum") String roomNum) {
 
-		// 가짜멤버
-		Member member = new Member();
-
 		// 내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
+		List<Scheduler> addList = makeScheduleArrays(roomNum);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", addList);
@@ -60,11 +57,9 @@ public class Scheduler_Controller {
 	public ModelAndView mainScheduler_main(@RequestParam("roomNum") String roomNum,
 			ModelAndView mav) {
 
-		// 가짜멤버
-		Member member = new Member();
 
 		// 내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(member, roomNum);
+		List<Scheduler> addList = makeScheduleArrays(roomNum);
 
 		mav.addObject("list", addList);
 		mav.addObject("roomNum", roomNum);
@@ -76,7 +71,7 @@ public class Scheduler_Controller {
 	}
 
 	// 일정 시작~끝 날짜의 중간 날짜들 찾아주기
-	public List<Scheduler> makeScheduleArrays(Member member, String roomNum) {
+	public List<Scheduler> makeScheduleArrays(String roomNum) {
 
 		Map<String, Object> map = new HashMap<>();
 
@@ -98,6 +93,7 @@ public class Scheduler_Controller {
 			c2.setTime(end);
 
 			// 시작날짜가 끝날짜보다 작을때만!
+			// compareTo 같으면 0, 크면 양수, 작으면 음수
 			if (start.compareTo(end) < 0) {
 
 				addList.add(sch);

@@ -12,7 +12,7 @@
 
 <div id="invitation" style="margin-bottom: 0px;">
 
-	<div class="col-lg" style="background-color: #FBF7FD; padding: 20px;">
+	<div class="col-lg" style="background-color: #FBF7FD; padding: 5%; height:100%;">
 		<h2 class="text-gray">Invitation List</h2>
 		<hr>
 		<div class="container">
