@@ -73,15 +73,7 @@
 					<h5>premium</h5>
 				</c:if>
 			</div>
-			<c:if test="${ not empty memberInfo }">
-				<div class="d-day-display">
-					<hr>
-					<h5>D - ${memberInfo.dayCnt }</h5> 
-					<h5><fmt:formatDate value="${memberInfo.startDate }" pattern="yyyy/MM/dd"></fmt:formatDate></h5>
-					<h5>${memberInfo.content }</h5>
-					<hr>
-				</div>
-			</c:if>
+
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
 			<input type="hidden" id="attendCheck" value="${attendCheck }"/>

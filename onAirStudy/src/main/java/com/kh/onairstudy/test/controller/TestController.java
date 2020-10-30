@@ -80,19 +80,31 @@ public class TestController {
 		}
 		
 		redirectAttr.addFlashAttribute("msg", result>0 ? "문제를 등록하였습니다." :"문제 등록 중 오류가 발생했습니다.");
+		redirectAttr.addFlashAttribute("test", "Y");
+		redirectAttr.addAttribute("roomNum"	, roomNum);
 		
-		return "redirect:/studyroom/main.do?test=Y&roomNum="+roomNum;
+		return "redirect:/studyroom/main.do";
 	}
 	
 	//시험 문제 추출
 	@RequestMapping("mypage2/pretest.do")
-	public ModelAndView pretest(ModelAndView mav, HttpSession session) {	
+	public ModelAndView pretest(ModelAndView mav, HttpSession session, RedirectAttributes redirectAttr) {	
 		StudyRoomInfo info = (StudyRoomInfo) session.getAttribute("roomInfo");
-		int srNo = info.getSrNo();
-		List<Test> testList= testService.selectQuestion(srNo);
 		
+		String msg = "";
+		int srNo = info.getSrNo();	
+		//문제등록 갯수 조회
+//		int noTest = testService.selectCountQuestion(srNo);
+//		if(noTest<10) {
+//			msg = "아직 시험문제가 준비되지 않았습니다. 문제를 등록해주세요.";
+//			}
+		
+		List<Test> testList= testService.selectQuestion(srNo);
+			
+//		redirectAttr.addFlashAttribute("msg",msg);
 		mav.addObject("testList",testList);
 		mav.setViewName("test/pre-test");
 		return mav;
 	}
+
 }

@@ -38,6 +38,8 @@ public interface MemberService {
 	//프로필사진 저장
 	int insertProfilePhoto(ProfileAttach attach);
 
+	
+
 
 
 

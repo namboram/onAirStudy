@@ -15,7 +15,7 @@ from
 	</if>
 	<if test="srNo != null">
 		sr_no = #{ srNo }
-	</if>
+	</if>	
 </where>
 order by 
 	schedule_yn, 
@@ -146,6 +146,37 @@ and
 	d_yn = 'N'
 
 </delete>
+
+	<select id="selectToDoList" resultType="Scheduler">
+	select
+		*
+	from
+		scheduler
+	where
+		member_id = #{memberId}
+	and 
+	    schedule_yn = 'N'
+	and 
+	    d_yn = 'N'
+	and 
+	   to_char(start_date, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
+	</select>
+
+
+
+<select id="dDaySearch" resultType="scheduler">
+select
+	*
+from
+	scheduler
+where
+	member_id = #{ memberId }
+and 
+	schedule_yn = 'N'
+and
+	d_yn = 'Y'
+</select>
+
 
 
 </mapper>

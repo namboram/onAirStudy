@@ -74,10 +74,11 @@ function searchRoom() {
 	
 		<div class="row" id="srlistG">
 		
-			<c:forEach items="${ srList }" var="roomList" varStatus="status">
+			<c:forEach items="${ srList }" var="roomList" varStatus="status">				
 			
 				 
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
+				
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
 					<div class="sr_pic">
 						<img class="roomPic"
@@ -96,7 +97,7 @@ function searchRoom() {
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
 							
 														
-							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo}">background-color:gray;</c:if>" >
+							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo && loginMember.memberId != null}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
@@ -107,7 +108,7 @@ function searchRoom() {
 
 					<div class="contentR">
 						<br>
-						<h5 class="text-center">${ roomList.sTitle } ${roomList.wishNo }</h5>
+						<h5 class="text-center">${ roomList.sTitle }</h5>
 						<h5 class="text-center">그룹 리더 : ${ roomList.memberId }</h5>
 
 						<h5 id="searchT" class="text-center">${ roomList.srOpenedYN == 'Y' ? "모집중" :  "모집완료"}
@@ -129,19 +130,6 @@ function searchRoom() {
 		</div>
 	</div>
 	</div>
-	
-				
-				
-
-
-
-<!-- <script>
-$(':checkbox[name="srCategory"]').on({
-    click: function(e) {
-        $('#srlistG').eq(':checkbox[name="srCategory"]').val();
-    }
-});
-</script> -->
 
 
 <!-- 둘러보기 -->
