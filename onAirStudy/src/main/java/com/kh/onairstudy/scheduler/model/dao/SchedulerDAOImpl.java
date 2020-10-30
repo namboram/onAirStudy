@@ -51,6 +51,12 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 		return sqlSession.delete("scheduler.deleteTodo", map);
 	}
 
+	@Override
+	public List<Scheduler> selectToDoList(String memberId) {
+		return sqlSession.selectList("scheduler.selectToDoList", memberId);
+	}
+
+	
 	
 	
 	

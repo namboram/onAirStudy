@@ -60,5 +60,13 @@ public class SchedulerServiceImpl implements SchedulerService {
 	}
 
 
+	@Override
+	public List<Scheduler> selectToDoList(String memberId) {
+		return schedulerDAO.selectToDoList(memberId);
+	}
+
+	
+	
+
 	
 }

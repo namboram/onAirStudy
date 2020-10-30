@@ -21,6 +21,8 @@ public interface SchedulerService {
 
 	int deleteTodo(Map<String, Object> map);
 
+	List<Scheduler> selectToDoList(String memberId);
+
 
 
 }
