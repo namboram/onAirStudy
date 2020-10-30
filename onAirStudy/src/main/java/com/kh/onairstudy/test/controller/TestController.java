@@ -88,23 +88,26 @@ public class TestController {
 	
 	//시험 문제 추출
 	@RequestMapping("mypage2/pretest.do")
-	public ModelAndView pretest(ModelAndView mav, HttpSession session, RedirectAttributes redirectAttr) {	
+	public Object pretest(ModelAndView mav, HttpSession session) {	
 		StudyRoomInfo info = (StudyRoomInfo) session.getAttribute("roomInfo");
 		
 		String msg = "";
 		int srNo = info.getSrNo();	
 		//문제등록 갯수 조회
-//		int noTest = testService.selectCountQuestion(srNo);
-//		if(noTest<10) {
-//			msg = "아직 시험문제가 준비되지 않았습니다. 문제를 등록해주세요.";
-//			}
-		
-		List<Test> testList= testService.selectQuestion(srNo);
+		int noTest = testService.selectCountQuestion(srNo);
+		if(noTest<10) {
 			
-//		redirectAttr.addFlashAttribute("msg",msg);
-		mav.addObject("testList",testList);
-		mav.setViewName("test/pre-test");
+			mav.setViewName("test/no-test");
+			
+			
+		}else {
+			List<Test> testList= testService.selectQuestion(srNo);			
+			mav.addObject("testList",testList);		
+			mav.setViewName("test/pre-test");
+		
+		}
 		return mav;
-	}
+		
+		}
 
 }
