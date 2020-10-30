@@ -67,6 +67,10 @@ public class SchedulerServiceImpl implements SchedulerService {
 
 	
 	
+	public Scheduler dDaySearch(Map<String, Object> map) {
+		return schedulerDAO.dDaySearch(map);
+	}
+
 
 	
 }

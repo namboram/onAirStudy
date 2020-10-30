@@ -164,4 +164,19 @@ and
 
 
 
+<select id="dDaySearch" resultType="scheduler">
+select
+	*
+from
+	scheduler
+where
+	member_id = #{ memberId }
+and 
+	schedule_yn = 'N'
+and
+	d_yn = 'Y'
+</select>
+
+
+
 </mapper>

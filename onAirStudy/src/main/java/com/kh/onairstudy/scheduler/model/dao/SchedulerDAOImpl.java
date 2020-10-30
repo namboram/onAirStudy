@@ -57,6 +57,10 @@ public class SchedulerDAOImpl implements SchedulerDAO {
 	}
 
 	
+	public Scheduler dDaySearch(Map<String, Object> map) {
+		return sqlSession.selectOne("scheduler.dDaySearch", map);
+	}
+
 	
 	
 	
