@@ -63,7 +63,7 @@ public class InvitationController {
 		List<StudyRoomLog> logList = new ArrayList<>();
 		
 		StudyRoomLog srLog = new StudyRoomLog();
-		srLog.setSrNo(invi.getSrNo());
+		srLog.setSrNo(no);
 		srLog.setMemberId(id);
 		logList.add(srLog);
 		
