@@ -1,8 +1,14 @@
+<%@page import="com.kh.onairstudy.servicecenter.model.vo.ServiceCenter"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<% 
+	List<ServiceCenter> list = (List<ServiceCenter>)request.getAttribute("serviceList"); 
+	System.out.println("흠냐뤼~"+list);
+%>
 <fmt:requestEncoding value="utf-8"/><%-- 한글 깨짐 방지 --%>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
@@ -141,7 +147,7 @@ $(document).ready(function() {
 
 
 <!-- 검색 -->
-	<form name="form1">
+<%-- 	<form name="form1">
 	 <div class="form-group row justify-content-center">
 		<div class="w100" style="padding-right:10px">
 			 <select name="search_option" id="searchOption">
@@ -168,15 +174,15 @@ $(document).ready(function() {
 		</div>
 	</div>
 			
-	</form>
+	</form> --%>
 			
 
         
      <div class="container1" style="padding-left:5%;padding-right:5%;">
-        <div class="float-right" >
+       <%--  <div class="float-right" >
 			<input type="checkbox" id="chk" name="chk">내가 작성한글 보기</input>
 			<input type="hidden" id="member_id" name="member_id" value="${memberId}" />
-		</div>
+		</div> --%>
 		
 		
 					  
@@ -190,35 +196,55 @@ $(document).ready(function() {
 					      <th>작성날짜</th>
 					    </tr>
 					    
-					      <c:if test="${ serviceList != null }">
-						 
-						    <c:forEach items="${ serviceList }" var="s">
-						    
-						    <tr>
-							      <td>${ s.no }</td>
-							      <td>${ s.serviceStatus }</td>
-							     
-							      <c:choose>
-								      <c:when test="${ s.category == 1}">
-								      	<td>신고</td>
-								      </c:when>
-								      <c:when test="${ s.category == 2}">
-								     	 <td>이용</td>
-								      </c:when>
-								      <c:when test="${ s.category == 3}">
-								     	 <td>결제</td>
-								      </c:when>
-								      <c:when test="${ s.category == 4}">
-								     	 <td>기타</td>
-								      </c:when>
-							      </c:choose>
-							      <td>
-							      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=${ s.no }">${ s.serviceTitle }</a></td>
-							      <td>${ s.memberId }</td>
-							      <td><fmt:formatDate value="${ s.serviceDate }" pattern="yy/MM/dd"/></td>
-							</tr>
-						    </c:forEach>
-					    </c:if>
+					 <!-- index에 접근하여 중첩 for문을 사용하기 위해 스크립틀릿 이용 -->
+					 <% if(list!=null){ %>
+					 <%! int index = 1; %>
+					    <% for(int i = 0 ; i<list.size() ; i++){ %>
+					    	<%if(list.get(i).getServiceLevel()==1){ %>
+					    		<tr>
+								      <td><%= index++ %></td>
+								      <td><%= list.get(i).getServiceStatus() %></td>
+								      <td>
+									      <% if(list.get(i).getCategory() == 1){ %>
+									   		   신고
+									      <%} %>
+									      <% if(list.get(i).getCategory() == 2){ %>
+									   		   이용
+									      <%} %>
+									      <% if(list.get(i).getCategory() == 3){ %>
+									   		   결제
+									      <%} %>
+									      <% if(list.get(i).getCategory() == 4){ %>
+									   		   기타
+									      <%} %>
+								      </td>
+								      <td>
+									      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=<%= list.get(i).getNo()%>">
+									      <%= list.get(i).getServiceTitle() %>
+								      </a>
+								      </td>
+								      <td><%= list.get(i).getMemberId() %></td>
+								      <td><fmt:formatDate value="<%= list.get(i).getServiceDate() %>" pattern="yy/MM/dd"/></td>
+								</tr>
+								<%} %>
+					    	<% for(int j = 0 ; j<list.size();j++){ %>
+					    		<% if(list.get(i).getNo() == list.get(j).getReplyNo()){ %>
+									<tr>
+										<td>#</td>
+										<td>#</td>
+										<td>#</td>
+										<td>
+									    <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=<%= list.get(j).getNo()%>">
+									      └ 답변 : <%= list.get(i).getServiceTitle() %>
+									    </a>
+									    </td>
+									    <td>관리자</td>
+									    <td><fmt:formatDate value="<%= list.get(i).getServiceDate() %>" pattern="yy/MM/dd"/></td>
+									</tr>
+								<%} %>
+							<%} %>
+					    <%} %>
+					  <%} %>
 				</table>
 			</div>	
 				

@@ -9,7 +9,7 @@ import com.kh.onairstudy.servicecenter.model.vo.ServiceContent;
 
 public interface ServiceCenterDAO {
 
-	List<ServiceCenter> selectServiceList(PagingCriteria cri);
+	List<ServiceCenter> selectServiceList(Map<String, Object> map);
 
 	List<ServiceContent> selectServiceContentList();
 
@@ -18,7 +18,7 @@ public interface ServiceCenterDAO {
 	//게시글 리스트를 출력하는 메소드 (검색옵션, 키워드 포함)
 	List<ServiceCenter> listAll(String search_option, String keyword, int category);
 
-	int totalCount(String search_option, String keyword, int category);
+	int totalCount(Map<String, Object> map);
 
 	Map<String, Object> serviceDetail(int no);
 

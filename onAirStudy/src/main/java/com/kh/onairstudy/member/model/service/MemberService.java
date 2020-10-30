@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.member.model.vo.MemberInfo;
 
 public interface MemberService {
 
@@ -24,6 +25,10 @@ public interface MemberService {
 
 	//아이디중복체크
 	int idChk(Member member);
+	//수정폼에 내용보여주기
+	List<Member> updateSelectOne(String memberId);
+
+	MemberInfo selectdDayInfo(String memberId);
 
 
 

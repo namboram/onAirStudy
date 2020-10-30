@@ -85,13 +85,18 @@ public class StudyRoomController {
 			int countR = studyRoomService.selectParticipatingRoomCnt(memberId);
 			
 			//방 신청 조회		
-			int ApplyR = studyRoomService.selectApplyRoom(srWating);
+			int applyR = studyRoomService.selectApplyRoom(srWating);
+			int myStudy = studyRoomService.selectMyStudy(srNo, memberId);
 			
-			if(ApplyR>0) {
+			if(applyR>0) {
 				
 					msg= "이미 신청 하신 방입니다.";
-			}else {
+					
+			}else if(myStudy>0) {
+					
+				msg= "이미 가입되어진 방입니다.";		
 				
+			}else {
 				//방 신청 제한
 				if(countR >= 3) {
 					
@@ -101,8 +106,6 @@ public class StudyRoomController {
 					 int result = studyRoomService.insertWating(srWating);
 					 msg= "신청을 완료 하였습니다.";
 				}
-			
-				
 			}
 						
 			redirectAttr.addFlashAttribute("msg", msg);			
@@ -116,7 +119,7 @@ public class StudyRoomController {
 		@RequestMapping("/studyroom/favStudyroom.do")
 		public String favR(StudyRoomWish srWish, Model model,
 							@RequestParam("srNo") int srNo, 						 
-							@RequestParam("memberId") String loginM, 							
+							@RequestParam("memberId") String memberId, 							
 							RedirectAttributes redirectAttr) {	
 			
 			
@@ -129,17 +132,25 @@ public class StudyRoomController {
 			// 찜 등록
 															
 			int wishR = studyRoomService.selectCheckWish(srWish);
+			int myStudy = studyRoomService.selectMyStudy(srNo, memberId);
 			
-			if( wishR > 0 ) {			
-								result = studyRoomService.deleteWish(srWish);
-								msg = "관심 목록에서 해제 되었습니다.";
-		
-							}else {
-			 
-								result = studyRoomService.insertWish(srWish);
-								msg =  "관심 목록에 추가 하였습니다.";
-							}
+			if( myStudy> 0) {
+				
+					msg= "이미 가입되어진 방입니다.";
+				
+			}else {
+				
+				if( wishR > 0 ) {			
+					result = studyRoomService.deleteWish(srWish);
+					msg = "관심 목록에서 해제 되었습니다.";
 
+				}else {
+ 
+					result = studyRoomService.insertWish(srWish);
+					msg =  "관심 목록에 추가 하였습니다.";
+				}
+				
+			}
 
 			redirectAttr.addFlashAttribute("msg", msg);
 			
@@ -206,7 +217,7 @@ public class StudyRoomController {
 			String msg = "";
 			int result = 0;	
 						
-			// 찜 등록
+			// 찜 등록 조회
 															
 			int wishR = studyRoomService.selectCheckWish(srWish);
 			
@@ -327,9 +338,14 @@ public class StudyRoomController {
 
 		//스터디방 입장 - 인덱스 페이지
 		@RequestMapping("/studyroom/main.do")
-		public String main( @RequestParam("roomNum") int roomNum, Model model, HttpSession session) {
+		public String main( @RequestParam("roomNum") int roomNum, @RequestParam(value="test", required = false) String test, Model model, HttpSession session) {
 
-
+		if(test != null) {
+			model.addAttribute("test", test);
+			log.debug("test = {}",test);
+		}
+			
+		
 		log.debug("roomNum = {}", roomNum);
 		
 		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
@@ -345,7 +361,6 @@ public class StudyRoomController {
 		/*
 		 * 아래부터 채팅 정보 불러올게요
 		 */
-		//String memberId = (String)session.getAttribute("memberId");
 		List<Chat> firstList = chatService.selectFirstChatList(roomNum);
 		model.addAttribute("roomNo",roomNum);
 		model.addAttribute("firstList",firstList);

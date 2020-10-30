@@ -17,6 +17,7 @@ import lombok.ToString;
 
 public class Test implements Serializable{
 	
+	private int no;
 	private int testNo;
 	private String memberId;
 	private int srNo;

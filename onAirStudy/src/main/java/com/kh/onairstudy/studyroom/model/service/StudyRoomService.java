@@ -69,6 +69,9 @@ public interface StudyRoomService {
 
 	int selectApplyRoom(StudyRoomWaiting srWating);
 
+	int selectMyStudy(int srNo, String memberId);
+	
+	
 	int updateRoomOpenedYN(HashMap<String, String> param);
 
 	int withdraw(HashMap<String, String> param);
@@ -78,6 +81,7 @@ public interface StudyRoomService {
 	int updateLog(HashMap<String, String> param);
 
 	int deleteApply(StudyRoomWaiting srWating);
+
 
 
 }

@@ -240,7 +240,7 @@ where
 	#{ serviceStatus },
 	#{ serviceTitle },
 	#{ serviceContent },
-	#{ reply_no },
+	#{ replyNo },
 	'admin',
 	sysdate,
 	'N',

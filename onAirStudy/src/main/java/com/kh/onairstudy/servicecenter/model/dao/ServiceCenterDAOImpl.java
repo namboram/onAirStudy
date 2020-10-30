@@ -20,8 +20,8 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	
 
 	@Override
-	public List<ServiceCenter> selectServiceList(PagingCriteria cri) {
-		return sqlSession.selectList("service.selectServiceList", cri);
+	public List<ServiceCenter> selectServiceList(Map<String, Object> map) {
+		return sqlSession.selectList("service.selectServiceList", map);
 	}
 
 	@Override
@@ -47,14 +47,8 @@ public class ServiceCenterDAOImpl implements ServiceCenterDAO {
 	}
 
 	@Override
-	public int totalCount(String search_option, String keyword, int category) {
+	public int totalCount(Map<String, Object> map) {
 		
-		//맵에 자료 저장
-		Map<String,Object> map = new HashMap<>();
-		map.put("search_option", search_option);
-		map.put("keyword", keyword);
-		map.put("category", category);
-				
 		//매개변수는 옵션과 키워드가 들어간다.
 		return sqlSession.selectOne("service.totalCount", map);
 				

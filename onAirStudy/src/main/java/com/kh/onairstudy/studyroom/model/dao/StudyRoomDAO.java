@@ -75,7 +75,7 @@ public interface StudyRoomDAO {
 
 	List<StudyRoomLog> selectStudyRoomLog();
 
-
+	//회원가입시 회원을 카테고리에 맞게 방등록
 	int insertMemberToSr(Map<String, Object> param);
 
 	int updateRoomInfo(StudyRoomInfo studyRoomInfo);
@@ -93,6 +93,8 @@ public interface StudyRoomDAO {
 	int updateLog(HashMap<String, String> param);
 
 	int deleteApply(StudyRoomWaiting srWating);
+
+	int selectMyStudy(int srNo, String memberId);
 
 
 

@@ -70,11 +70,12 @@ public class InvitationServiceImpl implements InvitationService {
 		return invitationDAO.selectMemberList(param);
 	}
 
-	
-	
 
-//	@Override
-//	public int updateInvitation(int no) {
-//		return invitationDAO.updateInvitation(no);
-//	}
+
+	@Override
+	public int sendInvitation(Map<String, Object> param) {
+		return invitationDAO.sendInvitation(param);
+	}
+
+	
 }

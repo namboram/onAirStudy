@@ -1,5 +1,7 @@
 package com.kh.onairstudy.payment.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.maven.model.Model;
@@ -7,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.payment.model.service.PaymentService;
+import com.kh.onairstudy.payment.model.vo.Payment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +61,17 @@ public class PaymentController {
 		return "redirect:/";
 		}
 		
-
+		
+		//결제내역 가져오기
+		@RequestMapping("/mypage1/mypage1_paymentList.do")
+		public ModelAndView paymentList(
+										ModelAndView mav) {
+		
+		List<Payment> list = paymentService.selectPaymentList();		
+		mav.addObject("list", list);
+		mav.setViewName("mypage1/mypage1_paymentList");
+		return mav;
+		}		
 	
 
 

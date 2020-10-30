@@ -65,7 +65,7 @@ function searchRoom() {
 	<div class="container" id="container">
 	
 		<div class="rBtn">
-			<button type="button" class="btn btn-outline-warning">
+			<button type="button" class="btn btn-outline-warning"  style="float:right;" >
 			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
 				방 만들기</a>
 		</button>
@@ -74,10 +74,11 @@ function searchRoom() {
 	
 		<div class="row" id="srlistG">
 		
-			<c:forEach items="${ srList }" var="roomList" varStatus="status">
+			<c:forEach items="${ srList }" var="roomList" varStatus="status">				
 			
 				 
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
+				
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
 					<div class="sr_pic">
 						<img class="roomPic"
@@ -96,7 +97,7 @@ function searchRoom() {
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
 							
 														
-							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo}">background-color:gray;</c:if>" >
+							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo && loginMember.memberId != null}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>
@@ -129,19 +130,6 @@ function searchRoom() {
 		</div>
 	</div>
 	</div>
-	
-				
-				
-
-
-
-<!-- <script>
-$(':checkbox[name="srCategory"]').on({
-    click: function(e) {
-        $('#srlistG').eq(':checkbox[name="srCategory"]').val();
-    }
-});
-</script> -->
 
 
 <!-- 둘러보기 -->
