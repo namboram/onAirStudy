@@ -5,8 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script>
 $(document).ready(function(){
-    $('.slider').bxSlider();
-  });
+   // $('.slider').bxSlider();
+});
 </script>
 
 <div class="pre_test" style="margin-bottom: 0;">
@@ -82,21 +82,21 @@ $(document).ready(function(){
 								
 								
 								<label for="choice1"><h4>①</h4></label>
-								<input type="text" class="col-lg-10" id="choice1" name="choice1"
+								<input type="text" class="col-lg-10" 
 									style="border-radius: 15px;" value="${ t.testChoice_1 }" readonly> <br>
 									
 								<label for="choice2"><h4>②</h4></label>
-								<input type="text" class="col-md-10" id="choice2" name="choice2"
+								<input type="text" class="col-md-10" 
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${ t.testChoice_2 }" readonly> <br> 
 									
 								<label for="choice3"><h4>③</h4></label>
-								<input type="text" class="col-lg-10" id="choice3" name="choice3"
+								<input type="text" class="col-lg-10" 
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${ t.testChoice_3 }" readonly> <br> 
 									
 								<label for="choice4"><h4>④</h4></label>
-								<input type="text" class="col-lg-10" id="choice4" name="choice4"
+								<input type="text" class="col-lg-10" 
 									style="border-radius: 15px; margin-top: 15px;"
 									value="${ t.testChoice_4 }" readonly>															
 							</div>
@@ -124,11 +124,11 @@ $(document).ready(function(){
 				<div class="answerChoice row" style="margin-left:10%;">
 				<c:forEach var="t" items="${testList}" varStatus="status">
 				  	<div class="form-check-inline answer">
-				  	<h4>${status.count }</h4>   					
-       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="1" ><h4>①</h4>
-       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="2" ><h4>②</h4>
-       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="3" ><h4>③</h4>
-       				<input type="radio" class="form-check-input" id="radio1" name="optradio" value="4" ><h4>④</h4>			
+				  	<h4>${status.count }</h4>  					
+       				<input type="radio" class="form-check-input"  name="optradio${status.index}" value="1" ><h4>①</h4>
+       				<input type="radio" class="form-check-input"  name="optradio${status.index}" value="2" ><h4>②</h4>
+       				<input type="radio" class="form-check-input"  name="optradio${status.index}" value="3" ><h4>③</h4>
+       				<input type="radio" class="form-check-input"  name="optradio${status.index}" value="4" ><h4>④</h4>			
      				</div>
 			</c:forEach>
      			</div>	
@@ -138,32 +138,37 @@ $(document).ready(function(){
 				<div id="result" class="result col-md-4" style="background-color: #FFF0F0; border-radius: 15px; padding: 10px; text-align: left; display:none;">
 				<label for="testAnswer">결과</label>
                 <input type="text" id="testAnswer" class="testAnswer" name="testAnswer" />
-				</div>			
+				</div> 		
 				</div>
 				<div align="center">
-					<button type="button" id="btnShow" class="btn btn-outline-primary" style="margin-bottom:1%;" onclick="submitTest()">제출하기</button>
+					<button type="button" id="btnShow" class="btn btn-outline-primary" style="margin-bottom:1%;" onclick="submitTest();">제출하기</button>
 				</div>
 			
-				</div>
+				
 				
 	<script>
+	//답 체점하기
+	function submitTest(){
 
-	$("#btnShow").on("click", function() { $("#result").show(); });
-
-	출처: https://araikuma.tistory.com/632 [프로그램 개발 지식 공유]
-/* 	function submitTest(srNo){
-		if(confirm("제출 하시겠습니까?")){
-			$.ajax({
-				url : "${pageContext.request.contextPath}/mypage2/submitTest.do",
-				type : "POST",
-				data :{
-					},
-					dataType : "text",
-				success : 
-				});
-
-			}	
-				} */
+	var list = new Array();
+	<c:forEach var="itemList" items="${testList}" varStatus="listIdx"  >
+		list.push("${itemList.testAnswer}");
+	</c:forEach>
+		//console.log(list[0]);
+		var point = 0;
+		var radioList = new Array();
+		for(var i=0;i<10;i++){
+			radioList.push($('input[name="optradio'+i+'"]:checked').val());
+			//console.log($('input[name="optradio'+i+'"]:checked').val());
+			if($('input[name="optradio'+i+'"]:checked').val() == list[i]){
+				point += 1;
+			}else{
+				$('input[name="optradio'+i+'"]').parent().css("background-color","tomato");
+			}
+		};
+		$("#testAnswer").val(point+"/10");
+		$("#result").show();
+	};
 	
 
 	</script>
