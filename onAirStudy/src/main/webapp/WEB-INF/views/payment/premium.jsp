@@ -18,8 +18,9 @@
 	}
 </script>
 
- <!-- 맨위 배너 -->
+
 	<div class="container-fluid" style="height: 100%; background-color: rgb(247, 235, 229);">
+ <!-- 맨위 배너 -->
 	    <div class="col-md-15">
 	    <br>
 	    	<img class="mx-auto d-block" src="${pageContext.request.contextPath }/resources/images/premium.png" width="50px">
@@ -57,10 +58,10 @@
 	<br>
 		<div class="text-center col-md-12">
 			<h3>지금 바로 프리미엄에 가입하시겠어요 ?</h3>
-			<button type="button"
+			<button type="button" class="btn btn-light"
                 	onclick="location.href='${ pageContext.request.contextPath }'">메인화면 가기</button>
+			<button type="button" class="btn btn-danger" id="payment_btn" onclick="kakaopaypopup();">프리미엄 가입하기</button>
 			
-					<button type="button" id="payment_btn" onclick="kakaopaypopup();">프리미엄 가입하기</button>
 		</div>
 		
 		
