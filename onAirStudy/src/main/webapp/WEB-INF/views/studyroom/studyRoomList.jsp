@@ -80,13 +80,33 @@ function searchRoom() {
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 				
 				<input type="hidden" name="category" vlaue="${roomList.category}" />
+				
 					<div class="sr_pic">
-						<img class="roomPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }">
-						<img class="memPic"
-							src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }">
+					<c:choose>
+					<c:when test="${ roomList.srPic != null }">	
+					<img class="roomPic" 
+					src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }">
+					</c:when>
+					<c:otherwise>
+					<img class="roomPic" 
+					src="${pageContext.request.contextPath }/resources/upload/background.jpg">
+					</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+					<c:when  test="${ roomList.mPic != null }">
+					<img class="memPic" 
+					src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }">
+					</c:when>
+					<c:otherwise>
+					<img class="memPic" 
+					src="${pageContext.request.contextPath }/resources/upload/basicPic.png">
+					</c:otherwise>					
+					</c:choose>
+
+						
 					</div>
-		
+			
 					<div class="hBtn" >
 						<form id="favRoom" 
 								action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
