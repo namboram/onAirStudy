@@ -10,12 +10,8 @@
 
 
 
-<<<<<<< HEAD
-	<nav class="side-navbar mypage-sideBar" style="padding:5%;">
-=======
 	<div class="col-lg" style="padding: 30px 0px 0px 20px; background-color: #d6c8e6;">
-		<nav class="side-navbar mypage-sideBar" style="border: none;">
->>>>>>> branch 'master' of https://github.com/ekfhdwld/onAirStudy.git
+		<nav class="side-navbar mypage-sideBar" style="border: none;padding:5%;">
 		<!-- Sidebar Header-->
 		<div class="sidebar-header py-5" >
 			<div class="avatar">
