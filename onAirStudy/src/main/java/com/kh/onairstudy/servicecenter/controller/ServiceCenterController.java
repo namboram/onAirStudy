@@ -39,7 +39,16 @@ public class ServiceCenterController {
 	public ModelAndView serviceList(PagingCriteria cri, ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		
 		Member loginMember = (Member)session.getAttribute("loginUser");
+
+		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
 		
+		if(loginMember==null) {
+			mav. addObject("serviceContentList", serviceContentList);
+			mav.setViewName("service/servicecenter");
+			return mav;
+		}
+		
+
 		log.debug("loginMember={}", loginMember);
 		
 		Map<String, Object> map = new HashMap<>();
@@ -49,13 +58,13 @@ public class ServiceCenterController {
 		log.debug("map={}", map);
 		
 		List<ServiceCenter> serviceList = serviceCenterService.selectServiceList(map);
-		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
 		
 		int totalCount = serviceCenterService.totalCount(map);
 //		mav. addObject("serviceList", serviceList);
 		
 		
 		request.setAttribute("serviceList", serviceList);
+		mav. addObject("list", serviceList);
 		mav. addObject("serviceContentList", serviceContentList);
 		mav. addObject("paging", new PageMaker(cri, totalCount));
 		
