@@ -5,7 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+
 <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/diary.css" />
 <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
 <script>
@@ -48,15 +50,19 @@
 </script>
 
 
-<div class = "col-sm-10 offset-sm-1">  
-
-    <h2>STUDY DIARY</h2>
-    
+<div class = "col-sm-8 offset-sm-1" id="diaryfrm-container">  
+	<div class="diarywrite-header-container">
+	    <h4>인증글쓰기</h4>
+	</div>
     <div class ="form-group">
 	    <form method="post" onsubmit="return check();" action="${ pageContext.request.contextPath }/diary/insertDiary.do"> 
+	        <input class = "btn btn-secondary text-center" id="writebtnS" type="submit" value="글 등록">
+	        <input class = "btn btn-secondary text-center" id="writebtnS" type="reset" value="취소">
+		    <br />
 	        <input name="diaryTitle" class="form-control" type="text" placeholder="제목을 입력해주세요."/>
+	        <br />
 	        <textarea name="diaryContent" id="sample"></textarea>
-	        <input class = "btn btn-secondary text-center" type="submit" value="작성">
+	        <br />
 	        <input type="hidden" name="memberId" value="${loginMember.memberId}" readonly/>
 	    </form>
     </div>

@@ -47,31 +47,64 @@ div.diary-container{
 	width: 60px; height: 40px;
 	margin: 0; border: 0;
 	vertical-align: top;
-	background: gray;
-	color: white;
+	background: white;
+	color: black;
 	font-weight: ivory;
+	border: 1px solid gray;
 	border-radius: 3px;
 	cursor: pointer;
 }
 #diary-searchbtn:hover {
 	background: rgb(255, 195, 163);
+	color: white;
+	border: none;
 }
-#diary-addbtn{
+#diary-writebtn{
 	vertical-align:top; 
-	float: right;
+	/* float: right; */
 	background: rgb(255, 195, 163);
 	color: white;
 	height:40px;
+	border-radius: 3px;
 	
 }
-#diary-addbtn:hover {
-	background: gray;
+#diary-writebtn:hover {
+	background: rgb(255, 195, 195);
+	color: black;
+	border: 1px solid #000;
 }
 
 
 /* diaryForm  */
-div#diaryfrm-container{width:400px; margin:0 auto; }
-div#diaryfrm-top-container{ background-color: rgb(255, 195, 163); padding: 20px;}
-div#diaryfrm-container input{margin-bottom:15px;}
-/* 부트스트랩 : 파일라벨명 정렬*/
-div#diaryfrm-container label.custom-file-label{text-align:left;}
+div#diaryfrm-container{
+	text-align: center;
+	float: center;
+	margin: 0 auto;
+	line-height: 10px;
+}
+div.diarywrite-header-container{
+	background-color: rgb(255, 195, 163);
+	padding: 20px;
+	margin: 10px 0;
+}
+.form-control{
+	margin-top: 22px;
+}
+.form-control:hover{
+	border: 2px solid rgb(255, 195, 163);
+}
+#writebtnS{
+	background: white;
+	border : 1px solid rgb(255, 195, 163);
+	color: black;
+	float: right;
+	width: 80px;
+	height: 25px;
+	font-size: 10px;
+	vertical-align:top
+}
+#writebtnS:hover{
+	background: gray;
+	border : none;
+	color: white;
+}

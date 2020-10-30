@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.kh.onairstudy.member.model.dao.MemberDAO;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.member.model.vo.MemberInfo;
+import com.kh.onairstudy.payment.model.vo.ProfileAttach;
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -80,8 +82,19 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> updateSelectOne(String memberId) {
 		return memberDAO.updateSelectOne(memberId);
 	}
-	
-	
+	//회원삭제
+	@Override
+	public int deleteMember(String memberId) {
+		return memberDAO.deleteMember(memberId);
+	}
+
+	//포르필사진 저장
+	@Override
+	public int insertProfilePhoto(ProfileAttach attach) {
+		return memberDAO.insertProfilePhoto(attach);
+	}
+
+
 	
 	
 	

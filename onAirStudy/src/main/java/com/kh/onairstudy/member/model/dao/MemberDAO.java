@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.member.model.vo.MemberInfo;
+import com.kh.onairstudy.payment.model.vo.ProfileAttach;
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 
 public interface MemberDAO {
 
@@ -30,6 +32,13 @@ public interface MemberDAO {
 	
 	//수정폼에 내용 보여주기
 	List<Member> updateSelectOne(String memberId);
+	
+	//회원삭제
+	int deleteMember(String memberId);
+
+	//프로필사진
+	int insertProfilePhoto(ProfileAttach attach);
+
 
 
 

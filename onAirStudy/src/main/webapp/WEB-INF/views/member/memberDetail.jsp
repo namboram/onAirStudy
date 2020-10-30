@@ -18,11 +18,14 @@
 	<div style="padding:5%;">
 	<h4>내정보</h4>
 	<hr />
-		<div class=myinfo-tagS>
-			<div class="tagS" id="tagS1"><a href="${ pageContext.request.contextPath }/mypage1/memberDetail.do">정보수정</a></div>
-			<div class="tagS" id="tagS2"><a href="${ pageContext.request.contextPath }/mypage1/mypage1_paymentList.do">결제내역</a></div>
-		</div>
+
+		
+		<div id=updatefrm-left>
+			<h5>내 정보 수정</h5>
+			<hr />
+
 		<div id="updatefrm-left" style="margin-bottom:10%;">
+
 			<form id="memberUpdateFrm1" 
 				  action="${pageContext.request.contextPath}/mypage1/memberUpdate.do" 
 				  onsubmit="return MupdateValidate();"
@@ -47,28 +50,83 @@
 				<%-- <input type="hidden" name="memberId" value="${ loginMember.memberId }" /> --%>
 				<input type="submit" class="btnS" value="수정" >&nbsp;
 				<input type="reset" class="btnS" value="취소">
+				
+				
+				<input type="button" class="btnS" onclick="deleteMember();" value="회원탈퇴">
+			
 			</form>
-		</div>
-		<div id="updatefrm-right">
+			<form action="${ pageContext.request.contextPath }/member/deleteMember.do" 
+				  id="memberDeleteFrm" 
+				  method="POST">
+				<input type="hidden" value="${ loginMember.memberId }" name="memberId" />
+			</form>
 			<form id="memberUpdateFrm2"
 				  action="${pageContext.request.contextPath}/mypage1/uploadProfile.do"
 			      onsubmit="return uploadProfileValidate();" 
 			      method="POST"
 			      enctype="multipart/form-data">
 				<div class="mProfile-container">
-					<input type="file" class="custom-file-input" name="upFile" id="upFile1" value="프로필사진 첨부"  >
-					<label class="file-label" for="upFile1">파일을 선택하세요</label> 
-					
-					<input type="submit" class="btnS" value="프로필사진 업로드" >
+					<input type="file" class="file-input" name="upFile" id="upFile1" value="프로필사진 첨부"  >
+					<label class="file-label" for="upFile1" id="profile-title">파일을 선택하세요</label> 
+					<input type="file" id="input-file" class="upload-hidden" />
+					<input type="submit" class="btnS" value="업로드" >
 				</div>
 			</form>
 		</div>
+<<<<<<< HEAD
+=======
 	</div>
 	</div>
 </div>
 <script>
 function uploadProfileValidate(){
+>>>>>>> branch 'master' of https://github.com/ekfhd/onAirStudy.git
 
+	
+	<div id="updatefrm-rt">
+		<h5>결제 내역</h5>
+		<table class="table" class="table table-striped table-hover">
+	    <tr class="header">
+	      <th>번호</th>
+	      <th>일시</th>
+	      <th>금액</th>
+	    </tr>
+	    <c:forEach items="${ list }" var="payment">
+	    <tr>
+	      <td>${ payment.no }</td>
+	      <td><fmt:formatDate value="${ payment.paymentDate }" pattern="yy/MM/dd"/></td>
+	      <td>${ payment.paymentAmount }</td>
+		</tr>
+		</c:forEach>
+		</table>
+	</div>
+	
+ </div>
+</div>
+
+
+<script>
+function deleteMember(){
+	if(confirm("정말 삭제하시겠습니까?") == false)
+		return;
+	var $frm = $("#memberDeleteFrm");
+	/* $frm.find("[name=memberId]").val(memberId); */
+	$frm.submit();
+}
+
+function uploadProfileValidate(){
+	/* if($("#upFile1").val() == null){
+		alert("프로필사진을 넣어주세요");
+		return false;
+	}
+	if($("#input-file").val() == null){
+		alert("프로필사진을 넣어주세요");
+		return false;
+	}
+	if($("#profile-title").val() == null){
+		alert("프로필사진을 넣어주세요");
+		return false;
+	} */
 	return true;
 }
 
@@ -112,16 +170,16 @@ function MupdateValidate(){
 	$("[name=upFile]").on("change", function(){
 		//방금 선택한 파일
 		var file = $(this).prop('files')[0];
-		var $label = $(this).next(".custom-file-label");
+		var $label = $(this).next(".file-label");
 	
 		if(file == undefined)
 			$label.html("파일을 선택하세요");
 		else
 			$label.html(file.name);
 	});
-	
-	
 });
+
+ 
 </script>
 
 <div class="col-lg p-0">

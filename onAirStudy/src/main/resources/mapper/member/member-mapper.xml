@@ -10,7 +10,7 @@
 		values(
 			#{ memberId },
 			#{ memberName },
-			#{ password },
+			#{ password },n,
 			default,
 			#{ phone },
 			default,
@@ -22,9 +22,6 @@
 		
 		)
 	</insert>
-	
-	
-	
 
 	
 	<select id="idChk" resultType="int">
@@ -45,7 +42,6 @@
   	where 
   		member_id = #{ memberId }
   </select>
-  
   
   <!-- 성실멤버 List -->
   <select id="selectDiligentMember" resultMap="memberMap" >
@@ -92,6 +88,26 @@
 			member_id = #{ memberId }
 	</update>	
 	
+	<insert id="insertProfilePhoto">
+		insert into 
+			profile_attachment	
+		values(
+			seq_profile_no.nextval,
+			#{ memberId },
+			null,
+			#{ originalFilename },
+			#{ renamedFilename },
+			'경로'	
+		)
+	</insert>
+	
+	<delete id="deleteMember">
+		 delete from 
+		 	member
+		 where 
+		 	member_id = #{memberId}	
+	</delete>
+	
 	
 <resultMap type="member" id="memberMap">
     <result column="member_id" property="memberId"/>
@@ -136,6 +152,7 @@
   	<result column="start_date" property="startDate"/>
   	<result column="content" property="content"/>
   </resultMap>
+	
 
   
   
