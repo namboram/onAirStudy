@@ -45,9 +45,9 @@
 
 									<td >
 										<button type="submit" class="btn btn-outline-primary"
-											onclick="updateInvi('${ invitation.no }')">수락</button>
+											onclick="updateInvi('${ invitation.srNo }')">수락</button>
 										<button type="button" class="btn btn-primary"
-											onclick="deleteInvi('${ invitation.no }')">거절</button>
+											onclick="deleteInvi('${ invitation.srNo }')">거절</button>
 									</td>
 										</c:if>
 								</tr>
@@ -80,10 +80,10 @@
 			<form
 				action="${ pageContext.request.contextPath }/mypage1/updateInvitation.do"
 				id="uadateInvitation" method="POST">
-				<input type="hidden" name="no" />
+				<input type="text" name="no" hidden/>
 				<!-- Modal body -->
 				<div class="modal-body">초대를 수락 하시겠습니까?</div>
-				<input type="text" name="memberId" value="${loginMember.memberId}" />
+				<input type="text" name="memberId" value="${loginMember.memberId}" hidden />
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
