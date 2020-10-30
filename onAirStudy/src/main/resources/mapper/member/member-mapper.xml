@@ -67,14 +67,14 @@
 		where member_id = #{reportedMember}
 	</update>
   
-<!--   	<select id="selectOneMemberDetail" resultMap="memberMap">
+	<select id="updateSelectOne" resultMap="memberMap">
   		select
 		  	*
 		from 
 		  	member
 	    where 
 		  	member_id = #{ memberId }
-  	</select>  -->
+  	</select>  
 
 	<update id="updateMember">
 		update
@@ -87,7 +87,8 @@
 		where
 			member_id = #{ memberId }
 	</update>	
-
+	
+	
 <resultMap type="member" id="memberMap">
     <result column="member_id" property="memberId"/>
   	<result column="member_name" property="memberName"/>
@@ -121,13 +122,13 @@
 		where 
 			d_yn = 'Y' 
 		and 
-			member_id = 'jhking' 
+			member_id = #{memberId} 
 		and 
 			trunc(start_date - trunc(sysdate)) > 0
 	</select>
   
   <resultMap type="memberinfo" id="memberinfoMap">
-    <result column="count" property="dDayCnt"/>
+    <result column="count" property="dayCnt"/>
   	<result column="start_date" property="startDate"/>
   	<result column="content" property="content"/>
   </resultMap>

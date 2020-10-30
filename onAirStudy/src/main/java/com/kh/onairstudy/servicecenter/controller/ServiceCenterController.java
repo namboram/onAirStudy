@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +36,35 @@ public class ServiceCenterController {
 	
 
 	@RequestMapping("/servicecenter.do")
-	public ModelAndView serviceList(PagingCriteria cri, ModelAndView mav, HttpSession session) {
-		
-		List<ServiceCenter> serviceList = serviceCenterService.selectServiceList(cri);
-		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
-		
-		
-		int totalCount = serviceCenterService.totalCount(null, null, 0);
+	public ModelAndView serviceList(PagingCriteria cri, ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		
 		Member loginMember = (Member)session.getAttribute("loginUser");
-	
-		mav. addObject("serviceList", serviceList);
+
+		List<ServiceContent> serviceContentList = serviceCenterService.selectServiceContentList();
+		
+		if(loginMember==null) {
+			mav. addObject("serviceContentList", serviceContentList);
+			mav.setViewName("service/servicecenter");
+			return mav;
+		}
+		
+
+		log.debug("loginMember={}", loginMember);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberId", loginMember.getMemberId());
+		map.put("cri", cri);
+		
+		log.debug("map={}", map);
+		
+		List<ServiceCenter> serviceList = serviceCenterService.selectServiceList(map);
+		
+		int totalCount = serviceCenterService.totalCount(map);
+//		mav. addObject("serviceList", serviceList);
+		
+		
+		request.setAttribute("serviceList", serviceList);
+		mav. addObject("list", serviceList);
 		mav. addObject("serviceContentList", serviceContentList);
 		mav. addObject("paging", new PageMaker(cri, totalCount));
 		

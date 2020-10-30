@@ -130,22 +130,30 @@ from
 
 <sql id="search">
 <choose>
-<when test = "member_id != null">
+<!-- <when test = "member_id != null">
 	where 
 		L.sr_no>8 and
 		sr_ended_yn != 'Y'
-</when>
+</when> -->
 <when test = "search_option =='all'">
 	where
 		member_id like '%' ||#{keyword}|| '%'
-	 or	s_title like '%' ||#{keyword}|| '%'
+
+	 or	sr_title like '%' ||#{keyword}|| '%' and
+	  L.sr_no>8 and
+	sr_ended_yn != 'Y'
 </when>
 <when test="category != 0">
-     where sr_category = #{category}
+     where sr_category = #{category} and
+      L.sr_no>8 and
+	sr_ended_yn != 'Y'
 </when>
 <otherwise>
 	where
-	 ${search_option} like '%' ||#{keyword}|| '%'
+	 ${search_option} like '%' ||#{keyword}|| '%' and
+	  L.sr_no>8 and
+	sr_ended_yn != 'Y'
+	
 </otherwise>
 </choose>
 </sql>
@@ -201,12 +209,13 @@ select
  </select>
 
 <select id="selectCategoryList" resultType="studycategory">
-select 
-	distinct C.category 
-from 
-	service_category C left join service S on S.category = C.no
-where 
-	S.no != 100
+
+	select
+		*
+	from
+		sr_category
+    where
+      no != 100
 </select>
 
 <!-- 방신청 -->
@@ -235,6 +244,17 @@ where
 	sr_no = #{srNo} and member_id = #{memberId}
 
 </delete>
+
+<select id="selectMyStudy" resultType="_int">
+select
+	count(*)
+from 
+	sr_log
+where
+	member_id = #{memberId} and sr_no = #{srNo}
+
+</select>
+
 
 <!-- 찜 목록  -->
 <select id="selectCheckWish" resultType="_int">
@@ -335,8 +355,19 @@ from sr_log
 		
 	</select>
 	
-	
-	
+	<!-- 회원가입시 -->
+	<insert id="insertMemberToSr">
+		insert into 
+			sr_log 
+		values(
+			seq_sr_log_no.nextval, 
+			#{srNo}, 
+			#{memberId}, 
+			'미참여', 
+			0, 
+			'N'
+		)
+	</insert>
 
 
 	<select id="selectParticipantList" resultType="studyroomlog">
@@ -414,7 +445,6 @@ from sr_log
 		)
 	</insert>
 	
-
 	<delete id="deleteWaiting">
 		delete from
 			sr_waiting_list

@@ -73,14 +73,7 @@
 					<h5>premium</h5>
 				</c:if>
 			</div>
-			<%-- <c:if test="${ not empty memberInfo.dDay }">
-			<c:set var="dDay" value="${ memberInfo.dDay }"/>
-			<div class="d-day-display">
-				<hr>
-				<span>D - ${  dDay.dDayCnt }</span></br> <span>${ dDay.startDate }</span></br> <span>${ dDay.content }</span></br>
-				<hr>
-			</div>
-			</c:if> --%>
+
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
 			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
@@ -175,6 +168,11 @@ function msgSend(receiverId) {
 		}
 	}
 $(function(){
+
+	<c:if test="${ not empty test}">
+		$(".changeDiv").load("${pageContext.request.contextPath}/mypage2/mypage2_question.do");
+	</c:if>
+	
 	var d = new Date();
 	var week = new Array('일','월','화','수','목','금','토');
 	
@@ -230,7 +228,7 @@ function post_to_url(path, params, method) {
 
 <script>
 	function goToSchduler(roomNum){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/scheduler/scheduler_.do?no="+roomNum);
+		 $(".changeDiv").load("${pageContext.request.contextPath}/scheduler/scheduler_.do?roomNum="+roomNum);
 	}
 	
 	function goToQuestion(){

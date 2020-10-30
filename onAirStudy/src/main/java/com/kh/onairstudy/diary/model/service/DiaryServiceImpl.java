@@ -25,8 +25,8 @@ public class DiaryServiceImpl implements DiaryService {
 	@Autowired
 	private DiaryDAO diaryDAO;
 
-	 @Override public List<Diary> selectDiaryList() { 
-		 return diaryDAO.selectDiaryList(); 
+	 @Override public List<Diary> selectDiaryList(Map<String, Object> map) { 
+		 return diaryDAO.selectDiaryList(map); 
 	}
 
 	@Override
@@ -82,6 +82,11 @@ public class DiaryServiceImpl implements DiaryService {
 	public int deleteDiary(int no) {
 		return diaryDAO.deleteDiary(no);
 
+	}
+
+	@Override
+	public int totalDiary(Map<String, Object> map) {
+		return diaryDAO.totalDiary(map);
 	}
 	
 

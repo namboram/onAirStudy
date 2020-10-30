@@ -29,7 +29,7 @@ $(function(){
 </script>
 
 
-    <div class="test_question" style="margin-bottom: 0;">
+    <div class="test_question" style="margin:3%; ">
     	<form name="questionFrm" 
 		  action="${pageContext.request.contextPath}/mypage2/testquestion.do" 
 		  method="post"
@@ -45,8 +45,9 @@ $(function(){
                     <div style="background-color: #F6E5FE;">
                         <p>문제는 객관식으로 등록해 주세요.</p>
                     </div>
-                    <div class="form-group-row">
-                        <fieldset class="col-lg" style="border: unset; background-color: #FFF0F0; border-radius: 15px;  overflow:auto;">
+                    
+                    <div class="form-group-row col-lg-12 px-5">
+                        <fieldset class="col-lg" style="border: unset; background-color: #FFF0F0; border-radius: 15px; padding:2%;  overflow:auto;">
                             <legend>Question</legend>
                        	<input type="text" class="form-control" name="memberId" value="${ loginMember.memberId }" hidden>
  						<input type="number" class="form-control" name="srNo" value="${ roomInfo.srNo }" hidden/>
@@ -58,15 +59,15 @@ $(function(){
                             
                                 <br>
                                 <div class="custom-file mb-3">
-                                    <input type="file" class="custom-file-input" id="upFile" name="upFile">
+                                    <input type="file" class="custom-file-input" id="upFile" name="upFile"">
                                     <label class="custom-file-label" for="upFile">문제에 관련된 사진을 첨부할 수 있습니다</label>
                                 </div>
                             
                         </div>
                         <br>
-                        <div class="col-lg" style=" background-color: #FFF0F0; border-radius: 15px;">
+                        <div class="col-lg" style=" background-color: #FFF0F0; border-radius: 15px; padding-left:6%;">
                             <br>
-                            <div class="form-check" style="align-items: center;">
+                            <div class="form-check"">
                                 <input type="button" class="btn btn-outline-dark choice1" id="choice1" value="1"
                                     style="margin-right: 20px; border-radius: 50%;"> <input type="text" name="testChoice_1" class="col-lg-10 testChoice1"
                                     style="border-radius: 15px;">
@@ -95,12 +96,13 @@ $(function(){
                     </div>
                     <br><br>
                     <div align="center">
-                        <button type="submit" value="저장 " class="btn btn-outline-primary" style="margin-right: 30px;">등록 </button>
-                        <button type="button" class="btn btn-danger"><a href="">취소</a></button>
+                        <button type="submit" value="저장 " class="btn btn-outline-primary btn-lg" style="margin-right: 30px;">등록 </button>
+                        <button type="reset" class="btn btn-danger btn-lg">취소</button>
                     </div>
                     <br>
-                </div>              
-            </div>
+                </div> 
+                </div>             
+           
             </div>
 </form>
             </div>

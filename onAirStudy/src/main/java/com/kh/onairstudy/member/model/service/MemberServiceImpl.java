@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.onairstudy.member.model.dao.MemberDAO;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.member.model.vo.MemberInfo;
 
 /*@Transactional(propagation = Propagation.REQUIRED,
 isolation = Isolation.READ_COMMITTED,
@@ -60,14 +61,24 @@ public class MemberServiceImpl implements MemberService {
 		
 		map.put("profile", memberDAO.getMemberImage(memberId));
 		map.put("paymentDay", memberDAO.selectNextPaymentDay(memberId));
-		map.put("dDay", memberDAO.selectdDayInfo(memberId));
 		
 		return map;
 
 	}
+
+	
+	@Override
+	public MemberInfo selectdDayInfo(String memberId) {
+		
+		return  memberDAO.selectdDayInfo(memberId);
+	}
 	@Override
 	public int idChk(Member member) {
 		return memberDAO.idChk(member);
+	}
+	@Override
+	public List<Member> updateSelectOne(String memberId) {
+		return memberDAO.updateSelectOne(memberId);
 	}
 
 	

@@ -30,29 +30,31 @@ function goDiaryForm(){
 }
 </script>
 <!-- 검색창 --> 
-<div class="diary-container">
-	<h2>STUDY DIARY</h2>
+<div class="diary-container" style="height:100%;">
+		<h2>STUDY DIARY</h2>
 	
-	<div class="diary-top-container">
-		<img src="${pageContext.request.contextPath }/resources/images/studydiaryicon.png" width="120px" height="120px" />
-	</div>
-    
-
-  	<div class="diary-search-write-container">
-  		
-  		<form action="/diary/diarySearch" method="GET" id="selectFrm">
-	 		 <select name ="diary-select-bar" id="diary-select-bar">
-	         	<option value="제목">제목</option> 
-	         	<option value="작성자">작성자</option>
-	        </select>
-	  		<span class="pink_window">
-		        <input type="search" class="search" 
-		        	   id="keywordS" name="keywordS" placeholder="검색어를 입력해주세요"/>&nbsp;
-	  		</span>
-		        <button class="btn btn-outline-danger" id="diary-searchbtn"type="submit">검색</button>
-  		</form>
-		    <input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goDiaryForm();"/>
-  	</div>
+		<div class="diary-top-container">
+			<img src="${pageContext.request.contextPath }/resources/images/studydiaryicon.png" width="120px" height="120px" />
+		</div>
+	    
+	
+	  	<div class="diary-search-write-container" style="padding:1%;">
+	  		
+	  		<form id="selectFrm">
+		 		 <select name ="searchType" id="diary-select-bar">
+		         	<option value="title" ${ map.searchType == 'title' ? 'selected' : '' }>제목</option> 
+		         	<option value="memberId" ${ map.searchType == 'memberId' ? 'selected' : '' }>작성자</option>
+		        </select>
+		  		<span class="pink_window">
+			        <input type="search" class="search" 
+			        	   id="keywordS" name="searchKeyword" placeholder="검색어를 입력해주세요" value="${ map.searchKeyword }"/>&nbsp;
+		  		</span>
+			        <button class="btn btn-outline-danger" id="diary-searchbtn" type="button" onclick="search();">검색</button>
+	  		</form>
+	  			<!-- 내가 쓴 글 조회하는 버튼 -->
+			    <!-- <input type="button" value="내가 쓴 글" id="btn-search" class="btn btn-outline-success"/> -->
+			    <input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goDiaryForm();"/>
+  		</div>
 		
     <br />
     
@@ -66,6 +68,9 @@ function goDiaryForm(){
 	     <!--  <th>첨부파일</th> --> <!-- 첨부파일 있을 경우, /resources/images/file.png 표시 width: 16px-->
 	      <th>조회수</th>
 	    </tr>
+	    <c:if test="${ empty list }">
+	    <tr><td colspan=5>조회 결과가 없습니다.</td></tr>
+	    </c:if>
 	    <c:forEach items="${ list }" var="diary">
 	    <tr data-no="${ diary.no }">
 	      <td >${ diary.no }</td>
@@ -82,12 +87,43 @@ function goDiaryForm(){
 		</tr>
 	    </c:forEach>
 	    </table>
+	    
+	    <div id='pageBar'>
+			${ map.pageBar }
+		</div>
 
 </div>
 
 <script>
 
-	
+	var action = "${pageContext.request.contextPath}/diary/diaryList.do?";
+
+	function search() {
+		var searchType = $("#diary-select-bar option:selected").val();
+		var searchKeyword = $("[name=searchKeyword]").val();
+
+		console.log("searchType = " + searchType);
+		console.log("searchKeyword = " + searchKeyword);
+
+		action += "searchType=" + searchType;
+		action += "&searchKeyword=" + searchKeyword;
+
+		location.href = action;
+
+	}
+
+	$(document).ready(function(){
+		$("#btn-search").click(function(){
+
+			action += "searchType=memberId";
+			action += "&searchKeyword=" + "${ loginMember.memberId }";
+
+			console.log(action);
+			location.href=action;
+			
+		});
+
+	});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

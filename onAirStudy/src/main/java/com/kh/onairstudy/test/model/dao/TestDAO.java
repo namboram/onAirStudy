@@ -14,5 +14,7 @@ public interface TestDAO {
 
 	int updatePoint(String memberId);
 
+	int selectCountQuestion(int srNo);
+
 
 }

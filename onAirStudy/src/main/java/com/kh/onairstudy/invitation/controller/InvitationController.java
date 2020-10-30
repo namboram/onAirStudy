@@ -94,17 +94,42 @@ public class InvitationController {
 	
 	@RequestMapping(value="/invitation/searchMember.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<Member> searchMember(@RequestParam("searchId") String searchId, @RequestParam("roomNum") String roomNum) {
+	public List<Member> searchMember(@RequestParam("searchId") String searchId,
+									@RequestParam("roomNum") String roomNum) {
 		
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("searchId", searchId);
 		param.put("roomNum", roomNum);
 		
+		log.debug("searchId = {}",searchId);
+		log.debug("roomNum = {}",roomNum);
+		
 		List<Member> list = invitationService.selectMemberList(param);
+		
+		log.debug("list = {}", list);
+		
 		return list;
 	}
 	
-	
-	
+	@RequestMapping(value="/invitation/invite.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int invite(@RequestParam("invitedId") String invitedId,
+					 @RequestParam("hostingId") String hostingId,
+					 @RequestParam("srNo") int srNo) {
+		
+		log.debug("invitedId = {}",invitedId);
+		log.debug("hostingId = {}",hostingId);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("invitedId", invitedId);
+		param.put("hostingId", hostingId);
+		param.put("srNo", srNo);
+		
+		
+		int result = invitationService.sendInvitation(param);
+		
+		
+		return result;
+	}
 	
 }

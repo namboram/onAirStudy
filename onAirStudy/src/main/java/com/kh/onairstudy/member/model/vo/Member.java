@@ -30,6 +30,7 @@ public class Member implements Serializable{
 		   private Date enrollDate;
 		   
 		   private String mPic;
+
 		
 	}
 

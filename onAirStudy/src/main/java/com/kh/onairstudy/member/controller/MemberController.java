@@ -1,8 +1,13 @@
 package com.kh.onairstudy.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.onairstudy.common.Utils;
+import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
+import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -97,7 +105,7 @@ public class MemberController {
 			redirectAttr.addFlashAttribute("msg", msg);
 			}
 		}catch(Exception e) {
-			throw new RuntimeException();
+			e.printStackTrace();
 		}
 		
 		return "redirect:/";
@@ -233,40 +241,79 @@ public class MemberController {
 		//등록한 폼 내용 가져오기
 		@RequestMapping("/mypage1/memberDetail.do")
 		public ModelAndView memberDetail(@ModelAttribute("loginMember") Member loginMember,
-											 ModelAndView mav) {
-
+										 Model model,
+										  ModelAndView mav) {
+			
+			if(loginMember != null){
 			log.debug("loginMember = {}", loginMember);
-				
+			
+			model.addAttribute("loginMember");
+			mav.addObject("loginMember", loginMember);	
 			mav.setViewName("member/memberDetail");
 			return mav;
+			}
+			//로그인안할시 로그인페이지로 이동
+			else {
+			mav.setViewName("member/memberLogin");
+			return mav;
+			}
 		}
 		
 		//수정폼 저장하기
 		@RequestMapping(value="/mypage1/memberUpdate.do", method = RequestMethod.POST)
 	
 		public String memberUpdate(Member member,
+									Model model,
 									RedirectAttributes redirectAttributes) {
 			
 			 log.debug("member@update = {}", member);
 
-			
 	         int result = memberService.updateMember(member);
-			redirectAttributes.addFlashAttribute("msg", result>0 ? "정보 수정성공" : "정보 수정실패");
-			
+	         System.out.println(result);
+	    
+	         model.addAttribute("loginMember", member);			
+			 redirectAttributes.addFlashAttribute("msg", result>0 ? "정보 수정성공" : "정보 수정실패");
 			return "redirect:/mypage1/memberDetail.do";
 		}
+		
 		
 		//프로필사진 업로드
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
 		public String mProfileInsert(@RequestParam(value = "upFile",required = false) MultipartFile upFile,
-									RedirectAttributes redirectAttr) {
-			log.debug("upfile.name = {}", upFile.getOriginalFilename());
-	        log.debug("upfile.size = {}", upFile.getSize());
-			
+									HttpServletRequest request,
+									RedirectAttributes redirectAttr) throws Exception {
+//			log.debug("upfile.name = {}", upFile.getOriginalFilename());
+//	        log.debug("upfile.size = {}", upFile.getSize());
+	      //1. 서버컴퓨터에 업로드한 파일 저장하기
+	         if(upFile != null) {
+	         
+	            List<ProfileAttachment> attachList = new ArrayList<>();
+	         //첨부파일 저장경로
+	         String saveDirectory = request.getServletContext()
+	                                .getRealPath("/resources/upload/memberprofile");
+	            
+	            //1.파일명(renameFilename) 생성
+	            String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
+	            
+	            //2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장  tranferTo
+	            File dest = new File(saveDirectory, renamedFilename);
+	          
+	            upFile.transferTo(dest);
+				
+	            //3.attachment객체 생성
+	            ProfileAttachment attach = new ProfileAttachment();
+	            attach.setOriginalFilename(upFile.getOriginalFilename());
+	            attach.setRenamedFilename(renamedFilename);
+	            attachList.add(attach);   
+	            
+
+	         //처리결과 msg 전달
+	         redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
 	        
-	        return "redirect:/mypage1/memberDetail.do";
-		}
 		
+	         }
+	         return "redirect:/mypage1/memberDetail.do";
+	    }
 }
 		
 		
