@@ -5,10 +5,49 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/mystudygruop.css"> --%>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/mystudygruop.css">
+<style>
+.bnt{
+	border-radius:15px;
+    background-color: white;
+    border-color: rgb(141, 109, 109);
+    color: rgb(141, 109, 109); }
+.btn:hover,
+.btn:focus {
+    border-color: rgb(141, 109, 109);
+    background-color: rgb(141, 109, 109);
+    color: #FFF; }
+.btn:active,
+.btn:visited,
+.btn:focus,
+.btn:active:hover {
+    border-color:rgb(141, 109, 109);
+    background-color:rgb(141, 109, 109);
+    color: #FFF; }
+  
+#rBtn {
+	float:right;
+	padding-right:10%;
+}
+.table thead{
+    border-style: groove;
+    border-color: rgba(173, 134, 134, 0.753);
+    background-color: white;
+    color:black;
+}
 
+.table tbody{
+   border-bottom: groove 1.5px rgba(173, 134, 134, 0.753);
+}
+.tbody tr:nth-child(2n) {
+    background-color: white;
+  }
+.tbody tr:nth-child(2n+1) {
+    background-color: #F9F1ED;
+  }
+</style>
 
 <div class="invitation" style="margin-bottom: 0;">
 
@@ -16,11 +55,14 @@
 	<div class="col-sm" style="background-color: #FBF7FD; padding: 5%;">
 		<h2 class="text-gray" style="float: left; padding-right: auto;">
 			My Study Group</h2>
-<button type="button" class="btn btn-outline-primary"			
-			style="border-radius: 35px;">
-			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
-				방 만들기</a>
-		</button>
+		<div id="rBtn" >
+			<button type="button" class="btn btn-outline-primary" id="btnJoin" >
+				<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
+					방 만들기</a>
+			</button>
+		</div>
+		<br />
+		<br />
 		<hr>
 		<div class="container">
 
