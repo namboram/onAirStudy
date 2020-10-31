@@ -51,8 +51,8 @@ public class StudyRoomDAOImpl implements StudyRoomDAO {
 	
 	
 	@Override
-	public List<StudyRoomWish> selectMywish() {
-		return sqlSession.selectList("studyroom.selectMywish");
+	public List<StudyRoomWish> selectMywish(String memberId) {
+		return sqlSession.selectList("studyroom.selectMywish", memberId);
 	}
 	
 	//찜목록

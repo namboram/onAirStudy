@@ -75,7 +75,7 @@ function searchRoom() {
 		<div class="row" id="srlistG">
 		
 			<c:forEach items="${ srList }" var="roomList" varStatus="status">				
-			
+				
 				 
 				<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 				
@@ -112,12 +112,14 @@ function searchRoom() {
 								action="${ pageContext.request.contextPath }/studyroom/favStudyroom.do"
 								method="POST">
 				
-							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }"  hidden> 
-							<input type="text" class="form-control" name="srNo"	value="${roomList.wishNo }" hidden> 
+							<input type="text" class="form-control" name="srNo"	value="${roomList.srNo }"  hidden> 														
+														
+														
+													
 							<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
 							
-														
-							<button type="submit" class="heartBtn" style="<c:if test="${roomList.wishNo == roomList.srNo && loginMember.memberId != null}">background-color:gray;</c:if>" >
+							
+							<button type="submit" class="heartBtn" style="<c:if test="${loginMember.memberId == roomList.wId && loginMember.memberId !=null}">background-color:gray;</c:if>" >
 								<img class="heartP"
 									src="${pageContext.request.contextPath }/resources/images/heart.png" >
 							</button>

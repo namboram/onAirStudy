@@ -59,14 +59,15 @@ public class StudyRoomController {
 
 	//메인 페이지 스터디룸 리스트
 		@RequestMapping("/studyroom/studyroomlist.do")
-		public ModelAndView studyroomlist(ModelAndView mav) {
+		public ModelAndView studyroomlist(ModelAndView mav, HttpSession session) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
 			List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
 			mav.addObject("sCategory", sCategory);
 		
 			List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
 			mav.addObject("srList", srList);
 			
-			List<StudyRoomWish> selectW =  studyRoomService.selectMywish();
+			List<StudyRoomWish> selectW =  studyRoomService.selectMywish(loginMember.getMemberId());
 			mav.addObject("selectW", selectW);
 			
 			mav.setViewName("studyroom/studyRoomList");

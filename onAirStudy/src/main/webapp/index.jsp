@@ -229,7 +229,7 @@
 		<h3 class="text-center">
 			현재 모집중인 스터디
 			<button type="button" class="btn btn-light" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">더 보기</button>
-			</h2>
+			</h3>
 			<br>
 			
 			<div class="container-sm">
