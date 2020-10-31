@@ -111,7 +111,12 @@
 			<div class="offset-sm-9">
 				<button type="button" class="btn btn-secondary replyModalK">답장하기</button>
 				<button type="button" class="btn btn-secondary" onclick="delMsg();">삭제</button>
+				<c:if test="${message.vaildYN eq 'Y'}">
+				<button type="button" class="btn btn-secondary" onclick="completed();">신고완료</button>				
+				</c:if>
+				<c:if test="${message.vaildYN ne 'Y'}">
 				<button type="button" class="btn btn-secondary reportModalK">신고</button>				
+				</c:if>
 			</div>
 				</c:if>
 				<c:if test="${loginMember.memberId ne message.receiverId}">
@@ -163,6 +168,11 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
 <script>
+//신고 완료
+function completed(){
+
+	alert("이미 신고한 쪽지입니다 :)");
+}
 	//삭제하기
 	function delMsg() {
 		var arr = new Array();
@@ -228,8 +238,10 @@
 						},
 						dataType : "json",
 						success : function(result) {
-							if (result > 0)
+							if (result > 0){
 								alert("신고가 완료되었습니다.");
+								location.reload();
+							}
 						},
 						error : function(xhr, status, err) {
 							console.log("처리실패!");
