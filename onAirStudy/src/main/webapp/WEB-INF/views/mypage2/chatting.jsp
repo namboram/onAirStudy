@@ -163,8 +163,9 @@ vertical-align: text-bottom;
 					</c:if>
 					<c:if test="${chat.vaildYN ne 'Y'}">
 					<p class="otherChat bg-light p-2">${chat.chatContent }</p> 
-					<strong class="align-self-center"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
+					<strong class="align-self-center"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" />
 					<a href='#' class='reportModalK'>신고</a>
+					</strong>
 					</c:if>
 					</div></li>
 					</c:if>
