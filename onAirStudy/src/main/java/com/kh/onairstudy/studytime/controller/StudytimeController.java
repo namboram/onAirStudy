@@ -36,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping
-@SessionAttributes({"memberInfo","sideBarInfo"})
 public class StudytimeController {
 	
 	@Autowired
@@ -83,7 +82,8 @@ public class StudytimeController {
 		mav.addObject("sideBarInfo" , sideBarInfo );
 		mav.addObject("memberInfo" , memberInfo );
 		
-		
+		session.setAttribute("sideBarInfo" , sideBarInfo );
+		session.setAttribute("memberInfo" , memberInfo );
 // 일반,프리미엄 회원 구분		
 
 		

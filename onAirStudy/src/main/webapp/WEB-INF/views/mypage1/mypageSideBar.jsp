@@ -17,6 +17,11 @@
 					src="${ pageContext.request.contextPath }/resources/upload/${sideBarInfo.profile}"
 					alt="...">
 			</c:if>
+			<c:if test="${ empty sideBarInfo.profile }">
+				<img
+					src="${ pageContext.request.contextPath }/resources/upload/basicPic.png"
+					alt="...">
+			</c:if>
 			<h3>${loginMember.memberId }</h3>
 			<c:if test="${ loginMember.memberRole eq 'P'}">
 				<h5>premium</h5>
@@ -25,6 +30,22 @@
 				<h5>member</h5>
 			</c:if>
 		</div>
+		<c:if test="${ not empty memberInfo }">
+			<div class="d-day-display">
+				<hr>
+					<c:set var="cnt" value="${ memberInfo.dayCnt }"/>
+					<c:if test="${ cnt eq 0 }">
+						<h5>D - day</h5>
+					</c:if>
+					<c:if test="${ cnt ne 0 }">
+						<h5>D - ${ cnt }</h5>
+					</c:if>
+				<!-- 	<h5>D - ${memberInfo.dayCnt}</h5> -->
+				<h5><fmt:formatDate value="${memberInfo.startDate }" pattern="yyyy/MM/dd"></fmt:formatDate></h5>
+				<h5>${memberInfo.content }</h5>
+				<hr>
+			</div>
+		</c:if>	
 		</div>
 		<span class="heading">Menu</span>
 			<!-- Sidebar Navidation Menus-->

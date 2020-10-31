@@ -126,21 +126,21 @@ where rownum <= 10
 	</select>
 	
 	<select id="selectNextPaymentDay" resultType="string">
-	select trunc(add_months(payment_date, 3) - trunc(sysdate))
+	select trunc(add_months(payment_date, 3) - sysdate)
 	from payment_log p 
 	where member_id = #{memberId}
 	
 	</select>
 	
 	<select id="selectdDayInfo" resultMap="memberinfoMap">
-		select start_date, content, trunc(start_date - trunc(sysdate)) "count" 
+		select start_date, content, trunc(start_date - sysdate) "count" 
 		from scheduler 
 		where 
 			d_yn = 'Y' 
 		and 
 			member_id = #{memberId} 
 		and 
-			trunc(start_date - trunc(sysdate)) > 0
+			trunc(start_date - sysdate) >= 0
 	</select>
   
   <resultMap type="memberinfo" id="memberinfoMap">
