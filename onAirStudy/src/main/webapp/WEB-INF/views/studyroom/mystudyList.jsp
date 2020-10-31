@@ -130,7 +130,7 @@
 								<input type="text" class="form-control" name="memberId"	value="${loginMember.memberId }" hidden >
 								
 										<button type="submit" class="btn btn-outline-primary" <c:if test="${studyroomwish.wStatus != 'Y'}">disabled</c:if>>
-											${studyroomwish.wStatus == 'Y' ? '가입가능' : '만료'}</button>
+											${studyroomwish.wStatus == 'Y' ? '신청가능' : '만료'}</button>
 									</form>
 									</td>
 								</tr>

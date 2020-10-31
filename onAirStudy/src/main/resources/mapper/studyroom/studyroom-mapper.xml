@@ -161,9 +161,10 @@ from
 
 <!-- 메인 스터디룸 리스트  -->
 
-<select id="selectStudyRoomList" resultMap="studyMap">
+<select id="selectStudyRoomList" resultMap="studyMap">  
 select
     L.*,
+    W.member_id w_id,
     (select     sr_title
     from    sr_info
     where sr_no =l.sr_no) s_title,
@@ -172,12 +173,9 @@ select
     where sr_no =l.sr_no) sr_pic,
    (select    renamed_filename
     from   profile_attachment
-    where member_id = L.member_id) m_pic,
-    (select sr_no 
-     from sr_wish_list
-     where sr_no = L.sr_no) wish_no
+    where member_id = L.member_id) m_pic
  	from 
-		sr_list L
+		sr_list L left join sr_wish_list W on l.sr_no = W.sr_no
 	where
 		L.sr_no>8 and
 		sr_ended_yn != 'Y'
@@ -188,6 +186,7 @@ select
   	<resultMap type="map" id="studyMap">
   		<id column="sr_no" property="srNo"/>
   		<result column="member_id" property="memberId"/>
+  		<result column="w_id" property="wId"/>
   		<result column="sr_enroll_date" property="srEnrollDate"/>
   		<result column="sr_category" property="srCategory"/>
   		<result column="sr_headCnt" property="srHeadCnt"/>
@@ -205,7 +204,9 @@ select
  select
  	*
  from
- 	sr_wish_list 	
+ 	sr_wish_list
+ where
+ 	member_id = #{memberId}	
  </select>
 
 <select id="selectCategoryList" resultType="studycategory">

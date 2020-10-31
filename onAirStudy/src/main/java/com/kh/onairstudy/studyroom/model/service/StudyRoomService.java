@@ -24,7 +24,7 @@ public interface StudyRoomService {
 
 	List<StudyCategory> selectCategoryList();
 	
-	List<StudyRoomWish> selectMywish();
+	List<StudyRoomWish> selectMywish(String memberId);
 //방생성
 	int insertStudyRoomList(StudyRoomList studyroomList);
 	
@@ -81,6 +81,8 @@ public interface StudyRoomService {
 	int updateLog(HashMap<String, String> param);
 
 	int deleteApply(StudyRoomWaiting srWating);
+
+
 
 
 

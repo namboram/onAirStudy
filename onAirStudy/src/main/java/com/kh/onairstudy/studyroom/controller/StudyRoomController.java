@@ -59,14 +59,15 @@ public class StudyRoomController {
 
 	//메인 페이지 스터디룸 리스트
 		@RequestMapping("/studyroom/studyroomlist.do")
-		public ModelAndView studyroomlist(ModelAndView mav) {
+		public ModelAndView studyroomlist(ModelAndView mav, HttpSession session) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
 			List<StudyCategory> sCategory = studyRoomService.selectCategoryList();
 			mav.addObject("sCategory", sCategory);
 		
 			List<StudyRoomList> srList = studyRoomService.selectStudyRoomList();
 			mav.addObject("srList", srList);
 			
-			List<StudyRoomWish> selectW =  studyRoomService.selectMywish();
+			List<StudyRoomWish> selectW =  studyRoomService.selectMywish(loginMember.getMemberId());
 			mav.addObject("selectW", selectW);
 			
 			mav.setViewName("studyroom/studyRoomList");
@@ -76,8 +77,10 @@ public class StudyRoomController {
 		//방신청
 		@RequestMapping("/studyroom/applystudyroom.do")
 		public String applyS(StudyRoomWaiting srWating, @RequestParam("srNo") int srNo, 
-							@RequestParam("memberId") String memberId,
-							RedirectAttributes redirectAttr) {				
+							@RequestParam("memberId") String memberId, HttpSession session,
+							RedirectAttributes redirectAttr) {	
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
 			
 			String msg = "";
 			
@@ -90,13 +93,17 @@ public class StudyRoomController {
 			
 			if(applyR>0) {
 				
-					msg= "이미 신청 하신 방입니다.";
+				msg= "이미 신청 하신 방입니다.";
 					
 			}else if(myStudy>0) {
 					
 				msg= "이미 가입되어진 방입니다.";		
 				
-			}else {
+			}else if(loginMember.getMemberRole() != "p"){
+				
+				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";	
+				
+			}else{
 				//방 신청 제한
 				if(countR >= 3) {
 					
@@ -208,24 +215,44 @@ public class StudyRoomController {
 		
 		//스터디방 안에서 관심 삭제
 		@RequestMapping("/studyroom/delfavStudyroom.do")
-		public String delFavR(StudyRoomWish srWish, Model model,
+		public String delFavR(StudyRoomWish srWish, StudyRoomWaiting srWating, Model model,
 							@RequestParam("srNo") int srNo, 						 
 							@RequestParam("memberId") String loginM, 							
 							RedirectAttributes redirectAttr) {	
 			
-		
+			int result = 0;			
 			String msg = "";
-			int result = 0;	
-						
-			// 찜 등록 조회
-															
+	
+			
+			
+			//방 갯수 조회
+			int countR = studyRoomService.selectParticipatingRoomCnt(loginM);
 			int wishR = studyRoomService.selectCheckWish(srWish);
 			
-			if( wishR > 0 ) {			
-								result = studyRoomService.deleteWish(srWish);
-								msg = "관심 목록에서 해제 되었습니다.";
-		
-							}
+				
+				//방 신청 제한
+				if(countR >= 3) {
+					
+					msg= "스터디방의 갯수가 3개를 초과하여  신청 할 수 없습니다.";
+				
+				}else {			
+					
+					// 찜 등록 조회
+					if( wishR > 0 ) {			
+										result = studyRoomService.deleteWish(srWish);								
+										result = studyRoomService.insertWating(srWating);
+										
+										msg= "신청을 완료 하였습니다.";
+								}
+					
+					  
+					  			
+						}
+			
+			
+															
+			
+			
 
 			redirectAttr.addFlashAttribute("msg", msg);
 			

@@ -54,8 +54,8 @@ public class StudyRoomServiceImpl implements StudyRoomService{
 	}
 	
 	@Override
-	public List<StudyRoomWish> selectMywish() {
-		return studyRoomDAO.selectMywish();
+	public List<StudyRoomWish> selectMywish(String memberId) {
+		return studyRoomDAO.selectMywish(memberId);
 	}
 	
 // 찜목록
