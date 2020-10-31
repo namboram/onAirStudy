@@ -25,10 +25,7 @@
 	</nav>
 	
 	<script>
-	$(".dropdownStart a").click(function(){
-		 $(this).next("ul").slideToggle(300, 'linear');
-		
-	});
+	
 
 	$(document).ready(function(){
 		$.ajax({

@@ -119,4 +119,4 @@ body {
 		<!-- Navbar End -->
 		​
 	</header>
-<section id="content"> 
+<section id="content">
