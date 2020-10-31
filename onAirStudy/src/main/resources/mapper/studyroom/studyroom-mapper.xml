@@ -161,10 +161,10 @@ from
 
 <!-- 메인 스터디룸 리스트  -->
 
-<select id="selectStudyRoomList" resultMap="studyMap">  
+<select id="selectStudyRoomList" resultMap="studyMap">
 select
-    L.*,
-    W.member_id w_id,
+       L.*,
+  W.member_id w_id,
     (select     sr_title
     from    sr_info
     where sr_no =l.sr_no) s_title,
@@ -185,8 +185,8 @@ select
 
   	<resultMap type="map" id="studyMap">
   		<id column="sr_no" property="srNo"/>
-  		<result column="member_id" property="memberId"/>
   		<result column="w_id" property="wId"/>
+  		<result column="member_id" property="memberId"/>
   		<result column="sr_enroll_date" property="srEnrollDate"/>
   		<result column="sr_category" property="srCategory"/>
   		<result column="sr_headCnt" property="srHeadCnt"/>
@@ -204,9 +204,7 @@ select
  select
  	*
  from
- 	sr_wish_list
- where
- 	member_id = #{memberId}	
+ 	sr_wish_list 	
  </select>
 
 <select id="selectCategoryList" resultType="studycategory">
