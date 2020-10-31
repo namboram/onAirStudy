@@ -104,20 +104,9 @@
 					type="button" id="logoutBtn"
 					onclick="location.href='${ pageContext.request.contextPath }/member/memberLogout.do';">로그아웃</button>
 			</c:if>
-
-
 		</nav>
 		
 		<!-- Navbar End -->
 		​
-
-
-
 	</header>
-
-
-
-
-
-
 <section id="content"> 
