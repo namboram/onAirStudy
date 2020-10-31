@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!-- 사용자작성 css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/footer.css"/>
-</section>
-​<!-- Site footer -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/footer.css"/></section>
     <footer class="site-footer">
       <div class="container">
         <div class="row">
