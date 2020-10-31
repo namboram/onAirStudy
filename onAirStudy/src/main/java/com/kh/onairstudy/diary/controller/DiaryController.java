@@ -119,63 +119,7 @@ public class DiaryController {
 	   redirectAttr.addFlashAttribute("msg","게시글 삭제 완료");
 	   return "redirect:/diary/diaryList.do";
    }
-   /*
-   @RequestMapping(value = "/diaryEnroll.do", method = RequestMethod.POST)
-   public String diaryEnroll(Diary diary,
-                       @RequestParam(value = "upFile",
-                             required = false) MultipartFile[] upFiles,
-                  RedirectAttributes redirectAttr, HttpServletRequest request) 
-                       throws IllegalStateException, IOException {
-         log.debug("diary = {}", diary);
-
-//         log.debug("upfile.name = {}", upFile.getOriginalFilename());
-//         log.debug("upfile.size = {}", upFile.getSize());
-      
-         //1. 서버컴퓨터에 업로드한 파일 저장하기
-         if(upFiles != null) {
-         
-            List<DiaryAttachment> attachList = new ArrayList<>();
-         //첨부파일 저장경로
-         String saveDirectory = request.getServletContext()
-                                .getRealPath("/resources/upload/diary");
-         
-         for(MultipartFile upFile : upFiles) {
-            //파일을 선택하지 않고 전송한 경우
-            if(upFile.isEmpty())
-               continue;
-            
-            //1.파일명(renameFilename) 생성
-            String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
-            
-            //2.메모리의 파일 -> 서버컴퓨터 디렉토리 저장  tranferTo
-            File dest = new File(saveDirectory, renamedFilename);
-            upFile.transferTo(dest);
-            
-            //3.attachment객체 생성
-            DiaryAttachment attach = new DiaryAttachment();
-            attach.setOriginalFilename(upFile.getOriginalFilename());
-            attach.setRenamedFilename(renamedFilename);
-            attachList.add(attach);   
-         }
-         
-         
-         diary.setAttachList(attachList);
-         log.debug("attachList = {}", attachList);
-      }
-
-         //2. Diary, DiaryAttachment객체 DB에 저장하기
-         int result = diaryService.insertDiary(diary);
-         
-         //3. 처리결과 msg 전달
-         redirectAttr.addFlashAttribute("msg", "게시글 등록 성공");
   
-      return "redirect:/diary/diaryList.do";
-   }
-   */
-      
-   
-   
-   
        @RequestMapping("/diaryDetail.do") 
        public String diaryDetail(@RequestParam("no") int no,
     		   					 Model model) { 
