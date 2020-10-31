@@ -96,15 +96,17 @@ public class StudyRoomController {
 					
 				msg= "이미 가입되어진 방입니다.";		
 				
-			}else if(loginMember.getMemberRole() != "p"){
+			}
+			else if(loginMember.getMemberRole() != "p"){
 				
-				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";	
+				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";					
 				
-			}else{
+			}
+			else{
 				//방 신청 제한
 				if(countR >= 4) {
 					
-					msg= "스터디방의 갯수가 3개를 초과하여  신청 할 수 없습니다.";
+					msg= "스터디방의 갯수가 4개를 초과하여  신청 할 수 없습니다.";
 				
 				}else {					 
 					 int result = studyRoomService.insertWating(srWating);
@@ -230,7 +232,7 @@ public class StudyRoomController {
 				//방 신청 제한
 				if(countR >= 4) {
 					
-					msg= "스터디방의 갯수가 3개를 초과하여  신청 할 수 없습니다.";
+					msg= "스터디방의 갯수가 4개를 초과하여  신청 할 수 없습니다.";
 				
 				}else {			
 					
@@ -296,7 +298,7 @@ public class StudyRoomController {
 					int countR = studyRoomService.selectParticipatingRoomCnt(loginMember.getMemberId());
 					
 					if(countR >= 4) {
-						 msg= "스터디방의 갯수가 3개를 초과하여 방을 만들 수 없습니다.";
+						 msg= "스터디방의 갯수가 4개를 초과하여 방을 만들 수 없습니다.";
 					}else {
 						
 						//sr_list													
