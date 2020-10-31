@@ -26,13 +26,12 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 </div>
 
-<div class="row">
-	<div class="col-lg-2">
-		<jsp:include page="/WEB-INF/views/mypage1/mypageSideBar.jsp"></jsp:include>
-	</div>
+
+
 	<!-- 차트 링크 -->
 	<!-- 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
-	<div class="col-lg-10 p-0" id="containerMsgK">
+	<div class="row " id="containerMsgK">
+	<div class="col-lg-1"></div>
 		<!-- 신고 모달 -->
 		<div class="modal" id="reportMyModal">
 			<div class="modal-dialog">
@@ -90,7 +89,7 @@
 							<hr />
 
 							<h5>내용</h5>
-							<textarea id="replyContents" cols="63" rows="5"></textarea>
+							<textarea id="replyContents"  style="width: 100%;" rows="5"></textarea>
 						</div>
 
 					</div>
@@ -105,13 +104,21 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-lg-10 mt-3 p-0">
 		<h1>쪽지함</h1>
 		<div class="row mb-3">
 				<c:if test="${loginMember.memberId eq message.receiverId}">
 			<div class="offset-sm-9">
 				<button type="button" class="btn btn-secondary replyModalK">답장하기</button>
 				<button type="button" class="btn btn-secondary" onclick="delMsg();">삭제</button>
+				<c:if test="${message.senderId ne 'admin' }">
+				<c:if test="${message.vaildYN eq 'Y'}">
+				<button type="button" class="btn btn-secondary" onclick="completed();">신고완료</button>				
+				</c:if>
+				<c:if test="${message.vaildYN ne 'Y'}">
 				<button type="button" class="btn btn-secondary reportModalK">신고</button>				
+				</c:if>
+				</c:if>
 			</div>
 				</c:if>
 				<c:if test="${loginMember.memberId ne message.receiverId}">
@@ -163,6 +170,11 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </div>
 <script>
+//신고 완료
+function completed(){
+
+	alert("이미 신고한 쪽지입니다 :)");
+}
 	//삭제하기
 	function delMsg() {
 		var arr = new Array();
@@ -198,6 +210,7 @@
 	}
 	//신고 클릭시 모달창 열기
 	$(document).on("click", ".reportModalK", function() {
+
 		$("#reportMyModal").modal('show');
 		var content = "${message.msgContent}";
 		$("#reportContents").html(content);
@@ -228,8 +241,10 @@
 						},
 						dataType : "json",
 						success : function(result) {
-							if (result > 0)
+							if (result > 0){
 								alert("신고가 완료되었습니다.");
+								location.reload();
+							}
 						},
 						error : function(xhr, status, err) {
 							console.log("처리실패!");

@@ -27,7 +27,7 @@ public class ReportController {
 	@ResponseBody
 	public int insertReport(Report report) {
 		int result=reportService.insertReport(report);
-		//log.info("report={}",report);
+		log.info("report={}",report);
 		//로그 검사 해서 유효 신고가 5번 이상일 경우 블랙리스트 등록
 		int cnt = reportService.selectCntReport(report.getReportedMember());
 		log.info("cnt={}",cnt);

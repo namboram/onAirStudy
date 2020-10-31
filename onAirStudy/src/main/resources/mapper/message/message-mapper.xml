@@ -34,11 +34,14 @@
 	</select>
 	<select id="selectMessageOne" resultType="message">
 		select
-			*
-		from
-			message
-		where
-			no = #{no}
+    m.*,l.vaild_yn
+from
+    message m left outer join (
+                            select * from
+                                report_log
+                            where content_category = 'M'
+                            ) l on m.no = l.content_id
+where m.no=#{no}
 	</select>
 	<select  id="selectMessageNextOne" resultType="message">
 	 <![CDATA[ 

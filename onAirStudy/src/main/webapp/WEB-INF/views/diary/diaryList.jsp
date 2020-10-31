@@ -53,7 +53,7 @@ function goDiaryForm(){
 	  		</form>
 	  			<!-- 내가 쓴 글 조회하는 버튼 -->
 			    <!-- <input type="button" value="내가 쓴 글" id="btn-search" class="btn btn-outline-success"/> -->
-			    <input type="button" value="글쓰기" id="btn-add" class="btn btn-outline-success" onclick="goDiaryForm();"/>
+			    <input type="button" value="글쓰기" id="diary-writebtn" class="btn" onclick="goDiaryForm();"/>
   		</div>
 		
     <br />

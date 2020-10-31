@@ -159,13 +159,15 @@ vertical-align: text-bottom;
 					<div class="row ml-0">
 					<c:if test="${chat.vaildYN eq 'Y'}">
 					<p class="otherChat bg-light text-muted p-2"><b>신고된 채팅입니다.</b></p> 
+					<strong class="align-self-center"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" /></strong>
 					</c:if>
 					<c:if test="${chat.vaildYN ne 'Y'}">
 					<p class="otherChat bg-light p-2">${chat.chatContent }</p> 
-					</c:if>
 					<strong class="align-self-center"><fmt:formatDate value="${chat.sendDate }" pattern="yy/MM/dd HH:mm" />
-					<a href='#' class='reportModalK'>신고</a></strong></div></li>
-					
+					<a href='#' class='reportModalK'>신고</a>
+					</strong>
+					</c:if>
+					</div></li>
 					</c:if>
 				</c:forEach>
 			</div>
@@ -232,8 +234,11 @@ function doReport(){
 				} ,
 			dataType : "json",
 			success : function(result) {
-				if(result > 0)
+				if(result > 0){
 					alert("신고가 완료되었습니다.");
+					$('[data-no='+$("#contentIdK").val()+']').find("p").html("<b>신고된 채팅입니다.</b>");
+					$('[data-no='+$("#contentIdK").val()+']').find("p").addClass("text-muted");
+				}
 			},
 			error : function(xhr, status, err) {
 				console.log("처리실패!");
@@ -257,6 +262,7 @@ $(document).ready(function() {
 		$("#reportIdK").html(id.text());
 		var contentId = $(this).closest("li");
 		$("#contentIdK").val(contentId.attr("data-no"));
+		console.log($("#contentIdK").val());
 		
 		
 	}); 

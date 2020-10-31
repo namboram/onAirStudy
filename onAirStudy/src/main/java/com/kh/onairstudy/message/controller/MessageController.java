@@ -68,13 +68,13 @@ public class MessageController {
 		map.put("memberId", member.getMemberId());
 		map.put("no", no);
 		Message message = messageService.selectMessageOne(map);
-		Message message2 = messageService.selectMessageNextOne(map); 
+		//Message message2 = messageService.selectMessageNextOne(map); 
 		if(message.getReadYN().equals("N") && message.getReceiverId().equals(member.getMemberId())) {
 			int result = messageService.updateRead(map);
 			log.info("result = {}",result);
 		}
 		model.addAttribute("message",message);
-		model.addAttribute("message2",message2);
+		//model.addAttribute("message2",message2);
 		
 			return "message/messageDetail";
 	}

@@ -29,4 +29,5 @@ public class Scheduler implements Serializable{
 	private String timeOpt;
 	private String enabledYN;
 
+
 }
