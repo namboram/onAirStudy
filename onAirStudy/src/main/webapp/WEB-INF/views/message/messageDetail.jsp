@@ -111,11 +111,13 @@
 			<div class="offset-sm-9">
 				<button type="button" class="btn btn-secondary replyModalK">답장하기</button>
 				<button type="button" class="btn btn-secondary" onclick="delMsg();">삭제</button>
+				<c:if test="${message.senderId ne 'admin' }">
 				<c:if test="${message.vaildYN eq 'Y'}">
 				<button type="button" class="btn btn-secondary" onclick="completed();">신고완료</button>				
 				</c:if>
 				<c:if test="${message.vaildYN ne 'Y'}">
 				<button type="button" class="btn btn-secondary reportModalK">신고</button>				
+				</c:if>
 				</c:if>
 			</div>
 				</c:if>
@@ -208,6 +210,7 @@ function completed(){
 	}
 	//신고 클릭시 모달창 열기
 	$(document).on("click", ".reportModalK", function() {
+
 		$("#reportMyModal").modal('show');
 		var content = "${message.msgContent}";
 		$("#reportContents").html(content);
