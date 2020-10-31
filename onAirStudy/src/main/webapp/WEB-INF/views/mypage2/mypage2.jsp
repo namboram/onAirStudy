@@ -77,6 +77,9 @@
 				<c:if test="${ loginMember.memberRole eq 'P'}">
 					<h5>premium</h5>
 				</c:if>
+				<c:if test="${ loginMember.memberRole eq 'M'}">
+					<h5>member</h5>
+				</c:if>
 			</div>
 
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
