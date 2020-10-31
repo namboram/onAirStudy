@@ -1,7 +1,6 @@
 package com.kh.onairstudy.member.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.common.Utils;
-import com.kh.onairstudy.diary.model.vo.DiaryAttachment;
 import com.kh.onairstudy.member.model.service.MemberService;
 import com.kh.onairstudy.member.model.vo.Member;
+import com.kh.onairstudy.payment.model.service.PaymentService;
+import com.kh.onairstudy.payment.model.vo.Payment;
+import com.kh.onairstudy.payment.model.vo.ProfileAttach;
 import com.kh.onairstudy.studyroom.model.service.StudyRoomService;
 import com.kh.onairstudy.studyroom.model.vo.ProfileAttachment;
 
@@ -51,10 +52,12 @@ public class MemberController {
 	private StudyRoomService studyRoomService;
 
 	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	
-	
+
 	
 	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.GET)
 	public ModelAndView memberEnroll(ModelAndView mav) {
@@ -170,18 +173,14 @@ public class MemberController {
 			return new BCryptPasswordEncoder();
 		}
 		
-	
 
-		
-		
 		@RequestMapping(value = "member/memberLogin.do", 
 					method = RequestMethod.GET)
 		public String memberLogin() {
 		return "member/memberLogin";
 		}
 		
-		
-		
+
 		@RequestMapping(value = "member/memberLogin.do", 
 					method = RequestMethod.POST)
 		public String memberLogin(@RequestParam("memberId") String memberId,
@@ -248,7 +247,11 @@ public class MemberController {
 			log.debug("loginMember = {}", loginMember);
 			
 			model.addAttribute("loginMember");
-			mav.addObject("loginMember", loginMember);	
+
+			List<Payment> list = paymentService.selectPaymentList();		
+			
+			mav.addObject("loginMember", loginMember);
+			mav.addObject("list", list);
 			mav.setViewName("member/memberDetail");
 			return mav;
 			}
@@ -261,7 +264,6 @@ public class MemberController {
 		
 		//수정폼 저장하기
 		@RequestMapping(value="/mypage1/memberUpdate.do", method = RequestMethod.POST)
-	
 		public String memberUpdate(Member member,
 									Model model,
 									RedirectAttributes redirectAttributes) {
@@ -279,19 +281,22 @@ public class MemberController {
 		
 		//프로필사진 업로드
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
-		public String mProfileInsert(@RequestParam(value = "upFile",required = false) MultipartFile upFile,
+		public String mProfileInsert(@ModelAttribute("loginMember") Member loginMember,
+									@RequestParam(value = "upFile",required = false) MultipartFile upFile,
 									HttpServletRequest request,
 									RedirectAttributes redirectAttr) throws Exception {
 //			log.debug("upfile.name = {}", upFile.getOriginalFilename());
 //	        log.debug("upfile.size = {}", upFile.getSize());
 	      //1. 서버컴퓨터에 업로드한 파일 저장하기
-	         if(upFile != null) {
+			log.debug("loginMember2={}", loginMember);
+			
+			if(upFile != null) {
 	         
-	            List<ProfileAttachment> attachList = new ArrayList<>();
-	         //첨부파일 저장경로
-	         String saveDirectory = request.getServletContext()
-	                                .getRealPath("/resources/upload/memberprofile");
-	            
+	            List<ProfileAttach> attachList = new ArrayList<>();
+		         //첨부파일 저장경로
+		         String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
+
+		         
 	            //1.파일명(renameFilename) 생성
 	            String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
 	            
@@ -301,19 +306,36 @@ public class MemberController {
 	            upFile.transferTo(dest);
 				
 	            //3.attachment객체 생성
-	            ProfileAttachment attach = new ProfileAttachment();
+	            ProfileAttach attach = new ProfileAttach();
 	            attach.setOriginalFilename(upFile.getOriginalFilename());
 	            attach.setRenamedFilename(renamedFilename);
+	            String memberId = loginMember.getMemberId();
+	            attach.setMemberId(memberId);
 	            attachList.add(attach);   
 	            
-
+	            log.debug("attachList = {}", attachList);
+	            log.debug(memberId);
+	            //프로필사진 DB등록
+				int result = memberService.insertProfilePhoto(attach);
+	            
 	         //처리결과 msg 전달
 	         redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
-	        
-		
 	         }
 	         return "redirect:/mypage1/memberDetail.do";
 	    }
+		
+		@RequestMapping(value = "/member/deleteMember.do",
+				method = RequestMethod.POST)
+		public String deleteMember(@RequestParam("memberId") String memberId, 
+								   RedirectAttributes redirectAttributes){
+			int result = memberService.deleteMember(memberId);
+			redirectAttributes.addFlashAttribute("msg", result > 0 ? "회원 삭제성공" : "회원 삭제실패");
+			return "redirect:/";
+		}
+			
+		
+		
+		
 }
 		
 		
