@@ -23,5 +23,7 @@ public class Message implements Serializable{
 	String readYN;
 	String receiverDelYN;
 	String senderDelYN;
+	
+	String vaildYN;
 
 }

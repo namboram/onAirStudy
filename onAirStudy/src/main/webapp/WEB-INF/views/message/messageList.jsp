@@ -28,7 +28,7 @@
 		<div class="row mb-3">
 		
 		
-		<form action="${pageContext.request.contextPath}/message/searchMessage.do" class="input-group col-sm-5 offset-sm-3" method="post">
+		<form action="${pageContext.request.contextPath}/message/searchMessage.do"  onsubmit="return checkSearch();" class="input-group col-sm-5 offset-sm-3" method="post">
 		<input type="hidden" name="type" value="${title}"/>
 			<div class="input-group-prepend mr-2">
 				<select class="custom-select" name="keyword">
@@ -122,6 +122,17 @@ $(document).on("click",".msgDetail",function(){
      //window.location = "${pageContext.request.contextPath}/message/messageDetail.do?no="+thisIdx+"&nNo="+next;
 	
 });
+function checkSearch(){
+	if($("[name=keyword]").val()=="검색 유형 선택"){
+		alert("검색 유형을 선택해주세요.");
+		return false;
+	}else{
+		
+		return true;
+	}
+		
+	
+}
 function receivedMsg(){
 
 	window.location = "${pageContext.request.contextPath}/message/sendReceiveFilter.do?type=receive";

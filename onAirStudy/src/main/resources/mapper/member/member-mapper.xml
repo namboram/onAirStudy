@@ -46,15 +46,11 @@
   <!-- 성실멤버 List -->
   <select id="selectDiligentMember" resultMap="memberMap" >
  
- select M.*,
-        RANK() OVER (ORDER BY diligent_point DESC) AS rank,
-        (select renamed_filename
-        from   profile_attachment
-        where member_id = M.member_id) m_pic
-        
-        from member M
 <![CDATA[  
-	where ROWNUM <= 10
+select * from (
+	select * from 
+	member order by diligent_point desc) 
+where rownum <= 10
 	]]>
 	
 	</select>
@@ -130,21 +126,21 @@
 	</select>
 	
 	<select id="selectNextPaymentDay" resultType="string">
-	select trunc(add_months(payment_date, 3) - trunc(sysdate))
+	select trunc(add_months(payment_date, 3) - sysdate)
 	from payment_log p 
 	where member_id = #{memberId}
 	
 	</select>
 	
 	<select id="selectdDayInfo" resultMap="memberinfoMap">
-		select start_date, content, trunc(start_date - trunc(sysdate)) "count" 
+		select start_date, content, trunc(start_date - sysdate) "count" 
 		from scheduler 
 		where 
 			d_yn = 'Y' 
 		and 
 			member_id = #{memberId} 
 		and 
-			trunc(start_date - trunc(sysdate)) > 0
+			trunc(start_date - sysdate) >= 0
 	</select>
   
   <resultMap type="memberinfo" id="memberinfoMap">
