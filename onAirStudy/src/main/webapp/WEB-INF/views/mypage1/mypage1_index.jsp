@@ -69,20 +69,20 @@ table.type10 .even {
 			
 <!-- To Do List-->
             <div class="col-lg-3 col-md-6" style="margin-left:10%; margin-top:-2%;" >
+              
               <div class="card to-do" style="border-radius:8%;">
-                <h2 class="display h4"style="margin-left:30%;">To do List<button type="button" class="btn btn-light m-2"
-					onclick="location.href='${ pageContext.request.contextPath }/scheduler/main.do'">캘린더보기</button></h2>
-                <c:if test="${ empty todoList }">
-                	<p class="text-center">캘린더에서 to do list를 등록해보세요.</p>
-				</c:if>					
-				<p class="text-center"></p>
+                <h2 class="display h4">&nbsp;&nbsp;오늘의 To do List<button type="button" class="btn btn-light m-2"
+					onclick="location.href='${ pageContext.request.contextPath }/mypage1/scheduler.do'">캘린더보기</button></h2>
+	                <c:if test="${ empty todoList }">
+	                	<p class="text-center">캘린더에서 to do list를 등록해보세요.</p>
+					</c:if>					
+					
 	                <ul class="check-lists list-unstyled" >
-		                
 		                
 		              <c:if test="${ not empty todoList }"> 
 		                 <c:forEach items="${ todoList }" var="td" varStatus="status" end="10">
 			                  <li class="d-flex align-items-center " style="margin-left:30%;"> 	                 	
-				                    <label for="list-1" style="font-size:17px;"> - ${ td.content }</label>
+				                    <label for="list-1 text-center" style="font-size:17px;">- ${ td.content }</label>
 			                  </li>
 		                </c:forEach>
 		               </c:if>
