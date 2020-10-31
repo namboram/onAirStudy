@@ -137,13 +137,14 @@ public class MemberController {
 		
 		Member loginMember = memberService.selectOneMember(memberId); 
 		log.debug("loginMember = " + loginMember);
+		log.debug(bcryptPasswordEncoder.encode(password));
 		
 		String location = "/";
 		
 		
 		//로그인 성공한 경우
-//		if( loginMember != null && 
-//			bcryptPasswordEncoder.matches(password, loginMember.getPassword()) ) {
+		if( loginMember != null && 
+			bcryptPasswordEncoder.matches(password, loginMember.getPassword()) ) {
 		
 		
 			log.debug("loginMember = " + loginMember);
@@ -154,13 +155,11 @@ public class MemberController {
 				session.setAttribute("loginUser", loginMember);
 				
 				return "redirect:" + location;
-				
-			
-//		} else {
-//			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
-//			return "redirect:" + location;
-//		
-//		}
+		} else {
+			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 틀립니다.");
+			return "redirect:" + location;
+		
+		}
 	}
 		
 		/**
@@ -230,7 +229,9 @@ public class MemberController {
 		public String mProfileInsert(@ModelAttribute("loginMember") Member loginMember,
 									@RequestParam(value = "upFile",required = false) MultipartFile upFile,
 									HttpServletRequest request,
-									RedirectAttributes redirectAttr) throws Exception {
+
+									RedirectAttributes redirectAttr, HttpSession session) throws Exception {
+
 	      //1. 서버컴퓨터에 업로드한 파일 저장하기
 			log.debug("loginMember2={}", loginMember);
 			
@@ -266,6 +267,10 @@ public class MemberController {
 	         //처리결과 msg 전달
 	         redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
 	         }
+			
+			Map<String, Object> sideBarInfo = memberService.selectMemberInfo(loginMember.getMemberId());
+			session.setAttribute("sideBarInfo", sideBarInfo);
+			
 	         return "redirect:/mypage1/memberDetail.do";
 	    }
 		

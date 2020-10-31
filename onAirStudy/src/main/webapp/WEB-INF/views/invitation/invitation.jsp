@@ -80,6 +80,9 @@ function searchMember(){
 
 function displayTableData(data){
 
+	initTable();
+	
+
 	var $container = $("#invitationTable");
 
 	var html = "";
@@ -87,21 +90,6 @@ function displayTableData(data){
 		for(var i in data){
 			
 			var m = data[i];
-
-			/* html += "<tr>"
-				  + "<td>" + i +"</td>"
-				  + "<td>" + m.memberId +"</td>"
-				  + "<td>" + m.memberName +"</td>"
-				  + "<td><button type='button' class='btn btn-primary' value=" + m.memberId +" id='btn" + i + "'>Invite</td>"
-				  + "</tr>"; */
-
-			/* html += "<tr>"
-				  + "<td>" + i +"</td>"
-				  + "<td>" + m.memberId +"</td>"
-				  + "<td>" + m.memberName +"</td>"
-				  + "<td><button type='button' class='btn btn-primary' value=" + m.memberId +"  onclick='inviteMember(this.value)'>Invite</td>"
-				  + "</tr>";   */
-
 
 			 html += "<tr>"
 			  + "<td>" + i +"</td>"
@@ -152,4 +140,19 @@ function inviteMember(memberId, id){
 
 }
 
+
+function initTable(){
+
+	var html = "<tr>"
+			+ "<th>번호</th>"
+			+ "<th>아이디</th>" 
+			+ "<th>이름</th>"
+			+ "<th>초대</th>"
+			+ "</tr>";
+	
+	
+	$("#invitationTable").html(html);
+
+	
+}
 </script>

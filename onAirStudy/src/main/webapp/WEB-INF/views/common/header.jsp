@@ -14,6 +14,8 @@
 	</script>
 </c:if>
 ​
+
+
 <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <!-- bootstrap css -->
 <link rel="stylesheet"
@@ -39,6 +41,14 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/header.css" />
 ​<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+</style>
+
 </head>
 <body>
 	<header>
@@ -104,20 +114,9 @@
 					type="button" id="logoutBtn"
 					onclick="location.href='${ pageContext.request.contextPath }/member/memberLogout.do';">로그아웃</button>
 			</c:if>
-
-
 		</nav>
 		
 		<!-- Navbar End -->
 		​
-
-
-
 	</header>
-
-
-
-
-
-
-<section id="content"> 
+<section id="content">

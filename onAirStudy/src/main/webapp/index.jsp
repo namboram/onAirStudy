@@ -181,23 +181,15 @@
 		</h3>
 			
 		<div class="container-sm-5" style="margin-left:4%;">
-			<div class="row" id="srlistRank">
+			<div class="row" id="srlistRank" style="margin-left:10%;">
 				
 				<c:forEach items="${ ds_List }" var="ds" end="4">
-					<div class="m-5" id="sr" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 210px; height: 350px;">
+					<div class="m-3" id="sr" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%; width:210px; height: 350px;">
 						<div class="">
-						
 							<div class="sr_rank_pic" >
 								<img class="rPic" style="margin-left:0.6%; margin-top:0.5%;"
 									 src="${pageContext.request.contextPath }/resources/upload/${ ds.SR_PIC }"> 
-							</div>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
-							<br>
+							</div><br><br><br><br><br><br><br>
 							<div class="sr_rank_content">
 								<p class="text-center" style="margin-top:10px;">
 								<strong>${ ds.srTitle }</strong>
@@ -229,7 +221,7 @@
 		<h3 class="text-center">
 			현재 모집중인 스터디
 			<button type="button" class="btn btn-light" onclick="location.href='${ pageContext.request.contextPath }/studyroom/studyroomlist.do'">더 보기</button>
-			</h2>
+			</h3>
 			<br>
 			
 			<div class="container-sm">
@@ -450,9 +442,4 @@
 			}
 		}
 		</script>
-
-<div class="col-lg p-0 m-0">
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-</div>
-
-

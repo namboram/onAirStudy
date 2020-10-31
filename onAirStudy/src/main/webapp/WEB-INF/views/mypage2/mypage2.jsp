@@ -47,7 +47,7 @@
 							<hr />
 
 							<h5>내용</h5>
-							<textarea id="replyContents" cols="63" rows="5"></textarea>
+							<textarea id="replyContents" style="width:100%;" rows="5"></textarea>
 						</div>
 
 					</div>
@@ -77,6 +77,9 @@
 				<c:if test="${ loginMember.memberRole eq 'P'}">
 					<h5>premium</h5>
 				</c:if>
+				<c:if test="${ loginMember.memberRole eq 'M'}">
+					<h5>member</h5>
+				</c:if>
 			</div>
 
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
@@ -92,12 +95,11 @@
 				<ul id="participantsDropdown" class="collapse list-unstyled">
 					<c:forEach var="part" items="${participants }">
 						<li><div class="participantsJH">
-							<div class="status"></div>
-							<span>${part.memberId }</span>
 							<c:if test="${part.leaderYN eq 'Y'}">
-								<span>팀장</span>
+								<img class="roomPic" src="${pageContext.request.contextPath }/resources/images/crown.png" style="height:15px; width: 15px;">
 								<input type="hidden" id="leaderId" value="${part.memberId }" />
 							</c:if>
+								<span>${part.memberId }</span>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>
 					</c:forEach>

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 
-	<nav class="side-navbar admin-sideBar" style="padding:5%; height:100%;"  >
+	<nav class="side-navbar admin-sideBar" style="width:100%; padding:5%; height:100%;"  >
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="avatar">
@@ -25,10 +25,7 @@
 	</nav>
 	
 	<script>
-	$(".dropdownStart a").click(function(){
-		 $(this).next("ul").slideToggle(300, 'linear');
-		
-	});
+	
 
 	$(document).ready(function(){
 		$.ajax({

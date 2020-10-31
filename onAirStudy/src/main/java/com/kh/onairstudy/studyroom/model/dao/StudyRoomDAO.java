@@ -19,9 +19,7 @@ public interface StudyRoomDAO {
 	
 	int selectApplyRoom(StudyRoomWaiting srWating);
 	
-
-
-	List<StudyRoomWish> selectMywish();
+	List<StudyRoomWish> selectMywish(String memberId);
 	
 	//내 방 리스트
 	List<StudyRoom> selectMystudyList();
@@ -95,6 +93,10 @@ public interface StudyRoomDAO {
 	int deleteApply(StudyRoomWaiting srWating);
 
 	int selectMyStudy(int srNo, String memberId);
+
+	
+
+
 
 
 

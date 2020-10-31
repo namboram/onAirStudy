@@ -29,6 +29,7 @@ public class StudyRoom implements Serializable{
 	private int category;
 	private String sCategory;
 	private String memberId;
+	private String wId;
 	private String status;
 	private char sleader;
 	
