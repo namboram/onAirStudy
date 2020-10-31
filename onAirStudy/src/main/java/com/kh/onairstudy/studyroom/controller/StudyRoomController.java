@@ -102,7 +102,7 @@ public class StudyRoomController {
 				
 			}else{
 				//방 신청 제한
-				if(countR >= 3) {
+				if(countR >= 4) {
 					
 					msg= "스터디방의 갯수가 3개를 초과하여  신청 할 수 없습니다.";
 				
@@ -228,7 +228,7 @@ public class StudyRoomController {
 			
 				
 				//방 신청 제한
-				if(countR >= 3) {
+				if(countR >= 4) {
 					
 					msg= "스터디방의 갯수가 3개를 초과하여  신청 할 수 없습니다.";
 				
@@ -295,7 +295,7 @@ public class StudyRoomController {
 					//방 갯수 조회
 					int countR = studyRoomService.selectParticipatingRoomCnt(loginMember.getMemberId());
 					
-					if(countR >= 3) {
+					if(countR >= 4) {
 						 msg= "스터디방의 갯수가 3개를 초과하여 방을 만들 수 없습니다.";
 					}else {
 						
