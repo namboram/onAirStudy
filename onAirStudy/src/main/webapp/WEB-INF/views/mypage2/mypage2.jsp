@@ -92,12 +92,11 @@
 				<ul id="participantsDropdown" class="collapse list-unstyled">
 					<c:forEach var="part" items="${participants }">
 						<li><div class="participantsJH">
-							<div class="status"></div>
-							<span>${part.memberId }</span>
 							<c:if test="${part.leaderYN eq 'Y'}">
-								<span>팀장</span>
+								<img class="roomPic" src="${pageContext.request.contextPath }/resources/images/crown.png" style="height:15px; width: 15px;">
 								<input type="hidden" id="leaderId" value="${part.memberId }" />
 							</c:if>
+								<span>${part.memberId }</span>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
 						</div></li>
 					</c:forEach>
