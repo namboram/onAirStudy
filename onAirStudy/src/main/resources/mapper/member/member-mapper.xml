@@ -57,7 +57,6 @@ where rownum <= 10
   
   
 <update id="updateBlack">
-	
 		update member
 		set blacklist_yn = 'Y'
 		where member_id = #{reportedMember}
@@ -96,6 +95,25 @@ where rownum <= 10
 			'경로'	
 		)
 	</insert>
+	
+	<update id="updateProfilePhoto">
+		update 
+			profile_attachment
+		set
+			original_filename = #{originalFilename},
+			renamed_filename = #{renamedFilename}	
+		where 	
+			member_id = #{ memberId }
+	</update>
+	
+	<select id="checkIdProfile" resultType="int">
+		select
+		 	count(*)
+		from 
+			profile_attachment
+		where 
+			member_id = #{memberId}	
+	</select>
 	
 	<delete id="deleteMember">
 		 delete from 

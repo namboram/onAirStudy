@@ -36,8 +36,12 @@ public interface MemberDAO {
 	//회원삭제
 	int deleteMember(String memberId);
 
-	//프로필사진
+	//프로필사진 처음 등록
 	int insertProfilePhoto(ProfileAttach attach);
+	//프로필사진 업데이트
+	int updateProfilePhoto(ProfileAttach attach);
+	//프로필사진 유무 체크
+	int checkIdProfile(Member loginMember);
 
 
 

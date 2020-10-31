@@ -86,6 +86,7 @@ public class MemberController {
 		
 		//업무로직
 		//1. 회원등록
+		//result=1이면 아이디 잇음, 0이면 아이디없음
 		int result = memberService.idChk(member);
 		log.debug("member = " + member);
 		try {
@@ -193,7 +194,7 @@ public class MemberController {
 			
 			model.addAttribute("loginMember");
 
-			List<Payment> list = paymentService.selectPaymentList();		
+			List<Payment> list = paymentService.selectPaymentList(loginMember);		
 			
 			mav.addObject("loginMember", loginMember);
 			mav.addObject("list", list);
@@ -224,7 +225,7 @@ public class MemberController {
 		}
 		
 		
-		//프로필사진 업로드
+		//멤버프로필사진 업로드
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
 		public String mProfileInsert(@ModelAttribute("loginMember") Member loginMember,
 									@RequestParam(value = "upFile",required = false) MultipartFile upFile,
@@ -260,12 +261,23 @@ public class MemberController {
 	            
 	            log.debug("attachList = {}", attachList);
 	            log.debug(memberId);
-	            //프로필사진 DB등록
-				
-	            int result = memberService.insertProfilePhoto(attach);
 	            
-	         //처리결과 msg 전달
-	         redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
+	            //프로필사진 DB등록
+	            int result = memberService.checkIdProfile(loginMember);
+	    		log.debug("loginMember = " + loginMember);
+	    		
+	    		//프로필 사진의 유무 확인
+	    		//result=1이면 아이디 잇음, 0이면 아이디없음
+	    		if(result == 1) {
+	    			result = memberService.updateProfilePhoto(attach);
+	    			//처리결과 msg 전달
+	   	         	redirectAttr.addFlashAttribute("msg", "프로필사진 수정 성공");
+	    		}else if(result == 0) {
+	            	result = memberService.insertProfilePhoto(attach);
+	            	//처리결과 msg 전달
+	            	redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
+	            }
+	    		
 	         }
 			
 			Map<String, Object> sideBarInfo = memberService.selectMemberInfo(loginMember.getMemberId());
@@ -274,13 +286,16 @@ public class MemberController {
 	         return "redirect:/mypage1/memberDetail.do";
 	    }
 		
+		//회원탈퇴
 		@RequestMapping(value = "/member/deleteMember.do",
 				method = RequestMethod.POST)
 		public String deleteMember(@RequestParam("memberId") String memberId, 
-								   RedirectAttributes redirectAttributes){
+								   RedirectAttributes redirectAttributes,
+								   HttpSession session){
 			int result = memberService.deleteMember(memberId);
-			redirectAttributes.addFlashAttribute("msg", result > 0 ? "회원 삭제성공" : "회원 삭제실패");
-			
+			redirectAttributes.addFlashAttribute("msg", result > 0 ? "탈퇴성공" : "탈퇴 실패");
+//			로그아웃시 세션에서 삭제
+//			session.setAttribute("loginMember", null);
 			return "redirect:/";
 		}
 			

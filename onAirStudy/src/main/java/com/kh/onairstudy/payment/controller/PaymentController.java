@@ -41,7 +41,7 @@ public class PaymentController {
 	
 	 @RequestMapping("/payments/complete") //카카오페이폼 완료폼 호출
 	 public String paymentsComplete() {
-		
+		 
 		 return "redirect:/";
 	 }
 
@@ -52,12 +52,13 @@ public class PaymentController {
 		
 		String memberId = request.getParameter("memberId"); 
 		System.out.println(memberId);
-		
+		//회원권한 M->P 변경
 		int result = paymentService.updatePayHistory(memberId); 
+		//결제내역 DB저장
 		result = paymentService.insertPaymentLog(memberId);
 		
 		
-		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원권한 수정성공" : "회원권한 수정실패");
+//		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원권한 수정성공" : "회원권한 수정실패");
 		
 		return "redirect:/";
 		}

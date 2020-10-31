@@ -108,7 +108,8 @@
 						<input type="file" class="file-input" name="upFile" id="upFile1" value="프로필사진 첨부"  >
 						<label class="file-label" for="upFile1" id="profile-title">클릭해서 프사 선택</label> 
 						<input type="file" id="input-file" class="upload-hidden" />
-						<input type="submit" class="btnS" id="btnS" value="업로드" >
+						
+						<input type="submit" class="btnS" id="btnS" onclick="uploadS();" value="업로드" >
 					</div>
 				</form>
 	        <div class='set'>
@@ -129,19 +130,30 @@
   </div>
 </div>
 <script>
+//회원탈퇴
 function deleteMember(){
 	if(confirm("정말 삭제하시겠습니까?") == false)
 		return;
 	var $frm = $("#memberDeleteFrm");
-	/* $frm.find("[name=memberId]").val(memberId); */
 	$frm.submit();
 }
-
-function uploadProfileValidate(){
-
+//업로드 버튼 클릭시 검사
+function uploadS(){
+	var file = $(this).prop('file');
+	
+	if( file == undefined ){
+		alert("프로필사진을 지정해주세요");
+		return false;
+	}
 	return true;
 }
+//프로필사진 업로드
+function uploadProfileValidate(){
+	return true;
+} 
 
+
+//수정폼 유효성검사
 function MupdateValidate(){
 	//비밀번호 똑같은지
     if($("#m-pwd").val() != ($("#m-pwdcheck").val())){ 
@@ -188,6 +200,7 @@ function MupdateValidate(){
 			$label.html("파일을 선택하세요");
 		else
 			$label.html(file.name);
+			
 	});
 });
 

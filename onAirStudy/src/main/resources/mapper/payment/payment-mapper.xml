@@ -20,9 +20,11 @@
 			payment_date,
 			payment_amount
 		from 
-			payment_log		
+			payment_log
+		where 
+			member_id = #{memberId}		
 		order by
-			no desc
+			 payment_date
 	</select>
 	
 	<insert id="insertPaymentLog">

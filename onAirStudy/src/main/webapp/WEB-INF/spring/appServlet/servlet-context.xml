@@ -36,8 +36,8 @@
 		 
 		<interceptor>
 			 <mapping path="/diary/**/*.do"/>
-			 <mapping path="/mypage1/memberDetail.do"/>
-			<mapping path="/mypage1/*.do"/> 
+			 <mapping path="/mypage1/*.do"/> 
+			  <mapping path="/mypage1/memberDetail.do"/>
 			<mapping path="/mypage1_index.do"/>
 			<exclude-mapping path="/diary/diaryList.do"/>  
 			<exclude-mapping path="/diary/diaryDetail.do"/> 

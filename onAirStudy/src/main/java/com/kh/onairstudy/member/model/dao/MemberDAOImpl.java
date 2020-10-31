@@ -75,14 +75,25 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 
-	@Override
-	public int insertProfilePhoto(ProfileAttach attach) {
-		return sqlSession.insert("member.insertProfilePhoto", attach);
-	}
 	//회원삭제
 	@Override
 	public int deleteMember(String memberId) {
 		return sqlSession.delete("member.deleteMember", memberId);
+	}
+	//멤버프로필 사진 처음 저장
+	@Override
+	public int insertProfilePhoto(ProfileAttach attach) {
+		return sqlSession.insert("member.insertProfilePhoto", attach);
+	}
+	//멤버 프로필사진 업데이트
+	@Override
+	public int updateProfilePhoto(ProfileAttach attach) {
+		return sqlSession.update("member.updateProfilePhoto", attach);
+	}
+
+	@Override
+	public int checkIdProfile(Member loginMember) {
+		return sqlSession.selectOne("member.checkIdProfile", loginMember);
 	}
 
 	
