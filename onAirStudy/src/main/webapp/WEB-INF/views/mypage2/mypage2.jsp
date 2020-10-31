@@ -47,7 +47,7 @@
 							<hr />
 
 							<h5>내용</h5>
-							<textarea id="replyContents" cols="63" rows="5"></textarea>
+							<textarea id="replyContents" style="width:100%;" rows="5"></textarea>
 						</div>
 
 					</div>

@@ -46,15 +46,11 @@
   <!-- 성실멤버 List -->
   <select id="selectDiligentMember" resultMap="memberMap" >
  
- select M.*,
-        RANK() OVER (ORDER BY diligent_point DESC) AS rank,
-        (select renamed_filename
-        from   profile_attachment
-        where member_id = M.member_id) m_pic
-        
-        from member M
 <![CDATA[  
-	where ROWNUM <= 10
+select * from (
+	select * from 
+	member order by diligent_point desc) 
+where rownum <= 10
 	]]>
 	
 	</select>
