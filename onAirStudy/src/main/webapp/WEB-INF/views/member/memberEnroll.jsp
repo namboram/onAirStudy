@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/memberEnroll.css" />
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Secular+One&display=swap" rel="stylesheet">
+
 
 <div id="enroll-out-container">
 	<div id="enroll-out-container">
@@ -29,7 +29,7 @@
                                            name="memberId" 
                                            autocomplete="off"
                                            class="form-control" 
-                                           id="memberId_">									
+                                           id="memberId_" required>									
                                    	<button class="idChk" type="button" id="idChk" onclick="idCheck();" value="N">중복확인</button>
                                    <label for="memberId" class="label-member">
                                         <span class="content-member">Id*</span>
@@ -42,7 +42,7 @@
                                 <input type="password" 
                                 class="form-control" 
                                 name="password" 
-                                id="password_">
+                                id="password_" required>
                                 <label for="password" class="label-member">
                                     <span class="content-member">password*</span>
                                 </label>
@@ -52,7 +52,7 @@
                                 <input type="password" 
                                 class="form-control" 
                                 name="passwordCheck" 
-                                id="passwordCheck_">
+                                id="passwordCheck_" required>
                                 <label for="passwordCheck" class="label-member">
                                     <span class="content-member">password check*</span>
                                 </label>
@@ -62,7 +62,7 @@
                                 <input type="text" 
                                 class="form-control" 
                                 name="memberName" 
-                                id="memberName">
+                                id="memberName" required>
                                 <label for="memberName" class="label-member">
                                     <span class="content-member">name*</span>
                                 </label>
@@ -72,7 +72,7 @@
                                 <input type="tel" 
                                 class="form-control" 
                                 name="phone" 
-                                id="phone">
+                                id="phone" required>
                                 <label for="phone" class="label-member">
                                     <span class="content-member">phone*</span>
                                 </label>
@@ -168,9 +168,9 @@ $(document).ready(function(){
 $("#memberEnrollFrm").submit(function(){
 	
        var getCheck = /^[a-zA-Z0-9]{4,12}$/ // 아이디가 적합한지
-       var getName= RegExp(/^[가-힣]+$/); //이름
+       var getName= RegExp(/^[가-힣]{2,5}$/); //이름
        var getPhoneCheck =/^[0-9]{11}$/ //폰번호
-       var getcommentCheck=/^[ㄱ-ㅎ가-힣]{0,20}$/ //자기소개
+       var getcommentCheck=/^[ㄱ-ㅎ가-힣A-Za-z~!@#$%^&*()_+|<>?:{}]{0,20}$/ //자기소개
        
 
      //아이디 공백 확인
@@ -252,13 +252,13 @@ $("#memberEnrollFrm").submit(function(){
 		}
 
 		//중복체크여부
-	/* 	var idChkVal = $("#idChk").val();
+	 	/* var idChkVal = $("#idChk").val();
 		if(idChkVal == "N"){
 			alert("중복확인 버튼을 눌러주세요.");
 		}else if(idChkVal == "Y"){
 			$("#memberEnrollFrm").submit();
-		} */
-		
+		} 
+		 */
      return true;
 
 });

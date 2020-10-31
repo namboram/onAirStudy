@@ -176,13 +176,12 @@ table.type10 .even {
 		</div>
 	</form>
 </div>
-<<<<<<< HEAD
-</div>
-
-=======
 
 </div>
->>>>>>> branch 'master' of https://github.com/ekfhdwld/onAirStudy.git
+
+
+</div>
+
 
 <script>
 

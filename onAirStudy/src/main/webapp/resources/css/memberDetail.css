@@ -2,7 +2,7 @@
 
 
 #member-update-container {
-			width:80%; 
+			width:100%; 
 			margin: 0 auto; 
 			background-color: #FBF7FD;
     		padding: 20px;
@@ -11,11 +11,11 @@
 			padding: 20px 20px 0 20px;
 }
 .myinfo-tagS{
-	border: 1px solid #000;
-	width:10%;
-	cursor: pointer;
-	background-color: #fff;
-	margin-left:110px;
+		border: 1px solid #000;
+		width:10%;
+		cursor: pointer;
+		background-color: #fff;
+		margin-left:110px;
 }
 .tagS a{
 	display:inline-block;
@@ -27,17 +27,69 @@
 	float:left;
 	background-color: #fff;
 	width:700px;
-	padding: 20px;
+	padding: 10px;
 	margin-left: 30px; 
+	text-align: center;
 
 }
-#updatefrm-right{
-	float:left;
+
+/* 폼꾸미기css  */
+.forminput{
+    width:71%;
+    position: relative;
+    height: 40px;
+    overflow: hidden;
+    text-align: center;
+    
+}
+
+.forminput input{
+    width: 100%;
+    height: 100%;
+    color: black;
+    border: none;
+    outline: none;
+}
+.forminput label{
+    position: absolute;
+    width: 100%;
+    height: 150%;
+    pointer-events: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
+
+/* .forminput label::after{
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -2px;
+    height: 100%;
+    width: 100%;
+	border-bottom: 2px solid rgba(255, 195, 163, 0.849);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+} */
+.content-member-detail{
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+    transform: translateY(-100%);
+    font-size: 5px;
+}
+
+
+
+/* 결제내역  */
+#paymentlistfrm-right{
+	float:right;
 	background-color: #fff;
 	width:300px; 
 	margin: 0 auto;
 	text-align: center;
 	padding: 20px;
+	diplay:inline-block;
 }
 #form-control-label{
 			width:100px; 

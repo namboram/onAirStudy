@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/* diary detail  */
+.text-center{
+	margin: 50px;
+}
+#diary-container {
+	margin: 0 auto;
+	vertical-align:middle;
+
+}
+.hr-text {
+	  font-size: 30px;
+	  line-height: 1em;
+	  position: relative;
+	  outline: 0;
+	  border: 0;
+	  color: black;
+	  text-align: center;
+	  height: 1.5em;
+	  opacity: .5;
+}
+.hr-text:before {
+	  content: '';
+	  background: linear-gradient(to right, transparent, #818078, transparent);
+	  position: absolute;
+	  left: 0;
+	  top: 50%;
+	  width: 100%;
+	  height: 1px;
+}
+.hr-text:after {
+	  content: attr(data-content);
+	  position: relative;
+	  display: inline-block;
+	  padding: 0 .5em;
+	  line-height: 1.5em;
+	  color: #000;
+	  background-color: #fcfcfa;
+}
+
+.diary-detail-info{
+	   text-align: right;
+}
+.hr-color{
+	border: 1px solid pink;
+}
+.border-secondary{
+	border : none;
+}
+
+#listbtn{
+	background: white;
+	border : 1px solid rgb(255, 195, 163);
+	color: black;
+	float: right;
+	width: 80px;
+	height: 25px;
+	font-size: 10px;
+	vertical-align:top;
+	margin-top: 10px;
+}
+#listbtn:hover{
+	background-color : rgb(255, 195, 163);
+}
+.deletebtn{
+	background: white;
+	border : 1px solid red;
+	color: black;
+	float: right;
+	width: 80px;
+	height: 25px;
+	font-size: 10px;
+	vertical-align:top;
+	margin-top: 10px;
+}
+.deletebtn:hover{
+	background-color : red;
+}
+#diary-reply-container{
+	margin: 20px auto;
+	float:right;
+	vertical-align: middle;
+	width: 55%;
+	display:inline-block;
+}
+#replyContents{
+	width: 650px;
+    height: 36px;
+    margin: 0 auto;
+    border-radius: 3px;
+    border-color : rgb(255, 195, 163)
+}
+
+#replybtn{
+	background: white;
+	border : 1px solid rgb(255, 195, 163);
+	color: black;
+	width: 80px;
+	height: 36px;
+	font-size: 13px;
+	vertical-align: top;
+
+}
+#replybtn:hover{
+	background-color : rgb(255, 195, 163);
+}
+
+/* 댓글 리스트  */
+.replytable{
+	margin-top: 20px;
+	width: 90%;
+    margin-bottom: 1rem;
+    color: gray;
+    margin: 10px auto;
+    border-bottom: 1px solid gray;
+    text-align: center;
+
+}
+.replytable th, td{
+	border-bottom: 1px solid gray;
+	padding: 10px
+}
+
+
+

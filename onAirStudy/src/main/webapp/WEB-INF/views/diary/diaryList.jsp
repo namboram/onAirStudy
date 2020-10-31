@@ -8,7 +8,6 @@
 
 ​ 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/diary.css" />
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Secular+One&display=swap" rel="stylesheet">
 
 
 <style>
@@ -31,7 +30,9 @@ function goDiaryForm(){
 </script>
 <!-- 검색창 --> 
 <div class="diary-container" style="height:100%;">
-		<h2>STUDY DIARY</h2>
+		<div class="text-center">
+			<hr class="hr-text" data-content="STUDY DIARY">
+		</div>
 	
 		<div class="diary-top-container">
 			<img src="${pageContext.request.contextPath }/resources/images/studydiaryicon.png" width="120px" height="120px" />
