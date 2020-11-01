@@ -120,6 +120,30 @@ select
 		sr_opened_yn desc
 </select>
 
+<sql id="search">
+<choose>
+<when test = "search_option =='all'">
+where
+	member_id like '%' ||#{keyword}|| '%'
+	or sr_title like '%' ||#{keyword}|| '%' and
+	L.sr_no>8 and
+	sr_ended_yn != 'Y'
+</when>
+<when test="category != 0">
+ where 
+ 	sr_category = #{category} and
+    L.sr_no>8 and
+	sr_ended_yn != 'Y'
+</when>
+<otherwise>
+where
+	${search_option} like '%' ||#{keyword}|| '%' and
+	L.sr_no>8 and
+	sr_ended_yn != 'Y'	
+</otherwise>
+</choose>
+</sql>
+
 <select id="countArticle" resultType="int">
 select
     count(*)
@@ -127,37 +151,6 @@ from
 	sr_list L left join sr_info F on l.sr_no = F.sr_no
 <include refid="search"/> 
 </select>
-
-<sql id="search">
-<choose>
-<!-- <when test = "member_id != null">
-	where 
-		L.sr_no>8 and
-		sr_ended_yn != 'Y'
-</when> -->
-<when test = "search_option =='all'">
-	where
-		member_id like '%' ||#{keyword}|| '%'
-
-	 or	sr_title like '%' ||#{keyword}|| '%' and
-	  L.sr_no>8 and
-	sr_ended_yn != 'Y'
-</when>
-<when test="category != 0">
-     where sr_category = #{category} and
-      L.sr_no>8 and
-	sr_ended_yn != 'Y'
-</when>
-<otherwise>
-	where
-	 ${search_option} like '%' ||#{keyword}|| '%' and
-	  L.sr_no>8 and
-	sr_ended_yn != 'Y'
-	
-</otherwise>
-</choose>
-</sql>
-
 
 <!-- 메인 스터디룸 리스트  -->
 
