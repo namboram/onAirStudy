@@ -17,6 +17,7 @@ public interface DiaryService {
 
 
 	Diary selectOneDiary(int no);
+	
 	List<DiaryReply> selectDiaryReplyList(int diaryNo);
 
 	int insertDiaryReply(DiaryReply diaryReply);
