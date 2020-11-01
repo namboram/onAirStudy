@@ -63,6 +63,7 @@
 					<input type="text" class="form-control" name="memberId" id="memberId" placeholder="이름을 입력해 주세요">
 					  <input type="MEMBER_ID" class="form-control" id="memberId" name="memberId" value=""  readonly>
 				</div> -->
+				
 				<div class="mb-3">
 					<label for="content">내용</label>
 					<textarea class="form-control" rows="10" name="serviceContent" id="serviceContent" placeholder="내용을 입력해 주세요" ></textarea>
