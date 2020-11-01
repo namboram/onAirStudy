@@ -169,7 +169,9 @@ public class ServiceCenterController {
 									RedirectAttributes redirectAttr,
 									HttpSession session) {
 		System.out.println("servicecenter = " + servicecenter);
-		 
+		 log.info("service 여기여기");
+		 Member loginMember = (Member)session.getAttribute("loginMember");
+		 servicecenter.setMemberId(loginMember.getMemberId());
 		//업무로직
 		int result = serviceCenterService.insertService(servicecenter);
 		String msg = (result > 0) ? "문의글 등록 성공!" : "문의글 등록 실패!";
