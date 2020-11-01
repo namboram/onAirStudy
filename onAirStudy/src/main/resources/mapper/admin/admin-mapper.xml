@@ -16,9 +16,8 @@ select
     (select count(*) from report_log where to_char(reported_date, 'yyMMdd') = to_char(sysdate, 'yyMMdd')) as "report_today",
     (select count(*) from sr_list) as "sr_all",
     (select count(*) from sr_list where to_char(sr_enroll_date, 'yyMMdd') = to_char(sysdate, 'yyMMdd')) as "sr_today",
-    ((select count(*) from diary_attachment)+(select count(*) from profile_attachment)) as "attach_all",
-    (select count(*) from diary_attachment where substr(renamed_filename, 1, instr(renamed_filename, '_')-1) = to_char(sysdate, 'yyyyMMdd'))
-    +(select count(*) from profile_attachment where substr(renamed_filename, 1, instr(renamed_filename, '_')-1) = to_char(sysdate, 'yyyyMMdd')) as "attach_today",
+    (select count(*) from profile_attachment) as "attach_all",
+    (select count(*) from profile_attachment where substr(renamed_filename, 1, instr(renamed_filename, '_')-1) = to_char(sysdate, 'yyyyMMdd')) as "attach_today",
     (select count(*) from message) as "msg_all"
 from dual
 </select>
