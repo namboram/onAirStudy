@@ -6,7 +6,11 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+import com.kh.onairstudy.chat.controller.ChatController;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
@@ -15,7 +19,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/subscribe");
         config.setApplicationDestinationPrefixes("/app");
-
     }
     
     @Override
