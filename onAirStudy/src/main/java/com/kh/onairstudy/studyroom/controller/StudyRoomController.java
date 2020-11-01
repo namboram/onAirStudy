@@ -79,6 +79,7 @@ public class StudyRoomController {
 			
 			Member loginMember = (Member)session.getAttribute("loginMember");
 			
+			System.out.println("loginMember.getMemberRole()="+loginMember.getMemberRole() );
 			String msg = "";
 			
 			//방 갯수 조회
@@ -96,8 +97,7 @@ public class StudyRoomController {
 					
 				msg= "이미 가입되어진 방입니다.";		
 				
-			}else if(loginMember.getMemberRole() != "p"){
-				
+			}else if(loginMember.getMemberRole().equals("M") ){
 				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";	
 				
 			}else{
