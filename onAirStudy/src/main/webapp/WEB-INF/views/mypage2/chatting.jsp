@@ -185,6 +185,7 @@ vertical-align: text-bottom;
 	</div>
 </div>
 <script>
+var client;
 //채팅 저장
 function insertChat(){
 	$.ajax({
@@ -234,9 +235,14 @@ function doReport(){
 			success : function(result) {
 				if(result > 0){
 					alert("신고가 완료되었습니다.");
-					$('[data-no='+$("#contentIdK").val()+']').find("p").html("<b>신고된 채팅입니다.</b>");
-					$('[data-no='+$("#contentIdK").val()+']').find("p").addClass("text-muted");
-					$('[data-no='+$("#contentIdK").val()+']').find("a").html("");
+					//$('[data-no='+$("#contentIdK").val()+']').find("p").html("<b>신고된 채팅입니다.</b>");
+					//$('[data-no='+$("#contentIdK").val()+']').find("p").addClass("text-muted");
+					//$('[data-no='+$("#contentIdK").val()+']').find("a").html("");
+					client.send('/app/report/' + "${roomNo}", {}, JSON
+							.stringify({
+								contentId : $("#contentIdK").val()
+
+					}));
 					}
 			},
 			error : function(xhr, status, err) {
@@ -390,7 +396,7 @@ $(document).ready(function() {
 		var member = $('.content').data('member');
 		var sock = new SockJS(
 				"${pageContext.request.contextPath}/endpoint");
-		var client = Stomp.over(sock);
+		client = Stomp.over(sock);
 
 		function sendmsg() {
 			var message = messageInput.val();
@@ -425,6 +431,16 @@ $(document).ready(function() {
 				newAlerts(content,endNo);
 								
 							});
+			//신고내용 들어오는곳
+			client.subscribe('/subscribe/report/'+ roomNo,function(report) {
+				//받은 데이터
+				var content = JSON.parse(report.body);
+				//console.log("content=!!!!"+content.contentId);
+				$('[data-no='+content.contentId+']').find("p").html("<b>신고된 채팅입니다.</b>");
+				$('[data-no='+content.contentId+']').find("p").addClass("text-muted");
+				$('[data-no='+content.contentId+']').find("a").html("");
+								
+				});
 
 		});
 		//	         대화시
