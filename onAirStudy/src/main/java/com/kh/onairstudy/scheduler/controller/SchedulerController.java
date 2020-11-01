@@ -122,6 +122,7 @@ public class SchedulerController {
 		
 		//jsp의 날짜형식에 맞게 바꿔주기
 		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("sche", "good");
 		
 		int result = schedulerService.insertSchedule(sch);
 		
@@ -307,6 +308,18 @@ public class SchedulerController {
 			
 	}
 
-	
+		@RequestMapping("/mypage1/goTodo.do")
+		public String goTodo(@SessionAttribute("loginMember") Member member,
+								RedirectAttributes redirectAttr) {
+			
+			//오늘날짜 기입
+			Scheduler sch = new Scheduler();
+			sch.setStartDate(new Date(new java.util.Date().getTime()));
+			
+			redirectAttr = makeYearMonths(sch, redirectAttr);
+			redirectAttr.addFlashAttribute("todo", "good");
+			
+			return "redirect:/mypage1/scheduler.do";
+		}
 	
 }

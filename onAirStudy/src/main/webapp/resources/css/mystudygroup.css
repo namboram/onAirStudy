@@ -1,17 +1,17 @@
 
-.invitation .bnt .btn-outline-primary {
+.bnt{
     background-color: white;
     border-color: #AD8686;
     color: #E2A182; }
-.invitation.btn-outline-primary:hover,
-.invitation.btn-outline-primary:focus {
+.btn:hover,
+.btn:focus {
     border-color: rgb(141, 109, 109);
     background-color: rgb(141, 109, 109);
     color: #FFF; }
-.invitation .btn-primary:active,
-.invitation .btn-outline-primary:visited,
-.invitation .btn-outline-primary:focus,
-.invitation.btn-outline-primary:active:hover {
+.btn:active,
+.btn:visited,
+.btn:focus,
+.btn:active:hover {
     border-color:rgb(141, 109, 109);
     background-color:rgb(141, 109, 109);
     color: #FFF; }

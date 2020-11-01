@@ -24,15 +24,15 @@
 	padding-top:20px
 }
 
-.rBtn .btn .btn-outline-warning{
+.rBtn .btn-outline-warning{
 	border-radius: 35px; float: right;
   background-color: white;
     border-color: #AD8686; 
        color: #E2A182
 }
 
-.rBtn .btn .btn-outline-warning:hover,
-.rBtn .btn .btn-outline-warning:focus {
+.rBtn .btn-outline-warning:hover,
+.rBtn .btn-outline-warning:focus {
     border-color: rgb(141, 109, 109);
     background-color: rgb(141, 109, 109);
     color: #FFF; }
