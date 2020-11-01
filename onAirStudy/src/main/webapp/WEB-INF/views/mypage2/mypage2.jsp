@@ -10,9 +10,12 @@
 	width: 150px;
 	height: 150px;
 }
+.collapse a:before {
+	display : none;
+}
 </style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-<link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
+<link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	>
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 <!-- 출석체크 모달 -->

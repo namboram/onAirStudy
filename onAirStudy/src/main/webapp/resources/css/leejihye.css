@@ -48,23 +48,8 @@ nav.side-navbar a {
   font-size: 1.3em;
 }
 
-nav.side-navbar a[data-toggle="collapse"]::before {
-  content: '\f104';
-  display: inline-block;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  font-family: 'FontAwesome';
-  position: absolute;
-  top: 50%;
-  right: 20px;
-}
-
 nav.side-navbar a[aria-expanded="true"] {
   background: #E0B1D0;
-}
-
-nav.side-navbar a[aria-expanded="true"]::before {
-  content: '\f107';
 }
 
 nav.side-navbar a i {
