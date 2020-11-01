@@ -125,7 +125,7 @@
 
 
 <!-- 이달의 성실멤버 -->
-	<div class="container-fluid" style="background-color: #F2EDEA; height:800px; " >
+	<div class="container-fluid" style="background-color: #F2EDEA; height:850px; " >
 		<br>
 		<h3 class="text-center">
 		<img src="${pageContext.request.contextPath }/resources/images/badge2.png" width=50px;>
@@ -137,37 +137,28 @@
 			<div class="row" id="srlistG">
 					
 				<c:forEach items="${ dm_List }" var="dm" end="9">
-					<div class="m-2 p-5" id="srProfile" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%;  width: 200px; height: 300px;">
+					<div class="m-2 p-5" id="mProfile">
 						<div class="">
 						
-							<div>
+						<div>
 							<c:choose>
-					<c:when  test="${ dm.MPic != null }">
+								<c:when  test="${ dm.MPic != null }">
 								<img class="mPic"
 									src="${pageContext.request.contextPath }/resources/upload/${ dm.MPic }" > 						
-							
-									</c:when>
-					<c:otherwise>
-					<img class="mPic" 
-					src="${pageContext.request.contextPath }/resources/upload/basicPic.png">
-					</c:otherwise>					
-					</c:choose>
-							
-							</div>
+								</c:when>
+								<c:otherwise>
+								<img class="mPic" 
+									src="${pageContext.request.contextPath }/resources/upload/basicPic.png">
+								</c:otherwise>					
+							</c:choose>
+						</div>
 						
 							<div>
-							
-							<h5 class="text-center">
-								${ dm.memberId }
-							</h5>	
-							<p class="text-center">
-								${ dm.memberName }
-							</p>
-							<p class="text-center" style="margin-top:-5%;">
-								 ${ dm.comment }
-								</p>
-							<p class="text-center" style="margin-top:-5%;">
-								 <strong>성실도 : ${ dm.diligentPoint }점</strong>
+								<h5 class="text-center">${ dm.memberId }</h5>	
+								<p class="text-center"><strong>${ dm.memberName }</strong></p>
+								<p class="text-center" style="margin-top:-10%;">${ dm.comment }</p>
+								<p class="text-center" style="margin-top:-15%;">
+									 <strong width="100px">성실도 : ${ dm.diligentPoint }점</strong>
 								</p>						
 								<br>
 							</div>
@@ -177,9 +168,7 @@
 			</div>
 		</div>
 	</div>
-
-
-
+	
 
 <!-- 이달의 성실 스터디방 -->
 	<div class="container-fluid" style="background-color: #E3DBD6;  height:560px;">
@@ -194,19 +183,19 @@
 			<div class="row" id="srlistRank" style="margin-left:10%;">
 				
 				<c:forEach items="${ ds_List }" var="ds" end="4">
-					<div class="m-3" id="sr" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%; width:210px; height: 350px;">
+					<div class="m-3" id="sr">
 						<div class="">
-
 						<div class="sr_rank_pic">
 							<c:choose>
 								<c:when test="${ ds.SR_PIC != null }">
-									<img class="rPic" style="margin-left: 0.6%; margin-top: 0.5%;"
+									<img class="rPic"
 										src="${pageContext.request.contextPath }/resources/upload/${ ds.SR_PIC }">
 								</c:when>
+								
 								<c:otherwise>
-									<img class="rPic" class="rPic" style="margin-left: 0.6%; margin-top: 0.5%;"
+									<img class="rPic"
 										src="${pageContext.request.contextPath }/resources/upload/background.jpg">
-								</c:otherwise>
+								</c:otherwise> 
 							</c:choose>
 
 						</div>
