@@ -1,7 +1,5 @@
 package com.kh.onairstudy.payment.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.maven.model.Model;
@@ -9,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.payment.model.service.PaymentService;
-import com.kh.onairstudy.payment.model.vo.Payment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +29,8 @@ public class PaymentController {
 		return "payment/premium";
 	}
 	
-	 @RequestMapping("/pay/kakao") //카카오페이화면 호출
+	//카카오페이화면 호출
+	 @RequestMapping("/pay/kakao") 
 	 public String kakao() {
 		 log.debug("kakao송출..");
 	

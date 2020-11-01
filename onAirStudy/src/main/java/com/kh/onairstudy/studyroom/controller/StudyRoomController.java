@@ -77,6 +77,9 @@ public class StudyRoomController {
 							@RequestParam("memberId") String memberId, HttpSession session,	RedirectAttributes redirectAttr) {	
 			
 			Member loginMember = (Member)session.getAttribute("loginMember");
+	
+			System.out.println("loginMember.getMemberRole()="+loginMember.getMemberRole() );
+
 			String msg = "";
 			
 			//방 갯수 조회
@@ -94,12 +97,19 @@ public class StudyRoomController {
 					
 				msg= "이미 가입되어진 방입니다.";		
 				
+
 			}
 			else if(applyR>0) {
 				
 				msg= "이미 신청 하신 방입니다.";
 					
-			}else{
+			}else if(loginMember.getMemberRole().equals("M") ){
+				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";	
+
+				
+			}
+			else{
+
 				//방 신청 제한
 				if(countR >= 4) {
 					
@@ -407,7 +417,7 @@ public class StudyRoomController {
 			log.debug("param = {}",param);
 		
 			
-			if(count >= 3) {
+			if(count >= 4) {
 			    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
 			}else {
 				result = studyRoomService.insertStudyLog(param);
