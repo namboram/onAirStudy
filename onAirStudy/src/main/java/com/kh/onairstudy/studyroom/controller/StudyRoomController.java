@@ -95,8 +95,7 @@ public class StudyRoomController {
 				
 			}else if(myStudy>0) {
 					
-				msg= "이미 가입되어진 방입니다.";		
-				
+				msg= "이미 가입되어진 방입니다.";				
 
 			}
 			else if(applyR>0) {
