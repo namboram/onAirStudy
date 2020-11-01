@@ -243,6 +243,7 @@ $(document).ready(function() {
 								<%} %>
 							<%} %>
 					    <%} %>
+							<% index = 1; %>
 					  <%} %>
 				</table>
 			</div>	
