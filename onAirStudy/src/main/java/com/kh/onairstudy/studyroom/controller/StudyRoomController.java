@@ -416,7 +416,7 @@ public class StudyRoomController {
 			log.debug("param = {}",param);
 		
 			
-			if(count >= 3) {
+			if(count >= 4) {
 			    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
 			}else {
 				result = studyRoomService.insertStudyLog(param);
