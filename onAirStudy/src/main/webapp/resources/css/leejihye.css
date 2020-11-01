@@ -48,23 +48,8 @@ nav.side-navbar a {
   font-size: 1.3em;
 }
 
-nav.side-navbar a[data-toggle="collapse"]::before {
-  content: '\f104';
-  display: inline-block;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  font-family: 'FontAwesome';
-  position: absolute;
-  top: 50%;
-  right: 20px;
-}
-
 nav.side-navbar a[aria-expanded="true"] {
-  background: #EEF5F9;
-}
-
-nav.side-navbar a[aria-expanded="true"]::before {
-  content: '\f107';
+  background: #E0B1D0;
 }
 
 nav.side-navbar a i {
@@ -204,9 +189,8 @@ nav.mypage-sideBar ul li a {
 }
 
 .d-day-display {
-	padding : 0px 30px 0px 30px;
 	text-align: center;
-	margin: 50px 0px 50px 0px;
+	margin: 25px 0px 25px 0px;
 }
 
 .d-day-display hr{
