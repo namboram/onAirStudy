@@ -31,10 +31,9 @@
  				or 
  					member_id = #{ memberId }
  				order by 
- 					7) S  
- 		where 
- 				rownum <= #{cri.pageNum} * #{cri.amount}) 
- where rnum > (#{cri.pageNum} - 1) * #{cri.amount}
+ 					3, 8 desc ) S  
+ 	) 
+
  	]]>
  	
 </select>
@@ -152,7 +151,7 @@ where
 		default, 
 		#{serviceTitle}, 
 		#{serviceContent},
-		null, 
+		0, 
 		#{memberId}, 
 		default, 
 		default, 
