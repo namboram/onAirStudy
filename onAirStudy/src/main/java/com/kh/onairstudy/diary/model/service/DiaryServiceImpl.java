@@ -55,8 +55,10 @@ public class DiaryServiceImpl implements DiaryService {
 		Diary diary = diaryDAO.selectOneDiary(no); 
 		diaryDAO.diaryReadCount(no);
 		
-		List<DiaryAttachment> attachList = diaryDAO.selectAttachList(no);
-		diary.setAttachList(attachList);
+		/*
+		 * List<DiaryAttachment> attachList = diaryDAO.selectAttachList(no);
+		 * diary.setAttachList(attachList);
+		 */
 		
 		return diary;
 	}

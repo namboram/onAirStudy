@@ -30,7 +30,7 @@
 <hr />
 <div id="diary-reply-container">
 	  <c:if test="${ loginMember.memberId != null }">
-		  <input type="text" class="" name="replyContent" id="replyContents" placeholder="댓글을 적어주세요" maxlength="25" required/>
+		  <input type="text" class="" name="replyContent" id="replyContent" placeholder="댓글을 적어주세요" maxlength="25" required/>
 	      
 	      <button class="btn" id="replybtn" >댓글작성</button>
 	  </c:if>
