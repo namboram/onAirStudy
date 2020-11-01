@@ -5,13 +5,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:requestEncoding value="utf-8" />
 <%-- 한글 깨짐 방지 --%>
+<style>
+.sidenav-header-inner img{
+	width: 150px;
+	height: 150px;
+}
+.collapse a:before {
+	display : none;
+}
+</style>
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-
-<link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
+<link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	>
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
-<!-- <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/vendor/font-awesome/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
-<!-- Modal -->
+<!-- 출석체크 모달 -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -63,29 +70,32 @@
 			</div>
 		</div>
 <div class="row">	
-	<nav class="side-navbar col-lg-2">
+	<nav class="side-navbar col-lg-2" >
 		<!-- Sidebar Header-->
-		<div class="sidebar-header">
-			<div class="avatar">
+		<div class="sidenav-header d-flex align-items-center justify-content-center">
+			<!-- User Info-->
+			<div class="sidenav-header-inner text-center" style="padding : 5%;">
 				<c:if test="${ not empty sideBarInfo.profile }">
-					<img src="${ pageContext.request.contextPath }/resources/upload/${sideBarInfo.profile}" alt="...">
+					<img src="${ pageContext.request.contextPath }/resources/upload/${sideBarInfo.profile}" alt="" class="img-fluid rounded-circle">
 				</c:if>
 				<c:if test="${ empty sideBarInfo.profile }">
-					<img src="${ pageContext.request.contextPath }/resources/upload/basicPic.png" alt="...">
+					<img src="${ pageContext.request.contextPath }/resources/upload/basicPic.png" alt="" class="img-fluid rounded-circle"> 
 				</c:if>
-				<h3 class="userName">${loginMember.memberId}</h3>
+				<h2 class="h5" style="margin-top: 10px;">${loginMember.memberId }</h2>
 				<c:if test="${ loginMember.memberRole eq 'P'}">
-					<h5>premium</h5>
+					<span>Premium</span>
 				</c:if>
 				<c:if test="${ loginMember.memberRole eq 'M'}">
-					<h5>member</h5>
+					<span>Member</span>
 				</c:if>
 			</div>
-
 			<input type="hidden" id="attendDay" value="${roomInfo.attendDay}"/>
 			<input type="hidden"  id="attendTime" value="${roomInfo.attendTime }"/>
 			<input type="hidden" id="attendCheck" value="${attendCheck }"/>
 		</div>
+		
+		
+		<br />
 		<span class="heading">Menu</span>
 		<!-- Sidebar Navidation Menus-->
 		<ul class="list-unstyled">
@@ -98,6 +108,7 @@
 							<c:if test="${part.leaderYN eq 'Y'}">
 								<img class="roomPic" src="${pageContext.request.contextPath }/resources/images/crown.png" style="height:15px; width: 15px;">
 								<input type="hidden" id="leaderId" value="${part.memberId }" />
+								<c:set var="leader" value="${part.memberId}"></c:set>
 							</c:if>
 								<span>${part.memberId }</span>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
@@ -114,18 +125,20 @@
 			</li>
 			<li><a onclick="goToInvitation()">초대하기</a></li>
 			<li><a onclick="goToSchduler(${roomInfo.srNo})">스케줄러</a></li>
-			<li>
-				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
-				<ul id="applicantsDropdown" class="collapse list-unstyled ">
-					<c:forEach var="app" items="${ applicants }">
-						<li><div class="applicantsJH">
-							<span>${app}</span>
-							<button value="${app}" class="btnAcceptJH btnApplicantsJH"
-								onclick="acceptMember(this.value, ${ roomInfo.srNo} )">수락</button>
-						</div></li>
-					</c:forEach>
-				</ul>
-			</li>
+			<c:if test="${ leader eq loginMember.memberId}">
+				<li>
+					<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
+					<ul id="applicantsDropdown" class="collapse list-unstyled ">
+						<c:forEach var="app" items="${ applicants }">
+							<li><div class="applicantsJH">
+								<span>${app}</span>
+								<button value="${app}" class="btnAcceptJH btnApplicantsJH"
+									onclick="acceptMember(this.value, ${ roomInfo.srNo} )">수락</button>
+							</div></li>
+						</c:forEach>
+					</ul>
+				</li>
+			</c:if>
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>

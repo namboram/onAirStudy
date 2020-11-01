@@ -419,7 +419,8 @@ public class StudyRoomController {
 			    msg = memberId + "님은" + "참여방 개수 초과로 스터디방에 참여하실 수 없습니다";
 			}else {
 				result = studyRoomService.insertStudyLog(param);
-				msg = result == 1 ? memberId + "님이 " + "스터디방에 참여하게 되었습니다" : "참여신청 수락에 실패하였습니다";
+				msg = result == 1 ? memberId + "님이 " 
+						+ "스터디방에 참여하게 되었습니다" : "참여신청 수락에 실패하였습니다";
 			}
 			
 			redirectAttr.addAttribute("roomNum"	, roomNum);
@@ -427,6 +428,9 @@ public class StudyRoomController {
 			
 			return "redirect:/studyroom/main.do";
 		}
+		
+		
+		
 		
 		@RequestMapping("/studyroom/updateInfo.do")
 		public String updateInfo() {
