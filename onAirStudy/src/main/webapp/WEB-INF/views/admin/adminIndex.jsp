@@ -105,10 +105,10 @@
       </section>
       <!-- Header Section-->
       
-      	<div class="row">
+      	<div class="row" style="padding:5%;">
             <div class="col-lg-10 col-md-12 flex-lg-last flex-md-first align-self-baseline" style="margin-left:10%;">
               <div class="card sales-report" id="realGraph">
-                <h2 class="display h4">일자별 가입회원 및 유료회원 통계</h2>
+                <h2 class="display h4" style="margin:2%;">일자별 가입회원 및 유료회원 통계</h2>
                 <p>2020.10.20 ~ 2020.10.24까지의 통계</p>
                 <div class="line-chart">
                   <canvas id="barChartExample"></canvas>
