@@ -1,15 +1,16 @@
 package com.kh.onairstudy.payment.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.maven.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.payment.model.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,12 +47,16 @@ public class PaymentController {
 		
 		@RequestMapping(value="/pay/payHistory", method = RequestMethod.GET) 
 		public String payHistory(HttpServletRequest request, Model model, 
-								 RedirectAttributes redirectAttributes) {
+								 RedirectAttributes redirectAttributes,HttpSession session) {
 		
 		String memberId = request.getParameter("memberId"); 
 		System.out.println(memberId);
 		//회원권한 M->P 변경
-		int result = paymentService.updatePayHistory(memberId); 
+		int result = paymentService.updatePayHistory(memberId);
+		Member updateMember = (Member)session.getAttribute("loginMember");
+		updateMember.setMemberRole("P");
+		session.setAttribute("loginUser",updateMember);
+		session.setAttribute("loginMember", updateMember);
 		//결제내역 DB저장
 		result = paymentService.insertPaymentLog(memberId);
 		
