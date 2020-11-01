@@ -272,8 +272,8 @@ $(document).ready(function() {
 		}
 
 		// 채팅 리스트를 가져올 때 시작 번호
-		// renderList 함수에서 html 코드를 보면 <li> 태그에 data-no 속성이 있는 것을 알 수 있다.
-		// ajax에서는 data- 속성의 값을 가져오기 위해 data() 함수를 제공.
+		// renderList 함수에서 html 코드의 <li> 태그에 data-no 속성으로
+		// data- 속성의 값을 가져오기 위해 data() 함수 사용
 		var endNo = $("#list-guestbook li").first().data("no") || 0;
 		console.log("endNo" + endNo);
 		$.ajax({
@@ -282,25 +282,19 @@ $(document).ready(function() {
 			type : "GET",
 			dataType : "json",
 			success : function(result) {
-				//console.log("가져온거"+result[0]);
 
-				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담겨오도록 했다.
+				// 컨트롤러에서 가져온 방명록 리스트는 result.data에 담김
 				var length = result.size;
 				if (length < 10) {
-					//console.log("resultno"+ result[0].no);
 					isEnd = true;
 				}
 				$.each(result, function(index, vo) {
 					var html = renderList(vo,0);
-					//console.log(html);
 					$("#list-guestbook").prepend(html);
 
 				})
 				var position = $('[data-no='+endNo+']').prev().offset();//위치값
 				console.log(position);
-				//$('#chat-containerK').stop().animate({scrollTop : position.top},600,'easeInQuint');
-				//window.scrollTo({top:position.top, behavior:'auto'});
-				//$(".chatcontent").animate({scrollTop:position},0);
 				document.querySelector('.chatcontent').scrollTo({top : position.top,behavior : 'auto'});
 				isScrolled = false;
 			},
@@ -374,9 +368,7 @@ $(document).ready(function() {
 		var windowHeight = $window.height();
 		var documentHeight = $(document).height();
 
-		//console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
-
-		// scrollbar의 thumb가 위의1px까지 도달 하면 리스트를 가져옴//말 잘 안들었어
+		// scrollbar의 thumb가 위의1px까지 도달 하면 리스트를 가져옴
 		if (scrollTop < 1 && isScrolled == false) {
 			isScrolled = true;
 			fetchList();
@@ -433,7 +425,7 @@ $(document).ready(function() {
 								
 							});
 
-						});
+		});
 		//	         대화시
 		$('.send').click(function() {
 			//alert("눌리나?");
