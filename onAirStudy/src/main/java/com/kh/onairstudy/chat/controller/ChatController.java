@@ -68,12 +68,9 @@ public class ChatController {
     @MessageMapping("/hello/{roomNo}")
     @SendTo("/subscribe/chat/{roomNo}")
     public Chat broadcasting(Chat chat) {
-//    	log.debug("room넘어오나?{}",roomNo);
-//    	log.debug("?????????????gㅎ");
+
     	log.debug("받아온 data={}",chat);
-//    	log.debug("chat={}",chat);
-//    	Chat chat = new Chat();
-//    	chat.setMessageType("");
+
     	
         chat.setSendDate(new Date());
         
