@@ -122,6 +122,7 @@ public class SchedulerController {
 		
 		//jsp의 날짜형식에 맞게 바꿔주기
 		redirectAttr = makeYearMonths(sch, redirectAttr);
+		redirectAttr.addFlashAttribute("sche", "good");
 		
 		int result = schedulerService.insertSchedule(sch);
 		
