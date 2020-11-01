@@ -246,13 +246,9 @@ public class StudyRoomController {
 					
 					  
 					  			
-						}
-			
-			
+						}		
 															
 			
-			
-
 			redirectAttr.addFlashAttribute("msg", msg);
 			
 			return "redirect:/mypage1/mystudylist.do";
@@ -310,6 +306,9 @@ public class StudyRoomController {
 						List<ProfileAttachment> proList = new ArrayList<>();
 					
 						String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
+						if(upFile.isEmpty()) {	
+							
+						}else {
 						
 						// 1. 파일명 생성
 						String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
@@ -322,7 +321,7 @@ public class StudyRoomController {
 						profile.setRenamedFilename(renamedFilename);
 						profile.setFilePath(saveDirectory);
 						proList.add(profile);
-						
+						}
 						
 						//sr_log
 						List <StudyRoomLog> srLog = new ArrayList<>();

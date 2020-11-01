@@ -278,7 +278,7 @@ function searchRoom() {
 			<form
 				action="${ pageContext.request.contextPath }/studyroom/applystudyroom.do"
 				id="applyS" method="POST">
-					<input type="text" value="${loginMember.getMemberId()}" hidden />
+					<input type="text" name="memberId" hidden />
 					<input type="text" class="form-control" name="srNo" hidden>
 
 				<!-- Modal footer -->
@@ -292,7 +292,8 @@ function searchRoom() {
 </div>
 
 <script>
-	function previewR(srNo,leader,title) {
+	function previewR(srNo,memberId,title) {
+		$("#previewFrm").modal().find("[name=srNo]").val(srNo);
 		$("#previewFrm").modal().find("[name=srNo]").val(srNo);
 
 		var content = title+"의 미리 보기 입니다.";
