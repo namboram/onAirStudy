@@ -412,13 +412,14 @@ $(document).ready(function() {
 			// 여기는 입장시
 			//	           일반메세지 들어오는곳         
 			client.subscribe('/subscribe/chat/'+ roomNo,function(chat) {
+				//받은 데이터
+				var content = JSON.parse(chat.body);
 				var endNo = $("#list-guestbook li").last().data("no");
 				if(isNaN(endNo))
 					endNo = 1;
 				else
 					endNo = endNo+1;
-				//받은 데이터
-				var content = JSON.parse(chat.body);
+				
 				var html = renderList(content,endNo);
 				$("#list-guestbook").append(html);
 				newAlerts(content,endNo);
