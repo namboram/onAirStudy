@@ -29,9 +29,6 @@ public class AttendanceController {
 							  @RequestParam("roomNum") int roomNum,
 							  RedirectAttributes redirectAttr, HttpSession session ) {
 		
-		log.debug("memberId = {}", memberId);
-		log.debug("roomNum = {}", roomNum);
-		
 		Map<String, Object> param = new HashMap<>();
 		param.put("memberId", memberId);
 		param.put("roomNum", roomNum);
@@ -43,9 +40,6 @@ public class AttendanceController {
 		int result = attendanceService.updateAttendance(param);
 		String msg = result == 0 ? "출석체크에 실패하였습니다." : "출석체크에 성공하였습니다";
 		
-		log.debug("msg = {}", msg);
-		
-		
 		redirectAttr.addAttribute("roomNum"	, roomNum);
 		redirectAttr.addFlashAttribute("msg", msg);
 		
@@ -55,6 +49,8 @@ public class AttendanceController {
 		
 		return "redirect:/studyroom/main.do";
 	}
+	
+	
 	
 	@RequestMapping("/new.do")
 	public String index() {

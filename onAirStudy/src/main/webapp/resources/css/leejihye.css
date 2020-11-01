@@ -60,7 +60,7 @@ nav.side-navbar a[data-toggle="collapse"]::before {
 }
 
 nav.side-navbar a[aria-expanded="true"] {
-  background: #EEF5F9;
+  background: #E0B1D0;
 }
 
 nav.side-navbar a[aria-expanded="true"]::before {

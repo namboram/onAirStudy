@@ -98,6 +98,7 @@
 							<c:if test="${part.leaderYN eq 'Y'}">
 								<img class="roomPic" src="${pageContext.request.contextPath }/resources/images/crown.png" style="height:15px; width: 15px;">
 								<input type="hidden" id="leaderId" value="${part.memberId }" />
+								<c:set var="leader" value="${part.memberId}"></c:set>
 							</c:if>
 								<span>${part.memberId }</span>
 							<div class="icon icon-mail message" onclick="msgSend('${part.memberId}');"></div>
@@ -114,18 +115,20 @@
 			</li>
 			<li><a onclick="goToInvitation()">초대하기</a></li>
 			<li><a onclick="goToSchduler(${roomInfo.srNo})">스케줄러</a></li>
-			<li>
-				<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
-				<ul id="applicantsDropdown" class="collapse list-unstyled ">
-					<c:forEach var="app" items="${ applicants }">
-						<li><div class="applicantsJH">
-							<span>${app}</span>
-							<button value="${app}" class="btnAcceptJH btnApplicantsJH"
-								onclick="acceptMember(this.value, ${ roomInfo.srNo} )">수락</button>
-						</div></li>
-					</c:forEach>
-				</ul>
-			</li>
+			<c:if test="${ leader eq loginMember.memberId}">
+				<li>
+					<a href="#applicantsDropdown" aria-expanded="false" data-toggle="collapse">신청인원</a>
+					<ul id="applicantsDropdown" class="collapse list-unstyled ">
+						<c:forEach var="app" items="${ applicants }">
+							<li><div class="applicantsJH">
+								<span>${app}</span>
+								<button value="${app}" class="btnAcceptJH btnApplicantsJH"
+									onclick="acceptMember(this.value, ${ roomInfo.srNo} )">수락</button>
+							</div></li>
+						</c:forEach>
+					</ul>
+				</li>
+			</c:if>
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
