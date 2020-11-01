@@ -74,12 +74,12 @@ public class StudyRoomController {
 		//방신청
 		@RequestMapping("/studyroom/applystudyroom.do")
 		public String applyS(StudyRoomWaiting srWating, @RequestParam("srNo") int srNo, 
-							@RequestParam("memberId") String memberId, HttpSession session,
-							RedirectAttributes redirectAttr) {	
+							@RequestParam("memberId") String memberId, HttpSession session,	RedirectAttributes redirectAttr) {	
 			
 			Member loginMember = (Member)session.getAttribute("loginMember");
-			
+	
 			System.out.println("loginMember.getMemberRole()="+loginMember.getMemberRole() );
+
 			String msg = "";
 			
 			//방 갯수 조회
@@ -89,21 +89,26 @@ public class StudyRoomController {
 			int applyR = studyRoomService.selectApplyRoom(srWating);
 			int myStudy = studyRoomService.selectMyStudy(srNo, memberId);
 			
-			if(applyR>0) {
+			if(loginMember.getMemberRole() != "p"){
+				
+				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";					
+				
+			}else if(myStudy>0) {
+					
+				msg= "이미 가입되어진 방입니다.";				
+
+			}
+			else if(applyR>0) {
 				
 				msg= "이미 신청 하신 방입니다.";
 					
-			}else if(myStudy>0) {
-					
-				msg= "이미 가입되어진 방입니다.";		
-				
-
 			}else if(loginMember.getMemberRole().equals("M") ){
 				msg= "프리미엄 회원이 아닙니다. 프리미엄 결제를 해주세요";	
 
 				
 			}
 			else{
+
 				//방 신청 제한
 				if(countR >= 4) {
 					
@@ -119,19 +124,13 @@ public class StudyRoomController {
 			return "redirect:/studyroom/studyroomlist.do";
 			
 			}
-		
-
-		
+				
 		//찜
 		@RequestMapping("/studyroom/favStudyroom.do")
 		public String favR(StudyRoomWish srWish, Model model,
 							@RequestParam("srNo") int srNo, 						 
 							@RequestParam("memberId") String memberId, 							
 							RedirectAttributes redirectAttr) {	
-			
-			
-//			List<String> ApplyW = studyRoomService.selectCheckWish(srWish);
-//			model.addAttribute("ApplyW",ApplyW);
 			
 			String msg = "";
 			int result = 0;	
@@ -247,13 +246,9 @@ public class StudyRoomController {
 					
 					  
 					  			
-						}
-			
-			
+						}		
 															
 			
-			
-
 			redirectAttr.addFlashAttribute("msg", msg);
 			
 			return "redirect:/mypage1/mystudylist.do";
@@ -286,10 +281,10 @@ public class StudyRoomController {
 
 
 		@RequestMapping(value = "mypage1/newstudyEnroll.do", method = RequestMethod.POST)
-		public String newstudyEnroll(StudyRoomList studyroomList, Model model,
-									@RequestParam(value = "upFile", required = false) MultipartFile upFile, 
-									@RequestParam("srCategory") int srCategory,@RequestParam("srTitle") String srTitle, @RequestParam("srComment") String srComment,
-									RedirectAttributes redirectAttr,HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
+		public String newstudyEnroll(StudyRoomList studyroomList, Model model, @RequestParam(value = "upFile", required = false) MultipartFile upFile, 
+									@RequestParam("srCategory") int srCategory,@RequestParam("srTitle") String srTitle, 
+									@RequestParam("srComment") String srComment, RedirectAttributes redirectAttr,
+									HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException {
 					
 					Member loginMember = (Member)session.getAttribute("loginMember");
 					
@@ -311,6 +306,9 @@ public class StudyRoomController {
 						List<ProfileAttachment> proList = new ArrayList<>();
 					
 						String saveDirectory = request.getServletContext().getRealPath("/resources/upload");
+						if(upFile.isEmpty()) {	
+							
+						}else {
 						
 						// 1. 파일명 생성
 						String renamedFilename = Utils.getRenamedFileName(upFile.getOriginalFilename());
@@ -323,7 +321,7 @@ public class StudyRoomController {
 						profile.setRenamedFilename(renamedFilename);
 						profile.setFilePath(saveDirectory);
 						proList.add(profile);
-						
+						}
 						
 						//sr_log
 						List <StudyRoomLog> srLog = new ArrayList<>();

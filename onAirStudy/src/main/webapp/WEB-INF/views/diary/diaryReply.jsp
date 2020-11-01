@@ -11,7 +11,6 @@
 	      <th>아이디</th>
 	      <th>댓글내용</th>
 	      <th>날짜</th>
-	 	  <th></th> 
 	    </tr>
 
 	    <c:forEach items="${ list }" var="diaryReply">

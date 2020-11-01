@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
+<script type ="text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
 <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
@@ -120,6 +120,8 @@
 						
 				</div>
 				
+				<br />	
+				
 			
 	<script>
 	$('#create_pdf').click(function() {
@@ -132,19 +134,14 @@
 
 			   var imgWidth = 20; // 이미지 가로 길이 A4 기준
 			   var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
-	           var imgHeight = 29;
-	           var heightLeft = imgHeight;
+	           var imgHeight = 28;	           
                
 
-			  	doc.addImage(imgData, 'PNG', 0.5, 0.5, imgWidth, imgHeight); //이미지를 기반으로 pdf생성
-			  	 heightLeft -= pageHeight;
+			  	doc.addImage(imgData, 'PNG', 0.5, -3, imgWidth, imgHeight); //이미지를 기반으로 pdf생성
 			  	
-			    doc.save('sample-file.pdf'); //pdf저장
-
-
-
+			  	
+			    doc.save('pre_test.pdf'); //pdf저장
 		  });
-
 
 		});
 	</script>			
@@ -174,7 +171,7 @@
 		
 		$("#create_pdf").show();
 		$("#btnShow").hide();
-		/* $("#answers").show() */
+	    $("#answers").show() 
 	};
 	
 	</script>				
