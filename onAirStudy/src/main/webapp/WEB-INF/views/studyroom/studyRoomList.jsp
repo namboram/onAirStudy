@@ -6,8 +6,8 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/studyRoomList.css">
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/studyRoomList.css"> --%>
 
 <script>
 
@@ -24,6 +24,110 @@ function searchRoom() {
 }
 
 </script>
+
+<style>
+.col-lg-12 {
+    background-color: rgb(247, 182, 151, 0.5);
+    border-color: none;
+    border-radius:10px;
+    color: #E2A182;
+    width: 96%; 
+	height:170px;
+	margin-left:2%;
+    }
+
+.col-lg-12 .searchFrm{
+	margin-left:2%;
+	margin-top:1%;
+}
+
+.col-lg-12 .optionFrm{
+	margin-left:19%;
+	margin-top:1%;
+}
+
+.rBtn{
+	height: 60px;
+	padding-top:20px
+}
+
+.rBtn .btn-outline-warning{
+	border-radius: 35px; float: right;
+  background-color: white;
+    border-color: #AD8686; 
+       color: #E2A182
+}
+
+.rBtn .btn-outline-warning:hover,
+.rBtn .btn-outline-warning:focus {
+    border-color: rgb(141, 109, 109);
+    background-color: rgb(141, 109, 109);
+    color: #FFF; }
+
+
+#srlistG #srProfile{
+	background-color: fff; 
+	border: 4px solid rgb(247, 175, 141); 
+	border-radius: 5%; 
+	width: 300px; 
+	height: 450px;
+	margin-left: 4%;
+	margin-right: 4%;
+	margin-bottom: 8%;
+	padding:8px;
+	
+}
+
+.sr_pic .roomPic{
+	border-radius: 5%;
+	opacity: 0.7;
+	width: 260px; 
+	height: 230px;
+	position:absolute; 	 
+	z-index:1"
+}
+
+.sr_pic .memPic{
+	border: 5px solid white;
+	border-radius:30%;
+	width: 130px;
+	height: 130px;
+	position:absolute; 
+	top:140px;
+	left:70px;
+	z-index:2"
+	
+}
+
+.contentR{
+	position:absolute; 
+	bottom:10px; 
+	padding-left:15px; 
+	padding-right:15px;
+	z-index:3"
+}
+.hBtn{
+	position:absolute; 
+	top:220px;
+	right:30px;
+	z-index:2"
+	
+}
+.heartBtn{
+	width: 35px;
+	height: 35px;
+	border: 2px solid rgb(247, 182, 151);
+	border-radius:50%;	
+	background-color: white;
+	
+}
+
+.heartBtn .heartP{
+	width: 20px;
+	
+}
+
+</style>
 <div class="studyRoomList" style="margin-bottom: 0;">
 	<div class="col-lg-12 p-4 text-center">
 	
@@ -64,8 +168,8 @@ function searchRoom() {
 	
 	<div class="container" id="container">
 	
-		<div class="rBtn">
-			<button type="button" class="btn btn-outline-warning"  style="float:right;" >
+		<div class="rBtn" >
+			<button type="button" class="btn btn-outline-warning" id="btnJoin"  style="float:right;">
 			<a href="${pageContext.request.contextPath }/mypage1/newstudy.do">스터디
 				방 만들기</a>
 		</button>
@@ -192,8 +296,9 @@ function searchRoom() {
 		$("#previewFrm").modal().find("[name=srNo]").val(srNo);
 
 		var content = title+"의 미리 보기 입니다.";
+		var rLeader = "선택하신 스터디 룸의 리더는 "+ leader+ " 입니다." 
 		$("#intro").html(content);
-		$("#leader").html(leader);
+		$("#leader").html(rLeader);
 	}
 </script>
 

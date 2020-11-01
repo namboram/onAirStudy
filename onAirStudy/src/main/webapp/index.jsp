@@ -141,8 +141,18 @@
 						<div class="">
 						
 							<div>
+							<c:choose>
+					<c:when  test="${ dm.MPic != null }">
 								<img class="mPic"
 									src="${pageContext.request.contextPath }/resources/upload/${ dm.MPic }" > 						
+							
+									</c:when>
+					<c:otherwise>
+					<img class="mPic" 
+					src="${pageContext.request.contextPath }/resources/upload/basicPic.png">
+					</c:otherwise>					
+					</c:choose>
+							
 							</div>
 						
 							<div>
@@ -186,10 +196,21 @@
 				<c:forEach items="${ ds_List }" var="ds" end="4">
 					<div class="m-3" id="sr" style="border: 4px solid rgb(247, 175, 141); border-radius: 5%; width:210px; height: 350px;">
 						<div class="">
-							<div class="sr_rank_pic" >
-								<img class="rPic" style="margin-left:0.6%; margin-top:0.5%;"
-									 src="${pageContext.request.contextPath }/resources/upload/${ ds.SR_PIC }"> 
-							</div><br><br><br><br><br><br><br>
+
+						<div class="sr_rank_pic">
+							<c:choose>
+								<c:when test="${ ds.SR_PIC != null }">
+									<img class="rPic" style="margin-left: 0.6%; margin-top: 0.5%;"
+										src="${pageContext.request.contextPath }/resources/upload/${ ds.SR_PIC }">
+								</c:when>
+								<c:otherwise>
+									<img class="rPic" class="rPic" style="margin-left: 0.6%; margin-top: 0.5%;"
+										src="${pageContext.request.contextPath }/resources/upload/background.jpg">
+								</c:otherwise>
+							</c:choose>
+
+						</div>
+						<br><br><br><br><br><br><br>
 							<div class="sr_rank_content">
 								<p class="text-center" style="margin-top:10px;">
 								<strong>${ ds.srTitle }</strong>
@@ -231,12 +252,32 @@
 				
 					<div class="col-sm-3" id="srProfile" style="<c:if test="${ roomList.srOpenedYN != 'Y'}">background-color:gray;</c:if>">
 						<input type="hidden" name="category" vlaue="${roomList.category}" />
+						
 						<div class="sr_pic">
-							<img class="roomPic"
-								src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }"> 
-							<img class="memPic"
-								src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }"> 						
-						</div>
+					<c:choose>
+					<c:when test="${ roomList.srPic != null }">	
+					<img class="roomPic" 
+					src="${pageContext.request.contextPath }/resources/upload/${ roomList.srPic }">
+					</c:when>
+					<c:otherwise>
+					<img class="roomPic" 
+					src="${pageContext.request.contextPath }/resources/upload/background.jpg">
+					</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+					<c:when  test="${ roomList.mPic != null }">
+					<img class="memPic" 
+					src="${pageContext.request.contextPath }/resources/upload/${ roomList.mPic }">
+					</c:when>
+					<c:otherwise>
+					<img class="memPic" 
+					src="${pageContext.request.contextPath }/resources/upload/basicPic.png">
+					</c:otherwise>					
+					</c:choose>
+
+						
+					</div>
 						
 							<div class="hBtn" >
 						<form id="favRoom" 
