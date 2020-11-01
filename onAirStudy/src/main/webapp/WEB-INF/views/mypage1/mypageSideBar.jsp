@@ -7,45 +7,46 @@
 <link rel="stylesheet"	href="${ pageContext.request.contextPath }/resources/css/leejihye.css"	id="theme-stylesheet">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/custom.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
-
+<style>
+.sidenav-header-inner img{
+	width: 150px;
+	height: 150px;
+}
+</style>
 	<nav class="side-navbar mypage-sideBar" style="width:100%; padding:5%; height:100%;"  >
-		<!-- Sidebar Header-->
-		<div class="sidebar-header">
-			<div class="avatar">
-			<c:if test="${ not empty sideBarInfo.profile }">
-				<img
-					src="${ pageContext.request.contextPath }/resources/upload/${sideBarInfo.profile}"
-					alt="...">
-			</c:if>
-			<c:if test="${ empty sideBarInfo.profile }">
-				<img
-					src="${ pageContext.request.contextPath }/resources/upload/basicPic.png"
-					alt="...">
-			</c:if>
-			<h3>${loginMember.memberId }</h3>
-			<c:if test="${ loginMember.memberRole eq 'P'}">
-				<h5>premium</h5>
-			</c:if>
-			<c:if test="${ loginMember.memberRole eq 'M'}">
-				<h5>member</h5>
-			</c:if>
-		</div>
-		<c:if test="${ not empty memberInfo }">
-			<div class="d-day-display">
-				<hr>
-					<c:set var="cnt" value="${ memberInfo.dayCnt }"/>
-					<c:if test="${ cnt eq 0 }">
-						<h5>D - day</h5>
-					</c:if>
-					<c:if test="${ cnt ne 0 }">
-						<h5>D - ${ cnt }</h5>
-					</c:if>
-				<!-- 	<h5>D - ${memberInfo.dayCnt}</h5> -->
-				<h5><fmt:formatDate value="${memberInfo.startDate }" pattern="yyyy/MM/dd"></fmt:formatDate></h5>
-				<h5>${memberInfo.content }</h5>
-				<hr>
+		<div class="sidenav-header d-flex align-items-center justify-content-center">
+			<!-- User Info-->
+			<div class="sidenav-header-inner text-center">
+				<%-- <img src="${pageContext.request.contextPath }/resources/images/avatar-7.jpg" alt="" class="img-fluid rounded-circle"> <br /> --%>
+				<c:if test="${ not empty sideBarInfo.profile }">
+					<img src="${ pageContext.request.contextPath }/resources/upload/${sideBarInfo.profile}" alt="" class="img-fluid rounded-circle">
+				</c:if>
+				<c:if test="${ empty sideBarInfo.profile }">
+					<img src="${ pageContext.request.contextPath }/resources/upload/basicPic.png" alt="" class="img-fluid rounded-circle"> 
+				</c:if>
+				<h2 class="h5" style="margin-top: 10px;">${loginMember.memberId }</h2>
+				<c:if test="${ loginMember.memberRole eq 'P'}">
+					<span>Premium</span>
+				</c:if>
+				<c:if test="${ loginMember.memberRole eq 'M'}">
+					<span>Member</span>
+				</c:if>
+				<c:if test="${ not empty memberInfo }">
+					<div class="d-day-display">
+						<hr>
+							<c:set var="cnt" value="${ memberInfo.dayCnt }"/>
+							<c:if test="${ cnt eq 0 }">
+								<span>D - day</span></br>
+							</c:if>
+							<c:if test="${ cnt ne 0 }">
+								<span>D - ${ cnt }</span></br>
+							</c:if>
+						<span><fmt:formatDate value="${memberInfo.startDate }" pattern="yyyy/MM/dd"></fmt:formatDate></span></br>
+						<span>${memberInfo.content }</span>
+						<hr>
+					</div>
+				</c:if>	
 			</div>
-		</c:if>	
 		</div>
 		<span class="heading">Menu</span>
 			<!-- Sidebar Navidation Menus-->
