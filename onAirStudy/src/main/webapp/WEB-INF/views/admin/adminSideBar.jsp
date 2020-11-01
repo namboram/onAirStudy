@@ -9,7 +9,7 @@
 		<!-- Sidebar Header-->
 		<div class="sidebar-header">
 			<div class="avatar">
-				<img src="${ pageContext.request.contextPath }/resources/images/admin.jpg" alt="...">
+				<img src="${ pageContext.request.contextPath }/resources/images/admin.png" alt="...">
 				<h3 style="cursor:pointer;" onclick="location.replace('${ pageContext.request.contextPath }/admin/main.do')">Admin</h3>
 				<h5>관리자</h5>
 			</div>
