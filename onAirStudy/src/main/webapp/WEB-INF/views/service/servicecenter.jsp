@@ -251,7 +251,7 @@ $(document).ready(function() {
 				
 				
 				<!-- 페이징처리 -->			
-				<div class="container2 text-center">
+			<%-- 	<div class="container2 text-center">
 					<div id="paging">
 						<c:if test="${paging.prev }">
 							<a href="${paging.startPage -1 }"> [이전] </a>
@@ -272,7 +272,7 @@ $(document).ready(function() {
 						<input type="hidden" id="pageNum" name="pageNum" value="${paging.cri.pageNum }" >
 						<input type="hidden" id="amount" name="amount" value="${paging.cri.amount }" >
 					</form>
-				</div>
+				</div> --%>
 				
 
 

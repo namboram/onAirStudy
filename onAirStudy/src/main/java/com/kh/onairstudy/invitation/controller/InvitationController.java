@@ -72,7 +72,7 @@ public class InvitationController {
 		invi.setInvitedId(id);
 		
 		int studyC = invitationService.selectParticipatingRoomCnt(srLog);
-		 if(studyC >= 3) {
+		 if(studyC >= 4) {
 			 msg = id + "님은" + "참여방 개수 초과로 초대된 방에 참여하실 수 없습니다";
 		 } else {
 			 

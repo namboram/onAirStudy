@@ -154,6 +154,8 @@ public class ServiceCenterController {
 //글쓰기폼
 	@RequestMapping("/service/serviceForm.do")
 	public String serviceForm() {
+		
+		
 		return "service/serviceForm";
 	}
 	

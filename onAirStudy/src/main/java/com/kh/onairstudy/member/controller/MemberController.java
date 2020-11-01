@@ -215,8 +215,13 @@ public class MemberController {
 									RedirectAttributes redirectAttributes) {
 			
 			 log.debug("member@update = {}", member);
-
-	         int result = memberService.updateMember(member);
+			//암호화처리
+			String rawPassword = member.getPassword();
+			String encodedPassword = bcryptPasswordEncoder.encode(rawPassword);
+			member.setPassword(encodedPassword);
+			log.debug("member = " + member);
+	        
+			int result = memberService.updateMember(member);
 	         System.out.println(result);
 	    
 	         model.addAttribute("loginMember", member);			
