@@ -1,116 +1,171 @@
 @charset "UTF-8";
 
-
+/* 바탕  */
 #member-update-container {
 			width:100%; 
 			margin: 0 auto; 
 			background-color: #FBF7FD;
     		padding: 20px;
+			align-items: center;
+			display: grid;
+			justify-items: center;
+
 }
 #member-update-container h4{
 			padding: 20px 20px 0 20px;
 }
-.myinfo-tagS{
-		border: 1px solid #000;
-		width:10%;
-		cursor: pointer;
-		background-color: #fff;
-		margin-left:110px;
-}
-.tagS a{
-	display:inline-block;
-	color: #000;
+/* 내정보 내용  */
+.myinformation-container {
+  display: grid;
+  grid-template-areas: "left right";
+  max-width: 900px;
 }
 
-
-#updatefrm-left{
-	float:left;
-	background-color: #fff;
-	width:700px;
-	padding: 10px;
-	margin-left: 30px; 
-	text-align: center;
-
-}
-
-/* 폼꾸미기css  */
-.forminput{
-    width:71%;
-    position: relative;
-    height: 40px;
+.left-containerS {
+    background: #fff;
     overflow: hidden;
-    text-align: center;
-    
+    padding: 46px 0 0 36px;
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+.left-containerS h1 {
+  color: rgba(0, 0, 0, 0.8);
+  display: inline-block;
+  font-size: 20px;
+  margin-left: 20%;
+}
+.left-containerS h1 i {
+  background: #F7B1AB;
+  border-radius: 50%;
+  color: #807182;
+  font-size: 24px;
+  margin-right: 5px;
+  padding: 10px;
+  transform: rotate(-45deg);
+}
+.left-containerS .payment-history-container {
+  bottom: -5px;
+  position: absolute;
+  text-align: center;
+}
+.left-containerS .payment-history-container:before {
+  background: #fff; 
+  content: "";
+  float:center;
+  height: 100%;
+  left: 0;
+  opacity: .4;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  letter-spacing: 3px;
 }
 
-.forminput input{
-    width: 100%;
-    height: 100%;
-    color: black;
-    border: none;
-    outline: none;
-}
-.forminput label{
-    position: absolute;
-    width: 100%;
-    height: 150%;
-    pointer-events: none;
-    padding-bottom: 10px;
-    border-bottom: 1px solid gray;
-}
 
-/* .forminput label::after{
-    content: "";
-    position: absolute;
-    left: 0px;
-    bottom: -2px;
-    height: 100%;
-    width: 100%;
-	border-bottom: 2px solid rgba(255, 195, 163, 0.849);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+.right-containerS {
+  background: #d6c8e6;
+  display: grid;
+  grid-template-areas: "." ".";
+  width: 500px;
+}
+.right-containerS header{
+	padding:40px;
+}
+/* .right-containerS h5:nth-of-type(1) {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 28px;
 } */
-.content-member-detail{
-    position: absolute;
-    bottom: 5px;
-    left: 0px;
-    transition: all 0.3s ease;
-    transform: translateY(-100%);
-    font-size: 5px;
+.right-containerS .set {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.right-containerS button {
+  background: rgba(60, 43, 66, 0.452);
+   border-radius: 5px; 
+}
+.right-containerS button:hover {
+  background: #171A2B;
+  color: white;
+} 
+.right-containerS input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 5px;
+}
+.right-containerS input, .right-containerS label {
+  color: rgba(0, 0, 0, 0.8);
+}
+.right-container header {
+  padding: 40px;
+}
+.right-containerS label, .right-containerS input, .right-containerS .m-photo {
+  width: 176px;
+}
+.right-containerS .m-photo {
+  align-items: center;
+  display: grid;
+  grid-template-areas: ". .";
+}
+.right-containerS .m-photo button {
+  border: none;
+  border-radius: 50%;
+  height: 38px;
+  margin-right: 10px;
+  outline: none;
+  width: 38px;
+}
+.right-containerS .m-photo button i {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 16px;
 }
 
 
+.button-container {
+  align-items: center;
+  background: #fff;
+  display: grid;
+ /*  padding: 0px 40px; */
+}
+.button-container button {
+ border-radius: 15px; 
+ float: right;
+}
+.button-container #btnS {
+  background: #fff;
+  transition: .2s all ease-in-out;
+}
+.button-container #btnS:hover {
+  background: #171A2B;
+  color: white;
+}
+.button-container #btnout {
+  background: #fff;
+  font-size:5px;
+  margin-left: 245px;
+}
+.button-container #btnout:hover {
+  background: gray;
+  color: white;
+}
+.button-container #btnblack {
+  background: rgba(128, 128, 128, 0.452);
+  border: 1px solid transparent;
+  color: #fff;
+}
+. .button-container #btnblack:hover {
+  background: rgba(60, 43, 66, 0.452);
+}
 
-/* 결제내역  */
-#paymentlistfrm-right{
-	float:right;
-	background-color: #fff;
-	width:300px; 
-	margin: 0 auto;
-	text-align: center;
-	padding: 20px;
-	diplay:inline-block;
-}
-#form-control-label{
-			width:100px; 
-			text-align:center; 
-	
+.m-name label, .m-id label, .m-pwd label, .m-pwdcheck label, .m-phone label, .m-dpoint label, .m-blacklist label, .m-comment label   {
+  display: block;
+  margin-bottom: 5px;
 }
 
-input.form-control{
-			width:80%; 
-			height: 50px;
-			text-align:center; 
-			margin: 10px auto;
-			border : none;
-			border-bottom: 1px solid black;
-			
-}
-input.bottom-form-control{
-	width: 100px;
-	margin : 0 20px 0 70px;
-	
-}
+
 /* 프로필사진 업로드  */
 .mProfile-container input[type="file"] { 
 		position: absolute; 
@@ -120,7 +175,7 @@ input.bottom-form-control{
 		border: 0; 
 } 
 .mProfile-container label { 
-		display: inline-block; 
+		display: contents; 
 		padding: .5em .75em; 
 		color: #999; 
 		font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #ebebeb; border-bottom-color: #e2e2e2; border-radius: .25em; } 

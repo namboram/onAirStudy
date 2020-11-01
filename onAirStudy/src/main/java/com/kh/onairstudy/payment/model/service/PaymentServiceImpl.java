@@ -26,17 +26,17 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentDAO.updatePayHistory(memberId);
 	}
 
-
+	//결제내역 리스트
 	@Override
-	public List<Payment> selectPaymentList() {
-		return paymentDAO.selectPaymentList();
+	public List<Payment> selectPaymentList(Member loginMember) {
+		return paymentDAO.selectPaymentList(loginMember);
 	}
-
-
+	//결제내역 db저장
 	@Override
 	public int insertPaymentLog(String memberId) {
 		return paymentDAO.insertPaymentLog(memberId);
 	}
+
 
 
 }

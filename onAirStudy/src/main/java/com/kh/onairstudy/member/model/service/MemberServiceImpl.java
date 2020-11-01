@@ -93,6 +93,15 @@ public class MemberServiceImpl implements MemberService {
 	public int insertProfilePhoto(ProfileAttach attach) {
 		return memberDAO.insertProfilePhoto(attach);
 	}
+	//포로필사진 업데이트
+	@Override
+	public int updateProfilePhoto(ProfileAttach attach) {
+		return memberDAO.updateProfilePhoto(attach);
+	}
+	@Override
+	public int checkIdProfile(Member loginMember) {
+		return memberDAO.checkIdProfile(loginMember);
+	}
 
 
 	

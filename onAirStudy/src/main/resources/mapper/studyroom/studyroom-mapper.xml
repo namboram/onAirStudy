@@ -362,7 +362,7 @@ from sr_log
 			seq_sr_log_no.nextval, 
 			#{srNo}, 
 			#{memberId}, 
-			'미참여', 
+			'참여', 
 			0, 
 			'N'
 		)

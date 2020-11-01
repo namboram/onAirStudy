@@ -37,6 +37,10 @@ public interface MemberService {
 	
 	//프로필사진 저장
 	int insertProfilePhoto(ProfileAttach attach);
+	//프로필사진 업데이트
+	int updateProfilePhoto(ProfileAttach attach);
+	//프로필사진 유무 확인
+	int checkIdProfile(Member loginMember);
 
 	
 

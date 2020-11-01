@@ -78,26 +78,24 @@ public class MemberController {
 	@RequestMapping(value = "member/memberEnroll.do", method = RequestMethod.POST)
 	public String memberEnroll(RedirectAttributes redirectAttr,  
 							   Member member) {
-		
+		//암호화처리
 		String rawPassword = member.getPassword();
 		String encodedPassword = bcryptPasswordEncoder.encode(rawPassword);
 		member.setPassword(encodedPassword);
 		log.debug("member = " + member);
 		
-		
 		//업무로직
 		//1. 회원등록
+		//result=1이면 아이디 잇음, 0이면 아이디없음
 		int result = memberService.idChk(member);
 		log.debug("member = " + member);
 		try {
 			
-		if(result == 1) {
+			if(result == 1) {
 			return "/memeber/memberEnroll";
 		}else if(result == 0) {
-			
 			result = memberService.insertMember(member);
-//		System.out.println(member.getMemberId());
-		
+			
 			//2. 회원 sr_log등록
 			Map<String, Object> param = new HashMap<>();
 			param.put("memberId", member.getMemberId());
@@ -115,57 +113,6 @@ public class MemberController {
 	}
 		
 	
-	
-	/*휴대폰본인인증
-	*
-	*/
-	/*
-	@RequestMapping(value = "/sendSms.do")
-	  public String sendSms(HttpServletRequest request) throws Exception {
-
-		
-		System.out.println(" 들어왔음");
-	    String api_key = "NCS6H2LEJQIDSH1J";
-	    String api_secret = "K3PATZ49S16BLIAHJJUYOXHQ6G3RPZ3S";
-	    
-	    com.kh.onairstudy.member.controller.Coolsms coolsms = new com.kh.onairstudy.member.controller.Coolsms(api_key, api_secret);
-	    
-	    
-	    HashMap<String, String> set = new HashMap<String, String>();
-	    set.put("to", "01091496965"); // 수신번호
-	    
-	    System.out.println("text="+ request.getParameter("text"));
-	    
-	    set.put("from", "01091496965"); //발신번호
-	    set.put("text", "인증번호는[ " + (String)request.getParameter("text") + "]입니다"); // 문자내용
-	    set.put("type", "sms"); // 문자 타입
-
-	    System.out.println("set="+set);
-
-	    	
-		
-		  JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-		  
-		  if ((boolean)result.get("status") == true) { // 메시지 보내기 성공 및 전송결과 출력
-			  System.out.println("성공"); 
-			  
-			  System.out.println(result.get("result_code")); // 결과코드
-			  System.out.println(result.get("result_message")); // 결과 메시지
-			  System.out.println(result.get("success_count")); // 메시지아이디
-			  System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수 } else {
-			  // 메시지 보내기 실패 System.out.println("실패");
-			  System.out.println(result.get("code")); // REST API 에러코드
-			  System.out.println(result.get("message")); // 에러메시지 }
-		 
-		 }
-		  return "member/sendSms";
-	  }
-	
-	*/
-	
-	
-	
-		
 		//아래 @Bean 안쓰면 오류떠서 일단 해봄ㅠ
 		@Bean
 		public BCryptPasswordEncoder getPasswordEncoder()
@@ -247,7 +194,7 @@ public class MemberController {
 			
 			model.addAttribute("loginMember");
 
-			List<Payment> list = paymentService.selectPaymentList();		
+			List<Payment> list = paymentService.selectPaymentList(loginMember);		
 			
 			mav.addObject("loginMember", loginMember);
 			mav.addObject("list", list);
@@ -278,14 +225,14 @@ public class MemberController {
 		}
 		
 		
-		//프로필사진 업로드
+		//멤버프로필사진 업로드
 		@RequestMapping(value="/mypage1/uploadProfile.do", method=RequestMethod.POST)
 		public String mProfileInsert(@ModelAttribute("loginMember") Member loginMember,
 									@RequestParam(value = "upFile",required = false) MultipartFile upFile,
 									HttpServletRequest request,
+
 									RedirectAttributes redirectAttr, HttpSession session) throws Exception {
-//			log.debug("upfile.name = {}", upFile.getOriginalFilename());
-//	        log.debug("upfile.size = {}", upFile.getSize());
+
 	      //1. 서버컴퓨터에 업로드한 파일 저장하기
 			log.debug("loginMember2={}", loginMember);
 			
@@ -314,11 +261,23 @@ public class MemberController {
 	            
 	            log.debug("attachList = {}", attachList);
 	            log.debug(memberId);
-	            //프로필사진 DB등록
-				int result = memberService.insertProfilePhoto(attach);
 	            
-	         //처리결과 msg 전달
-	         redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
+	            //프로필사진 DB등록
+	            int result = memberService.checkIdProfile(loginMember);
+	    		log.debug("loginMember = " + loginMember);
+	    		
+	    		//프로필 사진의 유무 확인
+	    		//result=1이면 아이디 잇음, 0이면 아이디없음
+	    		if(result == 1) {
+	    			result = memberService.updateProfilePhoto(attach);
+	    			//처리결과 msg 전달
+	   	         	redirectAttr.addFlashAttribute("msg", "프로필사진 수정 성공");
+	    		}else if(result == 0) {
+	            	result = memberService.insertProfilePhoto(attach);
+	            	//처리결과 msg 전달
+	            	redirectAttr.addFlashAttribute("msg", "프로필사진 등록 성공");
+	            }
+	    		
 	         }
 			
 			Map<String, Object> sideBarInfo = memberService.selectMemberInfo(loginMember.getMemberId());
@@ -327,12 +286,16 @@ public class MemberController {
 	         return "redirect:/mypage1/memberDetail.do";
 	    }
 		
+		//회원탈퇴
 		@RequestMapping(value = "/member/deleteMember.do",
 				method = RequestMethod.POST)
 		public String deleteMember(@RequestParam("memberId") String memberId, 
-								   RedirectAttributes redirectAttributes){
+								   RedirectAttributes redirectAttributes,
+								   HttpSession session){
 			int result = memberService.deleteMember(memberId);
-			redirectAttributes.addFlashAttribute("msg", result > 0 ? "회원 삭제성공" : "회원 삭제실패");
+			redirectAttributes.addFlashAttribute("msg", result > 0 ? "탈퇴성공" : "탈퇴 실패");
+//			로그아웃시 세션에서 삭제
+//			session.setAttribute("loginMember", null);
 			return "redirect:/";
 		}
 			
