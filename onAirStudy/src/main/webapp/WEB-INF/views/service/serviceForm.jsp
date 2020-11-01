@@ -1,3 +1,5 @@
+<%@page import="com.kh.onairstudy.servicecenter.model.vo.ServiceCenter"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -56,10 +58,11 @@
 					<label for="title">제목</label>
 					<input type="text" class="form-control" name="serviceTitle" id="serviceIitle" placeholder="제목을 입력해 주세요">
 				</div>
-				<div class="mb-3">
+				<!-- <div class="mb-3">
 					<label for="memberId">작성자</label>
 					<input type="text" class="form-control" name="memberId" id="memberId" placeholder="이름을 입력해 주세요">
-				</div>
+					  <input type="MEMBER_ID" class="form-control" id="memberId" name="memberId" value=""  readonly>
+				</div> -->
 				<div class="mb-3">
 					<label for="content">내용</label>
 					<textarea class="form-control" rows="10" name="serviceContent" id="serviceContent" placeholder="내용을 입력해 주세요" ></textarea>
@@ -68,10 +71,9 @@
 
 			</form>
 
-			<div >
+			<div class="text-center m-5" >
 				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
-
+				<button type="button" class="btn btn-sm btn-light" id="btnList">목록</button>
 			</div>
 		</div>
 	</article>
