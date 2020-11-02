@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.attendance.model.service.AttendanceService;
+import com.kh.onairstudy.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,8 +30,10 @@ public class AttendanceController {
 							  @RequestParam("roomNum") int roomNum,
 							  RedirectAttributes redirectAttr, HttpSession session ) {
 		
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		Map<String, Object> param = new HashMap<>();
-		param.put("memberId", memberId);
+		param.put("memberId", loginMember.getMemberId());
 		param.put("roomNum", roomNum);
 		
 		int attendCnt = attendanceService.getAttendCnt(param);
