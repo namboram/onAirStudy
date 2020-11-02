@@ -53,12 +53,12 @@
 			<li><a
 				href="${ pageContext.request.contextPath}/mypage1/invitationlist.do">초대내역</a></li>
 			<li><a href="${ pageContext.request.contextPath }/premium.do">프리미엄
-					<div class="badge badge-info" style="margin-left: 5px;">
-						<c:if test="${ not empty sideBarInfo.paymentDay}">
-							D-${ sideBarInfo.paymentDay }
-						</c:if>
+				<c:if test="${ not empty sideBarInfo.paymentDay}">
+					<div class="badge badge-info" style="margin-left: 5px;">D-${ sideBarInfo.paymentDay }
 					</div>
-			</a></li>
+				</c:if>
+			</a>
+			</li>
 			<li><a href="${ pageContext.request.contextPath}/mypage1/mystudylist.do">내스터디방</a></li>
 			<li><a href="${ pageContext.request.contextPath }/mypage1/scheduler.do">스케줄러</a></li>
 			<li><a href="${ pageContext.request.contextPath }/mypage1/memberDetail.do">내정보</a></li>
