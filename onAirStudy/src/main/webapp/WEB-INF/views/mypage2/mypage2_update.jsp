@@ -54,6 +54,7 @@
 					<hr />
 					<div class="form-group row">
 						<label class="col-sm-2 form-control-label">출석체크</label>
+						<i class="fa fa-clock-o"></i>
 						<div class="col-sm-10 attendDiv">
 							<div class="form-group">
 								<label class="col-sm-3 form-control-label">요일</label>
@@ -177,12 +178,8 @@
 	}
 
 	function deleteInput(id){
-
-		console.log(id);
-
 		var mother = $("#"+id).parent();
 		mother.remove();
-
 	}
 	
    </script>

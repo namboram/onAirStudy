@@ -221,38 +221,24 @@ public class StudyRoomController {
 			
 			int result = 0;			
 			String msg = "";
-	
-			
-			
 			//방 갯수 조회
 			int countR = studyRoomService.selectParticipatingRoomCnt(loginM);
 			int wishR = studyRoomService.selectCheckWish(srWish);
-			
 				
-				//방 신청 제한
-				if(countR >= 4) {
-					
-					msg= "스터디방의 갯수가 4개를 초과하여  신청 할 수 없습니다.";
-				
-				}else {			
-					
-					// 찜 등록 조회
-					if( wishR > 0 ) {			
-										result = studyRoomService.deleteWish(srWish);								
-										result = studyRoomService.insertWating(srWating);
-										
-										msg= "신청을 완료 하였습니다.";
-								}
-					
-					  
-					  			
-						}		
-															
-			
+			// 방 신청 제한
+			if (countR >= 4) {
+				msg = "스터디방의 갯수가 4개를 초과하여  신청 할 수 없습니다.";
+			} else {
+				// 찜 등록 조회
+				if (wishR > 0) {
+					result = studyRoomService.deleteWish(srWish);
+					result = studyRoomService.insertWating(srWating);
+					msg = "신청을 완료 하였습니다.";
+				}
+			}
+
 			redirectAttr.addFlashAttribute("msg", msg);
-			
 			return "redirect:/mypage1/mystudylist.do";
-			
 		}
 		
 		//신청삭제
@@ -296,11 +282,9 @@ public class StudyRoomController {
 					if(countR >= 4) {
 						 msg= "스터디방의 갯수가 4개를 초과하여 방을 만들 수 없습니다.";
 					}else {
-						
 						//sr_list													
 						studyroomList.setSrCategory(srCategory);						
 						studyroomList.setMemberId(loginMember.getMemberId());										
-														
 						
 						//profile
 						List<ProfileAttachment> proList = new ArrayList<>();
@@ -364,34 +348,34 @@ public class StudyRoomController {
 		//스터디방 입장 - 인덱스 페이지
 		@RequestMapping("/studyroom/main.do")
 		public String main( @RequestParam("roomNum") int roomNum, @RequestParam(value="test", required = false) String test, Model model, HttpSession session) {
-
-		if(test != null) {
-			model.addAttribute("test", test);
-			log.debug("test = {}",test);
-		}
+	
+			if(test != null) {
+				model.addAttribute("test", test);
+				log.debug("test = {}",test);
+			}
+				
 			
-		
-		log.debug("roomNum = {}", roomNum);
-		
-		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
-		List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
-		List<String> applicants = studyRoomService.selectApplicantList(roomNum);
-		
-		List<Attendance> attendList = attendanceService.selectAttendList(roomNum);
-		
-		model.addAttribute("roomInfo", roomInfo);
-		model.addAttribute("participants", participants);
-		model.addAttribute("applicants", applicants);
-		model.addAttribute("attendList", attendList);
-		/*
-		 * 아래부터 채팅 정보 불러올게요
-		 */
-		List<Chat> firstList = chatService.selectFirstChatList(roomNum);
-		model.addAttribute("roomNo",roomNum);
-		model.addAttribute("firstList",firstList);
-
-		return "mypage2/mypage2";
-	}
+			log.debug("roomNum = {}", roomNum);
+			
+			StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
+			List<StudyRoomLog> participants = studyRoomService.selectParticipantList(roomNum);
+			List<String> applicants = studyRoomService.selectApplicantList(roomNum);
+			
+			List<Attendance> attendList = attendanceService.selectAttendList(roomNum);
+			
+			model.addAttribute("roomInfo", roomInfo);
+			model.addAttribute("participants", participants);
+			model.addAttribute("applicants", applicants);
+			model.addAttribute("attendList", attendList);
+			/*
+			 * 아래부터 채팅 정보 불러올게요
+			 */
+			List<Chat> firstList = chatService.selectFirstChatList(roomNum);
+			model.addAttribute("roomNo",roomNum);
+			model.addAttribute("firstList",firstList);
+	
+			return "mypage2/mypage2";
+		}
 	
 	
 		
@@ -508,5 +492,10 @@ public class StudyRoomController {
 			
 			return "redirect:/mypage1_index.do";
 		}
+		
+		
+		
+		
+		
 		
 }
