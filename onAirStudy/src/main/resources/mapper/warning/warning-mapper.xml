@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="warning">
+
+
+	<insert id="giveWarning">
+		insert into
+			sr_warning
+		values(
+			seq_warning_no.nextval,
+			#{memberId},
+			#{roomNum},
+			1
+		)
+	</insert>
+	
+	<select id="selectWarningRecord" resultType="warning">
+		select 
+			*
+		from 
+			sr_warning
+		where 
+			sr_no = #{roomNum}
+		and 	
+			member_id = #{memberId}
+	</select>
+	
+	<update id="updateWarning">
+		update 
+			sr_warning
+		set
+			warning_cnt = warning_cnt + 1
+		where 
+			member_id = #{ memberId}
+		and 
+			sr_no = #{ roomNum}
+	</update>
+	
+	<update id="forceWithDraw">
+	
+		update 
+			sr_log
+		set
+			status_log = '나가기'
+		where 
+			member_id = #{ memberId}
+		and 
+			sr_no = #{ roomNum }
+	
+	</update>
+	
+	
+</mapper>
