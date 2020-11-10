@@ -17,7 +17,6 @@ import com.kh.onairstudy.member.model.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/attend")
 @Slf4j
 public class AttendanceController {
 
@@ -25,9 +24,8 @@ public class AttendanceController {
 	private AttendanceService attendanceService; 
 	
 
-	@RequestMapping("/check.do")
-	public String attendCheck(@RequestParam("id") String memberId,
-							  @RequestParam("roomNum") int roomNum,
+	@RequestMapping("/attend/check.do")
+	public String attendCheck(@RequestParam("roomNum") int roomNum,
 							  RedirectAttributes redirectAttr, HttpSession session ) {
 		
 		
@@ -36,10 +34,6 @@ public class AttendanceController {
 		param.put("memberId", loginMember.getMemberId());
 		param.put("roomNum", roomNum);
 		
-		int attendCnt = attendanceService.getAttendCnt(param);
-		
-		param.put("attendCnt", attendCnt+1);
-	
 		int result = attendanceService.updateAttendance(param);
 		String msg = result == 0 ? "출석체크에 실패하였습니다." : "출석체크에 성공하였습니다";
 		
@@ -53,11 +47,9 @@ public class AttendanceController {
 		return "redirect:/studyroom/main.do";
 	}
 	
-	
-	
-	@RequestMapping("/new.do")
-	public String index() {
-		return "/attendance/new";
+	@RequestMapping("/studyroom/exit.do")
+	public String exitRoom() {
+		return "redirect:/mypage1_index.do";
 	}
 	
 }

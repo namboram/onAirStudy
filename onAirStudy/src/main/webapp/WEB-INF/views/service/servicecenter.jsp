@@ -218,7 +218,7 @@ $(document).ready(function() {
 									      <%} %>
 								      </td>
 								      <td>
-									      <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=<%= list.get(i).getNo()%>">
+									      <a href="${ pageContext.request.contextPath }/service/serviceDetail.do?no=<%= list.get(i).getNo()%>">
 									      <%= list.get(i).getServiceTitle() %>
 								      </a>
 								      </td>
@@ -233,7 +233,7 @@ $(document).ready(function() {
 										<td>#</td>
 										<td>#</td>
 										<td>
-									    <a href="${ pageContext.request.contextPath }/serviceDetail.do?no=<%= list.get(j).getNo()%>">
+									    <a href="${ pageContext.request.contextPath }/service/serviceDetail.do?no=<%= list.get(j).getNo()%>">
 									      └ 답변 : <%= list.get(i).getServiceTitle() %>
 									    </a>
 									    </td>

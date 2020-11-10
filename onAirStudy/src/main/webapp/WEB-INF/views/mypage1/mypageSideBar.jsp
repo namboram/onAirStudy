@@ -54,8 +54,7 @@
 				href="${ pageContext.request.contextPath}/mypage1/invitationlist.do">초대내역</a></li>
 			<li><a href="${ pageContext.request.contextPath }/premium.do">프리미엄
 				<c:if test="${ not empty sideBarInfo.paymentDay}">
-					<div class="badge badge-info" style="margin-left: 5px;">D-${ sideBarInfo.paymentDay }
-					</div>
+					<div class="badge badge-info" style="margin-left: 5px;">D-${ sideBarInfo.paymentDay }</div>
 				</c:if>
 			</a>
 			</li>
