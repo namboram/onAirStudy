@@ -62,7 +62,7 @@
 								<c:if test="${part.leaderYN ne 'Y'}">
 									<i class="fa fa-envelope" onclick="msgSend('${part.memberId}');" aria-hidden="true"></i>
 									<c:if test="${ loginMember.memberId eq leader }">
-										<i class="fa fa-thumbs-o-down" onclick="giveWarning('${part.memberId}');" aria-hidden="true"></i>
+										<i class="fa fa-thumbs-o-down" onclick="giveWarning('${part.memberId}')" aria-hidden="true"></i>
 									</c:if>
 								</c:if>
 								
@@ -97,71 +97,5 @@
 			<li><a onclick="exitRoom()">방 나가기</a></li>
 		</ul>
 	</nav>
+
 	
-	
-<script>
-function giveWarning(id) {
-
-	if (confirm(id + "님에게 경고를 주시겠습니까?")) {
-		$.ajax({
-			url : "${pageContext.request.contextPath}/studyroom/givewarning.do",
-			type : "POST",
-			data : {
-				roomNum : "${ roomInfo.srNo}",
-				memberId : id
-			},
-			dataType : "json",
-			success : function(result) {
-				if (result > 0){
-					alert("경고 주기 성공!");
-					checkForceExit(id);
-				}
-				else
-					alert("경고 주기 실패!");
-			},
-			error : function(xhr, status, err) {
-				console.log("처리실패!");
-				console.log(xhr);
-				console.log(status);
-				console.log(err);
-			}
-		});
-
-	}
-
-}
-
-
-function checkForceExit(id){
-	var exitYN = "${ roomInfo.forceExitYN}";
-
-	console.log(exitYN);
-	console.log(id);
-
-	if(exitYN == 'Y')){
-		$.ajax({
-			url : "${pageContext.request.contextPath}/studyroom/forceWithDraw.do",
-			type : "POST",
-			data : {
-				roomNum : "${ roomInfo.srNo}",
-				memberId : id,
-				forceExitOpt : "${roomInfo.forceExitOpt}"
-			},
-			dataType : "json",
-			success : function(result) {
-				if(result == 0)
-					alert("강퇴 실패!");
-				else if(result == 1)
-					alert("강퇴 성공");
-					
-			},
-			error : function(xhr, status, err) {
-				console.log("처리실패!");
-				console.log(xhr);
-				console.log(status);
-				console.log(err);
-			}
-		});
-	}
-}
-</script>
