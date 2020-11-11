@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.attendance.model.service.AttendanceService;
+import com.kh.onairstudy.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping("/attend")
 @Slf4j
 public class AttendanceController {
 
@@ -24,27 +24,18 @@ public class AttendanceController {
 	private AttendanceService attendanceService; 
 	
 
-	@RequestMapping("/check.do")
-	public String attendCheck(@RequestParam("id") String memberId,
-							  @RequestParam("roomNum") int roomNum,
+	@RequestMapping("/attend/check.do")
+	public String attendCheck(@RequestParam("roomNum") int roomNum,
 							  RedirectAttributes redirectAttr, HttpSession session ) {
 		
-		log.debug("memberId = {}", memberId);
-		log.debug("roomNum = {}", roomNum);
 		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		Map<String, Object> param = new HashMap<>();
-		param.put("memberId", memberId);
+		param.put("memberId", loginMember.getMemberId());
 		param.put("roomNum", roomNum);
 		
-		int attendCnt = attendanceService.getAttendCnt(param);
-		
-		param.put("attendCnt", attendCnt+1);
-	
 		int result = attendanceService.updateAttendance(param);
 		String msg = result == 0 ? "출석체크에 실패하였습니다." : "출석체크에 성공하였습니다";
-		
-		log.debug("msg = {}", msg);
-		
 		
 		redirectAttr.addAttribute("roomNum"	, roomNum);
 		redirectAttr.addFlashAttribute("msg", msg);
@@ -56,9 +47,9 @@ public class AttendanceController {
 		return "redirect:/studyroom/main.do";
 	}
 	
-	@RequestMapping("/new.do")
-	public String index() {
-		return "/attendance/new";
+	@RequestMapping("/studyroom/exit.do")
+	public String exitRoom() {
+		return "redirect:/mypage1_index.do";
 	}
 	
 }

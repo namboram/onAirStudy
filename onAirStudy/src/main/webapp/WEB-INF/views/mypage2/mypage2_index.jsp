@@ -9,13 +9,13 @@
 .roomInfo h1{
 	text-align: center;
 }
-
 </style>
+
 <div class="roomInfo">
 	<header>
 		<h1 class="h3 display">우리 스터디방</h1>
 	</header>
-	<div class="col-lg-11 p-0" style="margin: 0 auto; margin-top: 2.5em">
+	<div class="col-lg-11 p-0" style="margin: 0 auto; margin-top: 2.5em; margin-bottom: 2.5em;">
 		<div class="card">
 			<div class="card-header d-flex align-items-center">
 				<label class="col-sm-12 form-control-label"

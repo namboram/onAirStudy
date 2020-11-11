@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-
+@RequestMapping("/service")
 public class ServiceCenterController {
 
 	@Autowired
@@ -81,7 +81,7 @@ public class ServiceCenterController {
 	}
 	
 //카테고리별 검색
-	 @RequestMapping(value = "list.do")    //세부적인 url mapping
+	 @RequestMapping(value = "/list.do")    //세부적인 url mapping
 	    public ModelAndView list(//RequestParam으로 옵션, 키워드, 페이지의 기본값을 각각 설정해준다.
 	            
 	            //초기값을 설정해야 에러가 발생되지 않는다.
@@ -134,7 +134,7 @@ public class ServiceCenterController {
 			int result = serviceCenterService.serviceUpdate(service);
 			
 			redirectAttributes.addFlashAttribute("msg", result>0 ? "게시글이 수정되었습니다." : "수정에 실패하셨습니다.");
-			return "redirect:/servicecenter.do";
+			return "redirect:/service/servicecenter.do";
 		}
 	
 		
@@ -144,7 +144,7 @@ public class ServiceCenterController {
 			int result = serviceCenterService.serviceDelete(no);
 			
 			redirectAttributes.addFlashAttribute("msg", result>0 ? "게시글이 삭제되었습니다." : "삭제실패");
-			return "redirect:/servicecenter.do";
+			return "redirect:/service/servicecenter.do";
 		}
 	 
 	 
@@ -152,8 +152,10 @@ public class ServiceCenterController {
 	 
 	
 //글쓰기폼
-	@RequestMapping("/service/serviceForm.do")
+	@RequestMapping("/serviceForm.do")
 	public String serviceForm() {
+		
+		
 		return "service/serviceForm";
 	}
 	
@@ -161,13 +163,15 @@ public class ServiceCenterController {
 	
 	
 //게시글 등록
-	@RequestMapping(value = "/service/insertService.do",
+	@RequestMapping(value = "/insertService.do",
 		    method = RequestMethod.POST)
 		public String insertService(ServiceCenter servicecenter, 
 									RedirectAttributes redirectAttr,
 									HttpSession session) {
 		System.out.println("servicecenter = " + servicecenter);
-		 
+		 log.info("service 여기여기");
+		 Member loginMember = (Member)session.getAttribute("loginMember");
+		 servicecenter.setMemberId(loginMember.getMemberId());
 		//업무로직
 		int result = serviceCenterService.insertService(servicecenter);
 		String msg = (result > 0) ? "문의글 등록 성공!" : "문의글 등록 실패!";
@@ -178,7 +182,7 @@ public class ServiceCenterController {
 		
 		
 		
-		return "forward:/servicecenter.do";
+		return "forward:/service/servicecenter.do";
 		}
 			
 	

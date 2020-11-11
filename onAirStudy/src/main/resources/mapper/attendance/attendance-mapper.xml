@@ -13,9 +13,6 @@
 
  
  </select>
-
-
- 
  
  <resultMap type="map" id="attendanceMap">
  	<id column="no" property="no"/>
@@ -38,23 +35,11 @@
  		to_char(recent_attend_date, 'YY/MM/DD') = to_char(sysdate, 'YY/MM/DD')
  </select>
  
- 
- <select id="getAttendCnt" resultType="_int">
- 	select 
- 		attend_cnt
- 	from 
- 		attendance 
- 	where 
- 		member_id = #{memberId} 
- 	and 
- 		sr_no = #{roomNum}
- </select>
- 
  <update id="updateAttendance">
  	update 
  		attendance 
  	set 
- 		attend_cnt = #{ attendCnt},
+ 		attend_cnt = attend_cnt + 1,
  	 	recent_attend_date = sysdate 
  	where 
  		member_id = #{memberId} 

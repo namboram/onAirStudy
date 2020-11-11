@@ -142,7 +142,7 @@ function uploadS(){
 	var file = $(this).prop('file');
 	
 	if( file == undefined ){
-		alert("프로필사진을 지정해주세요");
+		/* alert("프로필사진을 지정해주세요"); */
 		return false;
 	}
 	return true;

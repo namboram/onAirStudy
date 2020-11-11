@@ -38,8 +38,7 @@
 	crossorigin="anonymous"></script>
 ​ ​
 <!-- 사용자작성 css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/header.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/header.css" />
 ​<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/icons-reference/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 
@@ -80,7 +79,7 @@ body {
                     </li>
                     <li class="nav-item"  style="margin-right:2%;">
                         <a class="nav-link"
-                        onclick="location.href='${ pageContext.request.contextPath }/servicecenter.do'">고객센터</a>
+                        onclick="location.href='${ pageContext.request.contextPath }/service/servicecenter.do'">고객센터</a>
                     </li>
                 </ul>
 			</div>

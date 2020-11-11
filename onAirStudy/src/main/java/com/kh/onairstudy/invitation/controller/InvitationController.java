@@ -72,7 +72,7 @@ public class InvitationController {
 		invi.setInvitedId(id);
 		
 		int studyC = invitationService.selectParticipatingRoomCnt(srLog);
-		 if(studyC >= 3) {
+		 if(studyC >= 4) {
 			 msg = id + "님은" + "참여방 개수 초과로 초대된 방에 참여하실 수 없습니다";
 		 } else {
 			 
@@ -101,12 +101,8 @@ public class InvitationController {
 		param.put("searchId", searchId);
 		param.put("roomNum", roomNum);
 		
-		log.debug("searchId = {}",searchId);
-		log.debug("roomNum = {}",roomNum);
-		
 		List<Member> list = invitationService.selectMemberList(param);
 		
-		log.debug("list = {}", list);
 		
 		return list;
 	}
@@ -117,17 +113,12 @@ public class InvitationController {
 					 @RequestParam("hostingId") String hostingId,
 					 @RequestParam("srNo") int srNo) {
 		
-		log.debug("invitedId = {}",invitedId);
-		log.debug("hostingId = {}",hostingId);
-		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("invitedId", invitedId);
 		param.put("hostingId", hostingId);
 		param.put("srNo", srNo);
 		
-		
 		int result = invitationService.sendInvitation(param);
-		
 		
 		return result;
 	}

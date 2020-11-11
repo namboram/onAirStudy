@@ -57,6 +57,7 @@ public class PaymentController {
 		updateMember.setMemberRole("P");
 		session.setAttribute("loginUser",updateMember);
 		session.setAttribute("loginMember", updateMember);
+		log.debug("memeber = {}", (Member)session.getAttribute("loginMember"));
 		//결제내역 DB저장
 		result = paymentService.insertPaymentLog(memberId);
 		
