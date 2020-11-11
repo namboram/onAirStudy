@@ -30,7 +30,7 @@ public class SchedulerController {
 	private SchedulerService schedulerService;
 	
 	//스케줄러 메인
-	@RequestMapping("/mypage1/scheduler.do")
+//	@RequestMapping("/mypage1/scheduler.do")
 	public ModelAndView mainScheduler(ModelAndView mav, 
 										@SessionAttribute("loginMember") Member member) {
 

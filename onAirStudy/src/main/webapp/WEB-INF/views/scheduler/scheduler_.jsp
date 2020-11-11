@@ -77,6 +77,8 @@
 
 						<input type="hidden" name="no" /> <input type="hidden"
 							name="srNo" value="${ roomNum }" />
+							<input type="hidden"
+							name="memberId" value="${ loginMember.memberId }" />
 
 						<h3 style="margin-right: 180px;">날짜 입력</h3>
 						<br /> <input type="text" class="datepick delB" name="startDate">
@@ -181,13 +183,19 @@
 
 <script>
 
+	var theRoomNum = "${ roomNum }";
+
 	//ajax 투두리스트 삭제
 	//form에 input 태그를 추가하여 통신
     function deleteTodoBtn(){
 		var thisDate = $("#todoDateB").html();
 		var Frm = $("#storeTodoFrm");
 		Frm.append($('<input/>', {type:'hidden', name:'startDate', value: thisDate }));
-		Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: "${ roomNum }" }));
+
+		console.log("투두~"+theRoomNum);
+		if(theRoomNum != null && theRoomNum != "")
+			Frm.append($('<input/>', {type:'hidden', name:'roomNum', value: "${ roomNum }" }));
+			
 		Frm.attr("action", "${ pageContext.request.contextPath }/scheduler/delTodo_.do");
 
 		if(!confirm("모두 삭제하시겠습니까?"))

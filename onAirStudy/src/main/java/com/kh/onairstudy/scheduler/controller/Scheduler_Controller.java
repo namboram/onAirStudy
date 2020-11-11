@@ -1,8 +1,6 @@
 package com.kh.onairstudy.scheduler.controller;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,12 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.onairstudy.member.model.vo.Member;
 import com.kh.onairstudy.scheduler.model.service.SchedulerService;
@@ -37,45 +33,70 @@ public class Scheduler_Controller {
 	//ajax를 통한 달력조회
 	@RequestMapping("/scheduler/scheduler.do")
 	@ResponseBody
-	public Object mainScheduler_(@RequestParam("roomNum") String roomNum) {
-
+	public Object mainScheduler_(@RequestParam(value="roomNum",
+												required=false) String roomNum,
+								@SessionAttribute("loginMember")
+												Member member) {
+		
+		log.debug("memberId={}", member.getMemberId());
+		log.debug("roomNum={}", roomNum);
+		
+		Map<String,Object> map = new HashMap<>();
+		
+		if(roomNum != null && roomNum != "")
+			map.put("roomNum", roomNum);
+		else
+			map.put("memberId", member.getMemberId());
+		log.debug("map ={}", map);
+		
 		// 내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(roomNum);
+		List<Scheduler> addList = makeScheduleArrays(map);
 
-		Map<String, Object> map = new HashMap<>();
+		map.clear();
 		map.put("list", addList);
 		map.put("roomNum", roomNum);
 		map.put("code", "OK");
 
-		log.debug("roomNum ={}", roomNum);
+		log.debug("map ={}", map);
 
 		return map;
 	}
 	
 	//마이페이지2의 처음 주소
-	@RequestMapping("/scheduler/scheduler_.do")
-	public ModelAndView mainScheduler_main(@RequestParam("roomNum") String roomNum,
-			ModelAndView mav) {
+	@RequestMapping("/mypage1/scheduler.do")
+	public ModelAndView mainScheduler_main(@RequestParam(value="roomNum",
+														required=false) String roomNum,
+											@SessionAttribute("loginMember")
+														Member member,
+											ModelAndView mav) {
 
+		log.debug("memberId={}", member.getMemberId());
+		log.debug("roomNum={}", roomNum);
+		
+		Map<String,Object> map = new HashMap<>();
+		
+		if(roomNum != null)
+			map.put("roomNum", roomNum);
+		else
+			map.put("memberId", member.getMemberId());
+		
+		log.debug("map={}", map);
 
 		// 내역가져오기
-		List<Scheduler> addList = makeScheduleArrays(roomNum);
+		List<Scheduler> addList = makeScheduleArrays(map);
 
 		mav.addObject("list", addList);
 		mav.addObject("roomNum", roomNum);
-		mav.setViewName("scheduler/scheduler_");
-
-		log.debug("roomNum ={}", roomNum);
+		if(roomNum != null)
+			mav.setViewName("scheduler/scheduler_");
+		else
+			mav.setViewName("mypage1/mypage1_scheduler");
 
 		return mav;
 	}
 
 	// 일정 시작~끝 날짜의 중간 날짜들 찾아주기
-	public List<Scheduler> makeScheduleArrays(String roomNum) {
-
-		Map<String, Object> map = new HashMap<>();
-
-		map.put("srNo", roomNum);
+	public List<Scheduler> makeScheduleArrays(Map<String, Object> map) {
 
 		List<Scheduler> list = schedulerService.mainScheduler(map);
 
@@ -187,12 +208,18 @@ public class Scheduler_Controller {
 	@RequestMapping("/scheduler/delTodo_.do")
 	@ResponseBody
 	public void deleteTodo(@RequestParam("startDate") Date startDate,
-			@RequestParam(value = "roomNum", required = false) String roomNum, HttpServletResponse response)
+							@RequestParam(value = "roomNum", required = false) String roomNum,
+							@SessionAttribute("loginMember") Member member,
+							HttpServletResponse response)
 			throws Exception {
 
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("srNo", roomNum);
+		if(roomNum != null && roomNum != "")
+			map.put("srNo", roomNum);
+		else
+			map.put("memberId", member.getMemberId());
+		
 		map.put("startDate", startDate);
 		
 		log.debug("map={}", map);
@@ -212,9 +239,12 @@ public class Scheduler_Controller {
 	//투두리스트 삭제+입력
 	@RequestMapping("/scheduler/todo_.do")
 	@ResponseBody
-	public void insertTodo_(@RequestParam("content") String[] contents, @RequestParam("checked") boolean[] yn,
-			@RequestParam("startDate") Date startDate, @RequestParam("roomNum") String roomNum,
-			HttpServletResponse response) throws Exception {
+	public void insertTodo_(@RequestParam("content") String[] contents, 
+							@RequestParam("checked") boolean[] yn,
+							@RequestParam("startDate") Date startDate, 
+							@RequestParam(value="roomNum", required=false) String roomNum,
+							@SessionAttribute("loginMember") Member member,
+							HttpServletResponse response) throws Exception {
 
 		Scheduler sch = null;
 		List<Scheduler> list = new ArrayList<>();
@@ -224,7 +254,10 @@ public class Scheduler_Controller {
 
 			sch = new Scheduler();
 
-			sch.setSrNo(roomNum);
+			if(roomNum != null && roomNum != "")
+				sch.setSrNo(roomNum);
+			else
+				sch.setMemberId(member.getMemberId());
 
 			sch.setStartDate(startDate);
 			sch.setEndDate(startDate);
@@ -234,14 +267,20 @@ public class Scheduler_Controller {
 			sch.setEnabledYN(tempYn);
 
 			log.debug("sch={}", sch);
+			
 			list.add(sch);
 		}
 
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("srNo", roomNum);
-
+		if(roomNum != null && roomNum != "")
+			map.put("srNo", roomNum);
+		else
+			map.put("memberId", member.getMemberId());
+		
 		map.put("startDate", startDate);
+		
+		log.debug("map={}", map);
 
 		// 이전내역삭제
 		int result = schedulerService.deleteTodo(map);

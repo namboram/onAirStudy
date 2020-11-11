@@ -16,7 +16,7 @@
 	</div>
 
 	<div class="col-lg-10 p-0 m-0">
-		<jsp:include page="/WEB-INF/views/scheduler/scheduler.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/scheduler/scheduler_.jsp"></jsp:include>
 	</div>
 </div>
 <div class="col-lg p-0">
