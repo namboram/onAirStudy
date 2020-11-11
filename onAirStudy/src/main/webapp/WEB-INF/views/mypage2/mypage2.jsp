@@ -173,7 +173,7 @@ $(function(){
 	}
 
 	function goToSchduler(roomNum){
-		 $(".changeDiv").load("${pageContext.request.contextPath}/scheduler/scheduler_.do?roomNum="+roomNum);
+		 $(".changeDiv").load("${pageContext.request.contextPath}/mypage1/scheduler.do?roomNum="+roomNum);
 	}
 	
 	function goToQuestion(){

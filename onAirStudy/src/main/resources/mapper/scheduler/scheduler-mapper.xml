@@ -13,8 +13,8 @@ from
 	<if test="memberId != null">
 	member_id = #{ memberId }
 	</if>
-	<if test="srNo != null">
-		sr_no = #{ srNo }
+	<if test="roomNum != null">
+		sr_no = #{ roomNum }
 	</if>	
 </where>
 order by 
@@ -46,10 +46,10 @@ order by
 		<if test="memberId == null">
 		null,
 		</if>
-		<if test="srNo != 0">
+		<if test="srNo != null">
 		#{ srNo },
 		</if>
-		<if test="srNo == 0">
+		<if test="srNo == null">
 		null,
 		</if>
 		#{startDate},
@@ -108,10 +108,10 @@ values(
 		<if test="memberId == null">
 		null,
 		</if>
-		<if test="srNo != 0">
-		#{srNo},
+		<if test="srNo != null">
+		#{ srNo },
 		</if>
-		<if test="srNo == 0">
+		<if test="srNo == null">
 		null,
 		</if>
 		#{startDate},
@@ -170,7 +170,14 @@ select
 from
 	scheduler
 where
-	member_id = #{ memberId }
+	<choose>
+		<when test="memberId !=null">
+			member_id = #{memberId}
+		</when>
+		<when test="roomNum != null">
+			sr_no = #{ roomNum }
+		</when>
+	</choose>
 and 
 	schedule_yn = 'N'
 and
