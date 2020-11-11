@@ -73,7 +73,7 @@ table.type10 .even {
               <div class="card to-do" style="border-radius:8%;">
                 <h2 class="display h4 m-2 text-center"><strong>오늘의 To do List</strong>
                 	<button type="button" class="btn btn-light m-2"
-					onclick="location.href='${ pageContext.request.contextPath }/mypage1/goTodo.do'">스케줄러 보기</button></h2>
+					onclick="location.href='${ pageContext.request.contextPath }/mypage1/scheduler.do'">스케줄러 보기</button></h2>
 					<hr>
 	                <c:if test="${ empty todoList }">
 	                	<p class="text-center">캘린더에서 to do list를 등록해보세요.</p>
