@@ -39,15 +39,6 @@ public class WarningController {
 		
 		int result = warningService.giveWarning(param);
 		
-		StudyRoomInfo roomInfo = studyRoomService.selectRoomInfo(roomNum);
-		
-		int resultExit = 10;
-		if(roomInfo.getForceExitYN().equals("Y")) {
-			//자동강퇴처리하기
-			param.put("forceExitOpt", roomInfo.getForceExitOpt());
-			resultExit = warningService.forceWithDraw(param);
-		}
-		
 		return result;
 	}
 
